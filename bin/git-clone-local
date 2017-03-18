@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+  echo "clone-local <repo-owner/repo-name>"
+  exit 1
+fi
+
+params="$1"
+project="git@${GIT_HOST_LOCAL}:${params}.git"
+echo Cloning $project
+git clone --recursive ${project}
+if [ "$?" -ne 0 ]; then
+  echo "Clone failed..."
+  exit 1
+fi
+
+bkp=$IFS
+IFS="/"
+read -r -a array <<< "${params}"
+repo="${array[1]}"
+IFS=$bkp
+ 
+cd $repo
+if [ "$?" -ne 0 ]; then
+  echo "Could not find cloned repository... something went wrong. If clone was successful, post-clone setup did not complete."
+  exit 1
+fi
+
+echo "Setting up repository user information in `pwd`"
+git config --local user.name "${GIT_USER_LOCAL}"
+git config --local user.email "${GIT_EMAIL_LOCAL}"
+git config --local --list
+echo "Done"

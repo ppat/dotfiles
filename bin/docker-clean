@@ -1,0 +1,33 @@
+#!/bin/bash
+
+pattern=$1
+if [ -z "${pattern}" ]; then
+  echo "docker-clean <pattern>"
+  exit 1
+fi
+
+
+IFS=$'\n'
+
+echo Removing all containers with "${pattern}" in their name...
+for i in `docker ps --all | grep ${pattern}`
+do
+  name=`echo $i | awk '{ print $2 }'`
+  id=`echo $i | awk '{ print $1 }'`
+  echo " - removing $name:$id"
+  docker rm $id
+done
+
+echo Removing all images that have ${pattern} in the image name
+for i in `docker images --all | grep ${pattern}`
+do
+  name=`echo $i | awk '{ print $1 }'`
+  id=`echo $i | awk '{ print $3 }'`
+  echo " - removing $name:$id"
+  docker rmi $id
+done
+
+unset $IFS
+
+echo Done
+echo
