@@ -1,0 +1,16 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+set -euo pipefail
+
+{{ template "script_header.sh" . }}
+
+log_info "GUI Packages | Installing Homebrew GUI packages..."
+if ! command -v brew > /dev/null; then
+  log_error "GUI Packages | Brew binary is not in path, cannot proceed!"
+  exit 1
+fi
+brew bundle --file={{ .chezmoi.sourceDir }}/Brewfile.gui 2>&1 | sed -E 's|^(.*)|    \1|g'
+log_success "GUI Packages | Homebrew GUI packages have been installed."
+echo "-------------------------------------------------------------------------------------------"
+echo
+{{ end -}}

@@ -1,0 +1,22 @@
+---
+mirrors:
+  docker.io:
+    endpoint:
+    - https://harbor.nas.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}
+    rewrite:
+      "^(.*)": "docker.io/$1"
+  quay.io:
+    endpoint:
+    - https://harbor.nas.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}
+    rewrite:
+      "^(.*)": "quay.io/$1"
+  ghcr.io:
+    endpoint:
+    - https://harbor.nas.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}
+    rewrite:
+      "^(.*)": "ghcr.io/$1"
+  registry.k8s.io:
+    endpoint:
+    - https://harbor.nas.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}
+    rewrite:
+      "^(.*)": "registry.k8s.io/$1"

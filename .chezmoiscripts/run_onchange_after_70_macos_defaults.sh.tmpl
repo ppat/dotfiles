@@ -1,0 +1,47 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+set -euo pipefail
+
+{{ template "script_header.sh" . }}
+
+log_info "Configuring macOS defaults..."
+
+# Show all files in Finder, including hidden ones
+defaults write com.apple.finder AppleShowAllFiles -bool true
+
+# # Save screenshots to the desktop
+# defaults write com.apple.screencapture location -string "${HOME}/Desktop"
+
+# # Save screenshots in PNG format
+# defaults write com.apple.screencapture type -string "png"
+
+# # Display full POSIX path as Finder window title
+# defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+# # Keep folders on top when sorting by name
+# defaults write com.apple.finder _FXSortFoldersFirst -bool true
+
+# # Disable the warning when changing a file extension
+# defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+# # Automatically hide and show the Dock
+# defaults write com.apple.dock autohide -bool true
+
+# # Set Dock auto-hide delay to 0
+# defaults write com.apple.dock autohide-delay -float 0
+
+# # Set the icon size of Dock items to 36 pixels
+# defaults write com.apple.dock tilesize -int 36
+
+# # Speed up Mission Control animations
+# defaults write com.apple.dock expose-animation-duration -float 0.1
+
+# # Show indicator lights for open applications in the Dock
+# defaults write com.apple.dock show-process-indicators -bool true
+
+# Restart affected apps
+killall Finder
+killall Dock
+
+log_success "macOS defaults configured successfully!"
+{{ end -}}

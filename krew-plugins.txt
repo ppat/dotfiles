@@ -1,0 +1,61 @@
+# Kubernetes kubectl plugins to install via krew
+cert-manager
+cnpg
+ctx
+ns
+oidc-login
+stern
+tail
+tree
+who-can
+whoami
+
+# access-matrix
+# assert
+# autons
+# blame
+# browse-pvc
+# colorize-applied
+# count
+# debug-shell
+# df-pv
+# doctor
+# dumpy
+# duplicate
+# exec-as
+# flame
+# get-all
+# graph
+# grep
+# history
+# images
+# janitor
+# kluster-capacity
+# konfig
+# ktop
+# kurt
+# kyverno
+# neat
+# node-logs
+# node-shell
+# np-viewer
+# nsenter
+# pod-logs
+# popeye
+# pv-mounter
+# rbac-tool
+# rbac-view
+# resource-capacity
+# restart
+# score
+# service-tree
+# sick-pods
+# strace
+# topology
+# ttsum
+# view-allocations
+# view-utilization
+# viewnode
+# virt
+# volsync
+# vpa-recommendation

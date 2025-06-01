@@ -1,0 +1,41 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+set -euo pipefail
+
+{{ template "script_header.sh" . }}
+
+log_info "Docker | Setting up Colima for Docker..."
+log_info "Docker | Installing required packages for Docker + Colima..."
+if ! command -v brew > /dev/null; then
+  log_error "Docker | Brew binary is not in path, cannot proceed!"
+  exit 1
+fi
+brew bundle --file={{ .chezmoi.sourceDir }}/Brewfile.docker 2>&1 | sed -E 's|^(.*)|    \1|g'
+log_success "Docker | Docker and Colima packages have been installed."
+echo
+if ! colima status &>/dev/null; then
+  log_success "Docker | Starting Colima..."
+  colima start 2>&1 | sed -E 's|^(.*)|    \1|g'
+else
+  log_info "Docker | Colima is already running."
+fi
+echo
+if ! docker context inspect colima &>/dev/null; then
+  log_info "Docker | Setting up Docker context for Colima..."
+  docker context create colima --docker "host=unix://${HOME}/.colima/default/docker.sock" 2>&1 | sed -E 's|^(.*)|    \1|g'
+fi
+log_info "Docker | Switching Docker context to Colima..."
+docker context use colima 2>&1 | sed -E 's|^(.*)|    \1|g'
+log_success "Docker | Docker + Colima setup complete."
+echo
+log_info "Docker | Setting up Docker CLI plugins..."
+if [[ ! -d ~/.docker/cli-plugins ]]; then
+  mkdir -p ~/.docker/cli-plugins
+fi
+log_info "Docker | Linking Docker Compose plugin..."
+ln -sfn $(brew --prefix)/bin/docker-compose ~/.docker/cli-plugins/docker-compose 2>&1 | sed -E 's|^(.*)|    \1|g'
+log_info "Docker | Linking Docker Buildx plugin..."
+ln -sfn $(brew --prefix)/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx 2>&1 | sed -E 's|^(.*)|    \1|g'
+log_success "Docker | Docker CLI plugins configured successfully!"
+echo "-------------------------------------------------------------------------------------------"
+{{ end -}}

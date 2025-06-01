@@ -1,0 +1,42 @@
+#!/bin/bash
+set -euo pipefail
+
+CONF_VARS_FILE="$1"
+HOSTS="$2"
+REMOTE_USER="${3:-ubuntu}"
+if [[ -z "${CONF_VARS_FILE}" || ! -f "${CONF_VARS_FILE}" ]]; then
+  echo "Configuration vars file is required."
+  exit 1
+fi
+if [[ -z "${HOSTS}" ]]; then
+  echo "Hosts are required."
+  exit 1
+fi
+
+API_SERVER_CIDR="192.168.8.64/28"
+#API_SERVER_CIDR="192.168.8.128/32"
+API_SERVER_PORT="6443"
+
+echo "Detecting any existing api-servers (within $API_SERVER_CIDR)..."
+API_SERVERS="$(nmap $API_SERVER_CIDR --open -p $API_SERVER_PORT -oG - | awk '/Up$/{print $2}')"
+API_SERVER_IP="$(echo $API_SERVERS | cut -d' ' -f1)"
+if [[ ! -z "$API_SERVER_IP" ]]; then
+  echo "Detected available api-servers: "
+  echo "  $API_SERVERS"
+  echo "Using first detected server..."
+  echo "  $API_SERVER_IP"
+  API_SERVER_URL="https://${API_SERVER_IP}:${API_SERVER_PORT}"
+else
+  echo "No api-servers detected."
+  API_SERVER_URL=""
+fi
+
+export ANSIBLE_LOCALHOST_WARNING=false
+set -x
+ansible-playbook \
+  -u $REMOTE_USER \
+  -i $HOSTS \
+  --ask-become-pass \
+  homelab_ops.k3s.install.yaml \
+  -e api_server_url=${API_SERVER_URL} \
+  -e @${CONF_VARS_FILE}

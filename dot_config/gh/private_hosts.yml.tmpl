@@ -1,0 +1,7 @@
+github.com:
+    users:
+        ppat:
+            oauth_token: {{ (bitwardenSecrets "768f7d73-1dda-4bc1-9a61-b245004d30d8" .bwsAccessToken).value }}
+    git_protocol: ssh
+    user: ppat
+    oauth_token: {{ (bitwardenSecrets "768f7d73-1dda-4bc1-9a61-b245004d30d8" .bwsAccessToken).value }}

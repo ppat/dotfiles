@@ -1,0 +1,108 @@
+# ============================= Shell Preferences =================================
+EDITOR=vim
+LANG=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+PAGER=less
+TERM=xterm-256color
+VISUAL=vim
+
+
+# ============================== Package Managers =================================
+# Aqua
+AQUA_GLOBAL_CONFIG=$HOME/.config/aquaproj-aqua/aqua.yaml
+AQUA_LOG_COLOR=always
+AQUA_LOG_LEVEL=warn
+AQUA_PROGRESS_BAR=false
+AQUA_ROOT_DIR=$HOME/.local/share/aquaproj-aqua
+
+{{ if eq .chezmoi.os "darwin" -}}
+# Homebrew
+HOMEBREW_PREFIX=/opt/homebrew
+HOMEBREW_CELLAR=$HOMEBREW_PREFIX/Cellar
+HOMEBREW_REPOSITORY=$HOMEBREW_PREFIX
+HOMEBREW_BAT=1
+HOMEBREW_AUTOREMOVE=1
+HOMEBREW_AUTO_UPDATE_SECS=604800 # Set longer duration between auto-updates: 1 week
+HOMEBREW_BATCH_SIZE=10 # Number of packages to install in parallel
+HOMEBREW_CURL_RETRIES=3
+HOMEBREW_NO_ANALYTICS=1
+HOMEBREW_NO_AUTO_UPDATE=1
+HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK=1 # Binary Packages
+HOMEBREW_NO_ENV_HINTS=1
+MANPATH=$HOMEBREW_PREFIX/opt/coreutils/libexec/gnuman
+PATH=$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH
+{{ end }}
+
+# Krew (kubectl plugins)
+KREW_ROOT=$HOME/.krew
+
+# Mise
+MISE_CONFIG=$HOME/.config/mise/config.toml
+MISE_GLOBAL_CONFIG=$HOME/.config/mise/config.toml
+MISE_DATA_DIR=$HOME/.local/share/mise
+MISE_CACHE_DIR=$HOME/.cache/mise
+MISE_LOG_LEVEL=warn
+MISE_LOG_FILE=$HOME/.log/mise.log
+MISE_LOG_FILE_LEVEL=debug
+
+
+# ======================== Language Runtimes and SDKs =============================
+# Node.js
+NODE_ENV=development
+NODE_NO_WARNINGS=1
+NPM_CONFIG_AUDIT=false
+NPM_CONFIG_FUND=false
+NPM_CONFIG_LOGLEVEL=error
+NPM_CONFIG_UPDATE_NOTIFIER=false
+
+# Python
+PYTHONUNBUFFERED=1
+
+
+# ============================ Application Settings ===============================
+# Ansible
+ANSIBLE_HOST_KEY_CHECKING=False
+ANSIBLE_LOCALHOST_WARNING=False
+ANSIBLE_RETRY_FILES_ENABLED=False
+ANSIBLE_SSH_PIPELINING=True
+ANSIBLE_STDOUT_CALLBACK=yaml
+
+# Colors
+CLICOLOR=1
+GREP_OPTIONS=--color=auto
+LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+
+# FZF: Make display more compact (40% height) and visually distinguishable (with borders)
+FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
+
+# Misc
+BAT_THEME=ansi
+{{- if stat (joinPath .chezmoi.homeDir ".ssh/id_ed25519") }}
+GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i {{ .chezmoi.homeDir }}/.ssh/id_ed25519"
+{{- end }}
+LESSHISTFILE=/dev/null
+{{- if stat (joinPath .chezmoi.homeDir ".ripgreprc") }}
+RIPGREP_CONFIG_PATH={{ .chezmoi.homeDir }}/.ripgreprc
+{{- end }}
+
+{{ if eq .chezmoi.os "darwin" -}}
+# Docker
+# Docker/Colima configuration
+# DOCKER_HOST=unix://${HOME}/.colima/default/docker.sock
+# DOCKER_CONTEXT=colima
+{{ end }}
+
+{{ if eq .chezmoi.os "linux" -}}
+# X11: Use X11 display if available
+DISPLAY=:0
+{{ end }}
+
+# Set up XDG directories explicitly
+XDG_CONFIG_HOME=$HOME/.config
+XDG_CACHE_HOME=$HOME/.cache
+XDG_DATA_HOME=$HOME/.local/share
+XDG_STATE_HOME=$HOME/.local/state
+
+
+# ============================= Path Configuration ================================
+PATH=$AQUA_ROOT_DIR/bin:$KREW_ROOT/bin:$HOME/.local/bin:$PATH

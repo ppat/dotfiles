@@ -1,0 +1,16 @@
+---
+tls-san: kubernetes-api.nas.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}
+flannel-backend: wireguard-native
+
+disable:
+- local-storage
+- servicelb
+- traefik
+
+embedded-registry: true
+
+kube-apiserver-arg:
+- oidc-issuer-url=https://auth.homelab.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}/application/o/kubernetes-homelab/
+- oidc-client-id={{ (bitwardenSecrets "8e541ef6-2f44-455e-a8c7-b29c004472dd" .bwsAccessToken).value }}
+- oidc-username-claim=email
+- oidc-groups-claim=groups

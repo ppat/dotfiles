@@ -1,0 +1,24 @@
+#!/bin/bash
+set -euo pipefail
+
+{{ template "script_header.sh" . }}
+{{ template "mise_install.sh" . }}
+
+mise_first_time_setup() {
+  mkdir -p $HOME/.config/mise
+  log_info "Language SDKs & Tools | Using first time mise config..."
+  cp {{ .chezmoi.sourceDir }}/mise-first.toml $HOME/.config/mise/config.toml
+  mise_install
+  log_info "Language SDKs & Tools | Removing first time mise config..."
+  rm $HOME/.config/mise/config.toml
+  log_success "Language SDKs & Tools | First time mise setup complete!"
+}
+
+if [[ -f $HOME/.config/mise/config.toml && -d $HOME/.cache/mise && -d $HOME/.local/share/mise && -d $HOME/.local/state/mise ]]; then
+  log_info "Language SDKs & Tools | Mise has previously been setup, skipping first time setup..."
+else
+  log_info "Language SDKs & Tools | Mise has not previously been setup, performing first time mise setup..."
+  mise_first_time_setup
+fi
+echo "-------------------------------------------------------------------------------------------"
+echo

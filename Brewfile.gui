@@ -1,0 +1,8 @@
+# GUI Applications
+cask "visual-studio-code"
+cask "iterm2"
+cask "google-chrome"
+cask "firefox"
+cask "slack"
+cask "zoom"
+cask "rectangle"
