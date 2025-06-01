@@ -48,8 +48,12 @@ jobs:
           - .github/renovate/**
           shellscripts:
           - dot_config/mise/tasks/**
-          - dot_local/bin/*
+          - dot_local/bash/**
+          - dot_local/bin/executable_analyze-deps
+          - dot_local/bin/executable_k3s-init
+          - dot_local/bin/executable_kube-del
           - dot_bashrc
+          - dot_profile
           yaml:
           - '**.yaml'
           - '**.yml'
