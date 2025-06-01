@@ -1,0 +1,29 @@
+# Taps
+tap "homebrew/bundle"
+tap "homebrew/services"
+
+# Baseline System Packages
+brew "bash"
+brew "bash-completion"
+brew "ca-certificates"
+brew "coreutils"
+brew "curl"
+brew "git"
+brew "gnupg"
+brew "htop"
+brew "jq"
+brew "mas"
+brew "nmap"
+brew "pstree"
+brew "starship"
+brew "tree"
+brew "vim"
+brew "wget"
+
+# Package Managers
+brew "aqua"
+brew "mise"
+
+# Fonts
+cask "font-fira-code"        # Monospaced font with programming ligatures
+cask "font-jetbrains-mono"   # Monospaced font for coding

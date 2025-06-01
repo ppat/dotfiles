@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+{{ template "script_header.sh" . }}
+{{ template "mise_install.sh" . }}
+
+
+log_info "Language SDKs & Tools | Performing standard mise setup..."
+mise_install
+echo "-------------------------------------------------------------------------------------------"
+echo

@@ -1,0 +1,167 @@
+# dot_gitconfig.tmpl
+[user]
+    {{- if hasKey . "name" }}
+    name = {{ .name | quote }}
+    {{- end }}
+    {{- if hasKey . "email" }}
+    email = {{ .email | quote }}
+    {{- end }}
+    {{- if stat (joinPath .chezmoi.homeDir ".ssh/id_ed25519") }}
+    signingKey = {{ .chezmoi.homeDir }}/.ssh/id_ed25519
+    {{- end }}
+
+{{- if stat (joinPath .chezmoi.homeDir ".ssh/id_ed25519") }}
+[gpg]
+    format = ssh
+
+[commit]
+    gpgsign = true
+{{- end }}
+
+[branch]
+    rebase = true
+
+[core]
+    {{- if hasKey . "editor" }}
+    editor = {{ .editor | quote }}
+    {{- else }}
+    editor = vim
+    {{- end }}
+    excludesfile = ~/.gitignore
+    autocrlf = input
+    # pager = delta
+    # pager = delta --features dark
+
+[color]
+    ui = auto
+
+[credential "https://github.com"]
+    helper =
+    helper = !gh auth git-credential
+
+[credential "https://gist.github.com"]
+    helper =
+    helper = !gh auth git-credential
+
+[diff]
+    colorMoved = default
+
+[init]
+    defaultBranch = main
+
+# [interactive]
+#    diffFilter = delta --color-only
+
+# [merge]
+#    conflictstyle = diff3
+
+[pull]
+    autosetuprebase = always
+    rebase = true
+
+[push]
+    default = simple
+
+[remote "origin"]
+    prune = true
+
+[alias]
+    # merge changes from a branch only if it will not result in a merge commit
+    # usage: $ git checkout master && git ff my_branch
+    ff = merge --ff-only
+
+    # Tell git to ignore changes to a file that would otherwise be tracked by git, like config files in .idea/
+    # usage: $ git assume .idea/encodings.xml
+    assume   = update-index --assume-unchanged
+
+    # Tell git to stop ignoring changes to a file
+    # usage: $ git unassume .idea/encodings.xml
+    unassume = update-index --no-assume-unchanged
+
+    # List all files that have been "assumed"
+    # usage: $ git assumed
+    assumed  = "!git ls-files -v | grep ^h | cut -c 3-i"
+
+    cp = cherry-pick
+    st = status -s
+    cl = clone
+    ci = commit
+    co = checkout
+    br = branch
+    diff = diff --word-diff=color
+    dc = diff --cached
+
+    # for a specific file
+    unstage = reset -q HEAD --
+    discard = checkout --
+    uncommit = reset --mixed HEAD~
+    amend = commit --amend
+
+    # List commits in short form, with colors and branch/tag annotations
+    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+    # List commits showing changed files is invoked with git ll
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    # List with no colors if you need to chain the out put with Unix pipes
+    lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+    # List oneline commits showing relative dates
+    ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+    le = log --oneline --decorate
+
+    graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+    precommit = diff --cached --diff-algorithm=minimal -w
+
+    # Show the history of a file, with diffs
+    filelog = log -u
+    fl = log -u
+
+    # Log commands to inspect last commit
+    dl = "!git ll -1"
+    dlc = diff --cached HEAD^
+
+    # find files within code base
+    f = "!git ls-files | grep -i"
+    # Search/grep your entire codebase for a string
+    grep = grep -Ii
+    gr = grep -Ii
+
+
+[delta "light"]
+    light = true
+    side-by-side = true
+    file-style = "bold #111111"
+    file-decoration-style = "#111111 ul"
+    grep-file-style = "bold #111111"
+    grep-line-number-style = "#adadad"
+    hunk-header-decoration-style = "#adadad ul ol"
+    hunk-header-line-number-style = "#111111"
+    line-numbers = true
+    line-numbers-left-style = "#adadad"
+    line-numbers-right-style = "#adadad"
+    line-numbers-zero-style = "#adadad"
+    navigate = true
+    syntax-theme = zenburn
+    tabs = 2
+    map-styles = \
+     bold purple => syntax "#feecf7", \
+     bold blue => syntax "#e5dff6", \
+     bold cyan => syntax "#d8fdf6", \
+     bold yellow => syntax "#f4ffe0"
+    true-color = always
+
+[delta "dark"]
+    light = false
+    side-by-side = true
+    file-style = "bold #c8c8c8"
+    file-decoration-style = "#c8c8c8 ul"
+    grep-file-style = "bold #c8c8c8"
+    grep-line-number-style = "#adadad"
+    hunk-header-decoration-style = "#adadad ul ol"
+    hunk-header-line-number-style = "#c8c8c8"
+    line-numbers = true
+    line-numbers-left-style = "#adadad"
+    line-numbers-right-style = "#adadad"
+    line-numbers-zero-style = "#adadad"
+    navigate = true
+    syntax-theme = zenburn
+    tabs = 2
+    true-color = always

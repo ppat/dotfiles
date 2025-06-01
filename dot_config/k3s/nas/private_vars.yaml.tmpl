@@ -1,0 +1,12 @@
+---
+node_type: server
+
+k3s_version: 1.32.5+k3s1
+flux_version: 2.5.1
+kustomize_version: 5.4.1
+
+enable_cis_hardening: true
+expose_metrics: true
+
+server_token: {{ (bitwardenSecrets "e3d118b8-3640-4511-8211-b2ee015f0e3c" .bwsAccessToken).value }}
+agent_token: {{ (bitwardenSecrets "edac93c2-7b57-42ef-b2ca-b2ee015faf02" .bwsAccessToken).value }}

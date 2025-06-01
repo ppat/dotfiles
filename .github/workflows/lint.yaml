@@ -48,8 +48,12 @@ jobs:
           - .github/renovate/**
           shellscripts:
           - dot_config/mise/tasks/**
-          - dot_local/bin/*
+          - dot_local/bash/**
+          - dot_local/bin/executable_analyze-deps
+          - dot_local/bin/executable_k3s-init
+          - dot_local/bin/executable_kube-del
           - dot_bashrc
+          - dot_profile
           yaml:
           - '**.yaml'
           - '**.yml'
@@ -66,7 +70,7 @@ jobs:
   markdown:
     needs: [detect-changes]
     if: ${{ github.event_name == 'workflow_dispatch' || needs.detect-changes.outputs.markdown_any_changed == 'true' }}
-    uses: ./.github/workflows/lint-markdown.yaml
+    uses: ppat/github-workflows/.github/workflows/lint-markdown.yaml@main
     with:
       git_ref: ${{ github.head_ref || github.ref }}
       files: ${{ github.event_name == 'workflow_dispatch' && 'ALL' || needs.detect-changes.outputs.markdown_all_changed_files }}

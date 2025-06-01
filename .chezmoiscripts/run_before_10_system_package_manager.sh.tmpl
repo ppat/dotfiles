@@ -1,0 +1,27 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+set -euo pipefail
+
+{{ template "script_header.sh" . }}
+
+log_info "System Packkages | Setting up homebrew env..."
+grep HOMEBREW {{ .chezmoi.sourceDir }}/dot_env.tmpl > /tmp/homebrew.env
+set +o allexport
+source /tmp/homebrew.env
+set -o allexport
+env | grep HOMEBREW | sort | sed -E 's|^(.*)|    \1|g'
+rm /tmp/homebrew.env
+echo
+
+if ! command -v brew &> /dev/null; then
+  log_info "System Packages | Installing Homebrew package manager..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 2>&1 | sed -E 's|^(.*)|    \1|g'
+  log_success "System Packages | Homebrew package manager install completed."
+else
+  log_info "System Packages | Homebrew package manager already exists, updating..."
+  brew update 2>&1 | sed -E 's|^(.*)|    \1|g'
+  log_success "System Packages | Homebrew package manager has been updated."
+fi
+echo "-------------------------------------------------------------------------------------------"
+echo
+{{ end -}}

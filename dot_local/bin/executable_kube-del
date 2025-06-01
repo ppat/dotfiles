@@ -1,0 +1,282 @@
+#!/bin/bash
+set -euo pipefail
+
+# Colors
+RED='\033[0;31m'
+NC='\033[0m'
+
+function error_message() {
+  echo -e "${RED}$1${NC}" >&2
+}
+
+function indent_output() {
+  local indent="$1"
+  sed "s/^/${indent}/"
+}
+
+function resource_type_exists() {
+  local resource_type="$1"
+  kubectl api-resources --no-headers | awk '{print $1}' | grep -qE "^${resource_type}s?$"
+}
+
+function check_namespaced() {
+  local resource_type="$1"
+  kubectl api-resources --namespaced=true --no-headers | awk '{print $1}' | grep -qE "^${resource_type}s?$"
+}
+
+function force_patch_and_delete() {
+  local resource_type="$1"
+  local resource_name="$2"
+  local ns="$3"
+  local dry_run="$4"
+  local indent="$5"
+  local timeout="$6"
+  local ns_flag=""
+  local dry_run_flag=""
+
+  [[ -n "$ns" ]] && ns_flag="-n ${ns}"
+  [[ "$dry_run" == true ]] && dry_run_flag="--dry-run=client"
+
+  echo "${indent}Patching finalizers..."
+  kubectl patch ${ns_flag} "${resource_type}" "${resource_name}" -p '{"metadata":{"finalizers":[]}}' --type=merge ${dry_run_flag} 2>&1 | sed "s/^/${indent}  /"
+
+  echo "${indent}Force deleting..."
+  kubectl delete ${ns_flag} "${resource_type}" "${resource_name}" --force --grace-period=0 --timeout="${timeout}s" ${dry_run_flag} 2>&1 | sed "s/^/${indent}  /"
+
+  echo "${indent}Waiting for deletion to complete..."
+  while kubectl get ${ns_flag} "${resource_type}" "${resource_name}" --no-headers --ignore-not-found 2>/dev/null; do
+    kubectl get ${ns_flag} "${resource_type}" "${resource_name}" --no-headers 2>/dev/null | sed "s/^/${indent}  /"
+    sleep 2
+  done
+}
+
+function delete_resource() {
+  local resource_type="$1"
+  local resource_name="$2"
+  local force="$3"
+  local ns="$4"
+  local dry_run="$5"
+  local indent="$6"
+  local timeout="$7"
+  local global_timeout="$8"
+  local ns_flag=""
+  local dry_run_flag=""
+
+  [[ -n "$ns" ]] && ns_flag="-n ${ns}"
+  [[ "$dry_run" == true ]] && dry_run_flag="--dry-run=client"
+
+  echo "${indent}${ns:+[ns: ${ns}] }Deleting ${resource_type}/${resource_name}..."
+
+  if ! timeout "$global_timeout" kubectl delete ${ns_flag} "${resource_type}" "${resource_name}" --timeout="${timeout}s" ${dry_run_flag} 2>&1 | indent_output "${indent}  "; then
+    if [ "$force" == true ]; then
+      if ! timeout "$global_timeout" bash -c "$(declare -f force_patch_and_delete); force_patch_and_delete '$resource_type' '$resource_name' '$ns' '$dry_run' '$indent  ' '$timeout'"; then
+        error_message "${indent}Operation timed out after ${global_timeout}s for ${resource_type}/${resource_name}${ns:+ in namespace ${ns}}"
+        return 1
+      fi
+    else
+      error_message "${indent}  Timed out after ${timeout}s. Retry with --force"
+      return 1
+    fi
+  fi
+}
+
+function delete_namespace_resources() {
+  local namespace="$1"
+  local force="$2"
+  local dry_run="$3"
+  local timeout="$4"
+  local global_timeout="$5"
+
+  echo "Cleaning up resources in namespace: ${namespace}"
+
+  # Get all namespaced resource types
+  while IFS= read -r resource_type; do
+    echo "  Processing resource type: ${resource_type}"
+    # Get all resources of this type in the namespace
+    while IFS= read -r resource_name; do
+      [[ -z "$resource_name" ]] && continue
+      delete_resource "$resource_type" "$resource_name" "$force" "$namespace" "$dry_run" "    " "$timeout" "$global_timeout" || true
+    done < <(kubectl get "$resource_type" -n "$namespace" -o name 2>/dev/null | cut -d/ -f2)
+  done < <(kubectl api-resources --namespaced=true --verbs=list --no-headers -o name)
+}
+
+function delete_crd() {
+  local crd="$1"
+  local force="$2"
+  local dry_run="$3"
+  local timeout="$4"
+  local global_timeout="$5"
+  local dry_run_flag=""
+
+  [[ "$dry_run" == true ]] && dry_run_flag="--dry-run=client"
+
+  echo "Processing CRD: ${crd}"
+  if check_namespaced "$crd"; then
+    while IFS= read -r ns; do
+      echo "  Namespace: ${ns}"
+      while IFS= read -r name; do
+        delete_resource "$crd" "$name" "$force" "$ns" "$dry_run" "    " "$timeout" "$global_timeout" || true
+      done < <(kubectl get -n "$ns" "$crd" -o name 2>/dev/null | cut -d/ -f2)
+    done < <(kubectl get ns -o name | cut -d/ -f2)
+  else
+    while IFS= read -r name; do
+      delete_resource "$crd" "$name" "$force" "" "$dry_run" "  " "$timeout" "$global_timeout" || true
+    done < <(kubectl get "$crd" -o name 2>/dev/null | cut -d/ -f2)
+  fi
+
+  echo "  Deleting CRD definition..."
+  if ! timeout "$global_timeout" kubectl delete crd "$crd" --timeout="${timeout}s" ${dry_run_flag} 2>&1 | indent_output "    "; then
+    if [ "$force" == true ]; then
+      if ! timeout "$global_timeout" bash -c "$(declare -f force_patch_and_delete); force_patch_and_delete 'crds' '$crd' '' '$dry_run' '    ' '$timeout'"; then
+        error_message "    Operation timed out after ${global_timeout}s for CRD ${crd}"
+        return 1
+      fi
+    else
+      error_message "    Timed out after ${timeout}s. Retry with --force"
+      return 1
+    fi
+  fi
+}
+
+function usage() {
+  echo
+  cat <<EOF >&2
+Usage: $0 [OPTIONS] resource_name [resource_name...]
+Options:
+  --type TYPE          Resource type to delete (e.g. crds, deployments, pods)
+  --namespace NS       Namespace (required for namespaced resources)
+  --force              Force deletion by removing finalizers
+  --dry-run            Show what would be deleted without actually deleting
+  --timeout SEC        Timeout for individual operations (default: 10)
+  --global-timeout SEC Timeout for the entire operation (default: 15)
+
+Examples:
+  $0 --type=crds example-crd another-crd
+  $0 --type=deployments --namespace=default dep1 dep2
+  $0 --type=namespaces ns1 ns2
+EOF
+  exit 1
+}
+
+function parse_args() {
+  local -n _force=$1
+  local -n _dry_run=$2
+  local -n _timeout=$3
+  local -n _global_timeout=$4
+  local -n _type=$5
+  local -n _namespace=$6
+  local -n _resources=$7
+
+  # Initialize resources as an array
+  _resources=()
+
+  # Remove the reference parameters
+  shift 7
+
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      --force)
+        _force=true
+        shift
+        ;;
+      --dry-run)
+        _dry_run=true
+        shift
+        ;;
+      --timeout=*)
+        _timeout="${1#*=}"
+        shift
+        ;;
+      --global-timeout=*)
+        _global_timeout="${1#*=}"
+        shift
+        ;;
+      --type=*)
+        _type="${1#*=}"
+        shift
+        ;;
+      --namespace=*)
+        _namespace="${1#*=}"
+        shift
+        ;;
+      --*)
+        usage
+        ;;
+      *)
+        _resources+=("$1")
+        shift
+        ;;
+    esac
+  done
+
+  # Validate required parameters
+  if [ -z "$_type" ]; then
+    error_message "Resource type must be specified with --type"
+    usage
+  fi
+
+  if [ ${#_resources[@]} -eq 0 ]; then
+    error_message "At least one resource name must be specified"
+    usage
+  fi
+
+  # Validate resource type exists
+  if ! resource_type_exists "$_type"; then
+    error_message "Invalid resource type: $_type"
+    echo "Available resource types:" >&2
+    kubectl api-resources --no-headers | awk '{print $1}' | sort | xargs -n 5 | column -t | indent_output "   " >&2
+    usage
+  fi
+
+  # Validate namespace requirements
+  if ! [[ "$_type" =~ ^crds?$ ]]; then
+    if check_namespaced "$_type"; then
+      if [ -z "$_namespace" ]; then
+        error_message "Namespace is required for resource type: $_type"
+        usage
+      fi
+    elif [ -n "$_namespace" ]; then
+      error_message "Namespace should not be specified for non-namespaced resource type: $_type"
+      usage
+    fi
+  fi
+}
+
+function main() {
+  local force=false
+  local dry_run=false
+  local timeout=10
+  local global_timeout=15
+  local type=""
+  local namespace=""
+  local -a resources
+
+  parse_args force dry_run timeout global_timeout type namespace resources "$@"
+
+  [[ "$dry_run" == true ]] && echo "=== DRY RUN MODE ==="
+
+  if [[ "$type" =~ ^crds?$ ]]; then
+    for resource in "${resources[@]}"; do
+      delete_crd "$resource" "$force" "$dry_run" "$timeout" "$global_timeout" || true
+      echo
+    done
+  elif [[ "$type" =~ ^namespaces?$ ]]; then
+    for resource in "${resources[@]}"; do
+      echo "Processing namespace: ${resource}"
+      delete_namespace_resources "$resource" "$force" "$dry_run" "$timeout" "$global_timeout"
+      delete_resource "$type" "$resource" "$force" "" "$dry_run" "  " "$timeout" "$global_timeout" || true
+      echo
+    done
+  else
+    echo "Processing resource type: ${type}"
+    for resource in "${resources[@]}"; do
+      delete_resource "$type" "$resource" "$force" "$namespace" "$dry_run" "  " "$timeout" "$global_timeout" || true
+    done
+    echo
+  fi
+}
+
+if ! main "$@"; then
+  error_message "Script failed"
+  exit 1
+fi

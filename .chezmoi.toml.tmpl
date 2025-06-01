@@ -1,0 +1,24 @@
+# Chezmoi configuration file
+
+# Define variables in global scope
+{{- $gitName := promptStringOnce . "name" "Enter your full name for Git" -}}
+{{- $gitEmail := promptStringOnce . "email" "Enter your email for Git" -}}
+{{- $accessToken := promptStringOnce . "bwsAccessToken" "Enter your BWS Access Token" -}}
+{{- $editor := or (env "EDITOR") "vim" -}}
+
+# Set values in the data section
+[data]
+    name = {{ $gitName | quote }}
+    email = {{ $gitEmail | quote }}
+    editor = {{ $editor | quote }}
+    bwsAccessToken = {{ $accessToken | quote }}
+
+[diff]
+    command = "diff"
+
+[merge]
+    command = "vimdiff"
+
+# Optional: Add scriptEnv to make environment variables available to templates
+[scriptEnv]
+    EDITOR = "{{ $editor }}"

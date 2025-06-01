@@ -1,0 +1,20 @@
+# Example local environment overrides (not tracked in git)
+# Copy this to .env.local and customize
+
+# ===== Local Machine Overrides =====
+# Override editor
+# EDITOR=code
+# VISUAL=code
+
+# ===== Work-specific Settings =====
+# COMPANY_PROXY=http://proxy.company.com:8080
+# HTTP_PROXY=$COMPANY_PROXY
+# HTTPS_PROXY=$COMPANY_PROXY
+# NO_PROXY=localhost,127.0.0.1
+
+# ===== Project Paths =====
+# Add project-specific directories to PATH
+# PATH=$HOME/projects/my-project/bin:$PATH
+
+# ===== Custom Kubernetes Contexts =====
+# KUBECONFIG=$HOME/.kube/config:$HOME/.kube/dev-cluster:$HOME/.kube/prod-cluster
