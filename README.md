@@ -51,7 +51,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ppat/dotfiles
 2. Chezmoi will:
    - Install required tools (Homebrew, Aqua, Mise)
    - Set up environment files
-   - Configure your shell and environment 
+   - Configure your shell and environment
 
 ### Manual Installation
 
