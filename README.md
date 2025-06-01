@@ -58,18 +58,21 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ppat/dotfiles
 If you prefer to set up step-by-step:
 
 1. Clone the repository:
-```bash
-git clone https://github.com/ppat/dotfiles.git
-cd dotfiles
-```
+
+   ```bash
+   git clone https://github.com/ppat/dotfiles.git
+   cd dotfiles
+   ```
 
 2. Install Chezmoi:
-```bash
-sh -c "$(curl -fsLS get.chezmoi.io)"
-```
+
+   ```bash
+   sh -c "$(curl -fsLS get.chezmoi.io)"
+   ```
 
 3. Initialize Chezmoi with the local repository:
-```bash
-chezmoi init --source=.
-chezmoi apply
-```
+
+   ```bash
+   chezmoi init --source=.
+   chezmoi apply
+   ```
