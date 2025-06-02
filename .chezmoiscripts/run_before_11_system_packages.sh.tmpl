@@ -4,7 +4,7 @@ set -euo pipefail
 
 {{ template "script_header.sh" . }}
 
-log_info "System Packkages | Setting up homebrew env..."
+log_info "System Packages | Setting up homebrew env..."
 grep HOMEBREW {{ .chezmoi.sourceDir }}/dot_env.tmpl > /tmp/homebrew.env
 set +o allexport
 source /tmp/homebrew.env
