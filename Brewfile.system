@@ -24,6 +24,9 @@ brew "wget"
 brew "aqua"
 brew "mise"
 
+# Dotfile Manager
+brew "chezmoi"
+
 # Fonts
 cask "font-fira-code"        # Monospaced font with programming ligatures
 cask "font-jetbrains-mono"   # Monospaced font for coding

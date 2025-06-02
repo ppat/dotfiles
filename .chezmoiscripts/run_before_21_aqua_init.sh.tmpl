@@ -1,0 +1,37 @@
+#!/bin/bash
+set -eo pipefail
+
+{{ template "script_header.sh" . }}
+{{ template "aqua_install.sh" . }}
+
+log_info "CLI Tools | Initializing Aqua..."
+if ! command -v aqua > /dev/null; then
+  log_error "CLI Tools | Aqua binary is not in path, cannot proceed!"
+  exit 1
+fi
+
+log_info "CLI Tools | Setting up aqua env..."
+grep AQUA {{ .chezmoi.sourceDir }}/dot_env.tmpl > /tmp/aqua.env
+set +o allexport
+source /tmp/aqua.env
+set -o allexport
+env | grep AQUA | sort | sed -E 's|^(.*)|    \1|g'
+rm /tmp/aqua.env
+echo
+
+if [[ ! -d "$AQUA_ROOT_DIR" ]]; then
+  log_info "CLI Tools | Performing aqua first time setup..."
+  mkdir -p $AQUA_ROOT_DIR
+  cp {{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/aqua.yaml $AQUA_ROOT_DIR/aqua.yaml
+  cp {{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/aqua-checksums.json $AQUA_ROOT_DIR/aqua-checksums.json
+fi
+
+log_info "CLI Tools | Installing or upgrading aqua packages..."
+aqua install --all 2>&1 | sed -E 's|^(.*)|  \1|g'
+log_success "CLI Tools | Aqua install is complete."
+echo
+log_info "CLI Tools | Display installed packages..."
+aqua list --installed --all | column -t 2>&1 | sed -E 's|^(.*)|  \1|g'
+
+echo "-------------------------------------------------------------------------------------------"
+echo
