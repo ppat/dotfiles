@@ -1,0 +1,87 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "addLabels": [
+        "dependency-type:cli-tools"
+      ],
+      "matchFileNames": [
+        "dot_config/aquaproj-aqua/aqua.yaml",
+        "aqua-first.yaml"
+      ],
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchPackageNames": [
+        "!aquaproj/aqua-registry"
+      ],
+      "semanticCommitScope": "cli-tools",
+      "separateMajorMinor": true,
+      "separateMinorPatch": true,
+      "separateMultipleMajor": false,
+      "separateMultipleMinor": false
+    },
+    {
+      "automerge": true,
+      "groupName": "cli-tools",
+      "matchFileNames": [
+        "dot_config/aquaproj-aqua/aqua.yaml",
+        "aqua-first.yaml"
+      ],
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchPackageNames": [
+        "!aquaproj/aqua-registry"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "minimumReleaseAge": "7 days",
+      "semanticCommitType": "fix"
+    },
+    {
+      "automerge": true,
+      "groupName": "cli-tools",
+      "matchFileNames": [
+        "dot_config/aquaproj-aqua/aqua.yaml",
+        "aqua-first.yaml"
+      ],
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchPackageNames": [
+        "!aquaproj/aqua-registry"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "minimumReleaseAge": "14 days",
+      "semanticCommitType": "feat"
+    },
+    {
+      "automerge": false,
+      "commitBody": "BREAKING CHANGE",
+      "commitMessageTopic": "{{packageName}}",
+      "groupName": "{{packageName}}",
+      "matchFileNames": [
+        "dot_config/aquaproj-aqua/aqua.yaml",
+        "aqua-first.yaml"
+      ],
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchPackageNames": [
+        "!aquaproj/aqua-registry"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "minimumReleaseAge": "90 days",
+      "reviewers": [
+        "ppat"
+      ],
+      "semanticCommitType": "feat"
+    }
+  ]
+}
