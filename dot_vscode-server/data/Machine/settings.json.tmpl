@@ -1,0 +1,39 @@
+{{- if eq .chezmoi.homeDir "/home/coder" }}
+{
+  "debug.javascript.defaultRuntimeExecutable": {
+    "pwa-node": "${workspaceFolder}/.vscode/mise-tools/node"
+  },
+  "evenBetterToml.formatter.alignComments": true,
+  "evenBetterToml.formatter.alignEntries": true,
+  "evenBetterToml.formatter.allowedBlankLines": 1,
+  "evenBetterToml.formatter.arrayAutoCollapse": false,
+  "evenBetterToml.formatter.arrayAutoExpand": true,
+  "evenBetterToml.formatter.arrayTrailingComma": false,
+  "evenBetterToml.formatter.columnWidth": 120,
+  "explorer.excludeGitIgnore": true,
+  "git.defaultCloneDirectory": "{{ .chezmoi.homeDir }}/code/",
+  "git.pruneOnFetch": true,
+  "github.gitProtocol": "ssh",
+  "mise.binPath": "/usr/local/sbin/mise",
+  "mise.configureExtensionsUseSymLinks": true,
+  "mise.configureExtensionsAutomaticallyIgnoreList": [
+    "charliermarsh.ruff",
+    "dart-code.flutter",
+    "Dart-Code.dart-code",
+    "denoland.vscode-deno",
+    "julialang.language-julia",
+    "oracle.oracle-java",
+    "pgourlain.erlang",
+    "vscode.php-language-features",
+    "xdebug.php-debug",
+    "ziglang.vscode-zig"
+  ],
+  "mise.miseEnv": "{{ .chezmoi.homeDir }}/.config/mise/config.toml",
+  "mise.updateOpenTerminalsEnvAutomatically": true,
+  "redhat.telemetry.enabled": false,
+  "shellcheck.executablePath": "${workspaceFolder}/.vscode/mise-tools/shellcheck",
+  "terraform.languageServer.ignoreSingleFileWarning": true,
+  "terraform.experimentalFeatures.prefillRequiredFields": true,
+  "vscode-kubernetes.log-viewer.tail": 1000
+}
+{{- end }}
