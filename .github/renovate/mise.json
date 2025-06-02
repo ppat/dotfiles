@@ -1,0 +1,85 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "matchFileNames": [
+        "dot_config/mise/config.toml",
+        "mise-first.toml"
+      ],
+      "matchManagers": [
+        "mise"
+      ],
+      "matchPackageNames": [
+        "oven-sh/bun",
+        "golang/go",
+        "nodejs",
+        "rust-lang/rust",
+        "hashicorp/terraform",
+        "astral-sh/uv"
+      ],
+      "semanticCommitScope": "lang-sdk",
+      "separateMajorMinor": true,
+      "separateMinorPatch": false,
+      "separateMultipleMajor": true,
+      "separateMultipleMinor": true
+    },
+    {
+      "matchFileNames": [
+        "dot_config/mise/config.toml",
+        "mise-first.toml"
+      ],
+      "matchManagers": [
+        "mise"
+      ],
+      "matchPackageNames": [
+        "!oven-sh/bun",
+        "!golang/go",
+        "!nodejs",
+        "!rust-lang/rust",
+        "!hashicorp/terraform",
+        "!astral-sh/uv"
+      ],
+      "semanticCommitScope": "cli-tools",
+      "separateMajorMinor": true,
+      "separateMinorPatch": false,
+      "separateMultipleMajor": true,
+      "separateMultipleMinor": false
+    },
+    {
+      "matchFileNames": [
+        "dot_config/mise/config.toml",
+        "mise-first.toml"
+      ],
+      "matchManagers": [
+        "mise"
+      ],
+      "matchPackageNames": [
+        "oven-sh/bun",
+        "rust-lang/rust",
+        "astral-sh/uv"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "minimumReleaseAge": "30 days"
+    },
+    {
+      "matchFileNames": [
+        "dot_config/mise/config.toml",
+        "mise-first.toml"
+      ],
+      "matchManagers": [
+        "mise"
+      ],
+      "matchPackageNames": [
+        "golang/go",
+        "nodejs",
+        "hashicorp/terraform"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "minimumReleaseAge": "90 days"
+    }
+  ]
+}
