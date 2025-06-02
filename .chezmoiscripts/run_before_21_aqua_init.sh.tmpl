@@ -2,7 +2,6 @@
 set -eo pipefail
 
 {{ template "script_header.sh" . }}
-{{ template "aqua_install.sh" . }}
 
 log_info "CLI Tools | Initializing Aqua..."
 if ! command -v aqua > /dev/null; then
