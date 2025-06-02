@@ -1,7 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 {{ template "script_header.sh" . }}
+set -o allexport
+{{ template "package_manager.env" . }}
+set +o allexport
 {{ template "mise_install.sh" . }}
 
 mise_first_time_setup() {
@@ -9,8 +12,6 @@ mise_first_time_setup() {
   log_info "Language SDKs & Tools | Using first time mise config..."
   cp {{ .chezmoi.sourceDir }}/mise-first.toml $HOME/.config/mise/config.toml
   mise_install
-  log_info "Language SDKs & Tools | Removing first time mise config..."
-  rm $HOME/.config/mise/config.toml
   log_success "Language SDKs & Tools | First time mise setup complete!"
 }
 

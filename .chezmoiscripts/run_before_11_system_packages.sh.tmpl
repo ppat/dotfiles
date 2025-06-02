@@ -1,16 +1,14 @@
 {{ if eq .chezmoi.os "darwin" -}}
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 {{ template "script_header.sh" . }}
-
-log_info "System Packages | Setting up homebrew env..."
-grep HOMEBREW {{ .chezmoi.sourceDir }}/dot_env.tmpl > /tmp/homebrew.env
-set +o allexport
-source /tmp/homebrew.env
 set -o allexport
+{{ template "package_manager.env" . }}
+set +o allexport
+
+log_info "System Packages | Using homebrew env..."
 env | grep HOMEBREW | sort | sed -E 's|^(.*)|    \1|g'
-rm /tmp/homebrew.env
 echo
 
 log_info "System Packages | Installing Homebrew system packages..."

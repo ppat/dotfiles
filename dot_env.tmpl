@@ -6,45 +6,7 @@ PAGER=less
 TERM=xterm-256color
 VISUAL=vim
 
-
-# ============================== Package Managers =================================
-# Aqua
-AQUA_GLOBAL_CONFIG=$HOME/.config/aquaproj-aqua/aqua.yaml
-AQUA_LOG_COLOR=always
-AQUA_LOG_LEVEL=warn
-AQUA_PROGRESS_BAR=false
-AQUA_ROOT_DIR=$HOME/.local/share/aquaproj-aqua
-
-{{ if eq .chezmoi.os "darwin" -}}
-# Homebrew
-HOMEBREW_PREFIX=/opt/homebrew
-HOMEBREW_CELLAR=$HOMEBREW_PREFIX/Cellar
-HOMEBREW_REPOSITORY=$HOMEBREW_PREFIX
-HOMEBREW_BAT=1
-HOMEBREW_AUTOREMOVE=1
-HOMEBREW_AUTO_UPDATE_SECS=604800 # Set longer duration between auto-updates: 1 week
-HOMEBREW_BATCH_SIZE=10 # Number of packages to install in parallel
-HOMEBREW_CURL_RETRIES=3
-HOMEBREW_NO_ANALYTICS=1
-HOMEBREW_NO_AUTO_UPDATE=1
-HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK=1 # Binary Packages
-HOMEBREW_NO_ENV_HINTS=1
-MANPATH=$HOMEBREW_PREFIX/opt/coreutils/libexec/gnuman
-PATH=$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH
-{{ end }}
-
-# Krew (kubectl plugins)
-KREW_ROOT=$HOME/.krew
-
-# Mise
-MISE_CONFIG=$HOME/.config/mise/config.toml
-MISE_GLOBAL_CONFIG=$HOME/.config/mise/config.toml
-MISE_DATA_DIR=$HOME/.local/share/mise
-MISE_CACHE_DIR=$HOME/.cache/mise
-MISE_LOG_LEVEL=warn
-MISE_LOG_FILE=$HOME/.log/mise.log
-MISE_LOG_FILE_LEVEL=debug
-
+{{ template "package_manager.env" . }}
 
 # ======================== Language Runtimes and SDKs =============================
 # Node.js

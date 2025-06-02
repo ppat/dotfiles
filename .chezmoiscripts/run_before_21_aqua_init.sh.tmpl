@@ -1,7 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -eo pipefail
 
 {{ template "script_header.sh" . }}
+set -o allexport
+{{ template "package_manager.env" . }}
+set +o allexport
 
 log_info "CLI Tools | Initializing Aqua..."
 if ! command -v aqua > /dev/null; then
@@ -9,13 +12,8 @@ if ! command -v aqua > /dev/null; then
   exit 1
 fi
 
-log_info "CLI Tools | Setting up aqua env..."
-grep AQUA {{ .chezmoi.sourceDir }}/dot_env.tmpl > /tmp/aqua.env
-set +o allexport
-source /tmp/aqua.env
-set -o allexport
+log_info "CLI Tools | Using aqua env..."
 env | grep AQUA | sort | sed -E 's|^(.*)|    \1|g'
-rm /tmp/aqua.env
 echo
 
 if [[ ! -d "$AQUA_ROOT_DIR" ]]; then
@@ -31,6 +29,11 @@ log_success "CLI Tools | Aqua install is complete."
 echo
 log_info "CLI Tools | Display installed packages..."
 aqua list --installed --all | column -t 2>&1 | sed -E 's|^(.*)|  \1|g'
+echo "-------------------------------------------------------------------------------------------"
+echo
 
+log_info "CLI Tools | Making tools needed by chezmoi available without aqua..."
+mkdir -p $HOME/.local/bin
+aqua cp -o $HOME/.local/bin bws
 echo "-------------------------------------------------------------------------------------------"
 echo
