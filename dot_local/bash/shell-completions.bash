@@ -12,7 +12,11 @@
 
 # enable bash completions
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
+  if [ -f $HOMEBREW_PREFIX/etc/bash_completion ]; then
+    . $HOMEBREW_PREFIX/etc/bash_completion
+  elif [ -f /usr/local/etc/bash_completion ]; then
+    . /usr/local/etc/bash_completion
+  elif [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
