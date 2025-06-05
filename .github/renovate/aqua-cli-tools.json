@@ -6,7 +6,7 @@
         "dependency-type:cli-tools"
       ],
       "matchFileNames": [
-        "dot_config/aquaproj-aqua/aqua.yaml",
+        "private_dot_config/aquaproj-aqua/aqua.yaml",
         "aqua-first.yaml"
       ],
       "matchManagers": [
@@ -25,7 +25,7 @@
       "automerge": true,
       "groupName": "cli-tools",
       "matchFileNames": [
-        "dot_config/aquaproj-aqua/aqua.yaml",
+        "private_dot_config/aquaproj-aqua/aqua.yaml",
         "aqua-first.yaml"
       ],
       "matchManagers": [
@@ -44,7 +44,7 @@
       "automerge": true,
       "groupName": "cli-tools",
       "matchFileNames": [
-        "dot_config/aquaproj-aqua/aqua.yaml",
+        "private_dot_config/aquaproj-aqua/aqua.yaml",
         "aqua-first.yaml"
       ],
       "matchManagers": [
@@ -65,7 +65,7 @@
       "commitMessageTopic": "{{packageName}}",
       "groupName": "{{packageName}}",
       "matchFileNames": [
-        "dot_config/aquaproj-aqua/aqua.yaml",
+        "private_dot_config/aquaproj-aqua/aqua.yaml",
         "aqua-first.yaml"
       ],
       "matchManagers": [

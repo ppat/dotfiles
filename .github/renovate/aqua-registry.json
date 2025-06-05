@@ -8,7 +8,7 @@
       "commitMessageTopic": "aqua registry: {{packageName}}",
       "groupName": "{{packageName}}",
       "matchFileNames": [
-        "dot_config/aquaproj-aqua/aqua.yaml",
+        "private_dot_config/aquaproj-aqua/aqua.yaml",
         "aqua-first.yaml"
       ],
       "matchManagers": [
@@ -26,7 +26,7 @@
     {
       "automerge": true,
       "matchFileNames": [
-        "dot_config/aquaproj-aqua/aqua.yaml",
+        "private_dot_config/aquaproj-aqua/aqua.yaml",
         "aqua-first.yaml"
       ],
       "matchManagers": [
@@ -44,7 +44,7 @@
     {
       "automerge": true,
       "matchFileNames": [
-        "dot_config/aquaproj-aqua/aqua.yaml",
+        "private_dot_config/aquaproj-aqua/aqua.yaml",
         "aqua-first.yaml"
       ],
       "matchManagers": [
@@ -63,7 +63,7 @@
       "automerge": false,
       "commitBody": "BREAKING CHANGE",
       "matchFileNames": [
-        "dot_config/aquaproj-aqua/aqua.yaml",
+        "private_dot_config/aquaproj-aqua/aqua.yaml",
         "aqua-first.yaml"
       ],
       "matchManagers": [
