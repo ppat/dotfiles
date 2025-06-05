@@ -10,7 +10,7 @@ checksum:
   - linux/arm64
 registries:
 - type: standard
-  ref: v4.373.0 # renovate: depName=aquaproj/aqua-registry
+  ref: v4.374.0 # renovate: depName=aquaproj/aqua-registry
 packages:
 - name: ajeetdsouza/zoxide@v0.9.8
 - name: aristocratos/btop@v1.4.3
@@ -24,12 +24,8 @@ packages:
 - name: dalance/procs@v0.14.10
 - name: dandavison/delta@0.18.2
 - name: derailed/k9s@v0.50.6
-- name: eza-community/eza@v0.21.3
 - name: fastfetch-cli/fastfetch@2.44.0
 - name: fluxcd/flux2@v2.5.1
-- name: getsops/sops@v3.10.2
-- name: grafana/mimir/mimirtool@mimir-2.16.0
-- name: grafana/loki/logcli@v3.5.1
 - name: hadolint/hadolint@v2.12.0
 - name: helm/helm@v3.18.1
 - name: jesseduffield/lazygit@v0.51.1
@@ -46,7 +42,7 @@ packages:
 - name: mikefarah/yq@v4.45.4
 - name: muesli/duf@v0.8.1
 - name: nektos/act@v0.2.77
-# - name: qarmin/czkawka@9.0.0
+- name: qarmin/czkawka@9.0.0
 - name: rhysd/actionlint@v1.7.7
 - name: sharkdp/bat@v0.25.0
 - name: sharkdp/fd@v10.2.0
@@ -55,5 +51,4 @@ packages:
 - name: terraform-linters/tflint@v0.58.0
 - name: yannh/kubeconform@v0.7.0
 - name: BurntSushi/ripgrep@14.1.1
-- name: FiloSottile/age@v1.2.1
 - name: Wilfred/difftastic@0.63.0
