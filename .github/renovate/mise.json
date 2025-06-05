@@ -3,7 +3,7 @@
   "packageRules": [
     {
       "matchFileNames": [
-        "dot_config/mise/config.toml",
+        "private_dot_config/mise/config.toml",
         "mise-first.toml"
       ],
       "matchManagers": [
@@ -25,7 +25,7 @@
     },
     {
       "matchFileNames": [
-        "dot_config/mise/config.toml",
+        "private_dot_config/mise/config.toml",
         "mise-first.toml"
       ],
       "matchManagers": [
@@ -47,7 +47,7 @@
     },
     {
       "matchFileNames": [
-        "dot_config/mise/config.toml",
+        "private_dot_config/mise/config.toml",
         "mise-first.toml"
       ],
       "matchManagers": [
@@ -65,7 +65,7 @@
     },
     {
       "matchFileNames": [
-        "dot_config/mise/config.toml",
+        "private_dot_config/mise/config.toml",
         "mise-first.toml"
       ],
       "matchManagers": [

@@ -19,8 +19,8 @@ echo
 if [[ ! -d "$AQUA_ROOT_DIR" ]]; then
   log_info "CLI Tools | Performing aqua first time setup..."
   mkdir -p $AQUA_ROOT_DIR
-  cp {{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/aqua.yaml $AQUA_ROOT_DIR/aqua.yaml
-  cp {{ .chezmoi.sourceDir }}/dot_config/aquaproj-aqua/aqua-checksums.json $AQUA_ROOT_DIR/aqua-checksums.json
+  cp {{ .chezmoi.sourceDir }}/private_dot_config/aquaproj-aqua/aqua.yaml $AQUA_ROOT_DIR/aqua.yaml
+  cp {{ .chezmoi.sourceDir }}/private_dot_config/aquaproj-aqua/aqua-checksums.json $AQUA_ROOT_DIR/aqua-checksums.json
 fi
 
 log_info "CLI Tools | Installing or upgrading aqua packages..."

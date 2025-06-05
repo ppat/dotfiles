@@ -47,11 +47,11 @@ jobs:
           - .github/renovate.json
           - .github/renovate/**
           shellscripts:
-          - dot_config/mise/tasks/**
-          - dot_local/bash/**
-          - dot_local/bin/executable_analyze-deps
-          - dot_local/bin/executable_k3s-init
-          - dot_local/bin/executable_kube-del
+          - private_dot_config/mise/tasks/**
+          - private_dot_local/bash/**
+          - private_dot_local/bin/executable_analyze-deps
+          - private_dot_local/bin/executable_k3s-init
+          - private_dot_local/bin/executable_kube-del
           - dot_bashrc
           - dot_profile
           yaml:
@@ -65,7 +65,7 @@ jobs:
     with:
       git_ref: ${{ github.head_ref || github.ref }}
       files: ${{ github.event_name == 'workflow_dispatch' && 'ALL' || needs.detect-changes.outputs.actions_all_changed_files }}
-      mise_ignore_cfg: dot_config/mise/config.toml
+      mise_ignore_cfg: private_dot_config/mise/config.toml
 
   markdown:
     needs: [detect-changes]
@@ -74,13 +74,13 @@ jobs:
     with:
       git_ref: ${{ github.head_ref || github.ref }}
       files: ${{ github.event_name == 'workflow_dispatch' && 'ALL' || needs.detect-changes.outputs.markdown_all_changed_files }}
-      mise_ignore_cfg: dot_config/mise/config.toml
+      mise_ignore_cfg: private_dot_config/mise/config.toml
 
   pre-commit:
     uses: ppat/github-workflows/.github/workflows/lint-pre-commit.yaml@main
     with:
       git_ref: ${{ github.head_ref || github.ref }}
-      mise_ignore_cfg: dot_config/mise/config.toml
+      mise_ignore_cfg: private_dot_config/mise/config.toml
 
   renovate-config-check:
     needs: [detect-changes]
@@ -89,7 +89,7 @@ jobs:
     with:
       git_ref: ${{ github.head_ref || github.ref }}
       files: ${{ github.event_name == 'workflow_dispatch' && 'ALL' || needs.detect-changes.outputs.renovate_all_changed_files }}
-      mise_ignore_cfg: dot_config/mise/config.toml
+      mise_ignore_cfg: private_dot_config/mise/config.toml
 
   shellcheck:
     needs: [detect-changes]
@@ -98,7 +98,7 @@ jobs:
     with:
       git_ref: ${{ github.head_ref || github.ref }}
       files: ${{ github.event_name == 'workflow_dispatch' && 'ALL' || needs.detect-changes.outputs.shellscripts_all_changed_files }}
-      mise_ignore_cfg: dot_config/mise/config.toml
+      mise_ignore_cfg: private_dot_config/mise/config.toml
 
   yaml:
     needs: [detect-changes]
@@ -107,4 +107,4 @@ jobs:
     with:
       git_ref: ${{ github.head_ref || github.ref }}
       files: ${{ github.event_name == 'workflow_dispatch' && 'ALL' || needs.detect-changes.outputs.yaml_all_changed_files }}
-      mise_ignore_cfg: dot_config/mise/config.toml
+      mise_ignore_cfg: private_dot_config/mise/config.toml
