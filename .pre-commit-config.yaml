@@ -6,6 +6,7 @@ repos:
   - id: check-added-large-files
   - id: check-executables-have-shebangs
   - id: check-json
+    exclude: ^private_Library/private_Application Support/private_Code/User/settings.json$
   - id: detect-private-key
   - id: end-of-file-fixer
   - id: forbid-new-submodules
