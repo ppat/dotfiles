@@ -1,4 +1,3 @@
-{{- if eq .chezmoi.homeDir "/home/coder" }}
 {
   "debug.javascript.defaultRuntimeExecutable": {
     "pwa-node": "${workspaceFolder}/.vscode/mise-tools/node"
@@ -11,7 +10,7 @@
   "evenBetterToml.formatter.arrayTrailingComma": false,
   "evenBetterToml.formatter.columnWidth": 120,
   "explorer.excludeGitIgnore": true,
-  "git.defaultCloneDirectory": "{{ .chezmoi.homeDir }}/code/",
+  "git.defaultCloneDirectory": "/home/coder/code/",
   "git.pruneOnFetch": true,
   "github.gitProtocol": "ssh",
   "mise.binPath": "/usr/local/sbin/mise",
@@ -28,7 +27,7 @@
     "xdebug.php-debug",
     "ziglang.vscode-zig"
   ],
-  "mise.miseEnv": "{{ .chezmoi.homeDir }}/.config/mise/config.toml",
+  "mise.miseEnv": "/home/coder/.config/mise/config.toml",
   "mise.updateOpenTerminalsEnvAutomatically": true,
   "redhat.telemetry.enabled": false,
   "shellcheck.executablePath": "${workspaceFolder}/.vscode/mise-tools/shellcheck",
@@ -36,4 +35,3 @@
   "terraform.experimentalFeatures.prefillRequiredFields": true,
   "vscode-kubernetes.log-viewer.tail": 1000
 }
-{{- end }}

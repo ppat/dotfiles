@@ -1,0 +1,160 @@
+{
+  "diffEditor.useInlineViewWhenSpaceIsLimited": false,
+  // Use solid cursor instead of blinking to reduce UI updates
+  "editor.cursorBlinking": "solid",
+  // Disable animated cursor movements
+  "editor.cursorSmoothCaretAnimation": "off",
+  "editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontLigatures": false,
+  "editor.fontSize": 14,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": false,
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.bracketPairsHorizontal": "active",
+  // Wait longer before showing hover tooltips (default: 300ms)
+  "editor.hover.delay": 5000,
+  // Limit processing for very long lines to prevent parser hangs
+  "editor.maxTokenizationLineLength": 10000,
+  // Disable the code minimap on the right side to reduce rendering overhead
+  "editor.minimap.enabled": false,
+  // Disable highlighting all instances of selected text
+  "editor.occurrencesHighlight": "off",
+  // Wait longer before showing parameter hint popups (default: ~120ms)
+  "editor.parameterHints.delay": 1000,
+  // Control when suggestion popups appear - only in code, not in comments or strings
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "off"
+  },
+  "editor.renderWhitespace": "none",
+  // Advanced language-aware syntax highlighting
+  "editor.semanticHighlighting.enabled": true,
+  // ANIMATION AND SCROLLING
+  "editor.smoothScrolling": false,
+  "editor.scrollbar.horizontal": "visible",
+  "editor.scrollbar.vertical": "visible",
+  // Increase delay before showing code completion suggestions (default: 10ms)
+  "editor.suggestDelay": 3000,
+  "editor.suggest.preview": true,
+  // Prevent extensions from automatically updating in the background
+  "extensions.autoUpdate": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 300,
+  // Exclude large directories from file watching to reduce I/O and CPU load
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/build/**": true
+  },
+  "telemetry.telemetryLevel": "off",
+  "window.restoreWindows": "preserve",
+  "window.zoomLevel": 0,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.highlightModifiedTabs": true,
+  // Disable smooth scrolling in file lists and menus
+  "workbench.list.smoothScrolling": false,
+
+  "remote.SSH.connectTimeout": 1800,
+  "remote.SSH.remotePlatform": {
+    "coder-vscode.coder.homelab.nikara.net--ppat--peter--main": "linux",
+    "coder-vscode.coder.homelab.nikara.net--peter--peter.main": "linux"
+  },
+  "remote.SSH.defaultExtensions": [
+    "bierner.markdown-mermaid",
+    "DavidAnson.vscode-markdownlint",
+    // "EditorConfig.EditorConfig",
+    // "github.vscode-github-actions",
+    "hashicorp.hcl",
+    "hashicorp.terraform",
+    // "irongeek.vscode-env",
+    "hverlin.mise-vscode",
+    // "ms-azuretools.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    // "ms-python.debugpy",
+    // "ms-python.python",
+    // "ms-python.vscode-pylance",
+    // "redhat.ansible",
+    "redhat.vscode-yaml",
+    "RooVeterinaryInc.roo-cline",
+    // "streetsidesoftware.code-spell-checker",
+    "samuelcolvin.jinjahtml",
+    // "timonwong.shellcheck",
+    "vscode-icons-team.vscode-icons",
+  ],
+  "vs-kubernetes": {
+    "vs-kubernetes.crd-code-completion": "disabled",
+    // Prevent auto-refresh of cluster resources
+    "disable-automatic-refresh": true,
+    // Set default output format
+    "outputFormat": "yaml",
+    // Skip checking for Minikube updates
+    "checkForMinikubeUpgrade": false,
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "roo-cline.allowedCommands": [
+    "npm test",
+    "tsc",
+    "git log",
+    "git diff",
+    "git show"
+  ],
+  "roo-cline.vsCodeLmModelSelector": {
+
+  },
+  "cSpell.enabled": false,
+  "cSpell.showAutocompleteDirectiveSuggestions": false,
+  "[markdown]": {
+    "diffEditor.ignoreTrimWhitespace": false
+  },
+
+
+
+
+
+  // YAML EXTENSION SETTINGS
+  // Empty schema map to prevent schema validation lookups
+  // "yaml.schemas": { },
+  // Turn off YAML validation to reduce background processing
+  // "yaml.validate": false,
+  // Disable hover information for YAML keys
+  "yaml.hover": false,
+  // Disable code completion for YAML
+  "yaml.completion": false,
+  // Disable automatic formatting for YAML files
+  // "yaml.format.enable": false,
+
+  // TERRAFORM EXTENSION SETTINGS
+  // Limit the number of problems reported by Terraform language server
+  "terraform.languageServer": {
+    "maxNumberOfProblems": 100,
+    // Skip processing root modules to improve performance
+    "excludeRootModules": true
+  },
+  // Disable displaying reference counts above code blocks
+  "terraform.codelens.referenceCount": false,
+  // Disable background indexing of Terraform files
+  "terraform.indexing": {
+    "enabled": false,
+    "liveIndexing": false
+  },
+  // Turn off automatic validation of Terraform files
+  "terraform.validation": {
+    "enable": false
+  },
+
+  // MARKDOWN MERMAID SETTINGS
+  // Use fit mode for diagrams instead of complex scaling
+  "markdown.mermaid.zoomSettings": "fit",
+
+  // VSCODE-ICONS SETTINGS
+  // Prevent update notification popups for icon packs
+  "vsicons.dontShowNewVersionMessage": true,
+
+  // JINJA HTML SETTINGS
+  // Disable Emmet abbreviation expansion within Jinja templates
+  "jinjahtml.enableEmmetForJinja": false,
+}
