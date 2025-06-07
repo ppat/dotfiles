@@ -596,6 +596,26 @@
       "algorithm": "sha512"
     },
     {
+      "id": "github_release/github.com/siderolabs/talos/v1.10.3/talosctl-darwin-amd64",
+      "checksum": "D0743ACD42EC950D95FF8175FFC31752354E4DA99F011F911696B1390EAAED730E22B87264B7AC89E76D3B601CC3DA930BC3FA7960112B65D230D72658600FE7",
+      "algorithm": "sha512"
+    },
+    {
+      "id": "github_release/github.com/siderolabs/talos/v1.10.3/talosctl-darwin-arm64",
+      "checksum": "DB4B161B112DEB09DEE26A2B5B1F7FDBE4897C40390B1003C1F049E82F20665B6A55D9F645978EF256F829EA3CC385A6A44A688689EB0DAFA36D899432A72C8B",
+      "algorithm": "sha512"
+    },
+    {
+      "id": "github_release/github.com/siderolabs/talos/v1.10.3/talosctl-linux-amd64",
+      "checksum": "FAB37E679140D97941060ADD7A83DCE9C221F3FB16D4BBDA23DA7B26B80C77712FEEB15641F5767C1A10703830B4D4CA8A2FAE89EDC93F0D5CF094F53FD7D5D4",
+      "algorithm": "sha512"
+    },
+    {
+      "id": "github_release/github.com/siderolabs/talos/v1.10.3/talosctl-linux-arm64",
+      "checksum": "83E301BCDFAA4B496AAB543938B3872909D4CFE0E420587088700C1A4018E53C804EC55E5F6BAD95B436E06E664A9C06299D8F68735EDC3A4FB6CFEA38C76151",
+      "algorithm": "sha512"
+    },
+    {
       "id": "github_release/github.com/terraform-linters/tflint/v0.58.0/tflint_darwin_amd64.zip",
       "checksum": "ED96BE4460A35C5110449FD00056C86530E876B7D88456A443E971EE1E002976",
       "algorithm": "sha256"
