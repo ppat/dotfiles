@@ -481,6 +481,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/nektos/act/v0.2.78/act_Darwin_arm64.tar.gz",
+      "checksum": "15089974527360B886FA880BCB7F2E800316600F76D3EBD7DB1959C4E0F55519",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/nektos/act/v0.2.78/act_Darwin_x86_64.tar.gz",
+      "checksum": "6C4BF4048C3F27BE039217E182AA8CDA93ADC8D066F1F5EC402D1D953ED01740",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/nektos/act/v0.2.78/act_Linux_arm64.tar.gz",
+      "checksum": "1F1F114C1480CB4FB7987724AFBA36BCA637EFCE54591BC99F4881451F23BB64",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/nektos/act/v0.2.78/act_Linux_x86_64.tar.gz",
+      "checksum": "7E90D7B1D61AA518E32F348D456FA690A06A5170AA59B18B8DA507E3029C9845",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/qarmin/czkawka/9.0.0/linux_czkawka_cli",
       "checksum": "850CABBD47E3CF2FE33F7FA953B51F43CE90226954ADCE76AED5DDCB38E56D62",
       "algorithm": "sha256"
