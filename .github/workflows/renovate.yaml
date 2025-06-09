@@ -41,7 +41,7 @@ jobs:
       with:
         token: ${{ steps.app-token.outputs.token }}
         # renovate: datasource=github-releases depName=renovatebot/renovate
-        renovate-version: "40.11.2"
+        renovate-version: "40.39.0"
       env:
         LOG_LEVEL: 'debug'
         RENOVATE_DRY_RUN: "${{ github.event_name	== 'pull_request' && 'extract' || '' }}"
