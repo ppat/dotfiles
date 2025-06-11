@@ -27,19 +27,42 @@ modified = '📝'
 staged = '[++\($count\)](green)'
 renamed = '👅'
 deleted = '🗑'
-disabled = true
+disabled = false
 
 [kubernetes]
+disabled = false
+
+[status]
+map_symbol = true
+pipestatus = true
 disabled = false
 
 [terraform]
 disabled = false
 
 # ------------------------- MODULES ENABLED ON CERTAIN SCENARIOS ------------------------------
+{{- if eq .chezmoi.os "darwin" }}
+[[battery.display]]
+threshold = 10
+style = 'bold red'
+
+[[battery.display]]
+threshold = 25
+style = 'bold yellow'
+
 [container]
-disabled = {{ not (eq .chezmoi.os "darwin") }}
+symbol = '🐳'
+disabled = false
+
+[memory_usage]
+threshold = 90
+disabled = false
+{{- end }}
 
 # ------------------------------------ DISABLED MODULES ----------------------------------------
+[aws]
+disabled = true
+
 [nodejs]
 disabled = true
 
