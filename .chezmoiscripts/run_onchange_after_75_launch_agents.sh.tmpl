@@ -1,0 +1,23 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+{{ template "script_header.sh" . }}
+
+configure_launch_agent() {
+  local uid="$1"
+  local label="$2"
+  local name="$3"
+  log_info "${name} | Unloading if already loaded..."
+  launchctl bootout gui/${uid} {{ .chezmoi.homeDir }}/Library/LaunchAgents/${label}.plist
+  log_info "${name} | Enabling for persistent loading..."
+  launchctl enable gui/${uid}/${label}
+  log_info "${name} | Bootstrapping into the current session..."
+  launchctl bootstrap gui/${uid} {{ .chezmoi.homeDir }}/Library/LaunchAgents/${label}.plist
+  log_success "${name} | Enabled and running."
+}
+
+log_info "Setting up LaunchAgents..."
+configure_launch_agent "$(id -u)" "com.user.battery-notifier" "battery-notifier" 2>&1 | sed -E 's/^(.*)/    \1/g'
+echo
+{{ end -}}
