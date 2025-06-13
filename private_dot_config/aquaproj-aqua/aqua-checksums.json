@@ -71,6 +71,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/aquasecurity/kube-bench/v0.10.7/kube-bench_0.10.7_darwin_amd64.tar.gz",
+      "checksum": "1454B648460329C15BCD1E6D7B02E48E63788E1C88F24A8DF73980461FD1E2EC",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/aquasecurity/kube-bench/v0.10.7/kube-bench_0.10.7_darwin_arm64.tar.gz",
+      "checksum": "93FC14BC4B6550ADCDF2E8AE8816481F8E2C5D646EA0CAADE7ABCEB5127AF53E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/aquasecurity/kube-bench/v0.10.7/kube-bench_0.10.7_linux_amd64.tar.gz",
+      "checksum": "45B67FBE61614B9FD85AC2D029B19379775B2B7E26B5A5F08531CB21C86AA8E3",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/aquasecurity/kube-bench/v0.10.7/kube-bench_0.10.7_linux_arm64.tar.gz",
+      "checksum": "6024ACA6DFE06A1AC54DDE37E34CAEF7E3C7C15C0D14CC7AF99B5CAD268AE71D",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/aquasecurity/trivy/v0.62.1/trivy_0.62.1_Linux-64bit.tar.gz",
       "checksum": "7DA92B2CA503D08EB15E717585FA4FFB95EF2C5DC4C554204882D7D26D386A6A",
       "algorithm": "sha256"
@@ -158,6 +178,16 @@
     {
       "id": "github_release/github.com/bootandy/dust/v1.2.0/dust-v1.2.0-x86_64-unknown-linux-musl.tar.gz",
       "checksum": "AAE4550F35B5060D3571642EF472A26A5DC899DD594D7A514CEB0022CF9D73A5",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/bootandy/dust/v1.2.1/dust-v1.2.1-x86_64-apple-darwin.tar.gz",
+      "checksum": "DD1E013BBA43394E73F2A12CE4C6BDF6023565623B66D77FEA3472510449A8B1",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/bootandy/dust/v1.2.1/dust-v1.2.1-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "15716B5C0DF538F30025D2DB7C509FC6D5540F4ECC1EAF555E0C639C67ED7ABF",
       "algorithm": "sha256"
     },
     {
