@@ -261,6 +261,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/cli/cli/v2.74.1/gh_2.74.1_linux_amd64.tar.gz",
+      "checksum": "D62406233A42E0DC577DCEAD8D7BAFABCC4C548D9C3A6DA761C6709BC8F4B373",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cli/cli/v2.74.1/gh_2.74.1_linux_arm64.tar.gz",
+      "checksum": "F71257FC489A235EF22100BD12B94334A92DE741EDF5C81EDFC712CE0945B555",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cli/cli/v2.74.1/gh_2.74.1_macOS_amd64.zip",
+      "checksum": "EEAA8C30C2C3F9DD2D4B1D1E5F78B765D0B8E4C3E891B2333EB088B3D81BE277",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cli/cli/v2.74.1/gh_2.74.1_macOS_arm64.zip",
+      "checksum": "4649ADE28DFDD397F8AA77FA794241058E569BA38F2F622C8AB75581C9C82060",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/dalance/procs/v0.14.10/procs-v0.14.10-x86_64-linux.zip",
       "checksum": "AD84B948703E74379EDC32D80FE9B862F6F1E95FC1E305FF0A8A3B4CB7B05EE4",
       "algorithm": "sha256"
@@ -713,6 +733,26 @@
     {
       "id": "github_release/github.com/siderolabs/talos/v1.10.3/talosctl-linux-arm64",
       "checksum": "83E301BCDFAA4B496AAB543938B3872909D4CFE0E420587088700C1A4018E53C804EC55E5F6BAD95B436E06E664A9C06299D8F68735EDC3A4FB6CFEA38C76151",
+      "algorithm": "sha512"
+    },
+    {
+      "id": "github_release/github.com/siderolabs/talos/v1.10.4/talosctl-darwin-amd64",
+      "checksum": "4C3E97107DF2C5D08F19226AC4DD6F575123FFF80EC8BE0CE5FCBC072A4CC3912F8239EDBAA33FE925AD4A9892BB170650014060711473C0D990AE71FBFDDD4D",
+      "algorithm": "sha512"
+    },
+    {
+      "id": "github_release/github.com/siderolabs/talos/v1.10.4/talosctl-darwin-arm64",
+      "checksum": "C160CEA40BC1844B812A82F7C3D831AD616F3EEEC5F2A7E57F850A662A9B8A44A143DE5294873C590DE5DC268331CF566C5CBD3D4F14457ECC0643C5B4EACBFC",
+      "algorithm": "sha512"
+    },
+    {
+      "id": "github_release/github.com/siderolabs/talos/v1.10.4/talosctl-linux-amd64",
+      "checksum": "5DA87EDF0442CF3CA6C90BBFF09AE5F08922154918343BD828182FF59A370490935CC6D498EF1532C043BD0E089D54FBF5480B9CF37ABDAC5651EF01E1036285",
+      "algorithm": "sha512"
+    },
+    {
+      "id": "github_release/github.com/siderolabs/talos/v1.10.4/talosctl-linux-arm64",
+      "checksum": "FCCC628911CADC1330813C20A8ED3ABCE91CE44A3CFD731C7D13FE0914CF0E029BB1935A2060E934176392D1EAAB0C3A7755BEBE7296CC469A73E3E25862DB3B",
       "algorithm": "sha512"
     },
     {
