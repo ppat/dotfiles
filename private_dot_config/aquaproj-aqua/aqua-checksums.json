@@ -346,6 +346,21 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.45.0/fastfetch-linux-aarch64.tar.gz",
+      "checksum": "45A1AF2AD419A7447CB793FB3C2B75143B76A0F7AA46030F89A5039BD00AC068",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.45.0/fastfetch-linux-amd64.tar.gz",
+      "checksum": "8A356B4C582F4D2C80F57594838980CD2149376ABB1E6F14459F1F11CAFA1604",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.45.0/fastfetch-macos-universal.tar.gz",
+      "checksum": "84C05B5205AA963AD081A12FA5E971B8F3299A6FCA67BBE54FB6CA59C2191178",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/fluxcd/flux2/v2.5.1/flux_2.5.1_darwin_amd64.tar.gz",
       "checksum": "8618395BBDD35B681768E26612E1C2F9CB6D67060F7E2DF0F8D36CA67783478E",
       "algorithm": "sha256"
@@ -398,6 +413,26 @@
     {
       "id": "github_release/github.com/jesseduffield/lazygit/v0.51.1/lazygit_0.51.1_Linux_x86_64.tar.gz",
       "checksum": "97513712342D105113BB22CD360987613306CF359A944F929D1872DC9CB4CCFB",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.52.0/lazygit_0.52.0_Darwin_arm64.tar.gz",
+      "checksum": "67C155CF82EE788261306521E58A1BFEFD38143D29BD8FD814B0A05CB36FBA64",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.52.0/lazygit_0.52.0_Darwin_x86_64.tar.gz",
+      "checksum": "CF878941C26DB06FE3CB769F41B4070A6CD85CEAA38CB1600331806E10D3AAC0",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.52.0/lazygit_0.52.0_Linux_arm64.tar.gz",
+      "checksum": "246B09C221F3B29E8E0E2828C4A74BD2BB67E61C903E0B96C05CD464C62B8765",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.52.0/lazygit_0.52.0_Linux_x86_64.tar.gz",
+      "checksum": "CA48006C41C94F389127FA67C29A866833C1AFF9143EB5238939029D04404832",
       "algorithm": "sha256"
     },
     {
