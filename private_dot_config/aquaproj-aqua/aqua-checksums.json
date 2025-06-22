@@ -676,11 +676,6 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.min.io/client/mc/release/darwin-amd64/archive/mc.RELEASE.2025-05-21T01-59-54Z",
-      "checksum": "55D1421E60045E244FD12BF2105AF2B10600A9F2CF59FCF754423408B889430A",
-      "algorithm": "sha256"
-    },
-    {
       "id": "http/get.helm.sh/helm-v3.18.2-darwin-amd64.tar.gz",
       "checksum": "8BFC850D4451DCCECB01C73BDC844CB1B3ED2F1B90A89FC47E7B1670E1F369EC",
       "algorithm": "sha256"

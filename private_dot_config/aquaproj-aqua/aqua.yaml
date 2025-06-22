@@ -41,7 +41,6 @@ packages:
 - name: kubernetes-sigs/kustomize@kustomize/v5.6.0
 - name: kyverno/chainsaw@v0.2.12
 - name: mikefarah/yq@v4.45.4
-- name: minio/mc@RELEASE.2025-05-21T01-59-54Z
 - name: muesli/duf@v0.8.1
 - name: nektos/act@v0.2.78
 - name: qarmin/czkawka@9.0.0
