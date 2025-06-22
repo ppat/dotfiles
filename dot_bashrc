@@ -13,24 +13,12 @@ esac
 unset GIT_ASKPASS
 unset GIT_SSH_COMMAND
 
-set -o allexport
-if [[ -e $HOME/.env ]]; then
-  . $HOME/.env
-fi
-if [[ -e $HOME/.env.secrets ]]; then
-  . $HOME/.env.secrets
-fi
-if [[ -e $HOME/.env.overrides ]]; then
-  . $HOME/.env.overrides
-fi
-set +o allexport
-
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
-#shopt -s checkwinsize
+shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # save bash history when multiple shell sessions are open
 # see: https://unix.stackexchange.com/a/48113
@@ -55,7 +43,7 @@ fi
 if pgrep -f "coder agent" &> /dev/null; then
   CODER_CLI_LOCATION=$(dirname $(find /tmp/coder* -name coder -type f -executable))
   if [[ ! -z "${CODER_CLI_LOCATION}" ]]; then
-    export PATH="${PATH}:${CODER_CLI_LOCATION}"
+    export PATH="${CODER_CLI_LOCATION}:${PATH}"
   fi
   unset CODER_CLI_LOCATION
 fi

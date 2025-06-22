@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "mise.env" . }}
+set +o allexport
+
+
+{{ template "script_header.sh" . }}
+{{ template "mise_install.sh" . }}
+
+configure_mise_for_first_time_setup() {
+  mkdir -p $HOME/.config/mise
+  log_info "Mise | Using first time mise config..."
+  cp {{ .chezmoi.sourceDir }}/mise-first.toml $HOME/.config/mise/config.toml
+  mise_install
+}
+
+perform_first_time_mise_setup() {
+  mise_prerequisites
+  show_mise_env
+  echo
+  activate_mise
+  install_or_upgrade_mise_packages
+  echo
+  display_installed_mise_packages
+}
+
+main() {
+  if [[ -f $HOME/.config/mise/config.toml && -d $HOME/.cache/mise && -d $HOME/.local/share/mise && -d $HOME/.local/state/mise ]]; then
+    log_info "Mise | Mise has previously been setup, skipping first time setup..."
+  else
+    log_info "Mise | Mise has not previously been setup, performing first time mise setup..."
+    configure_mise_for_first_time_setup
+    perform_first_time_mise_setup
+    log_success "Mise | First time mise setup complete!"
+  fi
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main

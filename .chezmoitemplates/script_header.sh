@@ -1,5 +1,4 @@
-#!/bin/bash
-set -eo pipefail
+# shellcheck shell=bash
 
 log_info() {
   echo -e "\033[0;36m[INFO]\033[0m $1"      # Bright cyan
@@ -20,9 +19,6 @@ log_error() {
 set -o allexport
 if [[ -e $HOME/.env ]]; then
   . $HOME/.env
-fi
-if [[ -e $HOME/.env.secrets ]]; then
-  . $HOME/.env.secrets
 fi
 if [[ -e $HOME/.env.overrides ]]; then
   . $HOME/.env.overrides

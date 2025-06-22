@@ -1,19 +1,29 @@
 # shellcheck shell=bash
 
-mise_install() {
+mise_prerequisites() {
   if ! command -v mise > /dev/null; then
-    log_error "Language SDKs & Tools | Mise binary is not in path, cannot proceed!"
+    log_error "Mise | Mise binary is not in path, cannot proceed!"
     exit 1
   fi
-  log_info "Language SDKs & Tools | Using mise env..."
+}
+
+show_mise_env() {
+  log_info "Mise | Using mise env..."
   env | grep MISE | sort | sed -E 's|^(.*)|    \1|g'
-  echo
-  log_info "Language SDKs & Tools | Activating Mise package manager..."
+}
+
+activate_mise() {
+  log_info "Mise | Activating Mise package manager..."
   eval "$(mise activate bash)" 2>&1 | sed -E 's|^(.*)|    \1|g'
-  log_info "Language SDKs & Tools | Installing or upgrading mise packages..."
+}
+
+install_or_upgrade_mise_packages() {
+  log_info "Mise | Installing or upgrading mise packages..."
   mise upgrade --yes 2>&1 | sed -E 's|^(.*)|    \1|g'
-  log_success "Language SDKs & Tools | Mise install is complete."
-  echo
-  log_success "Language SDKs & Tools | Display installed packages..."
+  log_success "Mise | Mise install is complete."
+}
+
+display_installed_mise_packages() {
+  log_success "Mise | Display installed packages..."
   mise ls 2>&1 | sed -E 's|^(.*)|    \1|g'
 }

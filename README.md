@@ -1,10 +1,10 @@
 # Dotfiles
 
-A modern, lightweight, and modular dotfiles management system using Chezmoi for orchestration and best-in-class tools (aqua, mise, homebrew) for package management.
+A dotfiles management system using Chezmoi for orchestration and best-in-class tools (aqua, mise, homebrew) for package management.
 
 ## Overview
 
-This dotfiles repository provides a comprehensive solution for managing my development environment across multiple machines with a focus on:
+This dotfiles repository provides a way for managing my development environment across multiple machines with a focus on:
 
 - **Lightweight operation**: Everything runs on-demand, no background daemons
 - **Modular design**: Clean separation of concerns with specialized tools
@@ -29,50 +29,46 @@ The repository integrates several specialized tools:
 - **[Aqua](https://aquaproj.github.io/)**: Manages CLI binaries (kubectl, helm, etc.)
   - Speedy, lightweight, reproducible installation
   - Version-controlled binary management
+  - Packages: [.config/aquaproj-aqua/aqua.yaml](private_dot_config/aquaproj-aqua/aqua.yaml)
 
 - **[Mise](https://mise.jdx.dev/)**: Manages language SDKs and runtimes
   - Handles multiple versions of languages (Rust, Go, Node, Python, etc.)
   - Manages global tool installations via pipx, npm, etc.
+  - Packages: [.config/mise/config.toml](private_dot_config/mise/config.toml)
 
 - **[Homebrew](https://brew.sh/)**: Manages system packages and GUI apps (macOS)
   - Uses Brewfile for reproducible installations
   - Handles GUI applications via Casks
+  - Packages:
+    - System: [Brewfile.system](Brewfile.system)
+    - Docker: [Brewfile.docker](Brewfile.docker)
+    - GUI: [Brewfile.gui](Brewfile.gui)
+
+- **[Krew](https://krew.sigs.k8s.io/)**: Manages kubectl plugins (ctx, ns, stern, etc.)
+  - Uses a simple text file listing required plugins
+  - Packages: [krew-plugins.txt](krew-plugins.txt)
 
 ## Getting Started
 
 ### Initial Setup
 
-1. Install Chezmoi and initialize with this repository:
+Install Chezmoi and initialize with this repository:
 
 ```bash
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ppat/dotfiles
 ```
 
-2. Chezmoi will:
-   - Install required tools (Homebrew, Aqua, Mise)
-   - Set up environment files
-   - Configure your shell and environment
+Chezmoi will:
+- Install required tools (Homebrew, Aqua, Mise)
+- Set up environment files
+- Configure your shell and environment
 
-### Manual Installation
+### Ongoing updates
 
-If you prefer to set up step-by-step:
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/ppat/dotfiles.git
-   cd dotfiles
-   ```
-
-2. Install Chezmoi:
-
-   ```bash
-   sh -c "$(curl -fsLS get.chezmoi.io)"
-   ```
-
-3. Initialize Chezmoi with the local repository:
-
-   ```bash
-   chezmoi init --source=.
-   chezmoi apply
-   ```
+To update system/environment with latest version from git,
+```bash
+chezmoi update
+```
+Chezmoi will:
+- Fetch latest from git
+- Apply all the updates

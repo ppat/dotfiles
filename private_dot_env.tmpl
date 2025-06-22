@@ -6,7 +6,13 @@ PAGER=less
 TERM=xterm-256color
 VISUAL=vim
 
-{{ template "package_manager.env" . }}
+# ============================== Package Managers =================================
+{{ template "aqua.env" . }}
+{{ template "krew.env" . }}
+{{ template "mise.env" . }}
+{{ if eq .chezmoi.os "darwin" -}}
+{{ template "homebrew.env" . }}
+{{ end }}
 
 # ======================== Language Runtimes and SDKs =============================
 # Node.js
