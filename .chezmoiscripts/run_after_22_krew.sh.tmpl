@@ -2,7 +2,7 @@
 set -euo pipefail
 
 set -o allexport
-{{ template "krew.env" . }}
+{{ template "krew.env" . -}}
 set +o allexport
 
 
@@ -18,9 +18,9 @@ krew_prerequisites() {
     log_error "Krew Plugins | Krew binary is not in path, cannot proceed!"
     exit 1
   fi
-  if [[ ! -d $HOME/.krew/bin ]]; then
+  if [[ ! -d $KREW_ROOT/bin ]]; then
     log_info "Krew Plugins | Creating directories..."
-    mkdir -p $HOME/.krew/bin
+    mkdir -p $KREW_ROOT/bin
   fi
 }
 
