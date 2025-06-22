@@ -18,7 +18,7 @@ aqua_prerequisites() {
 
 show_aqua_env() {
   log_info "Aqua | Using aqua env..."
-  env | grep AQUA | sort | sed -E 's|^(.*)|    \1|g'
+  env | grep '^AQUA' | sort | sed -E 's|^(.*)|    \1|g'
 }
 
 configure_aqua() {
