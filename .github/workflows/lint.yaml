@@ -18,6 +18,8 @@ jobs:
     outputs:
       actions_any_changed: ${{ steps.changed-files-yaml.outputs.actions_any_changed }}
       actions_all_changed_files: ${{ steps.changed-files-yaml.outputs.actions_all_changed_files}}
+      chezmoi_any_changed: ${{ steps.changed-files-yaml.outputs.chezmoi_any_changed }}
+      chezmoi_all_changed_files: ${{ steps.changed-files-yaml.outputs.chezmoi_all_changed_files}}
       markdown_any_changed: ${{ steps.changed-files-yaml.outputs.markdown_any_changed }}
       markdown_all_changed_files: ${{ steps.changed-files-yaml.outputs.markdown_all_changed_files}}
       renovate_any_changed: ${{ steps.changed-files-yaml.outputs.renovate_any_changed }}
@@ -41,6 +43,10 @@ jobs:
         files_yaml: |
           actions:
           - .github/workflows/**
+          chezmoi:
+          - .chezmoiscripts/**
+          - private_dot_local/bash/*.tmpl
+          - private_dot_local/bin/*.tmpl
           markdown:
           - '**.md'
           renovate:
@@ -49,14 +55,73 @@ jobs:
           shellscripts:
           - private_dot_config/mise/tasks/**
           - private_dot_local/bash/**
-          - private_dot_local/bin/executable_analyze-deps
-          - private_dot_local/bin/executable_k3s-init
-          - private_dot_local/bin/executable_kube-del
+          - private_dot_local/bin/**
           - dot_bashrc
           - dot_profile
+          - '!**.tmpl'
           yaml:
           - '**.yaml'
           - '**.yml'
+
+  chezmoi:
+    needs: [detect-changes]
+    if: ${{ github.event_name == 'workflow_dispatch' || needs.detect-changes.outputs.chezmoi_any_changed == 'true' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+    - name: Checkout
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      with:
+        fetch-depth: 1
+
+    - name: Cache mise
+      uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
+      with:
+        path: ~/.local/share/mise
+        key: mise-${{runner.os}}-${{runner.arch}}-${{hashFiles('.mise.toml')}}
+        restore-keys: |
+          mise-${{runner.os}}-${{runner.arch}}-
+
+    - name: Setup default mise configuration
+      # yamllint disable-line rule:indentation
+      run: |
+        mkdir -p ~/.config/mise
+        ln -s $GITHUB_WORKSPACE/.mise.toml ~/.config/mise/config.toml
+
+    - name: Setup mise
+      uses: jdx/mise-action@5083fe46898c414b2475087cc79da59e7da859e8 # v2.1.11
+      env:
+        MISE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        # renovate: datasource=github-releases depName=jdx/mise
+        version: "v2025.6.5"
+        install: true
+        cache: false
+        experimental: true
+        log_level: info
+        working_directory: ${{ github.workspace }}
+
+    - name: Shellcheck chezmoi scripts
+      env:
+        CHEZMOI_SCRIPTS: ${{ github.event_name == 'workflow_dispatch' && 'ALL' || needs.detect-changes.outputs.chezmoi_all_changed_files }}
+      shell: bash
+      # yamllint disable-line rule:indentation
+      run: |
+        if [[ "${CHEZMOI_SCRIPTS}" == "ALL" ]]; then
+          CHEZMOI_SCRIPTS=$(find .chezmoiscripts/ -type f)
+        fi
+        for sc in $CHEZMOI_SCRIPTS; do
+          echo "::group::shellcheck $sc"
+          echo "rendering file..."
+          # set os to linux in template, otherwise won't render on github actions
+          sed -i 's|"darwin"|"linux"|' "$sc"
+          # don't want to fetch secrets during linting
+          sed -i 's|{{ (bitwardenSecrets ".*" .bwsAccessToken).value }}|fake-test-value|' "$sc"
+          chezmoi execute-template --source=$(pwd) < "$sc" > "${sc%.tmpl}"
+          echo "running shellcheck..."
+          shellcheck --rcfile .shellcheckrc "${sc%.tmpl}"
+          echo "::endgroup::"
+        done
 
   github-actions:
     needs: [detect-changes]

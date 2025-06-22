@@ -32,6 +32,7 @@ update_krew_index() {
 install_or_upgrade_plugins() {
   log_info "Krew Plugins | Detecting installed krew plugins..."
   local installed_list=$(mktemp "krew.$(date +%Y%m%d_%H%M%S).XXXXX" -p /tmp --suffix ".list")
+  # shellcheck disable=SC2064
   trap "rm -f $installed_list" EXIT
   kubectl krew list > $installed_list
   echo

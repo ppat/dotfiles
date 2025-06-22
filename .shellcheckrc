@@ -33,3 +33,7 @@ disable=SC2155
 # SC2236: Use -n instead of ! -z.
 # https://github.com/koalaman/shellcheck/wiki/SC2236
 disable=SC2236
+
+# SC2034: appears unused. Verify it or export it.
+# https://github.com/koalaman/shellcheck/wiki/SC2034
+disable=SC2034
