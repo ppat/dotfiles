@@ -13,7 +13,7 @@ set +o allexport
 configure_mise_for_first_time_setup() {
   mkdir -p $HOME/.config/mise
   log_info "Mise | Using first time mise config..."
-  cp {{ .chezmoi.sourceDir }}/mise-first.toml $HOME/.config/mise/config.toml
+  cp {{ .chezmoi.sourceDir }}/.mise-first-time.toml $MISE_GLOBAL_CONFIG_FILE
   mise_install
 }
 
