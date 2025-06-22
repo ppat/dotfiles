@@ -181,6 +181,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/coder/coder/v2.22.1/coder_2.22.1_darwin_amd64.zip",
+      "checksum": "AE788EE7FE77078ED0E653AD3F79C022640D76268779435BE43D5A065568133D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/coder/coder/v2.22.1/coder_2.22.1_darwin_arm64.zip",
+      "checksum": "CBFDDC039226957108061D73D000EC0ADBCAD84ED7E9444F0B59A2599A5E20C6",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/coder/coder/v2.22.1/coder_2.22.1_linux_amd64.tar.gz",
+      "checksum": "26BD2FBF489BF053E6E10882957C89F1E5B217ED1B75C9F504798E6F905E18AA",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/coder/coder/v2.22.1/coder_2.22.1_linux_arm64.tar.gz",
+      "checksum": "F57E56AE2C9ABDCA657F47A9EF2D70BE09C2F6683EDE02A7CD28728C2DF2869D",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/dalance/procs/v0.14.10/procs-v0.14.10-x86_64-linux.zip",
       "checksum": "AD84B948703E74379EDC32D80FE9B862F6F1E95FC1E305FF0A8A3B4CB7B05EE4",
       "algorithm": "sha256"
@@ -656,6 +676,11 @@
       "algorithm": "sha256"
     },
     {
+      "id": "http/dl.min.io/client/mc/release/darwin-amd64/archive/mc.RELEASE.2025-05-21T01-59-54Z",
+      "checksum": "55D1421E60045E244FD12BF2105AF2B10600A9F2CF59FCF754423408B889430A",
+      "algorithm": "sha256"
+    },
+    {
       "id": "http/get.helm.sh/helm-v3.18.2-darwin-amd64.tar.gz",
       "checksum": "8BFC850D4451DCCECB01C73BDC844CB1B3ED2F1B90A89FC47E7B1670E1F369EC",
       "algorithm": "sha256"
@@ -673,6 +698,21 @@
     {
       "id": "http/get.helm.sh/helm-v3.18.2-linux-arm64.tar.gz",
       "checksum": "03181A494A0916B370A100A5B2536104963B095BE53FB23D1E29B2AFB1C7DE8D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/pkgs.tailscale.com/stable/Tailscale-1.84.0-macos.pkg",
+      "checksum": "C4357163A98DBF46CD6CEC0A3BDCE069594098AA60B047A565DA6E9A7D73C946",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/pkgs.tailscale.com/stable/tailscale_1.84.0_amd64.tgz",
+      "checksum": "C91EB43A92C209108BFAF1237696AC2089CC3D8FCF35D570D348CBFB19D8FB31",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/pkgs.tailscale.com/stable/tailscale_1.84.0_arm64.tgz",
+      "checksum": "41516FBDD12AE6CBD7F41C875812CA683C0EAD54BEF3393E5886C232C954996C",
       "algorithm": "sha256"
     },
     {

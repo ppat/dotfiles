@@ -1,15 +1,5 @@
 # Load shell completions
 
-# Mise completions
-# if command -v mise &> /dev/null; then
-#  eval "$(mise completion bash)"
-# fi
-
-# Aqua completions
-# if command -v aqua &> /dev/null; then
-#  source <(aqua completion bash)
-# fi
-
 # enable bash completions
 if ! shopt -oq posix; then
   if [ -f $HOMEBREW_PREFIX/etc/bash_completion ]; then
@@ -33,6 +23,16 @@ fi
 # helm
 if command -v helm > /dev/null; then
   source <(helm completion bash)
+fi
+
+# flux
+if command -v flux > /dev/null; then
+  source <(flux completion bash)
+fi
+
+# gh
+if command -v gh > /dev/null; then
+  source <(gh completion -s bash)
 fi
 
 # kustomize
@@ -63,16 +63,6 @@ fi
 #   source <(pip completion --bash)
 # fi
 
-# flux
-if command -v flux > /dev/null; then
-  source <(flux completion bash)
-fi
-
-# gh
-if command -v gh > /dev/null; then
-  source <(gh completion -s bash)
-fi
-
 # kind
 # if command -v kind > /dev/null; then
 #   source <(kind completion bash)
@@ -83,6 +73,12 @@ fi
 #   source <(zoxide init bash)
 # fi
 
+# Mise completions
+# if command -v mise &> /dev/null; then
+#  eval "$(mise completion bash)"
+# fi
+
+# Aqua completions
 # if command -v aqua &> /dev/null; then
-#  eval "$(aqua completion bash)"
+#  source <(aqua completion bash)
 # fi

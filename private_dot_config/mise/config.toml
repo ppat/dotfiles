@@ -17,11 +17,17 @@ uv             = "0.7.13"
 [settings]
 env                    = [".env"]
 experimental           = true
-idiomatic_version_file = false
 # task_output            = "quiet"
-trusted_config_paths   = ["~/code"]
+trusted_config_paths = ["~/code"]
 
 [settings.npm]
 bun = true
 [settings.pipx]
 uvx = true
+
+# This should be loaded to env as needed
+# [[env]]
+# _.file = { path = "~/.env.secrets", redact = true }
+
+[[env]]
+ _.file = "~/.env.overrides"

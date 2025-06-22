@@ -28,3 +28,8 @@ repos:
   rev: v0.10.0.1
   hooks:
   - id: shellcheck
+- repo: https://github.com/DavidAnson/markdownlint-cli2
+  rev: v0.18.1
+  hooks:
+  - id: markdownlint-cli2
+    args: ["--fix", "--config", ".markdownlint-cli2.yaml"]

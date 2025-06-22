@@ -2,6 +2,7 @@
 cert-manager
 cnpg
 ctx
+kyverno
 ns
 oidc-login
 stern
@@ -34,7 +35,6 @@ whoami
 # konfig
 # ktop
 # kurt
-# kyverno
 # neat
 # node-logs
 # node-shell

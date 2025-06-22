@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "krew.env" . }}
+set +o allexport
+
+
+{{ template "script_header.sh" . }}
+
+krew_prerequisites() {
+  log_info "Krew Plugins | Initializing krew..."
+  if ! command -v kubectl > /dev/null; then
+    log_error "Krew Plugins | Kubectl binary is not in path, cannot proceed!"
+    exit 1
+  fi
+  if ! command -v kubectl-krew > /dev/null; then
+    log_error "Krew Plugins | Krew binary is not in path, cannot proceed!"
+    exit 1
+  fi
+  if [[ ! -d $HOME/.krew/bin ]]; then
+    log_info "Krew Plugins | Creating directories..."
+    mkdir -p $HOME/.krew/bin
+  fi
+}
+
+update_krew_index() {
+  log_info "Krew Plugins | Updating index..."
+  kubectl krew update 2>&1 | sed -E 's/^(.*)/    \1/g'
+}
+
+install_or_upgrade_plugins() {
+  log_info "Krew Plugins | Detecting installed krew plugins..."
+  local installed_list=$(mktemp "krew.$(date +%Y%m%d_%H%M%S).XXXXX" -p /tmp --suffix ".list")
+  trap "rm -f $installed_list" EXIT
+  kubectl krew list > $installed_list
+  echo
+  log_info "Krew Plugins | Upgrading existing plugins..."
+  kubectl krew upgrade --no-update-index 2>&1 | sed -E 's/^(.*)/    \1/g'
+  echo
+  log_info "Krew Plugins | Installing new plugins..."
+  while read -r plugin; do
+    if [[ -n "$plugin" && ! "$plugin" =~ ^# ]]; then
+      if ! grep '^'$plugin'$' $installed_list >/dev/null; then
+        kubectl krew install --no-update-index "$plugin" 2>&1 | sed -E 's/^(.*)/    \1/g'
+      fi
+    fi
+  done < {{ .chezmoi.sourceDir }}/krew-plugins.txt
+  log_success "Krew Plugins | Krew plugins installed successfully!"
+}
+
+display_installed_plugins() {
+  log_info "Krew Plugins | Display installed packages..."
+  kubectl krew list | column -t 2>&1 | sed -E 's|^(.*)|    \1|g'
+}
+
+main() {
+  krew_prerequisites
+  echo
+  update_krew_index
+  echo
+  install_or_upgrade_plugins
+  echo
+  display_installed_plugins
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main

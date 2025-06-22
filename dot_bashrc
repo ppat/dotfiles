@@ -1,8 +1,5 @@
 # .bashrc
-
-# shellcheck disable=SC2148
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc) for examples
+# shellcheck shell=bash
 
 # If not running interactively, don't do anything
 case $- in
@@ -10,27 +7,12 @@ case $- in
       *) return;;
 esac
 
-unset GIT_ASKPASS
-unset GIT_SSH_COMMAND
-
-set -o allexport
-if [[ -e $HOME/.env ]]; then
-  . $HOME/.env
-fi
-if [[ -e $HOME/.env.secrets ]]; then
-  . $HOME/.env.secrets
-fi
-if [[ -e $HOME/.env.overrides ]]; then
-  . $HOME/.env.overrides
-fi
-set +o allexport
-
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
-#shopt -s checkwinsize
+shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # save bash history when multiple shell sessions are open
 # see: https://unix.stackexchange.com/a/48113
@@ -38,8 +20,25 @@ export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=100000                   # big big history
 export HISTFILESIZE=100000               # big big history
 shopt -s histappend                      # append to history, don't overwrite it
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"  # Save & reload history after each command
+# Save & reload history after each command (only configure if not already set)
+_hist_hook="history -a; history -c; history -r"
+case ":$PROMPT_COMMAND:" in
+  *":$_hist_hook:"*) ;;  # already included, do nothing
+  *) export PROMPT_COMMAND="$_hist_hook${PROMPT_COMMAND:+; $PROMPT_COMMAND}" ;;
+esac
 
+# coder specific shell configuration
+if pgrep -f "coder agent" &> /dev/null; then
+  # add injected coder CLI to the PATH
+  _coder_cli_location="$(dirname "$(find /tmp/coder* -name coder -type f -executable 2>/dev/null | head -n1)")"
+  if [[ -n "$_coder_cli_location" && ":$PATH:" != *":$_coder_cli_location:"* ]]; then
+    export PATH="$_coder_cli_location:$PATH"
+  fi
+  unset _coder_cli_location
+  # unset coder injected GIT_* vars
+  unset GIT_ASKPASS
+  unset GIT_SSH_COMMAND
+fi
 
 # shellcheck disable=SC2016
 if command -v mise &> /dev/null; then
@@ -51,21 +50,10 @@ if command -v starship &> /dev/null; then
   eval "$(starship init bash)"
 fi
 
-# add injected coder CLI to the PATH
-if pgrep -f "coder agent" &> /dev/null; then
-  CODER_CLI_LOCATION=$(dirname $(find /tmp/coder* -name coder -type f -executable))
-  if [[ ! -z "${CODER_CLI_LOCATION}" ]]; then
-    export PATH="${PATH}:${CODER_CLI_LOCATION}"
-  fi
-  unset CODER_CLI_LOCATION
-fi
-
 # source additional bash rc configuration
-RC_FILES="$(find ${HOME}/.local/bash -type f)"
-for file in ${RC_FILES}; do
-  if [[ -r "$file" && -e "$file" && "$(basename $file)" != "load-env.sh" ]]; then
-    source "$file"
-  fi
-done
-unset RC_FILES
-unset file
+if [[ -d "$HOME/.local/bash" ]]; then
+  while IFS= read -r -d '' _file; do
+    [[ -r "$_file" ]] && source "$_file"
+  done < <(find "$HOME/.local/bash" -type f -print0)
+  unset _file
+fi
