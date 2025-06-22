@@ -59,6 +59,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ppat/dotfiles
 ```
 
 Chezmoi will:
+
 - Install required tools (Homebrew, Aqua, Mise)
 - Set up environment files
 - Configure your shell and environment
@@ -66,9 +67,12 @@ Chezmoi will:
 ### Ongoing updates
 
 To update system/environment with latest version from git,
+
 ```bash
 chezmoi update
 ```
+
 Chezmoi will:
+
 - Fetch latest from git
 - Apply all the updates
