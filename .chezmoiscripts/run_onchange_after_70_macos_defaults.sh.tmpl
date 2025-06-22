@@ -49,9 +49,9 @@ restart_affected_apps() {
 main() {
   log_info "MacOS | Configuring macOS settings..."
   configure_macos_settings 2>&1 | sed -E 's/^(.*)/    \1/g'
-  log_info "MacOs | Configured."
+  log_success "MacOs | Configured."
   restart_affected_apps 2>&1 | sed -E 's/^(.*)/    \1/g'
-  log_info "MacOs | Affected apps restarted."
+  log_success "MacOs | Affected apps restarted."
   echo "-------------------------------------------------------------------------------------------"
   echo
 }
