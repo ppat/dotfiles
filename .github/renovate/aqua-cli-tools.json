@@ -7,7 +7,7 @@
       ],
       "matchFileNames": [
         "private_dot_config/aquaproj-aqua/aqua.yaml",
-        "aqua-first.yaml"
+        ".first-time-setup/aqua.yaml"
       ],
       "matchManagers": [
         "custom.regex"
@@ -26,7 +26,7 @@
       "groupName": "cli-tools",
       "matchFileNames": [
         "private_dot_config/aquaproj-aqua/aqua.yaml",
-        "aqua-first.yaml"
+        ".first-time-setup/aqua.yaml"
       ],
       "matchManagers": [
         "custom.regex"
@@ -45,7 +45,7 @@
       "groupName": "cli-tools",
       "matchFileNames": [
         "private_dot_config/aquaproj-aqua/aqua.yaml",
-        "aqua-first.yaml"
+        ".first-time-setup/aqua.yaml"
       ],
       "matchManagers": [
         "custom.regex"
@@ -66,7 +66,7 @@
       "groupName": "{{packageName}}",
       "matchFileNames": [
         "private_dot_config/aquaproj-aqua/aqua.yaml",
-        "aqua-first.yaml"
+        ".first-time-setup/aqua.yaml"
       ],
       "matchManagers": [
         "custom.regex"

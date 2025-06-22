@@ -7,6 +7,8 @@ on:
     paths:
     - 'private_dot_config/aquaproj-aqua/aqua.yaml'
     - 'private_dot_config/aquaproj-aqua/aqua-checksums.json'
+    - '.first-time-setup/aqua.yaml'
+    - '.first-time-setup/aqua-checksums.json'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}

@@ -9,7 +9,7 @@
       "groupName": "{{packageName}}",
       "matchFileNames": [
         "private_dot_config/aquaproj-aqua/aqua.yaml",
-        "aqua-first.yaml"
+        ".first-time-setup/aqua.yaml"
       ],
       "matchManagers": [
         "custom.regex"
@@ -27,7 +27,7 @@
       "automerge": true,
       "matchFileNames": [
         "private_dot_config/aquaproj-aqua/aqua.yaml",
-        "aqua-first.yaml"
+        ".first-time-setup/aqua.yaml"
       ],
       "matchManagers": [
         "custom.regex"
@@ -45,7 +45,7 @@
       "automerge": true,
       "matchFileNames": [
         "private_dot_config/aquaproj-aqua/aqua.yaml",
-        "aqua-first.yaml"
+        ".first-time-setup/aqua.yaml"
       ],
       "matchManagers": [
         "custom.regex"
@@ -64,7 +64,7 @@
       "commitBody": "BREAKING CHANGE",
       "matchFileNames": [
         "private_dot_config/aquaproj-aqua/aqua.yaml",
-        "aqua-first.yaml"
+        ".first-time-setup/aqua.yaml"
       ],
       "matchManagers": [
         "custom.regex"

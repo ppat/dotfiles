@@ -1,0 +1,24 @@
+{
+  "checksums": [
+    {
+      "id": "github_release/github.com/bitwarden/sdk-sm/bws-v1.0.0/bws-aarch64-apple-darwin-1.0.0.zip",
+      "checksum": "5DD716878E5627220AA254CBE4E41E978F226F72D9117FC195046709DB363E20",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/bitwarden/sdk-sm/bws-v1.0.0/bws-aarch64-unknown-linux-gnu-1.0.0.zip",
+      "checksum": "20A3DCB9E3CE7716A1DC3C0E1C76CEA9D5E2BF75094CBB5AAD54CED4304929CB",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/bitwarden/sdk-sm/bws-v1.0.0/bws-x86_64-apple-darwin-1.0.0.zip",
+      "checksum": "7E06CBC0F3543DD68585A22BF1CE09ECA1D413322AA22554A713CF97DE60495A",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/bitwarden/sdk-sm/bws-v1.0.0/bws-x86_64-unknown-linux-gnu-1.0.0.zip",
+      "checksum": "9077FB7B336A62ABC8194728FEA8753AFAD8B0BAA3A18723FC05FC02FDB53568",
+      "algorithm": "sha256"
+    }
+  ]
+}

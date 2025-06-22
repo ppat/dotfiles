@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "aqua.env" . -}}
+set +o allexport
+
+
+{{ template "script_header.sh" . }}
+{{ template "script_aqua.sh" . }}
+
+
+main() {
+  local setup_type="Standard"
+
+  aqua_prerequisites $setup_type
+  show_aqua_env $setup_type
+  echo
+
+  if [[ ! -d "$AQUA_ROOT_DIR" ]]; then
+    log_error "Aqua | $setup_type | First time setup has not been run, cannot run standard setup..."
+    exit 1
+  fi
+
+  setup_aqua_packages $setup_type | sed -E 's|^(.*)|    \1|g'
+  echo
+
+  display_installed_aqua_packages $setup_type
+  log_success "Aqua | $setup_type | Complete!"
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main
