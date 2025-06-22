@@ -17,7 +17,6 @@ uv             = "0.7.13"
 [settings]
 env                    = [".env"]
 experimental           = true
-idiomatic_version_file = false
 # task_output            = "quiet"
 trusted_config_paths = ["~/code"]
 

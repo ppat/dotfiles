@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+#MISE description="Display environment"
+set -euo pipefail
+
+
+capture_env() {
+  local env_file="$1"
+  local secrets_file="$2"
+  env | sort | grep -E -v '(TOKEN|KEY|SESSION|USERNAME|PASSWORD|SECRET)' > $env_file
+  env | sort | grep -E '(TOKEN|KEY|SESSION|USERNAME|PASSWORD|SECRET)' > $secrets_file
+}
+
+show_short_env() {
+  local env_file="$1"
+  echo "Environment (short):"
+  cat $env_file | grep -v -E '^(__MISE.*|PATH|TF_.*)=' | awk 'length($0) < 100' | tr '=' '\t' | column -ts $'\t' | sed -E 's|^(.*)|    \1|g'
+}
+
+show_long_env() {
+  local env_file="$1"
+  echo "Environment (long):"
+  cat $env_file | grep -v -E '^(__MISE.*|PATH|TF_.*)='  | awk 'length($0) >= 100' | sed -E 's|^(.*)|    \1|g'
+}
+
+show_terraform_vars() {
+  local env_file="$1"
+  echo "Environment (terraform):"
+  cat $env_file | grep -E '^TF_.*' | tr '=' '\t' | column -ts $'\t' | sed -E 's|^(.*)|    \1|g'
+}
+
+show_path() {
+  echo "Environment (Path):"
+  echo $PATH | tr ':' '\n' | sed -E 's|^(.*)|    \1|g'
+}
+
+show_secrets() {
+  local secrets_file="$1"
+  echo "Environment (secrets):"
+  cat $secrets_file | cut -d'=' -f1 | sed -E 's|^(.*)|    \1|g'
+}
+
+main() {
+  local env_file=$(mktemp "env.$(date +%Y%m%d_%H%M%S).XXXXX" -p /tmp)
+  local secrets_file=$(mktemp "env.secrets.$(date +%Y%m%d_%H%M%S).XXXXX" -p /tmp)
+  trap "rm -f $env_file $secrets_file" EXIT
+
+  capture_env $env_file $secrets_file
+  show_regular_env $env_file
+  echo
+  show_path
+  echo
+  show_secrets $secrets_file
+  echo
+}
+
+main

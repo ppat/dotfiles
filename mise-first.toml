@@ -8,10 +8,6 @@ rust           = "1.86.0"
 slsa-verifier  = "2.7.0"
 uv             = "0.6.17"
 
-[settings]
-experimental           = true
-idiomatic_version_file = false
-
 [settings.npm]
 bun = true
 [settings.pipx]
