@@ -21,8 +21,8 @@ show_aqua_env() {
   env | grep AQUA | sort | sed -E 's|^(.*)|    \1|g'
 }
 
-aqua_first_time_setup() {
-  log_info "Aqua | Performing aqua first time setup..."
+configure_aqua() {
+  log_info "Aqua | Configuring aqua..."
   mkdir -p $AQUA_ROOT_DIR
   cp {{ .chezmoi.sourceDir }}/private_dot_config/aquaproj-aqua/aqua.yaml $AQUA_ROOT_DIR/aqua.yaml
   cp {{ .chezmoi.sourceDir }}/private_dot_config/aquaproj-aqua/aqua-checksums.json $AQUA_ROOT_DIR/aqua-checksums.json
@@ -40,24 +40,22 @@ display_installed_packages() {
 }
 
 setup_chezmoi_dependencies() {
-  local chezmoi_dependencies="$@"
+  local chezmoi_dependencies=("$@")
   log_info "Aqua | Making chezmoi dependencies available without aqua..."
   mkdir -p $HOME/.local/bin
-  aqua cp -o $HOME/.local/bin $chezmoi_dependencies
+  aqua cp -o $HOME/.local/bin ${chezmoi_dependencies[@]}
 }
 
 main() {
   aqua_prerequisites
   show_aqua_env
   echo
-  if [[ ! -d "$AQUA_ROOT_DIR" ]]; then
-    aqua_first_time_setup
-  fi
+  configure_aqua
   install_upgrade_aqua_packages
   echo
   display_installed_packages
   echo
-  setup_chezmoi_dependencies bws
+  setup_chezmoi_dependencies bws yq
   echo "-------------------------------------------------------------------------------------------"
   echo
 }

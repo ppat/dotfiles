@@ -8,34 +8,62 @@ set +o allexport
 
 
 {{ template "script_header.sh" . }}
-{{ template "mise_install.sh" . }}
 
-configure_mise_for_first_time_setup() {
-  mkdir -p $HOME/.config/mise
-  log_info "Mise | Using first time mise config..."
-  cp {{ .chezmoi.sourceDir }}/.mise-first-time.toml $MISE_GLOBAL_CONFIG_FILE
-  mise_install
+mise_prerequisites() {
+  if ! command -v mise > /dev/null; then
+    log_error "Mise | Mise binary is not in path, cannot proceed!"
+    exit 1
+  fi
 }
 
-perform_first_time_mise_setup() {
-  mise_prerequisites
-  show_mise_env
-  echo
-  activate_mise
-  install_or_upgrade_mise_packages
-  echo
-  display_installed_mise_packages
+show_mise_env() {
+  log_info "Mise | Using mise env..."
+  env | grep MISE | sort | sed -E 's|^(.*)|    \1|g'
+}
+
+display_installed_mise_packages() {
+  log_success "Mise | Display installed packages..."
+  mise ls 2>&1 | sed -E 's|^(.*)|    \1|g'
+}
+
+setup_mise() {
+  local setup_config="$1"
+  local setup_type="$2"
+
+  if [[ ! -f "$setup_config" ]]; then
+    log_error "Mise | $setup_type | config file ($setup_config) doesn't exist!"
+    echo
+    exit 1
+  fi
+  log_info "Mise | $setup_type | Using mise config: $setup_config..."
+  if [[ ! -d "$MISE_CONFIG_DIR" ]]; then
+    mkdir -p "$MISE_CONFIG_DIR"
+  fi
+  cp "$setup_config" "$MISE_GLOBAL_CONFIG_FILE"
+
+  log_info "Mise | $setup_type | Activating Mise..."
+  eval "$(mise activate bash)" 2>&1 | sed -E 's|^(.*)|    \1|g'
+
+  log_info "Mise | $setup_type | Installing or upgrading mise packages..."
+  mise upgrade --yes 2>&1 | sed -E 's|^(.*)|    \1|g'
+  log_success "Mise | $setup_type | Mise install is complete."
 }
 
 main() {
+  mise_prerequisites
+  show_mise_env
   if [[ -f "$MISE_GLOBAL_CONFIG_FILE" && -d "$MISE_CACHE_DIR" && -d "$MISE_DATA_DIR" && -d "$MISE_STATE_DIR" ]]; then
-    log_info "Mise | Mise has previously been setup, skipping first time setup..."
+    log_info "Mise | First-Time | Has previously been setup, skipping first time setup..."
   else
-    log_info "Mise | Mise has not previously been setup, performing first time mise setup..."
-    configure_mise_for_first_time_setup
-    perform_first_time_mise_setup
-    log_success "Mise | First time mise setup complete!"
+    log_info "Mise | First-Time | Has not previously been setup..."
+    setup_mise "{{ .chezmoi.sourceDir }}/.mise-first-time.toml" "First-Time" | sed -E 's|^(.*)|    \1|g'
   fi
+  echo
+  log_info "Mise | Standard | Performing standard mise setup..."
+  setup_mise "{{ .chezmoi.sourceDir }}/private_dot_config/mise/config.toml" "Standard" | sed -E 's|^(.*)|    \1|g'
+  echo
+  display_installed_mise_packages
+  log_success "Mise | First-Time Setup | Complete!"
   echo "-------------------------------------------------------------------------------------------"
   echo
 }
