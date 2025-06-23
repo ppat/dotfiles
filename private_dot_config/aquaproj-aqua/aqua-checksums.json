@@ -201,6 +201,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/coder/coder/v2.23.0/coder_2.23.0_darwin_amd64.zip",
+      "checksum": "0080B9001D2B69EE4248355E25ADAEAEBC61FB87815135FC7E139261CE1F5F9F",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/coder/coder/v2.23.0/coder_2.23.0_darwin_arm64.zip",
+      "checksum": "6868A8D1F86FC9C6A97B6BCF62B0219E28AB7526E34B36D9B5F14876197580D9",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/coder/coder/v2.23.0/coder_2.23.0_linux_amd64.tar.gz",
+      "checksum": "FF4672D1C1E871A851ACB462FFE2CADBDEA03F975910D82E7225FE87D07228C1",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/coder/coder/v2.23.0/coder_2.23.0_linux_arm64.tar.gz",
+      "checksum": "BD47C5129306797744FE1F627FFF0FB8BDADDA458901077C060EBF9B737E243D",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/dalance/procs/v0.14.10/procs-v0.14.10-x86_64-linux.zip",
       "checksum": "AD84B948703E74379EDC32D80FE9B862F6F1E95FC1E305FF0A8A3B4CB7B05EE4",
       "algorithm": "sha256"
