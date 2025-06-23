@@ -1,0 +1,78 @@
+# .bashrc
+# shellcheck shell=bash
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# ============================= Mise Initialization ================================
+# setup mise -- must happen first to set env vars
+# shellcheck disable=SC2016
+if command -v mise &> /dev/null; then
+  eval "$(mise activate bash)"
+fi
+
+# =========================== Starship Initialization ==============================
+# setup starship -- must happen before setting other shell settings
+# shellcheck disable=SC2016
+if command -v starship &> /dev/null; then
+  eval "$(starship init bash)"
+fi
+
+# ============================= Path Configuration =================================
+# set path -- after initializing mise + starship
+PATH=$AQUA_ROOT_DIR/bin:$KREW_ROOT/bin:$HOME/.local/bin:$PATH
+{{ if eq .chezmoi.os "darwin" -}}
+PATH=$AQUA_ROOT_DIR/bin:$KREW_ROOT/bin:$HOME/.local/bin:$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH
+{{- else -}}
+PATH=$AQUA_ROOT_DIR/bin:$KREW_ROOT/bin:$HOME/.local/bin:$PATH
+{{- end }}
+
+# ============================= Shell Configuration ================================
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# save bash history when multiple shell sessions are open
+# see: https://unix.stackexchange.com/a/48113
+export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
+export HISTSIZE=100000                   # big big history
+export HISTFILESIZE=100000               # big big history
+shopt -s histappend                      # append to history, don't overwrite it
+# Save & reload history after each command (only configure if not already set)
+if [[ ! "$PROMPT_COMMAND" =~ "history -a; history -c; history -r" ]]; then
+  export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+fi
+
+# ============================= Coder Configuration ================================
+# coder specific shell configuration
+if pgrep -f "coder agent" &> /dev/null; then
+  _coder_cli_location="$(dirname "$(find /tmp/coder* -name coder -type f -executable 2>/dev/null | head -n1)")"
+  # add injected coder CLI to the PATH
+  if [[ ! "$PATH" =~ "${_coder_cli_location}:" ]]; then  # if not in path, ignoring if at end
+    if [[ "$PATH" == *"${_coder_cli_location}" ]]; then  # if in path at the end
+      # strip from end of path
+      PATH="${PATH%$_coder_cli_location}"
+    fi
+    # add it to front of path
+    export PATH="$_coder_cli_location:$PATH"
+  fi
+  unset _coder_cli_location
+  # unset coder injected GIT_* vars
+  unset GIT_ASKPASS
+  unset GIT_SSH_COMMAND
+fi
+
+# ========================== Extra Shell Configuration =============================
+# source additional bash rc configuration
+if [[ -d "$HOME/.local/bash" ]]; then
+  while IFS= read -r -d '' _file; do
+    [[ -r "$_file" ]] && source "$_file"
+  done < <(find "$HOME/.local/bash" -type f -print0)
+  unset _file
+fi

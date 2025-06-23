@@ -35,11 +35,11 @@ main() {
     log_info "Mise | $setup_type | Starting..."
   fi
 
-  pushd $(dirname $MISE_CONFIG) 2>&1 > /dev/null
+  pushd $(dirname $MISE_CONFIG) >/dev/null 2>&1
   setup_mise_packages $setup_type | sed -E 's|^(.*)|    \1|g'
   echo
   display_installed_mise_packages $setup_type
-  popd 2>&1 > /dev/null
+  popd >/dev/null 2>&1
 
   touch "$MISE_DATA_DIR/.first-time-setup-complete"
   log_success "Mise | $setup_type | Complete!"

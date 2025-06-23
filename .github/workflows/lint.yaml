@@ -45,8 +45,11 @@ jobs:
           - .github/workflows/**
           chezmoi:
           - .chezmoiscripts/**
+          - dot_bashrc.tmpl
           - private_dot_local/bash/*.tmpl
           - private_dot_local/bin/*.tmpl
+          - private_dot_env.secrets.tmpl
+          - private_dot_env.tmpl
           markdown:
           - '**.md'
           renovate:
@@ -56,7 +59,6 @@ jobs:
           - private_dot_config/mise/tasks/**
           - private_dot_local/bash/**
           - private_dot_local/bin/**
-          - dot_bashrc
           - dot_profile
           - '!**.tmpl'
           yaml:
