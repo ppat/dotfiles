@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
-#MISE description="Display environment"
 set -euo pipefail
 
 
 capture_env() {
   local env_file="$1"
   local secrets_file="$2"
+  set -o allexport
+  if [[ -f ~/.env ]]; then
+    source ~/.env
+  fi
+  if [[ -f ~/.env.overrides ]]; then
+    source ~/.env.overrides
+  fi
+  set +o allexport
   env | sort | grep -E -v '(TOKEN|KEY|SESSION|USERNAME|PASSWORD|SECRET)' > $env_file
   env | sort | grep -E '(TOKEN|KEY|SESSION|USERNAME|PASSWORD|SECRET)' > $secrets_file
 }
@@ -46,7 +53,11 @@ main() {
   trap "rm -f $env_file $secrets_file" EXIT
 
   capture_env $env_file $secrets_file
-  show_regular_env $env_file
+  show_short_env $env_file
+  echo
+  show_long_env $env_file
+  echo
+  show_terraform_vars $env_file
   echo
   show_path
   echo

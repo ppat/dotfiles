@@ -47,10 +47,6 @@ LESSHISTFILE=/dev/null
 RIPGREP_CONFIG_PATH={{ .chezmoi.homeDir }}/.ripgreprc
 {{- end }}
 
-{{ if eq .chezmoi.os "darwin" -}}
-{{- template "docker.env" . -}}
-{{- end }}
-
 {{ if eq .chezmoi.os "linux" -}}
 # X11: Use X11 display if available
 DISPLAY=:0
@@ -61,7 +57,3 @@ XDG_CONFIG_HOME=$HOME/.config
 XDG_CACHE_HOME=$HOME/.cache
 XDG_DATA_HOME=$HOME/.local/share
 XDG_STATE_HOME=$HOME/.local/state
-
-
-# ============================= Path Configuration ================================
-PATH=$AQUA_ROOT_DIR/bin:$KREW_ROOT/bin:$HOME/.local/bin:$PATH

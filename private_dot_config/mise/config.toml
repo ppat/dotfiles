@@ -15,9 +15,7 @@ uv             = "0.7.13"
 "pipx:yamllint"     = "1.37.1"
 
 [settings]
-env                    = [".env"]
-experimental           = true
-# task_output            = "quiet"
+experimental         = true
 trusted_config_paths = ["~/code"]
 
 [settings.npm]
@@ -25,9 +23,10 @@ bun = true
 [settings.pipx]
 uvx = true
 
+[[env]]
+_.file = ".env"
 # This should be loaded to env as needed
 # [[env]]
 # _.file = { path = "~/.env.secrets", redact = true }
-
 [[env]]
- _.file = "~/.env.overrides"
+_.file = "~/.env.overrides"
