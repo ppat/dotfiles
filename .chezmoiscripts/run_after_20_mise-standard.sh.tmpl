@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "mise.env" . -}}
+{{ template "node.env" . -}}
+set +o allexport
+
+
+{{ template "script_header.sh" . }}
+{{ template "script_mise.sh" . }}
+
+main() {
+  local setup_type="Standard"
+
+  mise_prerequisites $setup_type
+  show_mise_env $setup_type
+  echo
+
+  if ! [[ -d "$MISE_CACHE_DIR" && -d "$MISE_DATA_DIR" && -d "$MISE_STATE_DIR" ]]; then
+    log_error "Mise | $setup_type | First time setup has not been run, cannot run standard setup..."
+    exit 1
+  fi
+
+  setup_mise_packages $setup_type | sed -E 's|^(.*)|    \1|g'
+  echo
+  display_installed_mise_packages $setup_type
+  log_success "Mise | $setup_type | Complete!"
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main

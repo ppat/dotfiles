@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "aqua.env" . -}}
+set +o allexport
+
+
+{{ template "script_header.sh" . }}
+{{ template "script_aqua.sh" . }}
+
+
+main() {
+  local setup_type="First-Time"
+
+  export AQUA_CONFIG="{{ .chezmoi.sourceDir }}/.aqua.yaml"
+  if [[ ! -f "$AQUA_CONFIG" ]]; then
+    log_error "Aqua | $setup_type | config file ($AQUA_CONFIG) doesn't exist!"
+    echo
+    exit 1
+  fi
+
+  aqua_prerequisites $setup_type
+  show_aqua_env $setup_type
+  echo
+
+  if [[ -d "$AQUA_ROOT_DIR" ]]; then
+    log_info "Aqua | $setup_type | Has previously been setup, skipping first time setup..."
+    return
+  else
+    log_info "Aqua | $setup_type | Starting..."
+  fi
+
+  setup_aqua_packages $setup_type | sed -E 's|^(.*)|    \1|g'
+  echo
+
+  log_info "Aqua | $setup_type | Making chezmoi dependencies available without aqua..."
+  mkdir -p $HOME/.local/bin
+  aqua cp -o $HOME/.local/bin
+  echo
+
+  display_installed_aqua_packages $setup_type
+  log_success "Aqua | $setup_type | Complete!"
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main

@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.51.2/json-schema/aqua-yaml.json
+checksum:
+  enabled: true
+  require_checksum: false
+  supported_envs:
+  - darwin/amd64
+  - darwin/arm64
+  - linux/amd64
+  - linux/arm64
+registries:
+- type: standard
+  ref: v4.379.0 # renovate: depName=aquaproj/aqua-registry
+packages:
+- name: bitwarden/sdk-sm@bws-v1.0.0
+- name: mikefarah/yq@v4.45.4

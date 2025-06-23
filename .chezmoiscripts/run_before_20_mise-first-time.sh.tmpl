@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "mise.env" . -}}
+{{ template "node.env" . -}}
+set +o allexport
+
+
+{{ template "script_header.sh" . }}
+{{ template "script_mise.sh" . }}
+
+
+main() {
+  local setup_type="First-Time"
+
+  export MISE_CONFIG="{{ .chezmoi.sourceDir }}/.mise-first-time.toml"
+  if [[ ! -f "$MISE_CONFIG" ]]; then
+    log_error "Mise | $setup_type | config file ($MISE_CONFIG) doesn't exist!"
+    echo
+    exit 1
+  fi
+
+  mise_prerequisites $setup_type
+  show_mise_env $setup_type
+  echo
+
+  if [[ -d "$MISE_CACHE_DIR" && -d "$MISE_DATA_DIR" && -d "$MISE_STATE_DIR" ]]; then
+    log_info "Mise | $setup_type | Has previously been setup, skipping first time setup..."
+    return
+  else
+    log_info "Mise | $setup_type | Starting..."
+  fi
+
+  setup_mise_packages $setup_type | sed -E 's|^(.*)|    \1|g'
+  echo
+  display_installed_mise_packages $setup_type
+  log_success "Mise | $setup_type | Complete!"
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main
