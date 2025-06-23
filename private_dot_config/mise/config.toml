@@ -1,5 +1,5 @@
 [tools]
-bun            = "1.2.16"
+bun            = "1.2.17"
 cargo-binstall = "1.12.0"
 cosign         = "2.5.2"
 go             = "1.24.4"
