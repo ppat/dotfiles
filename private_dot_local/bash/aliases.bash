@@ -37,4 +37,32 @@ kpr() {
 }
 alias kpr='kpr'
 
+kprp() {
+  local policy_name="$1"
+  local result_value="$2"
+
+  if [[ -z "$policy_name" || -z "$result_value" ]]; then
+    echo "Usage: kprp <policy_name> <result_value>"
+    echo "Example: kprp disallow-host-path fail"
+    return 1
+  fi
+
+  kubectl get policyreport -A -o json | \
+    jq -r --arg policy "$policy_name" --arg result "$result_value" "
+      .items[] as \$item |
+      \$item.results[] |
+      select(.policy == \$policy and .result == \$result) |
+      [\$item.metadata.namespace,
+       (\$item.metadata.ownerReferences[0].name // \"\"),
+       (\$item.metadata.ownerReferences[0].kind // \"\"),
+       .policy,
+       .rule,
+       .result,
+       .severity] |
+      @tsv" | \
+    column -t
+}
+alias kprp='kprp'
+
 alias reset-to-first-time='rm -rf ~/.cache/mise ~/.cache/uv ~/.cargo ~/.colima ~/.config/aquaproj-aqua ~/.config/mise ~/.docker ~/.krew ~/.local/share/aquaproj-aqua ~/.local/share/mise ~/.local/state/mise ~/.rustup'
+alias yaml-keys='yq eval '"'"'.. | select(tag == "!!str" or tag == "!!int" or tag == "!!bool" or tag == "!!null") | path | join(".")'"'"''
