@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.53.0/json-schema/aqua-yaml.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.53.3/json-schema/aqua-yaml.json
 checksum:
   enabled: true
   require_checksum: true
@@ -20,15 +20,15 @@ packages:
 - name: bitwarden/clients@cli-v2025.5.0
 - name: bitwarden/sdk-sm@bws-v1.0.0
 - name: bootandy/dust@v1.2.1
-- name: cli/cli@v2.74.1
-- name: coder/coder@v2.23.0
+- name: cli/cli@v2.74.2
+- name: coder/coder@v2.23.1
 - name: dalance/procs@v0.14.10
 - name: dandavison/delta@0.18.2
 - name: derailed/k9s@v0.50.6
 - name: fastfetch-cli/fastfetch@2.45.0
-- name: fluxcd/flux2@v2.6.0
+- name: fluxcd/flux2@v2.6.2
 - name: hadolint/hadolint@v2.12.0
-- name: helm/helm@v3.18.2
+- name: helm/helm@v3.18.3
 - name: jesseduffield/lazygit@v0.52.0
 - name: junegunn/fzf@v0.62.0
 - name: koalaman/shellcheck@v0.10.0
