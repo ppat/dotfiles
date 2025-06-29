@@ -2,6 +2,21 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
+      "allowedVersions": "<=1.7.4",
+      "description": "actionlint > 1.7.4 cannot provide shellcheck arguments",
+      "matchPackageNames": [
+        "actionlint",
+        "rhysd/actionlint"
+      ]
+    },
+    {
+      "allowedVersions": "!/1.84.2$/",
+      "description": "tailscale v1.84.2 binary is missing for some architectures",
+      "matchPackageNames": [
+        "tailscale/tailscale"
+      ]
+    },
+    {
       "allowedVersions": "<=1.6.6",
       "description": "retain compatibility with opentofu and group terraform upgrades together",
       "matchPackageNames": [
