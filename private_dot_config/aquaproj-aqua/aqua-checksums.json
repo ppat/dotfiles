@@ -306,6 +306,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/fluxcd/flux2/v2.6.0/flux_2.6.0_darwin_amd64.tar.gz",
+      "checksum": "81106F6F133718B67714BF2055B960B0660EC72FA242E71E7E5F7B3C8313A7AE",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fluxcd/flux2/v2.6.0/flux_2.6.0_darwin_arm64.tar.gz",
+      "checksum": "67E5FE5089A277BF537785B517E89A3106B80008BA05F9E25B70363CEE0F686E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fluxcd/flux2/v2.6.0/flux_2.6.0_linux_amd64.tar.gz",
+      "checksum": "323D7627A8D9015E1E659C3F0B5833D141E25AE01B8811A16F72D613BC9AADFF",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fluxcd/flux2/v2.6.0/flux_2.6.0_linux_arm64.tar.gz",
+      "checksum": "089AA498776497A196369B9ABDFA65F7DADE19914BC8D32B817B9C6016A571A7",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/hadolint/hadolint/v2.12.0/hadolint-Darwin-x86_64",
       "checksum": "2A5B7AFCAB91645C39A7CEBEFCD835B865F7488E69BE24567F433DFC3D41CD27",
       "algorithm": "sha256"
