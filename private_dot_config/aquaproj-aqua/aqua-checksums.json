@@ -181,26 +181,6 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.22.1/coder_2.22.1_darwin_amd64.zip",
-      "checksum": "AE788EE7FE77078ED0E653AD3F79C022640D76268779435BE43D5A065568133D",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/coder/coder/v2.22.1/coder_2.22.1_darwin_arm64.zip",
-      "checksum": "CBFDDC039226957108061D73D000EC0ADBCAD84ED7E9444F0B59A2599A5E20C6",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/coder/coder/v2.22.1/coder_2.22.1_linux_amd64.tar.gz",
-      "checksum": "26BD2FBF489BF053E6E10882957C89F1E5B217ED1B75C9F504798E6F905E18AA",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/coder/coder/v2.22.1/coder_2.22.1_linux_arm64.tar.gz",
-      "checksum": "F57E56AE2C9ABDCA657F47A9EF2D70BE09C2F6683EDE02A7CD28728C2DF2869D",
-      "algorithm": "sha256"
-    },
-    {
       "id": "github_release/github.com/coder/coder/v2.23.0/coder_2.23.0_darwin_amd64.zip",
       "checksum": "0080B9001D2B69EE4248355E25ADAEAEBC61FB87815135FC7E139261CE1F5F9F",
       "algorithm": "sha256"
@@ -283,26 +263,6 @@
     {
       "id": "github_release/github.com/fastfetch-cli/fastfetch/2.45.0/fastfetch-macos-universal.tar.gz",
       "checksum": "84C05B5205AA963AD081A12FA5E971B8F3299A6FCA67BBE54FB6CA59C2191178",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/fluxcd/flux2/v2.5.1/flux_2.5.1_darwin_amd64.tar.gz",
-      "checksum": "8618395BBDD35B681768E26612E1C2F9CB6D67060F7E2DF0F8D36CA67783478E",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/fluxcd/flux2/v2.5.1/flux_2.5.1_darwin_arm64.tar.gz",
-      "checksum": "68C025B8059934457978D8952C0C62FD06C585D46B334804DA72D268EAF630D4",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/fluxcd/flux2/v2.5.1/flux_2.5.1_linux_amd64.tar.gz",
-      "checksum": "F64C85DB4B94AEFCDF6E0F2825C32573FC2BD234E5489FF332FEE62776973EC3",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/fluxcd/flux2/v2.5.1/flux_2.5.1_linux_arm64.tar.gz",
-      "checksum": "35B6160D6B3C9EC3BBFE3F526927E713D877C274E7DEBFFD13E270E47221A79F",
       "algorithm": "sha256"
     },
     {
@@ -696,26 +656,6 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.k8s.io/v1.33.1/bin/darwin/amd64/kubectl",
-      "checksum": "8D36A5C66142547AD16E332942FD16A0CA2B3346D9EBAAB6C348DE2C70D9D875",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/dl.k8s.io/v1.33.1/bin/darwin/arm64/kubectl",
-      "checksum": "8AE6823839993BB2E394C3CF1919748E530642C625DC9100159595301F53BDEB",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/dl.k8s.io/v1.33.1/bin/linux/amd64/kubectl",
-      "checksum": "5DE4E9F2266738FD112B721265A0C1CD7F4E5208B670F811861F699474A100A3",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/dl.k8s.io/v1.33.1/bin/linux/arm64/kubectl",
-      "checksum": "D595D1A26B7444E0BEB122E25750EE4524E74414BBDE070B672B423139295CE6",
-      "algorithm": "sha256"
-    },
-    {
       "id": "http/dl.k8s.io/v1.33.2/bin/darwin/amd64/kubectl",
       "checksum": "FF468749BD3B5F4F15AD36F2A437E65FCD3195A2081925140334429EACED1A8A",
       "algorithm": "sha256"
@@ -769,16 +709,6 @@
       "id": "http/pkgs.tailscale.com/stable/tailscale_1.84.0_arm64.tgz",
       "checksum": "41516FBDD12AE6CBD7F41C875812CA683C0EAD54BEF3393E5886C232C954996C",
       "algorithm": "sha256"
-    },
-    {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.379.0/registry.yaml",
-      "checksum": "E244E31650EE3A27997D11E8F9ED7461BEE14E42CE3A2313300CC5FC31CC5FC775A9118A669A3A0DCEDA07FBA90B52C98E73B872ECC457A40D17D6E32731DA74",
-      "algorithm": "sha512"
-    },
-    {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.379.1/registry.yaml",
-      "checksum": "34818205F7CFEC4949474C422F324765A50C625BA0CB0F10252BE02E7FB8269A855790187D49B217E9D210BD79EB239C48AACA37557B24D35DF543656E1CD669",
-      "algorithm": "sha512"
     },
     {
       "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.379.2/registry.yaml",
