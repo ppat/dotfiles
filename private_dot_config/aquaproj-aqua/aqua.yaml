@@ -53,4 +53,4 @@ packages:
 - name: terraform-linters/tflint@v0.58.0
 - name: yannh/kubeconform@v0.7.0
 - name: BurntSushi/ripgrep@14.1.1
-- name: Wilfred/difftastic@0.63.0
+- name: Wilfred/difftastic@0.64.0
