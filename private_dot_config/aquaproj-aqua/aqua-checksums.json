@@ -31,6 +31,16 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/Wilfred/difftastic/0.64.0/difft-x86_64-apple-darwin.tar.gz",
+      "checksum": "D6B7F1C4A66495400F1F6E224EFDAF82AA66E8930FCB257BC9357D69D52DD69D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/Wilfred/difftastic/0.64.0/difft-x86_64-unknown-linux-gnu.tar.gz",
+      "checksum": "9EC3AA9F784A54C8099D1AF71B6BC18D3AD12CE50055565FFA2979AFF93C5732",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/ajeetdsouza/zoxide/v0.9.8/zoxide-0.9.8-aarch64-apple-darwin.tar.gz",
       "checksum": "3D1EC4AF7F3D351629F500B432E6C735CAF3216AB3EAA76DBE8FFBC8F3006F5A",
       "algorithm": "sha256"
