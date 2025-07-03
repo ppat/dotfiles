@@ -14,7 +14,7 @@ registries:
 packages:
 - name: ajeetdsouza/zoxide@v0.9.8
 - name: aristocratos/btop@v1.4.3
-- name: aquasecurity/kube-bench@v0.10.7
+- name: aquasecurity/kube-bench@v0.11.1
 - name: aquasecurity/trivy@v0.63.0
 - name: atuinsh/atuin@v18.6.1
 - name: bitwarden/clients@cli-v2025.5.0
