@@ -81,6 +81,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/aquasecurity/kube-bench/v0.11.1/kube-bench_0.11.1_darwin_amd64.tar.gz",
+      "checksum": "9786D595660341B65568590F4CF3D2A0768820A7E472B907A45D8A29EE4C37DF",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/aquasecurity/kube-bench/v0.11.1/kube-bench_0.11.1_darwin_arm64.tar.gz",
+      "checksum": "8D27DB77AFE207680C9D5FCC85F33E749A3DB7CDC73B7CC0039900CA98A444A1",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/aquasecurity/kube-bench/v0.11.1/kube-bench_0.11.1_linux_amd64.tar.gz",
+      "checksum": "664847BA7DF653CA94CD0EC21CD70726BFAE86E96B643254702BD6C02ED2551D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/aquasecurity/kube-bench/v0.11.1/kube-bench_0.11.1_linux_arm64.tar.gz",
+      "checksum": "9E9C50F586349D53F1F84454EB939025ED07A68124195ECA3F1E1A7420702D13",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/aquasecurity/trivy/v0.63.0/trivy_0.63.0_Linux-64bit.tar.gz",
       "checksum": "EA91FA393CFCB802DA22832C96E99A4C8A295A8BA8FAEFD824C7168B7F0A741E",
       "algorithm": "sha256"
