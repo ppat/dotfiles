@@ -36,9 +36,32 @@ volumes2table() {
       size = $10
       actual_size = $11
 
-      # Optional fields at the end
-      node_field = (NF >= 12 ? $12 : "")
-      last_backup = (NF >= 13 ? $13 : "")
+      # Handle optional fields based on field count
+      if (NF == 11) {
+        # Both NODE and LASTBACKUP missing
+        node_field = ""
+        last_backup = ""
+      } else if (NF == 12) {
+        # One field present - need to determine which
+        # Check if field 12 looks like a date (contains T or -)
+        if ($12 ~ /[T-]/) {
+          # Field 12 is LASTBACKUP, NODE is missing
+          node_field = ""
+          last_backup = $12
+        } else {
+          # Field 12 is NODE, LASTBACKUP is missing
+          node_field = $12
+          last_backup = ""
+        }
+      } else if (NF == 13) {
+        # Both fields present
+        node_field = $12
+        last_backup = $13
+      } else {
+        # Fallback for unexpected field counts
+        node_field = ""
+        last_backup = ""
+      }
 
       # Extract version from image
       version = (split(image_field, a, ":") > 1 ? a[2] : image_field)
@@ -50,7 +73,7 @@ volumes2table() {
       # Format last backup (remove time, keep date)
       backup_date = (split(last_backup, b, "T") > 1 ? b[1] : last_backup)
 
-      printf "%-24.24s %s %s %s %s %s %s %s %s %s %s %s %s\n",
+      printf "%-32.32s %s %s %s %s %s %s %s %s %s %s %s %s\n",
         $1, $2, $3, $4, version, locality, migratable, replicas, stale_timeout, size_mib, actual_size_mib, node_field, backup_date
     }' | \
     sort | \
