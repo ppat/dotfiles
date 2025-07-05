@@ -21,7 +21,43 @@ fi
 
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias certs='kubectl get certificates --all-namespaces -o custom-columns="NAMESPACE:.metadata.namespace,NAME:.metadata.name,READY:.status.conditions[0].status,LAST_RENEWED:.status.notBefore,EXPIRATION:.status.notAfter,ISSUER:.spec.issuerRef.name" --sort-by=".status.notBefore"'
-alias volumes='kubectl get -n longhorn-system volume -o custom-columns=NAME:.metadata.name,PVC:.status.kubernetesStatus.pvcName,STATE:.status.state,ROBUSTNESS:.status.robustness,NODE:.status.currentNodeID,IMAGE:.status.currentImage'
+
+volumes2table() {
+  kubectl get -n longhorn-system volume \
+    -o custom-columns=PVC:.status.kubernetesStatus.pvcName,NAME:.metadata.name,STATE:.status.state,ROBUSTNESS:.status.robustness,IMAGE:.status.currentImage,LOCALITY:.spec.dataLocality,MIGRATABLE:.spec.migratable,REPLICAS:.spec.numberOfReplicas,STALE_TIMEOUT:.spec.staleReplicaTimeout,SIZE:.spec.size,ACTUALSIZE:.status.actualSize,NODE:.status.currentNodeID,LASTBACKUP:.status.lastBackupAt \
+    --no-headers | \
+    awk '{
+      # Core fields are always in the same positions (1-11)
+      image_field = $5
+      locality = $6
+      migratable = $7
+      replicas = $8
+      stale_timeout = $9
+      size = $10
+      actual_size = $11
+
+      # Optional fields at the end
+      node_field = (NF >= 12 ? $12 : "")
+      last_backup = (NF >= 13 ? $13 : "")
+
+      # Extract version from image
+      version = (split(image_field, a, ":") > 1 ? a[2] : image_field)
+
+      # Convert bytes to MiB
+      size_mib = (size != "" && size > 0 ? sprintf("%.0f", size / 1048576) : "")
+      actual_size_mib = (actual_size != "" && actual_size > 0 ? sprintf("%.0f", actual_size / 1048576) : "")
+
+      # Format last backup (remove time, keep date)
+      backup_date = (split(last_backup, b, "T") > 1 ? b[1] : last_backup)
+
+      printf "%-24.24s %s %s %s %s %s %s %s %s %s %s %s %s\n",
+        $1, $2, $3, $4, version, locality, migratable, replicas, stale_timeout, size_mib, actual_size_mib, node_field, backup_date
+    }' | \
+    sort | \
+    (echo "PVC NAME STATE ROBUSTNESS IMAGE LOCALITY MIGRATABLE REPLICAS STALE_TIMEOUT SIZE ACTUALSIZE NODE LASTBACKUP" && cat) | \
+    column -t
+}
+alias volumes='volumes2table'
 
 kpr() {
   kubectl get policyreport -A -o json | \
