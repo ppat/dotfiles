@@ -336,6 +336,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.46.0/fastfetch-linux-aarch64.tar.gz",
+      "checksum": "3B7A015FB2E9DEF4D4E8FD9A6477BA49ECBC2ED1E0C4D47802A869D1E5E05BA8",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.46.0/fastfetch-linux-amd64.tar.gz",
+      "checksum": "D256C4FCD5D6677E53C8ED53763F6EB627D32964847925FADA00E9858DF7218C",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.46.0/fastfetch-macos-aarch64.tar.gz",
+      "checksum": "DA7EA0FD820E0ED3AAF4B76043E2BFC85D8D63642BFB2290F86493EE8C9510C7",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.46.0/fastfetch-macos-amd64.tar.gz",
+      "checksum": "302F91934E254BEFA9B4D757999D7515436C0DF2D58F23AC9B0F5690355FE39B",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/fluxcd/flux2/v2.6.0/flux_2.6.0_darwin_amd64.tar.gz",
       "checksum": "81106F6F133718B67714BF2055B960B0660EC72FA242E71E7E5F7B3C8313A7AE",
       "algorithm": "sha256"
