@@ -201,6 +201,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/coder/coder/v2.23.2/coder_2.23.2_darwin_amd64.zip",
+      "checksum": "5C78AF1C56314E68D1FAF924478EB7D998CAA8A5556FA3304923F2D2BCEE2CBA",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/coder/coder/v2.23.2/coder_2.23.2_darwin_arm64.zip",
+      "checksum": "035B05DD114042B90F53C18C3979A9CF36370978CAC0E780E9FFDD66DB9EB597",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/coder/coder/v2.23.2/coder_2.23.2_linux_amd64.tar.gz",
+      "checksum": "9C56F81B83D076BC705C7A626A52348370ACCCE74DB7CC6748464202C1400C0A",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/coder/coder/v2.23.2/coder_2.23.2_linux_arm64.tar.gz",
+      "checksum": "0CDB847A24E41A50F23AB14CB80A52012B39D5B45895EA0F40DF5E33263B73BF",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/dalance/procs/v0.14.10/procs-v0.14.10-x86_64-linux.zip",
       "checksum": "AD84B948703E74379EDC32D80FE9B862F6F1E95FC1E305FF0A8A3B4CB7B05EE4",
       "algorithm": "sha256"
@@ -503,6 +523,26 @@
     {
       "id": "github_release/github.com/nektos/act/v0.2.78/act_Linux_x86_64.tar.gz",
       "checksum": "7E90D7B1D61AA518E32F348D456FA690A06A5170AA59B18B8DA507E3029C9845",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/nektos/act/v0.2.79/act_Darwin_arm64.tar.gz",
+      "checksum": "053BC57FBD11FCE9BF67FEE60EE935C5FC55D94887CF8512E7DD3CEE5879496A",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/nektos/act/v0.2.79/act_Darwin_x86_64.tar.gz",
+      "checksum": "807482CFA34ACA86C19704FDF4817B365ECE133F27DBB5AB736422B5D7C43318",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/nektos/act/v0.2.79/act_Linux_arm64.tar.gz",
+      "checksum": "DD821E743DB046B9C59719AB19F0EFF239D4A0CF1649ECCB9A8AF97BE5D13E61",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/nektos/act/v0.2.79/act_Linux_x86_64.tar.gz",
+      "checksum": "B4C14DF1A6E713A63E8E153534091A2E0D93A73538DA301BD3AAA3C1F2A6F571",
       "algorithm": "sha256"
     },
     {
