@@ -15,8 +15,9 @@ uv             = "0.7.19"
 "pipx:yamllint"     = "1.37.1"
 
 [settings]
-experimental         = true
-trusted_config_paths = ["~/code"]
+experimental                        = true
+trusted_config_paths                = ["~/code"]
+idiomatic_version_file_enable_tools = []
 
 [settings.npm]
 bun = true
