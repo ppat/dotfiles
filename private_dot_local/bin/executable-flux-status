@@ -1,0 +1,407 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Global variables
+TEMP_DIR=""
+OUTPUT_TYPE="table"
+RESOURCE_KIND=""
+
+# Cleanup function
+cleanup() {
+    [[ -n "${TEMP_DIR:-}" ]] && rm -rf "$TEMP_DIR"
+}
+
+# Print usage information
+usage() {
+    cat << EOF
+Usage: $0 <resource_kind> [options]
+
+Arguments:
+  resource_kind    Kubernetes resource type (e.g., deployment, service, configmap)
+
+Options:
+  -o, --output     Output format: table (default), json, yaml
+  -h, --help       Show this help message
+
+Examples:
+  $0 deployment
+  $0 deployment --output json
+  $0 service -o yaml
+
+Note: Pod/ReplicaSet queries not supported. Use parent workload types instead.
+EOF
+}
+
+# Parse command line arguments
+parse_args() {
+    if [[ $# -eq 0 ]]; then
+        echo "Error: Missing required resource_kind argument" >&2
+        usage >&2
+        exit 1
+    fi
+
+    RESOURCE_KIND="$1"
+    shift
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -o|--output)
+                if [[ $# -lt 2 ]]; then
+                    echo "Error: --output requires a value" >&2
+                    exit 1
+                fi
+                OUTPUT_TYPE="$2"
+                shift 2
+                ;;
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            *)
+                echo "Error: Unknown argument '$1'" >&2
+                usage >&2
+                exit 1
+                ;;
+        esac
+    done
+
+    # Validate output type
+    if [[ ! "$OUTPUT_TYPE" =~ ^(table|json|yaml)$ ]]; then
+        echo "Error: Invalid output type '$OUTPUT_TYPE'. Use: table, json, yaml" >&2
+        exit 1
+    fi
+
+    # Don't support pods/replicasets
+    if [[ "$RESOURCE_KIND" =~ ^(pod|pods|replicaset|replicasets|rs)$ ]]; then
+        echo "Error: Pod/ReplicaSet queries not supported. Use parent workload types instead:" >&2
+        echo "  $0 deployment" >&2
+        echo "  $0 daemonset" >&2
+        echo "  $0 statefulset" >&2
+        echo "  $0 job" >&2
+        echo "  $0 cronjob" >&2
+        exit 1
+    fi
+}
+
+# Check if resource kind is cluster-scoped (non-namespaced)
+is_cluster_scoped() {
+    local resource_kind="$1"
+
+    # Test by checking if any resources have actual namespaces
+    # Cluster-scoped resources will all show <none> for namespace
+    local count
+    count=$(kubectl get -A "$resource_kind" -o custom-columns=NS:.metadata.namespace --no-headers 2>/dev/null | grep -v '<none>' | wc -l)
+
+    # If count is 0, all resources have <none> namespace = cluster-scoped
+    [[ "$count" -eq 0 ]]
+}
+
+# Check required dependencies
+check_dependencies() {
+    local missing_deps=()
+
+    if ! command -v kubectl &> /dev/null; then
+        missing_deps+=("kubectl")
+    fi
+
+    if ! command -v jq &> /dev/null; then
+        missing_deps+=("jq")
+    fi
+
+    if ! command -v yq &> /dev/null; then
+        missing_deps+=("yq")
+    fi
+
+    if [[ ${#missing_deps[@]} -gt 0 ]]; then
+        echo "Error: Missing required dependencies: ${missing_deps[*]}" >&2
+        exit 1
+    fi
+}
+
+# Fetch all kustomizations data - get raw fields including lastTransitionTime
+fetch_kustomizations() {
+    kubectl get kustomizations -n flux-system -o json 2>/dev/null | jq -r '.items[]? |
+        (.metadata.name // "N/A") + "|" +
+        (.status.lastHandledReconcileAt // "N/A") + "|" +
+        (.status.lastAppliedRevision // "N/A") + "|" +
+        ((.status.conditions // []) | map(select(.type=="Ready")) | .[0].status // "N/A") + "|" +
+        ((.status.conditions // []) | map(select(.type=="Ready")) | .[0].lastTransitionTime // "N/A")' > "$TEMP_DIR/kustomizations" 2>/dev/null || true
+}
+
+# Fetch all helm releases data - get raw fields including lastTransitionTime
+fetch_helm_releases() {
+    kubectl get helmreleases --all-namespaces -o json 2>/dev/null | jq -r '.items[]? |
+        (.metadata.namespace + "/" + .metadata.name) + "|" +
+        (.status.lastHandledReconcileAt // "N/A") + "|" +
+        (((.status.history // []) | map(select(.status=="deployed")) | .[0].chartVersion) // "N/A") + "|" +
+        ((.status.conditions // []) | map(select(.type=="Ready")) | .[0].status // "N/A") + "|" +
+        ((.status.conditions // []) | map(select(.type=="Ready")) | .[0].lastTransitionTime // "N/A")' > "$TEMP_DIR/helmreleases" 2>/dev/null || true
+}
+
+# Process target workload type
+process_resources() {
+    local workload_kind="$1"
+
+    kubectl get "$workload_kind" --all-namespaces -o json 2>/dev/null | jq -r '.items[]? |
+        (.metadata.namespace // "N/A") + "|" +
+        (.metadata.name // "N/A") + "|" +
+        ((.metadata.labels // {})["helm.toolkit.fluxcd.io/name"] // "") + "|" +
+        ((.metadata.labels // {})["kustomize.toolkit.fluxcd.io/name"] // "")'
+}
+
+# Get flux owner status from cached data
+get_flux_status() {
+    local flux_owner="$1"
+    local flux_owner_type="$2"
+    local namespace="$3"
+    local last_reconcile="N/A"
+    local last_revision="N/A"
+    local status="N/A"
+    local last_ready="N/A"
+    local hr_line
+    local kust_line
+
+    case "$flux_owner_type" in
+        "helmrelease")
+            hr_line=$(grep "^$namespace/$flux_owner|" "$TEMP_DIR/helmreleases" 2>/dev/null | head -1 || true)
+            if [[ -n "$hr_line" ]]; then
+                IFS='|' read -r _ last_reconcile last_revision status last_ready <<< "$hr_line"
+            fi
+            ;;
+        "kustomization")
+            kust_line=$(grep "^$flux_owner|" "$TEMP_DIR/kustomizations" 2>/dev/null | head -1 || true)
+            if [[ -n "$kust_line" ]]; then
+                IFS='|' read -r _ last_reconcile last_revision status last_ready <<< "$kust_line"
+            fi
+            ;;
+    esac
+
+    echo "$last_reconcile|$last_revision|$status|$last_ready"
+}
+
+# Process fields after joining - keep timestamps as-is, only process revision
+process_fields() {
+    local reconcile_raw="$1"
+    local revision_raw="$2"
+    local status_raw="$3"
+    local last_ready_raw="$4"
+    local owner_type="$5"
+    local reconcile="N/A"
+    local revision="N/A"
+    local status="N/A"
+    local last_ready="N/A"
+
+    # Keep reconcile time as-is
+    if [[ "$reconcile_raw" != "N/A" && "$reconcile_raw" != "null" && -n "$reconcile_raw" ]]; then
+        reconcile="$reconcile_raw"
+    fi
+
+    # Keep last ready time as-is
+    if [[ "$last_ready_raw" != "N/A" && "$last_ready_raw" != "null" && -n "$last_ready_raw" ]]; then
+        last_ready="$last_ready_raw"
+    fi
+
+    # Process revision based on owner type
+    if [[ "$revision_raw" != "N/A" && "$revision_raw" != "null" && -n "$revision_raw" ]]; then
+        case "$owner_type" in
+            "kustomization")
+                # Format: "infra-networking-core-v0.7.2@sha1:f1e3e54367c43f2be056af97254994a134f07900"
+                # Extract version part before @sha1
+                revision=$(echo "$revision_raw" | sed 's/@sha1.*//')
+                ;;
+            "helmrelease")
+                # Chart version like "36.3.0" - use as-is
+                revision="$revision_raw"
+                ;;
+        esac
+    fi
+
+    # Process status
+    if [[ "$status_raw" != "N/A" && "$status_raw" != "null" && -n "$status_raw" ]]; then
+        status="$status_raw"
+    fi
+
+    echo "$reconcile|$revision|$status|$last_ready"
+}
+
+# Join resource data with flux status - build JSON from start
+join_data() {
+    local resource_data="$1"
+    local output_file="$2"
+    local first=true
+    local flux_owner=""
+    local flux_owner_type=""
+    local flux_status
+    local processed_fields
+    local reconcile_raw
+    local revision_raw
+    local status_raw
+    local last_ready_raw
+    local last_reconcile
+    local last_revision
+    local ready
+    local last_ready
+    local namespace
+    local name
+    local helm_label
+    local kustomize_label
+
+    # Start JSON array
+    echo "[" > "$output_file"
+
+    # Process each resource and join with flux status
+    while IFS='|' read -r namespace name helm_label kustomize_label; do
+        [[ -z "$namespace" || -z "$name" ]] && continue
+
+        flux_owner=""
+        flux_owner_type=""
+
+        if [[ -n "$helm_label" ]]; then
+            flux_owner="$helm_label"
+            flux_owner_type="helmrelease"
+        elif [[ -n "$kustomize_label" ]]; then
+            flux_owner="$kustomize_label"
+            flux_owner_type="kustomization"
+        fi
+
+        if [[ -n "$flux_owner" ]]; then
+            flux_status=$(get_flux_status "$flux_owner" "$flux_owner_type" "$namespace")
+            IFS='|' read -r reconcile_raw revision_raw status_raw last_ready_raw <<< "$flux_status"
+
+            processed_fields=$(process_fields "$reconcile_raw" "$revision_raw" "$status_raw" "$last_ready_raw" "$flux_owner_type")
+            IFS='|' read -r last_reconcile last_revision ready last_ready <<< "$processed_fields"
+        else
+            flux_owner="N/A"
+            last_reconcile="N/A"
+            last_revision="N/A"
+            ready="N/A"
+            last_ready="N/A"
+        fi
+
+        # Add comma separator if not first entry
+        if [[ "$first" == "true" ]]; then
+            first=false
+        else
+            echo "," >> "$output_file"
+        fi
+
+        # Build JSON object using jq to ensure proper escaping
+        jq -n \
+            --arg namespace "$namespace" \
+            --arg name "$name" \
+            --arg flux_overseer "$flux_owner" \
+            --arg ready "$ready" \
+            --arg last_ready "$last_ready" \
+            --arg last_reconcile "$last_reconcile" \
+            --arg last_revision "$last_revision" \
+            '{
+                namespace: $namespace,
+                name: $name,
+                flux_overseer: $flux_overseer,
+                ready: $ready,
+                last_ready: $last_ready,
+                last_reconcile: $last_reconcile,
+                last_revision: $last_revision
+            }' >> "$output_file"
+
+    done <<< "$resource_data"
+
+    # Close JSON array
+    echo "]" >> "$output_file"
+}
+
+# Display function to handle different output types
+display_output() {
+    local output_file="$1"
+    local format="$2"
+    local show_namespace="$3"
+
+    case "$format" in
+        "json")
+            # Sort JSON by namespace, then name and conditionally remove namespace field
+            if [[ "$show_namespace" == "true" ]]; then
+                jq 'sort_by(.namespace, .name)' "$output_file"
+            else
+                jq 'sort_by(.namespace, .name) | map(del(.namespace))' "$output_file"
+            fi
+            ;;
+        "yaml")
+            # Convert to YAML using yq
+            if [[ "$show_namespace" == "true" ]]; then
+                jq 'sort_by(.namespace, .name)' "$output_file" | yq -P
+            else
+                jq 'sort_by(.namespace, .name) | map(del(.namespace))' "$output_file" | yq -P
+            fi
+            ;;
+        "table"|*)
+            # Convert JSON to table format
+            if [[ "$show_namespace" == "true" ]]; then
+                {
+                    echo "NAMESPACE RESOURCE_NAME FLUX_OVERSEER READY LAST_READY LAST_RECONCILE LAST_REVISION"
+                    jq -r 'sort_by(.namespace, .name) | .[] |
+                        .namespace + " " + .name + " " + .flux_overseer + " " +
+                        .ready + " " + .last_ready + " " + .last_reconcile + " " + .last_revision' "$output_file"
+                } | column -t
+            else
+                {
+                    echo "RESOURCE_NAME FLUX_OVERSEER READY LAST_READY LAST_RECONCILE LAST_REVISION"
+                    jq -r 'sort_by(.namespace, .name) | .[] |
+                        .name + " " + .flux_overseer + " " +
+                        .ready + " " + .last_ready + " " + .last_reconcile + " " + .last_revision' "$output_file"
+                } | column -t
+            fi
+            ;;
+    esac
+}
+
+# Main function
+main() {
+    local resource_data
+    local output_file
+    local show_namespace
+
+    # Set up cleanup
+    trap cleanup EXIT
+
+    # Parse arguments
+    parse_args "$@"
+
+    # Check dependencies
+    check_dependencies
+
+    # Create temp directory
+    TEMP_DIR="/tmp/fluxstatus_$"
+    mkdir -p "$TEMP_DIR"
+
+    # Main processing
+    echo "Fetching flux resources..." >&2
+    fetch_kustomizations
+    fetch_helm_releases
+
+    echo "Processing $RESOURCE_KIND resources..." >&2
+
+    # Get target resources
+    resource_data=$(process_resources "$RESOURCE_KIND" 2>/dev/null || true)
+
+    if [[ -z "$resource_data" ]]; then
+        echo "Error: No resources of type '$RESOURCE_KIND' found or kubectl error" >&2
+        exit 1
+    fi
+
+    # Join data and create output file
+    output_file="$TEMP_DIR/output.json"
+    join_data "$resource_data" "$output_file"
+
+    # Check if resource is cluster-scoped
+    show_namespace="true"
+    if is_cluster_scoped "$RESOURCE_KIND"; then
+        show_namespace="false"
+    fi
+
+    # Display output in requested format
+    display_output "$output_file" "$OUTPUT_TYPE" "$show_namespace"
+}
+
+# Run main function with all arguments
+main "$@"
