@@ -101,6 +101,16 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/aristocratos/btop/v1.4.4/btop-aarch64-linux-musl.tbz",
+      "checksum": "E8845D3F69F6A32D00258A1F79C093970666ECE3D05A430C7B24A16C56577BF5",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/aristocratos/btop/v1.4.4/btop-x86_64-linux-musl.tbz",
+      "checksum": "FEC7D1B59C671290A0F80D5A32617EA6D60412485FC04318FD194B9550FF6B49",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/atuinsh/atuin/v18.6.1/atuin-aarch64-apple-darwin.tar.gz",
       "checksum": "649F1EA17A11D150C18C52341E7DBE18FDEC551E38CA824B0CF6E9A7553DBF1D",
       "algorithm": "sha256"
@@ -618,6 +628,26 @@
     {
       "id": "github_release/github.com/siderolabs/talos/v1.10.4/talosctl-linux-arm64",
       "checksum": "FCCC628911CADC1330813C20A8ED3ABCE91CE44A3CFD731C7D13FE0914CF0E029BB1935A2060E934176392D1EAAB0C3A7755BEBE7296CC469A73E3E25862DB3B",
+      "algorithm": "sha512"
+    },
+    {
+      "id": "github_release/github.com/siderolabs/talos/v1.10.5/talosctl-darwin-amd64",
+      "checksum": "3E1E4434CDF3E3E5DC45CDE3763DA6B6DC508B3A425ABC4BF129D5265C1C0CE4B95755CC400D078415E1A1158727808A783E1E458687A2CE52BC8A6C27A429B6",
+      "algorithm": "sha512"
+    },
+    {
+      "id": "github_release/github.com/siderolabs/talos/v1.10.5/talosctl-darwin-arm64",
+      "checksum": "426B07442FB897DB72B180F512306CD4C772DD265ABABB4485F4D1A57A19451D98B62CC1FCEBE229FC66276D4E448AA47CF3C14DA78849E1F43DE79D6616515D",
+      "algorithm": "sha512"
+    },
+    {
+      "id": "github_release/github.com/siderolabs/talos/v1.10.5/talosctl-linux-amd64",
+      "checksum": "E90125053CF12D4BC674AFD65FD4ABF8FCE1466E4946DBF6EE0015E223643B945185F34AE1F7DDD69DB8FB7FA286010C4EF39939A118C5FE55E621F669EE0EDC",
+      "algorithm": "sha512"
+    },
+    {
+      "id": "github_release/github.com/siderolabs/talos/v1.10.5/talosctl-linux-arm64",
+      "checksum": "4F51CEC09D9D0186E5F76C81F3E4690823EDABAF757F26CF979972A970159903FA69B84EEA0C191006435DAD73850CDF759FE3392149EC6133666144BA841C7C",
       "algorithm": "sha512"
     },
     {
