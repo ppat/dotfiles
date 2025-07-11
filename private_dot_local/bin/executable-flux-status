@@ -73,7 +73,7 @@ parse_args() {
     fi
 
     # Don't support pods/replicasets
-    if [[ "$RESOURCE_KIND" =~ ^(pod|pods|replicaset|replicasets|rs)$ ]]; then
+    if [[ "$RESOURCE_KIND" =~ ^(po|pod|pods|replicaset|replicasets|rs)$ ]]; then
         echo "Error: Pod/ReplicaSet queries not supported. Use parent workload types instead:" >&2
         echo "  $0 deployment" >&2
         echo "  $0 daemonset" >&2
@@ -89,9 +89,9 @@ is_cluster_scoped() {
     local resource_kind="$1"
     local matching_count
     local namespaced_count
-    kubectl get -A "$resource_kind" -o custom-columns=NS:.metadata.namespace --no-headers > "$TEMP_DIR/resource_namespaces" 2>/dev/null || true
-    matching_count=$(cat "$TEMP_DIR/resource_namespaces" | wc -l)
-    namespaced_count=$(cat "$TEMP_DIR/resource_namespaces" | grep -c -v '<none>')
+    kubectl get -A "$resource_kind" -o custom-columns=NS:.metadata.namespace --no-headers > "$TEMP_DIR/resource_namespaces" || true
+    matching_count=$(wc -l < "$TEMP_DIR/resource_namespaces")
+    namespaced_count=$(grep -c -v '<none>' "$TEMP_DIR/resource_namespaces")
     [[ "$matching_count" -ne "$namespaced_count" ]]
 }
 
@@ -119,29 +119,29 @@ check_dependencies() {
 
 # Fetch all kustomizations data - get raw fields including lastTransitionTime
 fetch_kustomizations() {
-    kubectl get kustomizations -n flux-system -o json 2>/dev/null | jq -r '.items[]? |
+    kubectl get kustomizations -n flux-system -o json | jq -r '.items[]? |
         (.metadata.name // "N/A") + "|" +
         (.status.lastHandledReconcileAt // "N/A") + "|" +
         (.status.lastAppliedRevision // "N/A") + "|" +
         ((.status.conditions // []) | map(select(.type=="Ready")) | .[0].status // "N/A") + "|" +
-        ((.status.conditions // []) | map(select(.type=="Ready")) | .[0].lastTransitionTime // "N/A")' > "$TEMP_DIR/kustomizations" 2>/dev/null || true
+        ((.status.conditions // []) | map(select(.type=="Ready")) | .[0].lastTransitionTime // "N/A")' > "$TEMP_DIR/kustomizations" || true
 }
 
 # Fetch all helm releases data - get raw fields including lastTransitionTime
 fetch_helm_releases() {
-    kubectl get helmreleases --all-namespaces -o json 2>/dev/null | jq -r '.items[]? |
+    kubectl get helmreleases --all-namespaces -o json | jq -r '.items[]? |
         (.metadata.namespace + "/" + .metadata.name) + "|" +
         (.status.lastHandledReconcileAt // "N/A") + "|" +
         (((.status.history // []) | map(select(.status=="deployed")) | .[0].chartVersion) // "N/A") + "|" +
         ((.status.conditions // []) | map(select(.type=="Ready")) | .[0].status // "N/A") + "|" +
-        ((.status.conditions // []) | map(select(.type=="Ready")) | .[0].lastTransitionTime // "N/A")' > "$TEMP_DIR/helmreleases" 2>/dev/null || true
+        ((.status.conditions // []) | map(select(.type=="Ready")) | .[0].lastTransitionTime // "N/A")' > "$TEMP_DIR/helmreleases" || true
 }
 
 # Process target workload type
 process_resources() {
     local workload_kind="$1"
 
-    kubectl get "$workload_kind" --all-namespaces -o json 2>/dev/null | jq -r '.items[]? |
+    kubectl get "$workload_kind" --all-namespaces -o json | jq -r '.items[]? |
         (.metadata.namespace // "N/A") + "|" +
         (.metadata.name // "N/A") + "|" +
         ((.metadata.labels // {})["helm.toolkit.fluxcd.io/name"] // "") + "|" +
@@ -162,13 +162,13 @@ get_flux_status() {
 
     case "$flux_owner_type" in
         "helmrelease")
-            hr_line=$(grep "^$namespace/$flux_owner|" "$TEMP_DIR/helmreleases" 2>/dev/null | head -1 || true)
+            hr_line=$(grep "^$namespace/$flux_owner|" "$TEMP_DIR/helmreleases" | head -1 || true)
             if [[ -n "$hr_line" ]]; then
                 IFS='|' read -r _ last_reconcile last_revision status last_ready <<< "$hr_line"
             fi
             ;;
         "kustomization")
-            kust_line=$(grep "^$flux_owner|" "$TEMP_DIR/kustomizations" 2>/dev/null | head -1 || true)
+            kust_line=$(grep "^$flux_owner|" "$TEMP_DIR/kustomizations" | head -1 || true)
             if [[ -n "$kust_line" ]]; then
                 IFS='|' read -r _ last_reconcile last_revision status last_ready <<< "$kust_line"
             fi
