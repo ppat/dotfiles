@@ -87,14 +87,12 @@ parse_args() {
 # Check if resource kind is cluster-scoped (non-namespaced)
 is_cluster_scoped() {
     local resource_kind="$1"
-
-    # Test by checking if any resources have actual namespaces
-    # Cluster-scoped resources will all show <none> for namespace
-    local count
-    count=$(kubectl get -A "$resource_kind" -o custom-columns=NS:.metadata.namespace --no-headers 2>/dev/null | grep -v '<none>' | wc -l)
-
-    # If count is 0, all resources have <none> namespace = cluster-scoped
-    [[ "$count" -eq 0 ]]
+    local matching_count
+    local namespaced_count
+    kubectl get -A "$resource_kind" -o custom-columns=NS:.metadata.namespace --no-headers > "$TEMP_DIR/resource_namespaces" 2>/dev/null || true
+    matching_count=$(cat "$TEMP_DIR/resource_namespaces" | wc -l)
+    namespaced_count=$(cat "$TEMP_DIR/resource_namespaces" | grep -c -v '<none>')
+    [[ "$matching_count" -ne "$namespaced_count" ]]
 }
 
 # Check required dependencies
@@ -208,6 +206,7 @@ process_fields() {
             "kustomization")
                 # Format: "infra-networking-core-v0.7.2@sha1:f1e3e54367c43f2be056af97254994a134f07900"
                 # Extract version part before @sha1
+                # shellcheck disable=SC2001
                 revision=$(echo "$revision_raw" | sed 's/@sha1.*//')
                 ;;
             "helmrelease")
