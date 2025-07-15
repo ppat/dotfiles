@@ -171,6 +171,16 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/bootandy/dust/v1.2.2/dust-v1.2.2-x86_64-apple-darwin.tar.gz",
+      "checksum": "F13DCFCD06230A2CE95F39B15F42314934B7667FF573BD482A499D5A959C795D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/bootandy/dust/v1.2.2/dust-v1.2.2-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "F170ECC426DD807018FC4155174070387AF16435BE7CABE4EED0B438A7CB7CA0",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/cli/cli/v2.75.0/gh_2.75.0_linux_amd64.tar.gz",
       "checksum": "98F910F4CDE42A345E241F867F42B2229DDA60267D7F87A56D283842519A4CB7",
       "algorithm": "sha256"
@@ -258,6 +268,26 @@
     {
       "id": "github_release/github.com/derailed/k9s/v0.50.6/k9s_Linux_arm64.tar.gz",
       "checksum": "FC5B3E3CEB3418807EC1393572643E2D2262D08DFD71A8292A4C5B17A1E50875",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/derailed/k9s/v0.50.7/k9s_Darwin_amd64.tar.gz",
+      "checksum": "E6BA0D732F7DA23FC420BA8819373C054EAFB40AFE2A897C9EFF0C3D68B2049B",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/derailed/k9s/v0.50.7/k9s_Darwin_arm64.tar.gz",
+      "checksum": "E5A9BA649C589DB9AFCC9BDCD746B38DCC2A094D42732686C8C1C971B8CE2770",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/derailed/k9s/v0.50.7/k9s_Linux_amd64.tar.gz",
+      "checksum": "33C7699C6D71544C6704F78BE928ECA3445262CF462B2AC110A3284F67EB1C7B",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/derailed/k9s/v0.50.7/k9s_Linux_arm64.tar.gz",
+      "checksum": "39CA43367170228017A28543C738DBC3B614FDD5E2B13B24074371314B8CA67E",
       "algorithm": "sha256"
     },
     {
