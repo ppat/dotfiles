@@ -26,9 +26,9 @@ packages:
 - name: dandavison/delta@0.18.2
 - name: derailed/k9s@v0.50.7
 - name: fastfetch-cli/fastfetch@2.47.0
-- name: fluxcd/flux2@v2.6.3
+- name: fluxcd/flux2@v2.6.4
 - name: hadolint/hadolint@v2.12.0
-- name: helm/helm@v3.18.3
+- name: helm/helm@v3.18.4
 - name: jesseduffield/lazygit@v0.53.0
 - name: junegunn/fzf@v0.64.0
 - name: koalaman/shellcheck@v0.10.0
