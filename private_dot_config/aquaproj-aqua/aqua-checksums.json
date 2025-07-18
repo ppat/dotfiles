@@ -331,6 +331,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/fluxcd/flux2/v2.6.4/flux_2.6.4_darwin_amd64.tar.gz",
+      "checksum": "E831808490D6B4953CA3CE11DD80FA17124B200968935333B46B64A960D4D98F",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fluxcd/flux2/v2.6.4/flux_2.6.4_darwin_arm64.tar.gz",
+      "checksum": "F8272BCE1BC1CE42EC4B725DBA8D2DA30734757F0233B2039A55BD4627A69B1A",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fluxcd/flux2/v2.6.4/flux_2.6.4_linux_amd64.tar.gz",
+      "checksum": "9D3E21AD53BAA0D5A062E1BD6F1A22D18B95906C682845BCA9FFA272CFF8A590",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fluxcd/flux2/v2.6.4/flux_2.6.4_linux_arm64.tar.gz",
+      "checksum": "674E605F527841BB9B50A692B3CE497752CFC81438F85B4D1523D86ACA637353",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/hadolint/hadolint/v2.12.0/hadolint-Darwin-x86_64",
       "checksum": "2A5B7AFCAB91645C39A7CEBEFCD835B865F7488E69BE24567F433DFC3D41CD27",
       "algorithm": "sha256"
@@ -758,6 +778,26 @@
     {
       "id": "http/get.helm.sh/helm-v3.18.3-linux-arm64.tar.gz",
       "checksum": "3382EBDC6D6E027371551A63FC6E0A3073A1AEC1061E346692932DA61CFD8D24",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/get.helm.sh/helm-v3.18.4-darwin-amd64.tar.gz",
+      "checksum": "860A7238285B44B5DC7B3C4DAD6194316885D7015D77C34E23177E0E9554AF8F",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/get.helm.sh/helm-v3.18.4-darwin-arm64.tar.gz",
+      "checksum": "041849741550B20710D7AD0956E805EBD960B483FE978864F8E7FDD03CA84EC8",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/get.helm.sh/helm-v3.18.4-linux-amd64.tar.gz",
+      "checksum": "F8180838C23D7C7D797B208861FECB591D9CE1690D8704ED1E4CB8E2ADD966C1",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/get.helm.sh/helm-v3.18.4-linux-arm64.tar.gz",
+      "checksum": "C0A45E67EEF0C7416A8A8C9E9D5D2D30D70E4F4D3F7BEA5DE28241FFFA8F3B89",
       "algorithm": "sha256"
     },
     {
