@@ -721,6 +721,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/terraform-linters/tflint/v0.58.1/tflint_darwin_amd64.zip",
+      "checksum": "CEF858C1D8A13B192865609D51B79961E71EFAFFA75A8D314FC17C53CD9E6CE0",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/terraform-linters/tflint/v0.58.1/tflint_darwin_arm64.zip",
+      "checksum": "B84B5C7A81CB76B071059E0D3CA1E7789E070DB75EB383B970DDAC47CC1F5ECC",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/terraform-linters/tflint/v0.58.1/tflint_linux_amd64.zip",
+      "checksum": "2FEA1AF8E8602D4D9E4253A588AC66F17BF36152CAFB51F4D929B8BC6335E740",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/terraform-linters/tflint/v0.58.1/tflint_linux_arm64.zip",
+      "checksum": "5DDFD9948BA5CCBEA3273CD99C5BC948FD8A0FBD36C593B3738191B3D0008DC3",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/yannh/kubeconform/v0.7.0/kubeconform-darwin-amd64.tar.gz",
       "checksum": "C6771CC894D82E1B12F35EE797DCDA1F7DA6A3787AA30902A15C264056DD40D4",
       "algorithm": "sha256"
