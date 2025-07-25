@@ -201,6 +201,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/cli/cli/v2.75.1/gh_2.75.1_linux_amd64.tar.gz",
+      "checksum": "5072A34C61B29FBCEAFD6BFC0C4DD10BFA05CB9EDE37A19B849598C7576C1706",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cli/cli/v2.75.1/gh_2.75.1_linux_arm64.tar.gz",
+      "checksum": "54317571824943523E0918F790311551C5B2464863A96C4558C44F0C7CA58363",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cli/cli/v2.75.1/gh_2.75.1_macOS_amd64.zip",
+      "checksum": "587847A3051ED0C7EECFA24274566CB20AAB78863826CAFB60109166B317E4EB",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cli/cli/v2.75.1/gh_2.75.1_macOS_arm64.zip",
+      "checksum": "394D5F7348A51E954705729982A2DF1DADDC8AD772E2C7E5D982510E3C45E8B7",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/coder/coder/v2.24.1/coder_2.24.1_darwin_amd64.zip",
       "checksum": "8A208C0ACEC37ADFDE6D3468EBD143A945BBE9C1E7CE0B65D20C517C060C9E1A",
       "algorithm": "sha256"
@@ -218,6 +238,26 @@
     {
       "id": "github_release/github.com/coder/coder/v2.24.1/coder_2.24.1_linux_arm64.tar.gz",
       "checksum": "43173E190DB198A920264A0C8B882D6AE4DE9F5C2F539503FDF698D77C67B872",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/coder/coder/v2.24.2/coder_2.24.2_darwin_amd64.zip",
+      "checksum": "D3E9FAF4158A2202855024335B800C456E1075141C6642B92288AEE1DE11BE71",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/coder/coder/v2.24.2/coder_2.24.2_darwin_arm64.zip",
+      "checksum": "EC2250123ED50374B06997A29A783A04F0EDC35E0B5EDEFED44EC7C55B3C9183",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/coder/coder/v2.24.2/coder_2.24.2_linux_amd64.tar.gz",
+      "checksum": "025DDBBC8B129D4D2F74D0246649E93FFAF12483FA50650878867A930F384AE3",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/coder/coder/v2.24.2/coder_2.24.2_linux_arm64.tar.gz",
+      "checksum": "D899043BB8612D8F5EDB639360B873BFE65BD1A3FA3D1546F195F9AFAF3AA344",
       "algorithm": "sha256"
     },
     {
@@ -288,6 +328,26 @@
     {
       "id": "github_release/github.com/derailed/k9s/v0.50.7/k9s_Linux_arm64.tar.gz",
       "checksum": "39CA43367170228017A28543C738DBC3B614FDD5E2B13B24074371314B8CA67E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/derailed/k9s/v0.50.8/k9s_Darwin_amd64.tar.gz",
+      "checksum": "2DB9818436F82D460F80C5AE60C22544435A419D572BE2957A1251624237AF7B",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/derailed/k9s/v0.50.8/k9s_Darwin_arm64.tar.gz",
+      "checksum": "0150E7C08364D9ECD59B406A0CD17FDC2881A25FDADF02D464527AE3D4BE15D5",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/derailed/k9s/v0.50.8/k9s_Linux_amd64.tar.gz",
+      "checksum": "7D09C84723A7CCD19A07F7638D07FE8CC66B01C63CCD7393285BF65D4104A013",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/derailed/k9s/v0.50.8/k9s_Linux_arm64.tar.gz",
+      "checksum": "9DB3090DD49810719933C84AE0321B348655BF1BD6516561DFB255F7CB9A6730",
       "algorithm": "sha256"
     },
     {
