@@ -17,7 +17,7 @@
       ],
       "semanticCommitScope": "cli-tools",
       "separateMajorMinor": true,
-      "separateMinorPatch": true,
+      "separateMinorPatch": false,
       "separateMultipleMajor": false,
       "separateMultipleMinor": false
     },
