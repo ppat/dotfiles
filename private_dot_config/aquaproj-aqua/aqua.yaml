@@ -24,7 +24,7 @@ packages:
 - name: coder/coder@v2.24.2
 - name: dalance/procs@v0.14.10
 - name: dandavison/delta@0.18.2
-- name: derailed/k9s@v0.50.8
+- name: derailed/k9s@v0.50.9
 - name: fastfetch-cli/fastfetch@2.47.0
 - name: fluxcd/flux2@v2.6.4
 - name: hadolint/hadolint@v2.12.0
