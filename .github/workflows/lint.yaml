@@ -78,7 +78,7 @@ jobs:
         MISE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         # renovate: datasource=github-releases depName=jdx/mise
-        version: "v2025.7.27"
+        version: "v2025.7.29"
         install: true
         cache: false
         experimental: true
