@@ -121,6 +121,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/atuinsh/atuin/v18.7.1/atuin-aarch64-apple-darwin.tar.gz",
+      "checksum": "807427AD685FED6AC27FF96A494046F203F011F72A14ADD73BA4214723CC9190",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/atuinsh/atuin/v18.7.1/atuin-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "7F1657CDFBC6BFC059B12AE3CBAB56122754E27B89503B159FF92B5C7207D2D9",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/atuinsh/atuin/v18.7.1/atuin-x86_64-apple-darwin.tar.gz",
+      "checksum": "407C3383D43499A2373650B93FAE8AEC87BBE237B8D3C0FD18465586BEB36397",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/atuinsh/atuin/v18.7.1/atuin-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "6FAC2F65501C1E4C4499C9F314658EEAF8B9C83E32C4EB19273D89B046537316",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/bitwarden/clients/cli-v2025.6.1/bw-linux-2025.6.1.zip",
       "checksum": "6BACF4151842EBCBFE6801770453A9302E8F658F7219D07E1313C007D8B80AC6",
       "algorithm": "sha256"
@@ -178,6 +198,26 @@
     {
       "id": "github_release/github.com/cli/cli/v2.75.1/gh_2.75.1_macOS_arm64.zip",
       "checksum": "394D5F7348A51E954705729982A2DF1DADDC8AD772E2C7E5D982510E3C45E8B7",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cli/cli/v2.76.0/gh_2.76.0_linux_amd64.tar.gz",
+      "checksum": "BC46A0F43FA357CDFCFFC77F92A48303F5BACD97CF3E59A807DA2682CA4126DA",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cli/cli/v2.76.0/gh_2.76.0_linux_arm64.tar.gz",
+      "checksum": "F09E870529DDAEB6EA015A9AB867DF019A913FB6D2FDA4F15E80003828A439FC",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cli/cli/v2.76.0/gh_2.76.0_macOS_amd64.zip",
+      "checksum": "2F041410D27FFB60CC9ACEAF4219C19CA1A99F9230180004B47DA21B1F41F8AD",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cli/cli/v2.76.0/gh_2.76.0_macOS_arm64.zip",
+      "checksum": "678E976B72C453E13131409B12794859C58F0750F75DC1C71B57601E247B6F01",
       "algorithm": "sha256"
     },
     {
@@ -268,6 +308,26 @@
     {
       "id": "github_release/github.com/fastfetch-cli/fastfetch/2.47.0/fastfetch-macos-amd64.tar.gz",
       "checksum": "2D50E8A864F53D9504F37D82E5D3A53AB593A4D4B84F1AB8A6DE8D9B82375A46",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.48.1/fastfetch-linux-aarch64.tar.gz",
+      "checksum": "063AB78065FB491C6194AF21CA371EDE869DD3155E59D2424DF8861A0D6B65B2",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.48.1/fastfetch-linux-amd64.tar.gz",
+      "checksum": "E49BCFB79F5BC3D6A3C7C5E6CCDCE34D83D210160A5D6C2F1B40180016B55C01",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.48.1/fastfetch-macos-aarch64.tar.gz",
+      "checksum": "0097238D785B68405546B404EF2D0177E8CC7E2A69556CB00BD05BC7E6AFC206",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.48.1/fastfetch-macos-amd64.tar.gz",
+      "checksum": "5F9B451B5CFA667E6147C965382508BE0763BA900F37579297F5D53A0680B4F2",
       "algorithm": "sha256"
     },
     {
@@ -423,6 +483,26 @@
     {
       "id": "github_release/github.com/kubernetes-sigs/kustomize/kustomize/v5.7.0/kustomize_v5.7.0_linux_arm64.tar.gz",
       "checksum": "744BB1BC1854B6634DEA9EAF6DB2F401A734ED25D6837BAA6F91157D79C27D5E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/kubernetes-sigs/kustomize/kustomize/v5.7.1/kustomize_v5.7.1_darwin_amd64.tar.gz",
+      "checksum": "4A0DFF80C5644DF6BC8F51B342842969004CB6BA5F94DDDAABBEA7483493273D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/kubernetes-sigs/kustomize/kustomize/v5.7.1/kustomize_v5.7.1_darwin_arm64.tar.gz",
+      "checksum": "073E9D16D5A235E2FF83E62D6B76EDB5D962ADBC33BE1E4860C4B3F1F39B33B9",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/kubernetes-sigs/kustomize/kustomize/v5.7.1/kustomize_v5.7.1_linux_amd64.tar.gz",
+      "checksum": "EA375E7372F9AA029129D4B2D16C66B7750B7F1213C4F66F910D981C895818D8",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/kubernetes-sigs/kustomize/kustomize/v5.7.1/kustomize_v5.7.1_linux_arm64.tar.gz",
+      "checksum": "4261A040217DF3BD6896597C3986D1465925726E4F22A945304B5233A4DCDBDA",
       "algorithm": "sha256"
     },
     {
