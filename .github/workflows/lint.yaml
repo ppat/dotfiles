@@ -48,7 +48,7 @@ jobs:
 
   chezmoi:
     needs: [detect-changes]
-    if: ${{ github.event_name != 'pull_request' || fromJSON(needs.detect-changes.outputs.results).chezmoi_any_changed == 'true' }}
+    if: ${{ github.event_name == 'pull_request' || fromJSON(needs.detect-changes.outputs.results).chezmoi_any_changed == 'true' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
