@@ -6,8 +6,6 @@ on:
   pull_request:
     paths:
     - '.github/workflows/renovate.yaml'
-    - '.github/renovate.json'
-    - '.github/renovate/*.json'
   schedule:
   - cron: '0 4 * * *'
   workflow_dispatch:
