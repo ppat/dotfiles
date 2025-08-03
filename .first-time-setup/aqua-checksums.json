@@ -19,6 +19,11 @@
       "id": "github_release/github.com/bitwarden/sdk-sm/bws-v1.0.0/bws-x86_64-unknown-linux-gnu-1.0.0.zip",
       "checksum": "9077FB7B336A62ABC8194728FEA8753AFAD8B0BAA3A18723FC05FC02FDB53568",
       "algorithm": "sha256"
+    },
+    {
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.393.0/registry.yaml",
+      "checksum": "5BB278033A117F8B0CE465A93A2723C46FC3C3A899A0799C70E9EF895AB7B23D",
+      "algorithm": "sha256"
     }
   ]
 }
