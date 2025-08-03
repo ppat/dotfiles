@@ -48,7 +48,7 @@ jobs:
 
   chezmoi:
     needs: [detect-changes]
-    if: ${{ github.event_name == 'pull_request' || fromJSON(needs.detect-changes.outputs.results).chezmoi_any_changed == 'true' }}
+    if: ${{ github.event_name != 'pull_request' || fromJSON(needs.detect-changes.outputs.results).chezmoi_any_changed == 'true' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
@@ -66,7 +66,7 @@ jobs:
 
     - name: Shellcheck chezmoi scripts
       env:
-        CHEZMOI_SCRIPTS: ${{ github.event_name == 'pull_request' && 'ALL' || fromJSON(needs.detect-changes.outputs.results).chezmoi_all_changed_files }}
+        CHEZMOI_SCRIPTS: ${{ github.event_name != 'pull_request' && 'ALL' || fromJSON(needs.detect-changes.outputs.results).chezmoi_all_changed_files }}
       shell: bash
       working-directory: ./current
       # yamllint disable-line rule:indentation
