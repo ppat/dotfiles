@@ -48,47 +48,27 @@ jobs:
 
   chezmoi:
     needs: [detect-changes]
-    if: ${{ github.event_name == 'workflow_dispatch' || fromJSON(needs.detect-changes.outputs.results).chezmoi_any_changed == 'true' }}
+    if: ${{ github.event_name != 'pull_request' || fromJSON(needs.detect-changes.outputs.results).chezmoi_any_changed == 'true' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-    - name: Checkout
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+    - name: Setup repository and tools
+      uses: ppat/homelab-ops-actions/actions/setup-repository-tools@d51a74b412acbcee36d8071797e6c51ebe5e105b # v0.0.1
       with:
-        fetch-depth: 1
-        persist-credentials: false
-
-    - name: Cache mise
-      uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
-      with:
-        path: ~/.local/share/mise
-        key: mise-${{runner.os}}-${{runner.arch}}-${{hashFiles('.mise.toml')}}
-        restore-keys: |
-          mise-${{runner.os}}-${{runner.arch}}-
-
-    - name: Setup default mise configuration
-      # yamllint disable-line rule:indentation
-      run: |
-        mkdir -p ~/.config/mise
-        ln -s $GITHUB_WORKSPACE/.mise.toml ~/.config/mise/config.toml
-
-    - name: Setup mise
-      uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
-      env:
-        MISE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
+        current_git_ref: ${{ github.head_ref || github.ref }}
+        current_repository: ${{ github.repository }}
+        mise_ignore_cfg: private_dot_config/mise/config.toml
         # renovate: datasource=github-releases depName=jdx/mise
-        version: "v2025.7.32"
-        install: true
-        cache: false
-        experimental: true
-        log_level: info
-        working_directory: ${{ github.workspace }}
+        mise_version: "v2025.7.32"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tools_git_ref: main
+        tools_repository: ppat/github-workflows
 
     - name: Shellcheck chezmoi scripts
       env:
-        CHEZMOI_SCRIPTS: ${{ github.event_name == 'workflow_dispatch' && 'ALL' || needs.detect-changes.outputs.chezmoi_all_changed_files }}
+        CHEZMOI_SCRIPTS: ${{ github.event_name == 'pull_request' && 'ALL' || fromJSON(needs.detect-changes.outputs.results).chezmoi_all_changed_files }}
       shell: bash
+      working-directory: ./current
       # yamllint disable-line rule:indentation
       run: |
         if [[ "${CHEZMOI_SCRIPTS}" == "ALL" ]]; then

@@ -76,9 +76,6 @@
         "major"
       ],
       "minimumReleaseAge": "30 days",
-      "reviewers": [
-        "ppat"
-      ],
       "semanticCommitType": "feat"
     }
   ]
