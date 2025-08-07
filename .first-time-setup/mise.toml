@@ -6,7 +6,7 @@ go             = "1.24.5"
 node           = "22.17.1"
 rust           = "1.88.0"
 slsa-verifier  = "2.7.0"
-uv             = "0.8.4"
+uv             = "0.8.5"
 
 [settings.npm]
 bun = true
