@@ -57,6 +57,7 @@ if pgrep -f "coder agent" &> /dev/null; then
   if [[ ! "$PATH" =~ "${_coder_cli_location}:" ]]; then  # if not in path (but ignoring if at end)
     if [[ "$PATH" == *"${_coder_cli_location}" ]]; then  # if in path at the end
       # strip from end of path
+      # shellcheck disable=SC2295
       PATH="${PATH%${_coder_cli_location}}"
     fi
     # add it to front of path
