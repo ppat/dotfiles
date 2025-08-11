@@ -13,11 +13,7 @@ if [[ -f $HOME/.env ]]; then
   source $HOME/.env
 fi
 # set path -- must be set prior to accessing any of the package managers
-{{ if eq .chezmoi.os "darwin" -}}
-export PATH=$AQUA_ROOT_DIR/bin:$KREW_ROOT/bin:$HOME/.local/bin:$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH
-{{- else -}}
-export PATH=$AQUA_ROOT_DIR/bin:$KREW_ROOT/bin:$HOME/.local/bin:$PATH
-{{- end }}
+export PATH=${AQUA_ROOT_DIR}/bin:${KREW_ROOT}/bin:$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 
 # ============================= Mise Initialization ================================
 # setup mise -- must happen first to set env vars

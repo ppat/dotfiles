@@ -1,14 +1,13 @@
-{{ if eq .chezmoi.os "darwin" -}}
 #!/usr/bin/env bash
 set -euo pipefail
 
 set -o allexport
 {{ template "homebrew.env" . -}}
 set +o allexport
-export PATH=$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH
-
+export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 
 {{ template "script_header.sh" . }}
+
 
 show_homebrew_env() {
   log_info "Homebrew | Using homebrew env..."
@@ -28,12 +27,13 @@ manage_homebrew_package_manager() {
 }
 
 manage_homebrew_system_packages() {
+  local brew_file="$1"
   log_info "Homebrew | Installing Homebrew system packages..."
   if ! command -v brew > /dev/null; then
     log_error "Homebrew | Brew binary is not in path, cannot proceed!"
     exit 1
   fi
-  brew bundle --file={{ .chezmoi.sourceDir }}/Brewfile.system 2>&1 | sed -E 's|^(.*)|    \1|g'
+  brew bundle --file="${brew_file}" 2>&1 | sed -E -n 's|^|    |g'
   log_success "Homebrew | Homebrew system packages have been installed."
 }
 
@@ -42,10 +42,9 @@ main() {
   echo
   manage_homebrew_package_manager
   echo
-  manage_homebrew_system_packages
+  manage_homebrew_system_packages "{{ .chezmoi.sourceDir }}/Brewfile.system.{{ .chezmoi.os }}"
   echo "-------------------------------------------------------------------------------------------"
   echo
 }
 
 main
-{{ end -}}

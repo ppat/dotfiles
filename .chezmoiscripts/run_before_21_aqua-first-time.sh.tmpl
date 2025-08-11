@@ -3,14 +3,9 @@ set -euo pipefail
 
 set -o allexport
 {{ template "aqua.env" . -}}
-{{ if eq .chezmoi.os "darwin" -}}
 {{ template "homebrew.env" . -}}
-{{ end -}}
 set +o allexport
-{{ if eq .chezmoi.os "darwin" -}}
-export PATH=$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH
-{{ end }}
-
+export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 
 {{ template "script_header.sh" . }}
 {{ template "script_aqua.sh" . }}
