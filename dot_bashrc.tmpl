@@ -13,11 +13,7 @@ if [[ -f $HOME/.env ]]; then
   source $HOME/.env
 fi
 # set path -- must be set prior to accessing any of the package managers
-{{ if eq .chezmoi.os "darwin" -}}
-export PATH=$AQUA_ROOT_DIR/bin:$KREW_ROOT/bin:$HOME/.local/bin:$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH
-{{- else -}}
-export PATH=$AQUA_ROOT_DIR/bin:$KREW_ROOT/bin:$HOME/.local/bin:$PATH
-{{- end }}
+export PATH=${AQUA_ROOT_DIR}/bin:${KREW_ROOT}/bin:$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 
 # ============================= Mise Initialization ================================
 # setup mise -- must happen first to set env vars
@@ -57,13 +53,15 @@ fi
 if pgrep -f "coder agent" &> /dev/null; then
   _coder_cli_location="$(dirname "$(find /tmp/coder* -name coder -type f -executable 2>/dev/null | head -n1)")"
   # add injected coder CLI to the PATH
-  if [[ ! "$PATH" =~ "${_coder_cli_location}:" ]]; then  # if not in path, ignoring if at end
+  # shellcheck disable=SC2076
+  if [[ ! "$PATH" =~ "${_coder_cli_location}:" ]]; then  # if not in path (but ignoring if at end)
     if [[ "$PATH" == *"${_coder_cli_location}" ]]; then  # if in path at the end
       # strip from end of path
-      PATH="${PATH%$_coder_cli_location}"
+      # shellcheck disable=SC2295
+      PATH="${PATH%${_coder_cli_location}}"
     fi
     # add it to front of path
-    export PATH="$_coder_cli_location:$PATH"
+    export PATH="${_coder_cli_location}:$PATH"
   fi
   unset _coder_cli_location
   # unset coder injected GIT_* vars

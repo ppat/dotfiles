@@ -1,0 +1,11 @@
+# Taps
+tap "homebrew/bundle"
+tap "homebrew/services"
+
+# Baseline System Packages
+brew "gnupg"
+brew "nmap"
+
+# Fonts
+cask "font-fira-code"        # Monospaced font with programming ligatures
+cask "font-jetbrains-mono"   # Monospaced font for coding

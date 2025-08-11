@@ -4,17 +4,12 @@ set -euo pipefail
 set -o allexport
 {{ template "aqua.env" . -}}
 {{ template "krew.env" . -}}
-{{ if eq .chezmoi.os "darwin" -}}
 {{ template "homebrew.env" . -}}
-{{ end -}}
 set +o allexport
-{{ if eq .chezmoi.os "darwin" -}}
-export PATH=$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH
-export PATH=$AQUA_ROOT_DIR/bin:$KREW_ROOT/bin:$PATH
-{{ end }}
-
+export PATH=${AQUA_ROOT_DIR}/bin:${KREW_ROOT}/bin:$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 
 {{ template "script_header.sh" . }}
+
 
 krew_prerequisites() {
   log_info "Krew Plugins | Initializing krew..."

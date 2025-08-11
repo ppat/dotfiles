@@ -5,10 +5,10 @@ set -euo pipefail
 set -o allexport
 {{ template "homebrew.env" . -}}
 set +o allexport
-export PATH=$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH
-
+export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 
 {{ template "script_header.sh" . }}
+
 
 docker_prerequisites() {
   if ! command -v brew > /dev/null; then
