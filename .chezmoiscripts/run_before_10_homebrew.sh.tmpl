@@ -11,17 +11,17 @@ export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/b
 
 show_homebrew_env() {
   log_info "Homebrew | Using homebrew env..."
-  env | grep HOMEBREW | sort | sed -E 's|^(.*)|    \1|g'
+  env | grep HOMEBREW | sort | sed -E -n 's|^|    |p'
 }
 
 manage_homebrew_package_manager() {
   if ! command -v brew &> /dev/null; then
     log_info "Homebrew | Installing Homebrew package manager..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 2>&1 | sed -E 's|^(.*)|    \1|g'
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 2>&1 | sed -E -n 's|^|    |p'
     log_success "Homebrew | Homebrew package manager install completed."
   else
     log_info "Homebrew | Homebrew package manager already exists, updating..."
-    brew update 2>&1 | sed -E 's|^(.*)|    \1|g'
+    brew update 2>&1 | sed -E -n 's|^|    |p'
     log_success "Homebrew | Homebrew package manager has been updated."
   fi
 }
