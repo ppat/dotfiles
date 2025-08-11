@@ -1,5 +1,6 @@
 Brewfile*
 krew-plugins.txt
+mise.toml
 README.md
 
 {{- if eq .chezmoi.homeDir "/home/coder" }}
