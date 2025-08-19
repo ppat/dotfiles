@@ -111,23 +111,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/atuinsh/atuin/v18.7.1/atuin-aarch64-apple-darwin.tar.gz",
-      "checksum": "807427AD685FED6AC27FF96A494046F203F011F72A14ADD73BA4214723CC9190",
+      "id": "github_release/github.com/atuinsh/atuin/v18.8.0/atuin-aarch64-apple-darwin.tar.gz",
+      "checksum": "639093C091D19077B06B52B098236075FEEE878F8409858ADB1F875986B8C195",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/atuinsh/atuin/v18.7.1/atuin-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "7F1657CDFBC6BFC059B12AE3CBAB56122754E27B89503B159FF92B5C7207D2D9",
+      "id": "github_release/github.com/atuinsh/atuin/v18.8.0/atuin-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "D6270F44B11EE3AA781A7BA4D9E947E8569E3B8073F3C0EAE5E41C4A69D859F4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/atuinsh/atuin/v18.7.1/atuin-x86_64-apple-darwin.tar.gz",
-      "checksum": "407C3383D43499A2373650B93FAE8AEC87BBE237B8D3C0FD18465586BEB36397",
+      "id": "github_release/github.com/atuinsh/atuin/v18.8.0/atuin-x86_64-apple-darwin.tar.gz",
+      "checksum": "C60F6E40A9F874D4945F042707D086CD4915594638AD3A3A8094CD13D138DB7D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/atuinsh/atuin/v18.7.1/atuin-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "6FAC2F65501C1E4C4499C9F314658EEAF8B9C83E32C4EB19273D89B046537316",
+      "id": "github_release/github.com/atuinsh/atuin/v18.8.0/atuin-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "20422E93D25159F895C1FABBBA6B000BC1EF65D2276CEB09E2902B3DDA8CA422",
       "algorithm": "sha256"
     },
     {
@@ -336,23 +336,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/koalaman/shellcheck/v0.10.0/shellcheck-v0.10.0.darwin.aarch64.tar.xz",
-      "checksum": "BBD2F14826328EEE7679DA7221F2BC3AFB011F6A928B848C80C321F6046DDF81",
+      "id": "github_release/github.com/koalaman/shellcheck/v0.11.0/shellcheck-v0.11.0.darwin.aarch64.tar.xz",
+      "checksum": "56AFFDD8DE5527894DCA6DC3D7E0A99A873B0F004D7AABC30AE407D3F48B0A79",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/koalaman/shellcheck/v0.10.0/shellcheck-v0.10.0.darwin.x86_64.tar.xz",
-      "checksum": "EF27684F23279D112D8AD84E0823642E43F838993BBB8C0963DB9B58A90464C2",
+      "id": "github_release/github.com/koalaman/shellcheck/v0.11.0/shellcheck-v0.11.0.darwin.x86_64.tar.xz",
+      "checksum": "3C89DB4EDCAB7CF1C27BFF178882E0F6F27F7AFDF54E859FA041FCA10FEBE4C6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/koalaman/shellcheck/v0.10.0/shellcheck-v0.10.0.linux.aarch64.tar.xz",
-      "checksum": "324A7E89DE8FA2AED0D0C28F3DAB59CF84C6D74264022C00C22AF665ED1A09BB",
+      "id": "github_release/github.com/koalaman/shellcheck/v0.11.0/shellcheck-v0.11.0.linux.aarch64.tar.xz",
+      "checksum": "12B331C1D2DB6B9EB13CFCA64306B1B157A86EB69DB83023E261EAA7E7C14588",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/koalaman/shellcheck/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz",
-      "checksum": "6C881AB0698E4E6EA235245F22832860544F17BA386442FE7E9D629F8CBEDF87",
+      "id": "github_release/github.com/koalaman/shellcheck/v0.11.0/shellcheck-v0.11.0.linux.x86_64.tar.xz",
+      "checksum": "8C3BE12B05D5C177A04C29E3C78CE89AC86F1595681CAB149B65B97C4E227198",
       "algorithm": "sha256"
     },
     {
