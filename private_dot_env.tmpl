@@ -1,3 +1,4 @@
+# dotenv-linter:off ExtraBlankLine
 # ============================= Shell Preferences =================================
 EDITOR=vim
 LANG=en_US.UTF-8
@@ -10,9 +11,7 @@ VISUAL=vim
 {{ template "aqua.env" . }}
 {{ template "krew.env" . }}
 {{ template "mise.env" . }}
-{{ if eq .chezmoi.os "darwin" -}}
-{{- template "homebrew.env" . -}}
-{{- end }}
+{{ template "homebrew.env" . }}
 
 # ======================== Language Runtimes and SDKs =============================
 {{ template "node.env" . }}
@@ -32,7 +31,7 @@ ANSIBLE_STDOUT_CALLBACK=yaml
 # Colors
 CLICOLOR=1
 GREP_OPTIONS=--color=auto
-LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+LS_COLORS=di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43
 
 # FZF: Make display more compact (40% height) and visually distinguishable (with borders)
 FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
@@ -53,7 +52,7 @@ DISPLAY=:0
 {{- end }}
 
 # Set up XDG directories explicitly
-XDG_CONFIG_HOME=$HOME/.config
 XDG_CACHE_HOME=$HOME/.cache
+XDG_CONFIG_HOME=$HOME/.config
 XDG_DATA_HOME=$HOME/.local/share
 XDG_STATE_HOME=$HOME/.local/state

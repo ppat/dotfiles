@@ -23,13 +23,14 @@ jobs:
       files_yaml: |
         actions:
         - .github/workflows/**
-        chezmoi:
-        - .chezmoiscripts/**
-        - dot_bashrc.tmpl
+        chezmoiscripts:
+        - .chezmoiscripts/*.tmpl
+        - .chezmoitemplates/*.sh
         - private_dot_local/bash/*.tmpl
         - private_dot_local/bin/*.tmpl
-        - private_dot_env.secrets.tmpl
-        - private_dot_env.tmpl
+        chezmoienv:
+        - .chezmoitemplates/*.env
+        - private_dot_env.*
         markdown:
         - '**.md'
         renovate:
@@ -39,6 +40,7 @@ jobs:
         - private_dot_config/mise/tasks/**
         - private_dot_local/bash/**
         - private_dot_local/bin/**
+        - dot_bashrc
         - dot_profile
         - '!**.tmpl'
         yaml:
@@ -48,7 +50,7 @@ jobs:
 
   chezmoi:
     needs: [detect-changes]
-    if: ${{ github.event_name != 'pull_request' || fromJSON(needs.detect-changes.outputs.results).chezmoi_any_changed == 'true' }}
+    if: ${{ github.event_name != 'pull_request' || fromJSON(needs.detect-changes.outputs.results).chezmoiscripts_any_changed == 'true' || fromJSON(needs.detect-changes.outputs.results).chezmoienv_any_changed == 'true' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
@@ -65,14 +67,15 @@ jobs:
         tools_repository: ppat/github-workflows
 
     - name: Shellcheck chezmoi scripts
+      if: ${{ github.event_name != 'pull_request' || fromJSON(needs.detect-changes.outputs.results).chezmoiscripts_any_changed == 'true' }}
       env:
-        CHEZMOI_SCRIPTS: ${{ github.event_name != 'pull_request' && 'ALL' || fromJSON(needs.detect-changes.outputs.results).chezmoi_all_changed_files }}
+        CHEZMOI_SCRIPTS: ${{ github.event_name != 'pull_request' && 'ALL' || fromJSON(needs.detect-changes.outputs.results).chezmoiscripts_all_changed_files }}
       shell: bash
       working-directory: ./current
       # yamllint disable-line rule:indentation
       run: |
         if [[ "${CHEZMOI_SCRIPTS}" == "ALL" ]]; then
-          CHEZMOI_SCRIPTS=$(find .chezmoiscripts/ -type f)
+          CHEZMOI_SCRIPTS=$(find . -type f -path './.chezmoiscripts/*.tmpl' -or  -path './.chezmoitemplates/*.sh')
         fi
         for sc in $CHEZMOI_SCRIPTS; do
           echo "::group::shellcheck $sc"
@@ -84,6 +87,28 @@ jobs:
           chezmoi execute-template --source=$(pwd) < "$sc" > "${sc%.tmpl}"
           echo "running shellcheck..."
           shellcheck --rcfile .shellcheckrc "${sc%.tmpl}"
+          echo "::endgroup::"
+        done
+
+    - name: Lint chezmoi dotenv files
+      if: ${{ github.event_name != 'pull_request' || fromJSON(needs.detect-changes.outputs.results).chezmoienv_any_changed == 'true' }}
+      env:
+        DOTENV_FILES: ${{ github.event_name != 'pull_request' && 'ALL' || fromJSON(needs.detect-changes.outputs.results).chezmoienv_all_changed_files }}
+      shell: bash
+      working-directory: ./current
+      # yamllint disable-line rule:indentation
+      run: |
+        if [[ "${DOTENV_FILES}" == "ALL" ]]; then
+          DOTENV_FILES=$(find . -type f -path '*dot_env*.tmpl' -or -path '*.env')
+        fi
+        for e in $DOTENV_FILES; do
+          echo "::group::dotenv $e"
+          echo "rendering file..."
+          # don't want to fetch secrets during linting
+          sed -i 's|{{ (bitwardenSecrets ".*" .bwsAccessToken).value }}|fake-test-value|' "$e"
+          chezmoi execute-template --source=$(pwd) < "$e" > "${e%.tmpl}"
+          echo "running dotenv-linter..."
+          dotenv-linter "${e%.tmpl}"
           echo "::endgroup::"
         done
 
