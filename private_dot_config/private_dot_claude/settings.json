@@ -1,0 +1,45 @@
+{
+  "autoUpdates": false,
+  "disableBypassPermissionsMode": "disable",
+  "enableAllProjectMcpServers": false,
+  "enabledMcpjsonServers": [
+  ],
+  "env": {
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git amend:*)",
+      "Bash(git bisect:*)",
+      "Bash(git checkout:*)",
+      "Bash(git commit:*)",
+      "Bash(git diff:*)",
+      "Bash(git fetch:*)",
+      "Bash(git grep:*)",
+      "Bash(git log:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git merge --ff-only:*)",
+      "Bash(git pull:*)",
+      "Bash(git rebase:*)",
+      "Bash(git show:*)",
+      "Bash(git stash:*)",
+      "Bash(git status:*)",
+      "Bash(kubectl explain:*)",
+      "Bash(kubectl --dry-run=client:*)",
+      "Bash(markdownlint-cli2:*)",
+      "Bash(pre-commit install:*)",
+      "Bash(pre-commit run:*)",
+      "Bash(shellcheck:*)",
+      "Bash(yamllint:*)",
+      "Edit",
+      "MultiEdit",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "deny": [
+      "Bash(git push:*)",
+      "Read(~/.env*)",
+      "Read(~/.secrets*)"
+    ]
+  }
+}
