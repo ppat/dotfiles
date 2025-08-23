@@ -58,10 +58,10 @@
       ],
       "matchPackageNames": [
         "oven-sh/bun",
-        "rust-lang/rust",
         "astral-sh/uv"
       ],
       "matchUpdateTypes": [
+        "major",
         "minor"
       ],
       "minimumReleaseAge": "30 days"
@@ -78,9 +78,11 @@
       "matchPackageNames": [
         "golang/go",
         "nodejs",
+        "rust-lang/rust",
         "hashicorp/terraform"
       ],
       "matchUpdateTypes": [
+        "major",
         "minor"
       ],
       "minimumReleaseAge": "90 days"
