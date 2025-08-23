@@ -10,9 +10,7 @@ VISUAL=vim
 {{ template "aqua.env" . }}
 {{ template "krew.env" . }}
 {{ template "mise.env" . }}
-{{ if eq .chezmoi.os "darwin" -}}
-{{- template "homebrew.env" . -}}
-{{- end }}
+{{ template "homebrew.env" . }}
 
 # ======================== Language Runtimes and SDKs =============================
 {{ template "node.env" . }}
