@@ -67,6 +67,7 @@ jobs:
         tools_repository: ppat/github-workflows
 
     - name: Shellcheck chezmoi scripts
+      if: ${{ github.event_name != 'pull_request' || fromJSON(needs.detect-changes.outputs.results).chezmoiscripts_any_changed == 'true' }}
       env:
         CHEZMOI_SCRIPTS: ${{ github.event_name != 'pull_request' && 'ALL' || fromJSON(needs.detect-changes.outputs.results).chezmoiscripts_all_changed_files }}
       shell: bash
@@ -90,6 +91,7 @@ jobs:
         done
 
     - name: Lint chezmoi dotenv files
+      if: ${{ github.event_name != 'pull_request' || fromJSON(needs.detect-changes.outputs.results).chezmoienv_any_changed == 'true' }}
       env:
         DOTENV_FILES: ${{ github.event_name != 'pull_request' && 'ALL' || fromJSON(needs.detect-changes.outputs.results).chezmoienv_all_changed_files }}
       shell: bash
