@@ -98,6 +98,8 @@ jobs:
       working-directory: ./current
       # yamllint disable-line rule:indentation
       run: |
+        apt-get update
+        DEBIAN_FRONTEND="noninteractive" apt-get install -yq --no-install-recommends bat
         if [[ "${DOTENV_FILES}" == "ALL" ]]; then
           DOTENV_FILES=$(find . -type f -path '*dot_env*.tmpl' -or -path '*.env')
         fi
