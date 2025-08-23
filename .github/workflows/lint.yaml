@@ -108,6 +108,7 @@ jobs:
           sed -i 's|{{ (bitwardenSecrets ".*" .bwsAccessToken).value }}|fake-test-value|' "$e"
           chezmoi execute-template --source=$(pwd) < "$e" > "${e%.tmpl}"
           echo "running dotenv-linter..."
+          bat "${e%.tmpl}"
           dotenv-linter "${e%.tmpl}"
           echo "::endgroup::"
         done
