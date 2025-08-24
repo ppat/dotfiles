@@ -31,11 +31,9 @@ main() {
     cp "{{ .chezmoi.sourceDir }}/.first-time-setup/mise.toml" "${MISE_GLOBAL_CONFIG_FILE}"
   fi
 
-  pushd $(dirname $MISE_CONFIG) >/dev/null 2>&1
   setup_mise_packages $setup_type | sed -E 's|^(.*)|    \1|g'
   echo
   display_installed_mise_packages $setup_type
-  popd >/dev/null 2>&1
 
   touch "$MISE_DATA_DIR/.first-time-setup-complete"
   log_success "Mise | $setup_type | Complete!"
