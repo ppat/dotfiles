@@ -24,7 +24,8 @@ trusted_config_paths                = ["~/code"]
 idiomatic_version_file_enable_tools = []
 
 [settings.node]
-flavor = "musl"
+flavor     = "musl"
+gpg_verify = false
 [settings.npm]
 bun = true
 [settings.pipx]

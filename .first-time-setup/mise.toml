@@ -9,7 +9,8 @@ slsa-verifier  = "2.7.0"
 uv             = "0.8.13"
 
 [settings.node]
-flavor = "musl"
+flavor     = "musl"
+gpg_verify = false
 [settings.npm]
 bun = true
 [settings.pipx]
