@@ -17,13 +17,6 @@ main() {
 
   mise_prerequisites $setup_type
 
-  export MISE_CONFIG="{{ .chezmoi.sourceDir }}/.first-time-setup/mise.toml"
-  if [[ ! -f "$MISE_CONFIG" ]]; then
-    log_error "Mise | $setup_type | config file ($MISE_CONFIG) doesn't exist!"
-    echo
-    exit 1
-  fi
-
   show_mise_env $setup_type
   echo
 
@@ -34,6 +27,8 @@ main() {
     return
   else
     log_info "Mise | $setup_type | Starting..."
+    rm -rf "${MISE_GLOBAL_CONFIG_FILE}"
+    cp "{{ .chezmoi.sourceDir }}/.first-time-setup/mise.toml" "${MISE_GLOBAL_CONFIG_FILE}"
   fi
 
   pushd $(dirname $MISE_CONFIG) >/dev/null 2>&1
