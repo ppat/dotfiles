@@ -8,9 +8,6 @@ rust           = "1.88.0"
 slsa-verifier  = "2.7.0"
 uv             = "0.8.13"
 
-[settings.node]
-flavor     = "musl"
-gpg_verify = false
 [settings.npm]
 bun = true
 [settings.pipx]
