@@ -14,7 +14,7 @@ uv             = "0.8.13"
 "npm:@openai/codex"             = "0.23.0"
 "npm:markdownlint-cli2"         = "0.18.1"
 
-"pipx:ansible-core" = { version = "2.19.0", pipx_args = "--preinstall jmespath==1.0.1 --preinstall kubernetes==32.0.1" }
+"pipx:ansible-core" = { version = "2.18.8", uvx_args = "--with jmespath==1.0.1 --with kubernetes==33.1.0" }
 "pipx:pre-commit"   = "4.3.0"
 "pipx:yamllint"     = "1.37.1"
 
