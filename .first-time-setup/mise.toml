@@ -1,13 +1,15 @@
 [tools]
-bun            = "1.2.12"
+bun            = "1.2.20"
 cargo-binstall = "1.12.0"
 cosign         = "2.5.3"
 go             = "1.24.6"
-node           = "22.16.0"
+node           = "22.18.0"
 rust           = "1.88.0"
 slsa-verifier  = "2.7.0"
 uv             = "0.8.13"
 
+[settings.node]
+flavor = "musl"
 [settings.npm]
 bun = true
 [settings.pipx]
