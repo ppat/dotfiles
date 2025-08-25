@@ -29,7 +29,7 @@ main() {
     local aqua_cfg_dir="$(dirname "${AQUA_GLOBAL_CONFIG}")"
     rm -rf "${aqua_cfg_dir}"
     mkdir -p "${aqua_cfg_dir}"
-    cp "{{ .chezmoi.sourceDir }}/.first-time-setup/aqua*" "${aqua_cfg_dir}/"
+    cp -R "{{ .chezmoi.sourceDir }}/.first-time-setup/aqua*" "${aqua_cfg_dir}/"
   fi
 
   setup_aqua_packages $setup_type | sed -E 's|^(.*)|    \1|g'
