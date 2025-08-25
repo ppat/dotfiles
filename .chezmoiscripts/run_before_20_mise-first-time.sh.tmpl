@@ -29,7 +29,7 @@ main() {
     log_info "Mise | $setup_type | Starting..."
     local mise_cfg_dir="$(dirname "${MISE_GLOBAL_CONFIG_FILE}")"
     rm -rf "${mise_cfg_dir}"
-    mkdir -p "${mise_cfg_dir}"    
+    mkdir -p "${mise_cfg_dir}"
     cp {{ .chezmoi.sourceDir }}/.first-time-setup/mise.toml "${MISE_GLOBAL_CONFIG_FILE}"
   fi
 
