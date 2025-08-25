@@ -26,7 +26,7 @@ main() {
     return
   else
     log_info "Aqua | $setup_type | Starting..."
-c    local aqua_cfg_dir="$(dirname "${AQUA_GLOBAL_CONFIG}")"
+    local aqua_cfg_dir="$(dirname "${AQUA_GLOBAL_CONFIG}")"
     rm -rf "${aqua_cfg_dir}"
     mkdir -p "${aqua_cfg_dir}"
     cp -R {{ .chezmoi.sourceDir }}/.first-time-setup/aqua* "${aqua_cfg_dir}/"
