@@ -74,7 +74,7 @@ jobs:
       # yamllint disable-line rule:indentation
       run: |
         if [[ "${CHEZMOI_SCRIPTS}" == "ALL" ]]; then
-          CHEZMOI_SCRIPTS=$(find . -type f -path './.chezmoiscripts/*.tmpl' -or  -path './.chezmoitemplates/*.sh')
+          CHEZMOI_SCRIPTS=$(find . -type f -path './.chezmoiscripts/*.tmpl' -or  -path './private_dot_local/bash/*.tmpl' -or -path './private_dot_local/bin/*.tmpl')
         fi
         for sc in $CHEZMOI_SCRIPTS; do
           echo "::group::shellcheck $sc"
