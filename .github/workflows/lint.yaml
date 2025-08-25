@@ -25,7 +25,6 @@ jobs:
         - .github/workflows/**
         chezmoiscripts:
         - .chezmoiscripts/*.tmpl
-        - .chezmoitemplates/*.sh
         - private_dot_local/bash/*.tmpl
         - private_dot_local/bin/*.tmpl
         chezmoienv:
