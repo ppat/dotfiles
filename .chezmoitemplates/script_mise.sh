@@ -1,4 +1,5 @@
 # shellcheck shell=bash
+
 mise_prerequisites() {
   local setup_type="$1"
   if ! command -v mise > /dev/null; then

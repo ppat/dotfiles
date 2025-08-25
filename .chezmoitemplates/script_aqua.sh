@@ -1,4 +1,5 @@
 # shellcheck shell=bash
+
 aqua_prerequisites() {
   local setup_type="$1"
   log_info "Aqua | $setup_type | Initializing Aqua..."

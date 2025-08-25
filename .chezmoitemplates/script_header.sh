@@ -1,4 +1,5 @@
 # shellcheck shell=bash
+
 log_info() {
   echo -e "\033[0;36m[INFO]\033[0m $1"      # Bright cyan
 }
