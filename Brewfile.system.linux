@@ -2,6 +2,10 @@
 brew "gnupg"
 brew "nmap"
 
+# Package Managers
+brew "oven-sh/bun/bun"
+brew "uv"
+
 # Fonts
 cask "font-fira-code"        # Monospaced font with programming ligatures
 cask "font-jetbrains-mono"   # Monospaced font for coding
