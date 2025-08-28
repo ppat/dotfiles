@@ -671,23 +671,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v3.18.5-darwin-amd64.tar.gz",
-      "checksum": "3200C32CF19BF69B446E97C0060AF39F018D2E441E418AD174BA39052F63FB15",
+      "id": "http/get.helm.sh/helm-v3.18.6-darwin-amd64.tar.gz",
+      "checksum": "80CAD0470E38CF25731CDEAD7C32DFBEB887BC177BD6FA01E31B065722F8F06B",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v3.18.5-darwin-arm64.tar.gz",
-      "checksum": "32CE3F4910D5A96C1170F3F8F230D4C8B8BC007E5D47B085B8416CFE559D7925",
+      "id": "http/get.helm.sh/helm-v3.18.6-darwin-arm64.tar.gz",
+      "checksum": "48E30D236A1F334C6ACB78501BE5A851EAA2A267FEFEB1131B6484EB2F9F30D7",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v3.18.5-linux-amd64.tar.gz",
-      "checksum": "9879BF9C471CDECBBEE5EE17CF1DE1849B0FFD12871EA01F17EDE6861D7134F5",
+      "id": "http/get.helm.sh/helm-v3.18.6-linux-amd64.tar.gz",
+      "checksum": "3F43C0AA57243852DD542493A0F54F1396C0BC8EC7296BBB2C01E802010819CE",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v3.18.5-linux-arm64.tar.gz",
-      "checksum": "D25D2C1B1C5A9844755AB5C66E6DF4D6B31C25E6D92DD2CE66C137A63DDF9F2C",
+      "id": "http/get.helm.sh/helm-v3.18.6-linux-arm64.tar.gz",
+      "checksum": "5B8E00B6709CAAB466CBBB0BC29EE09059B8DC9417991DD04B497530E49B1737",
       "algorithm": "sha256"
     },
     {
