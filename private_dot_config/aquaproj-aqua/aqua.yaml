@@ -39,7 +39,7 @@ packages:
   - command: krew
     alias: kubectl-krew
 - name: kubernetes-sigs/kustomize@kustomize/v5.7.1
-- name: kyverno/chainsaw@v0.2.12
+- name: kyverno/chainsaw@v0.2.13
 - name: mikefarah/yq@v4.47.1
 - name: muesli/duf@v0.8.1
 - name: nektos/act@v0.2.80
