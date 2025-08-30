@@ -416,23 +416,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kyverno/chainsaw/v0.2.12/chainsaw_darwin_amd64.tar.gz",
-      "checksum": "B49DBA1214B32024567B1EDC7653498A644FBEF18111BCC3E1C46DC52E1D194E",
+      "id": "github_release/github.com/kyverno/chainsaw/v0.2.13/chainsaw_darwin_amd64.tar.gz",
+      "checksum": "265FF7CD8FF45295DA91DE3E1F31EBC4552E2B389BD5AF137214D82EE99BBC2A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kyverno/chainsaw/v0.2.12/chainsaw_darwin_arm64.tar.gz",
-      "checksum": "717A07FCC4D781FFF967B287880FED1D8B1E6AF9FBECC7650A714C467F296D33",
+      "id": "github_release/github.com/kyverno/chainsaw/v0.2.13/chainsaw_darwin_arm64.tar.gz",
+      "checksum": "45CE392CECE57A7DB28760D5C73243ACD59090805EB013A304E4AC9E52217092",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kyverno/chainsaw/v0.2.12/chainsaw_linux_amd64.tar.gz",
-      "checksum": "D6BFB17BA47AF2DB85EDC0365288F92B5E1A4566F7FF130EC9B326F96856E209",
+      "id": "github_release/github.com/kyverno/chainsaw/v0.2.13/chainsaw_linux_amd64.tar.gz",
+      "checksum": "6C8D4CDCCACBEA7100A8354893B3176D874EECFE70C930FBE0496B7967D61CA4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kyverno/chainsaw/v0.2.12/chainsaw_linux_arm64.tar.gz",
-      "checksum": "72A6273D6DA16A04E29E0FAE232631B084852D21DDF25F88ED3D3DE480125D30",
+      "id": "github_release/github.com/kyverno/chainsaw/v0.2.13/chainsaw_linux_arm64.tar.gz",
+      "checksum": "F0BBBD1D4B6090BEC8AD82305251098B7E9E5069DC67B328D68AEB57DC2974F7",
       "algorithm": "sha256"
     },
     {
