@@ -61,23 +61,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/kube-bench/v0.11.2/kube-bench_0.11.2_darwin_amd64.tar.gz",
-      "checksum": "9869D6E75145EB389CB0E3B7615956217C1E117601CB2DC023B1A918AAD2B77A",
+      "id": "github_release/github.com/aquasecurity/kube-bench/v0.12.0/kube-bench_0.12.0_darwin_amd64.tar.gz",
+      "checksum": "B68DEDCF30F6CE8BF2B2754E215D0B933B90C399C2FDD0A3D4818E2D3D1B0C25",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/kube-bench/v0.11.2/kube-bench_0.11.2_darwin_arm64.tar.gz",
-      "checksum": "0B5A3468F48AB0BA79814518D0EFEAF52AE7C7B2FAD56347CF8C2745FCB62663",
+      "id": "github_release/github.com/aquasecurity/kube-bench/v0.12.0/kube-bench_0.12.0_darwin_arm64.tar.gz",
+      "checksum": "DB61DBF0B0C4BAAF2707A5DEBAE9C9F5030A3FB4639270C3000F1DA4D5CD2763",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/kube-bench/v0.11.2/kube-bench_0.11.2_linux_amd64.tar.gz",
-      "checksum": "26ECC7074560C761BD9FBC0F9DD4BB6B951B092C32654D96864607482E79AE42",
+      "id": "github_release/github.com/aquasecurity/kube-bench/v0.12.0/kube-bench_0.12.0_linux_amd64.tar.gz",
+      "checksum": "CA95DF2B5984CCD2E9D2727EB4271BC83232B28688E98965F530472D537799C1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/kube-bench/v0.11.2/kube-bench_0.11.2_linux_arm64.tar.gz",
-      "checksum": "2F9D8A34D6371B99171E3D41685ED527AD13873535AC01C5F8CCD1CDF674FF4D",
+      "id": "github_release/github.com/aquasecurity/kube-bench/v0.12.0/kube-bench_0.12.0_linux_arm64.tar.gz",
+      "checksum": "23CD827647FA0A0EF9A847940D76B0616BA3A2951FB5E779EBF5D6AFBD407ED8",
       "algorithm": "sha256"
     },
     {
@@ -131,13 +131,13 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bitwarden/clients/cli-v2025.7.0/bw-linux-2025.7.0.zip",
-      "checksum": "B0BDAAA1F77D8DBF304E37403FA57A54AA1DAFBE7C660D120AD67F286C174ADF",
+      "id": "github_release/github.com/bitwarden/clients/cli-v2025.8.0/bw-linux-2025.8.0.zip",
+      "checksum": "DF089584225DD4170E2C3FF04E9A09B43BB4070F46FDD1DA958BB883B529BBE0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bitwarden/clients/cli-v2025.7.0/bw-macos-2025.7.0.zip",
-      "checksum": "AB2260899885CFB4C52115008D7F13EA1464E859DA44690E6B6FA75A5429FDA6",
+      "id": "github_release/github.com/bitwarden/clients/cli-v2025.8.0/bw-macos-2025.8.0.zip",
+      "checksum": "74B55F8F21A07376C81296640323878D7EB5FB26AE9CDCB507E6E46F74105C30",
       "algorithm": "sha256"
     },
     {
@@ -171,23 +171,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.76.2/gh_2.76.2_linux_amd64.tar.gz",
-      "checksum": "62544B0F3759BBF1155C0AC3D75838B5FE23D66DFB75CF8368F84FFF8F82B93E",
+      "id": "github_release/github.com/cli/cli/v2.78.0/gh_2.78.0_linux_amd64.tar.gz",
+      "checksum": "AC309F70C5D6B122C82E6138CE82CB65CA5D8595CC09D11751FBC4E3907E1A05",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.76.2/gh_2.76.2_linux_arm64.tar.gz",
-      "checksum": "A77F6D709C5100CDA8E9BBB8D8B7143120121233D9102BA2F2BC254134DB18DC",
+      "id": "github_release/github.com/cli/cli/v2.78.0/gh_2.78.0_linux_arm64.tar.gz",
+      "checksum": "9E3CA75B227A5503F6EF92C4B8B6DBF94E34BFDD8069AC0F16B8739856EBBA7B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.76.2/gh_2.76.2_macOS_amd64.zip",
-      "checksum": "A8D27429A00F50AE3318FC75A9ED1E8400932C109A657E1570467EAB76F6C419",
+      "id": "github_release/github.com/cli/cli/v2.78.0/gh_2.78.0_macOS_amd64.zip",
+      "checksum": "324F2647F81A9A23934E8F8A969B10D471C398076D027F2DCF9BDC97931ADEF1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.76.2/gh_2.76.2_macOS_arm64.zip",
-      "checksum": "43CEA90FBD5D3B607B6125082F4A5FAF7D5FC2E548D3D349A3B0310706A4F878",
+      "id": "github_release/github.com/cli/cli/v2.78.0/gh_2.78.0_macOS_arm64.zip",
+      "checksum": "62290B0DBC9965EBBC20D2B481FE83AA167FADC28E0D81A5D93EEC6EFC9D3B72",
       "algorithm": "sha256"
     },
     {
