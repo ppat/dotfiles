@@ -14,13 +14,13 @@ registries:
 packages:
 - name: ajeetdsouza/zoxide@v0.9.8
 - name: aristocratos/btop@v1.4.4
-- name: aquasecurity/kube-bench@v0.11.2
+- name: aquasecurity/kube-bench@v0.12.0
 - name: aquasecurity/trivy@v0.65.0
 - name: atuinsh/atuin@v18.8.0
-- name: bitwarden/clients@cli-v2025.7.0
+- name: bitwarden/clients@cli-v2025.8.0
 - name: bitwarden/sdk-sm@bws-v1.0.0
 - name: bootandy/dust@v1.2.3
-- name: cli/cli@v2.76.2
+- name: cli/cli@v2.78.0
 - name: coder/coder@v2.25.1
 - name: dalance/procs@v0.14.10
 - name: dandavison/delta@0.18.2
