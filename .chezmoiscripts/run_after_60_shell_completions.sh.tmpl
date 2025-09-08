@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "aqua.env" . -}}
+{{ template "krew.env" . -}}
+{{ template "homebrew.env" . -}}
+set +o allexport
+export PATH=${AQUA_ROOT_DIR}/bin:${KREW_ROOT}/bin:$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+
+{{ template "script_header.sh" . }}
+
+
+main() {
+  log_info "Shell Completions | Setting up..."
+  if [[ ! -d ~/.local/bash-completions ]]; then
+    mkdir ~/.local/bash-completions
+  fi
+  aqua completion bash > ~/.local/bash-completions/aqua
+  flux completion bash > ~/.local/bash-completions/flux
+  gh completion -s bash > ~/.local/bash-completions/gh
+  helm completion bash > ~/.local/bash-completions/helm
+  kubectl completion bash > ~/.local/bash-completions/kubectl
+  kustomize completion bash > ~/.local/bash-completions/kustomize
+  mise completion bash --include-bash-completion-lib > ~/.local/bash-completions/mise
+  zoxide init bash > ~/.local/bash-completions/mise
+  log_success "Shell Completions | Configured."
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main
