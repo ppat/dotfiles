@@ -21,7 +21,7 @@ command_specific_setup() {
       ;;
     *)
       ;;
-  esac  
+  esac
 }
 
 if [[ -d "$HOME/.local/bash-completions" ]]; then
