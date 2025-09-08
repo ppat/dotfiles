@@ -36,11 +36,11 @@ The repository integrates several specialized tools:
   - Manages global tool installations via pipx, npm, etc.
   - Packages: [.config/mise/config.toml](private_dot_config/mise/config.toml)
 
-- **[Homebrew](https://brew.sh/)**: Manages system packages and GUI apps (macOS)
+- **[Homebrew](https://brew.sh/)**: Manages system packages (Linux/MacOS) and GUI apps (macOS)
   - Uses Brewfile for reproducible installations
   - Handles GUI applications via Casks
   - Packages:
-    - System: [Brewfile.system](Brewfile.system)
+    - System: [MacOS](Brewfile.system.darwin) | [Linux](Brewfile.system.linux)
     - Docker: [Brewfile.docker](Brewfile.docker)
     - GUI: [Brewfile.gui](Brewfile.gui)
 
