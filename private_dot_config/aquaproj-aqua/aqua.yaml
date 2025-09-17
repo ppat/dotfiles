@@ -15,24 +15,24 @@ packages:
 - name: ajeetdsouza/zoxide@v0.9.8
 - name: aristocratos/btop@v1.4.4
 - name: aquasecurity/kube-bench@v0.12.0
-- name: aquasecurity/trivy@v0.65.0
+- name: aquasecurity/trivy@v0.66.0
 - name: atuinsh/atuin@v18.8.0
 - name: bitwarden/clients@cli-v2025.8.0
 - name: bitwarden/sdk-sm@bws-v1.0.0
 - name: bootandy/dust@v1.2.3
 - name: cli/cli@v2.78.0
-- name: coder/coder@v2.25.2
+- name: coder/coder@v2.26.0
 - name: dalance/procs@v0.14.10
 - name: dandavison/delta@0.18.2
 - name: derailed/k9s@v0.50.9
 - name: fastfetch-cli/fastfetch@2.51.1
 - name: fluxcd/flux2@v2.6.4
-- name: hadolint/hadolint@v2.12.0
+- name: hadolint/hadolint@v2.13.1
 - name: helm/helm@v3.18.6
 # - name: jesseduffield/lazygit@v0.54.2
 - name: junegunn/fzf@v0.65.2
 - name: koalaman/shellcheck@v0.11.0
-- name: kubernetes/kubectl@v1.34.0
+- name: kubernetes/kubectl@v1.34.1
 - name: kubernetes-sigs/kind@v0.30.0
 - name: kubernetes-sigs/krew@v0.4.5
   command_aliases:
@@ -40,7 +40,7 @@ packages:
     alias: kubectl-krew
 - name: kubernetes-sigs/kustomize@kustomize/v5.7.1
 - name: kyverno/chainsaw@v0.2.13
-- name: mikefarah/yq@v4.47.1
+- name: mikefarah/yq@v4.47.2
 - name: muesli/duf@v0.8.1
 - name: nektos/act@v0.2.81
 - name: qarmin/czkawka@9.0.0
@@ -48,7 +48,7 @@ packages:
 - name: sharkdp/bat@v0.25.0
 - name: sharkdp/fd@v10.3.0
 - name: sharkdp/hyperfine@v1.19.0
-- name: siderolabs/talos@v1.10.7
+- name: siderolabs/talos@v1.11.0
 - name: tailscale/tailscale@v1.86.2
 - name: terraform-linters/tflint@v0.59.1
 - name: yannh/kubeconform@v0.7.0
