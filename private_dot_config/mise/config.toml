@@ -9,7 +9,7 @@ terraform      = "1.6.6"
 usage          = "2.2.2"
 
 "npm:@anthropic-ai/claude-code" = "1.0.113"
-"npm:@google/gemini-cli"        = "0.3.4"
+"npm:@google/gemini-cli"        = "0.4.1"
 "npm:@openai/codex"             = "0.30.0"
 "npm:markdownlint-cli2"         = "0.18.1"
 
