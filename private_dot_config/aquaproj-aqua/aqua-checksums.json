@@ -261,23 +261,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.51.1/fastfetch-linux-aarch64.tar.gz",
-      "checksum": "4233A08D7B4DD65614FD0A3DCCA4EF5EDFA4F0022CC697CB81BBF964FDAC84C5",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.52.0/fastfetch-linux-aarch64.tar.gz",
+      "checksum": "EA3AACCEAF15DDF0F34CCCFD435B3E939ABD4AD68F902FEF1A47C4AC2CDBAE56",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.51.1/fastfetch-linux-amd64.tar.gz",
-      "checksum": "8E674F8FA31A07888CC2914EA1382D604DC0CC753CA2C6A917CAE338A954DFC4",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.52.0/fastfetch-linux-amd64.tar.gz",
+      "checksum": "FBD16C86819C5C01F99D42BC716798271F29CA7433158BFCF77E00567BFA0008",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.51.1/fastfetch-macos-aarch64.tar.gz",
-      "checksum": "3049940A0021EBCB338C80D4892F7ECBFFE73318DD7A3E1791E15AFE469A4734",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.52.0/fastfetch-macos-aarch64.tar.gz",
+      "checksum": "64315E4EAB69948E8021E487933866A2F8019A7B654B02A474181DDFCA4373AE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.51.1/fastfetch-macos-amd64.tar.gz",
-      "checksum": "D5F63B9428CE1B74096BA93D32EB0E3139B1F7C056BF65513C75B6859A83C5EC",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.52.0/fastfetch-macos-amd64.tar.gz",
+      "checksum": "A03DFC24E91C3B17AAD1E77A51135B01412C4DA2B880CBF922E42EE28FFC7BC1",
       "algorithm": "sha256"
     },
     {
@@ -596,23 +596,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.11.0/talosctl-darwin-amd64",
-      "checksum": "713B2200C22DFA920B1B7F6F3389C41BF1D91EE53BCBDD84CFB1E3D1C5C655B955829EE8EEE4EFA3ED24AC9AC90A5DD4BC7FC377A602C4F39D591FE56D4B7D4D",
+      "id": "github_release/github.com/siderolabs/talos/v1.11.1/talosctl-darwin-amd64",
+      "checksum": "F5EEA332F728758C96D429F0107A1E690D619EC880EB3F03B12E0BB8F708A9FFB26CB03183EE2BA1F7B12D0B258F8C2C287440B485DC16F51202CFF5770002DA",
       "algorithm": "sha512"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.11.0/talosctl-darwin-arm64",
-      "checksum": "B41A4F5DF30CF56E2E3DEFBA5FB8FD7A299E1D10AF6949BC63125FEC71A2938EDD436608D0DB7E578B6A7D6E7162908AE5414B74526F8F77A84A538844FB8963",
+      "id": "github_release/github.com/siderolabs/talos/v1.11.1/talosctl-darwin-arm64",
+      "checksum": "3848E7FE53FE116560695B922306D54D1686A3B735657FF6B58A219A9A94150BCC5759C784B54EE6D7580711655A12979C73D18B5DA03E875DC997B1937F3D68",
       "algorithm": "sha512"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.11.0/talosctl-linux-amd64",
-      "checksum": "A79E169BB9FC8AECB7581AD7F66394E9ED1FA5BF559A183CB7AFFB84B26074331DAAA7D215250F08142157105D47DE5E84D26362A11D7F7B6D97139B29FE1BA5",
+      "id": "github_release/github.com/siderolabs/talos/v1.11.1/talosctl-linux-amd64",
+      "checksum": "61A2DD674E2A6B15632BB2584665069CFA9B991B45BDBFABED45A31160F3491EF3F816D8143FF36ACB7541171859E6EF812959DFE603D9C8BC88AB02B9FFA617",
       "algorithm": "sha512"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.11.0/talosctl-linux-arm64",
-      "checksum": "72C37481B9F478D82ADAE37655741B7CC262082DF01787A5D95407B6E65421F926E8DC6CCB4CC2B9597F44A06ECCAAE356A35C5C680779BAA52FD3E19028C8C4",
+      "id": "github_release/github.com/siderolabs/talos/v1.11.1/talosctl-linux-arm64",
+      "checksum": "25412242598E2B0510763EEAE845F7180F25AA9C62155E26B9D2463C227765068DF5A68C1C2B9672DD4296D36CCE4A1352F1892381EB64C0929D84A14770E044",
       "algorithm": "sha512"
     },
     {
