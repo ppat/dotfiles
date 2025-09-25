@@ -241,23 +241,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/derailed/k9s/v0.50.9/k9s_Darwin_amd64.tar.gz",
-      "checksum": "ADDBE8D67C1F65D76CE17592C7F0D0253AC0637073BD90DC7DC8533352A643A9",
+      "id": "github_release/github.com/derailed/k9s/v0.50.10/k9s_Darwin_amd64.tar.gz",
+      "checksum": "916A37719C552BBCCF25FD67AF65853EEF5E7533ADD380E1E0BCBD588AA36DFD",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/derailed/k9s/v0.50.9/k9s_Darwin_arm64.tar.gz",
-      "checksum": "30A91C1B91A52086F34A0A24C6B4EE8477FC360CD4D3C4D413A514FF2F308BD9",
+      "id": "github_release/github.com/derailed/k9s/v0.50.10/k9s_Darwin_arm64.tar.gz",
+      "checksum": "CAEC596090E6CAC4F49BE1E77314E5A240523238CA85482CD4E8A47C17C81FFC",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/derailed/k9s/v0.50.9/k9s_Linux_amd64.tar.gz",
-      "checksum": "5E625EFA26C3E14256CF29D242179B32129183B549937EC62D0AD9BE1BFE2CA4",
+      "id": "github_release/github.com/derailed/k9s/v0.50.10/k9s_Linux_amd64.tar.gz",
+      "checksum": "EEB79D0F95E880A5B6C80C8BBCFB4A630FC95F5AB43E853390664CAF96E81452",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/derailed/k9s/v0.50.9/k9s_Linux_arm64.tar.gz",
-      "checksum": "147E696B608DA9A300B9DB6B35FD6DFC0713CE8C64865E550C90452696BB779A",
+      "id": "github_release/github.com/derailed/k9s/v0.50.10/k9s_Linux_arm64.tar.gz",
+      "checksum": "6AAF8024159C9EC9A4436A12698F65EA026B94E9C378DC436CFA4AD5693EDA74",
       "algorithm": "sha256"
     },
     {
