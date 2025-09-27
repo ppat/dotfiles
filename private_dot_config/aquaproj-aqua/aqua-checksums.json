@@ -101,13 +101,13 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aristocratos/btop/v1.4.4/btop-aarch64-linux-musl.tbz",
-      "checksum": "E8845D3F69F6A32D00258A1F79C093970666ECE3D05A430C7B24A16C56577BF5",
+      "id": "github_release/github.com/aristocratos/btop/v1.4.5/btop-aarch64-linux-musl.tbz",
+      "checksum": "9A4167DA2DB7AA550867EA822CE9E6AD5B871C75D5B9FD1CC05FC88B03E0414A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aristocratos/btop/v1.4.4/btop-x86_64-linux-musl.tbz",
-      "checksum": "FEC7D1B59C671290A0F80D5A32617EA6D60412485FC04318FD194B9550FF6B49",
+      "id": "github_release/github.com/aristocratos/btop/v1.4.5/btop-x86_64-linux-musl.tbz",
+      "checksum": "206B0F9334E93C06DE9025EAF90676C374CA79815B41DADFF1B36EF4E4E6D1D4",
       "algorithm": "sha256"
     },
     {
@@ -241,23 +241,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/derailed/k9s/v0.50.10/k9s_Darwin_amd64.tar.gz",
-      "checksum": "916A37719C552BBCCF25FD67AF65853EEF5E7533ADD380E1E0BCBD588AA36DFD",
+      "id": "github_release/github.com/derailed/k9s/v0.50.12/k9s_Darwin_amd64.tar.gz",
+      "checksum": "54157CA4A28A93904A825CE4858DA339063C275878F92EE07F6E3F1FBBB163CA",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/derailed/k9s/v0.50.10/k9s_Darwin_arm64.tar.gz",
-      "checksum": "CAEC596090E6CAC4F49BE1E77314E5A240523238CA85482CD4E8A47C17C81FFC",
+      "id": "github_release/github.com/derailed/k9s/v0.50.12/k9s_Darwin_arm64.tar.gz",
+      "checksum": "509F78BBCEB1444FB397FAE61586325ECFBC3BD6663E8490BA5C2599523771E5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/derailed/k9s/v0.50.10/k9s_Linux_amd64.tar.gz",
-      "checksum": "EEB79D0F95E880A5B6C80C8BBCFB4A630FC95F5AB43E853390664CAF96E81452",
+      "id": "github_release/github.com/derailed/k9s/v0.50.12/k9s_Linux_amd64.tar.gz",
+      "checksum": "B45D5399ED6A222C37DCB44632319B9C96C7995263ADA4EF75289FDD78A48DF7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/derailed/k9s/v0.50.10/k9s_Linux_arm64.tar.gz",
-      "checksum": "6AAF8024159C9EC9A4436A12698F65EA026B94E9C378DC436CFA4AD5693EDA74",
+      "id": "github_release/github.com/derailed/k9s/v0.50.12/k9s_Linux_arm64.tar.gz",
+      "checksum": "271D06FA71A5FABA90DB57ABCF4EF608F2440769F445D64BC1A39D2B1FA5C2C0",
       "algorithm": "sha256"
     },
     {
@@ -676,38 +676,38 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v3.18.6-darwin-amd64.tar.gz",
-      "checksum": "80CAD0470E38CF25731CDEAD7C32DFBEB887BC177BD6FA01E31B065722F8F06B",
+      "id": "http/get.helm.sh/helm-v3.19.0-darwin-amd64.tar.gz",
+      "checksum": "09A108C0ABDA42E45AF172BE65C49125354BF7CD178DBE10435E94540E49C7B9",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v3.18.6-darwin-arm64.tar.gz",
-      "checksum": "48E30D236A1F334C6ACB78501BE5A851EAA2A267FEFEB1131B6484EB2F9F30D7",
+      "id": "http/get.helm.sh/helm-v3.19.0-darwin-arm64.tar.gz",
+      "checksum": "31513E1193DA4EB4AE042EB5F98EF9ACA7890CFA136F4707C8D4F70E2115BEF6",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v3.18.6-linux-amd64.tar.gz",
-      "checksum": "3F43C0AA57243852DD542493A0F54F1396C0BC8EC7296BBB2C01E802010819CE",
+      "id": "http/get.helm.sh/helm-v3.19.0-linux-amd64.tar.gz",
+      "checksum": "A7F81CE08007091B86D8BD696EB4D86B8D0F2E1B9F6C714BE62F82F96A594496",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v3.18.6-linux-arm64.tar.gz",
-      "checksum": "5B8E00B6709CAAB466CBBB0BC29EE09059B8DC9417991DD04B497530E49B1737",
+      "id": "http/get.helm.sh/helm-v3.19.0-linux-arm64.tar.gz",
+      "checksum": "440CF7ADD0AEE27EBC93FADA965523C1DC2E0AB340D4348DA2215737FC0D76AD",
       "algorithm": "sha256"
     },
     {
-      "id": "http/pkgs.tailscale.com/stable/Tailscale-1.86.2-macos.pkg",
-      "checksum": "F91999674765D5BAFF75162729CB4092847B482D21B9A44C2BDC47C5AC2162FC",
+      "id": "http/pkgs.tailscale.com/stable/Tailscale-1.88.1-macos.pkg",
+      "checksum": "023C678D39B8054ADE43DB54323B90B5E3785C5818B6407D8B96ABB59F43032C",
       "algorithm": "sha256"
     },
     {
-      "id": "http/pkgs.tailscale.com/stable/tailscale_1.86.2_amd64.tgz",
-      "checksum": "3B122D9F1FBF281CF3C79FD61E84C89AF9A3647C464859CBEE8F133FFA74E8F8",
+      "id": "http/pkgs.tailscale.com/stable/tailscale_1.88.1_amd64.tgz",
+      "checksum": "EAC9C76410CCF3EA76B2E758342A822E0B24DDD179157BE8A36230537C1AA0E1",
       "algorithm": "sha256"
     },
     {
-      "id": "http/pkgs.tailscale.com/stable/tailscale_1.86.2_arm64.tgz",
-      "checksum": "BCC23DC30BE2309C09F0D70692ABF7442BC4772B491989B175734F0CA8A5FB9F",
+      "id": "http/pkgs.tailscale.com/stable/tailscale_1.88.1_arm64.tgz",
+      "checksum": "A07C3FB66BBCE567F9C3D830B83B70DEE19FE7AD50CDDE336ED79F718A3D945F",
       "algorithm": "sha256"
     },
     {
