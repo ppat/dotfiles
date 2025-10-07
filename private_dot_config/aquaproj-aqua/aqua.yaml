@@ -25,9 +25,9 @@ packages:
 - name: dalance/procs@v0.14.10
 - name: dandavison/delta@0.18.2
 - name: derailed/k9s@v0.50.13
-- name: fastfetch-cli/fastfetch@2.52.0
+- name: fastfetch-cli/fastfetch@2.53.0
 - name: fluxcd/flux2@v2.6.4
-- name: hadolint/hadolint@v2.13.1
+- name: hadolint/hadolint@v2.14.0
 - name: helm/helm@v3.19.0
 # - name: jesseduffield/lazygit@v0.55.1
 - name: junegunn/fzf@v0.65.2
