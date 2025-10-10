@@ -21,23 +21,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.64.0/difft-aarch64-apple-darwin.tar.gz",
-      "checksum": "E1E59FF3CF6C0837C94DDD4910D43351EC14F8C169ABCFA51E63136D14C9E528",
+      "id": "github_release/github.com/Wilfred/difftastic/0.65.0/difft-aarch64-apple-darwin.tar.gz",
+      "checksum": "B5D565F9586519F7E91799C6E3752B7CACF6110DD855B4CF019816E63C7C7F5F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.64.0/difft-aarch64-unknown-linux-gnu.tar.gz",
-      "checksum": "F657B0CC1BABA3B5BCDE4FDFBAFBC58F2131476ED53D01E4880898D34A1CB124",
+      "id": "github_release/github.com/Wilfred/difftastic/0.65.0/difft-aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "7930428E178BE78370B32DCDF71405AD08DE1065864424141D1D19ECF80469B2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.64.0/difft-x86_64-apple-darwin.tar.gz",
-      "checksum": "D6B7F1C4A66495400F1F6E224EFDAF82AA66E8930FCB257BC9357D69D52DD69D",
+      "id": "github_release/github.com/Wilfred/difftastic/0.65.0/difft-x86_64-apple-darwin.tar.gz",
+      "checksum": "69CF21CB0629C63DADA7229F6BFE7E91A809335299B25ED14ABEB1080547C692",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.64.0/difft-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "06DD06DA5593EE29ED9753026310C6C45E0048CD37BB5807E7F07B8F90CFEA5E",
+      "id": "github_release/github.com/Wilfred/difftastic/0.65.0/difft-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "F439A90CB3188BACB77E1EA2BFF636355A5377324C3421D3F2920E10022FD48C",
       "algorithm": "sha256"
     },
     {
@@ -171,43 +171,43 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.79.0/gh_2.79.0_linux_amd64.tar.gz",
-      "checksum": "E7AF0C72A607C0528FDA1989F7C8E3BE85E67D321889002AF0E2938AD9C8FB68",
+      "id": "github_release/github.com/cli/cli/v2.80.0/gh_2.80.0_linux_amd64.tar.gz",
+      "checksum": "E0AFFFBF36548194AED8A1BDAF474314857A808B1B1CFA38743E2F4ED6A35B0B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.79.0/gh_2.79.0_linux_arm64.tar.gz",
-      "checksum": "1B91E546B30181A8EE6D8C72BBF59EAADBB0600BAB014DFBCC199676C83EA102",
+      "id": "github_release/github.com/cli/cli/v2.80.0/gh_2.80.0_linux_arm64.tar.gz",
+      "checksum": "785A746A7B42BAAF42F7D792C9CA1732451A28B78112A1A3B38884156CDEB8A2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.79.0/gh_2.79.0_macOS_amd64.zip",
-      "checksum": "C1672616FCB3745A0E4285110143B1CC93C241BD867BF108084DEFDEA3D49331",
+      "id": "github_release/github.com/cli/cli/v2.80.0/gh_2.80.0_macOS_amd64.zip",
+      "checksum": "197E55F4E4A5728FA9C3CACF3891CB04A0874493664A80B0D9BDE1223173F205",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.79.0/gh_2.79.0_macOS_arm64.zip",
-      "checksum": "5454F9509E3DBB8F321310E9E344877D9A01EBB8F8703886B1AFB0936D60FFAA",
+      "id": "github_release/github.com/cli/cli/v2.80.0/gh_2.80.0_macOS_arm64.zip",
+      "checksum": "4E3567687D714272BE3664244C045785573660803EABF41DFF9A3A701B39F3B6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.26.0/coder_2.26.0_darwin_amd64.zip",
-      "checksum": "61FFA58821620F4291CED046D2440BCBDCB5C05000D2CAF4E65BEA867FF9BB3B",
+      "id": "github_release/github.com/coder/coder/v2.26.1/coder_2.26.1_darwin_amd64.zip",
+      "checksum": "19B57042F2502A7E2EA51390A117FED6B95A99FB1B4525CD1E32AD6F572650C1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.26.0/coder_2.26.0_darwin_arm64.zip",
-      "checksum": "162708DE60D667AF4B5D1C02A93FE5104DF929BC0E2F297414A15911D7966096",
+      "id": "github_release/github.com/coder/coder/v2.26.1/coder_2.26.1_darwin_arm64.zip",
+      "checksum": "15FD2E2F015B8B7313BFE5F9880E4FD998B01636264014402C26F9599F629D95",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.26.0/coder_2.26.0_linux_amd64.tar.gz",
-      "checksum": "DA675AF800396D5A312093F3A10F5BD9B3F17E5A3A3C6458E36597E7212A12BB",
+      "id": "github_release/github.com/coder/coder/v2.26.1/coder_2.26.1_linux_amd64.tar.gz",
+      "checksum": "B96DE42D073CE3706DA31BEC48AAE6C95D0FE96040361C6443BC43E181A617DB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.26.0/coder_2.26.0_linux_arm64.tar.gz",
-      "checksum": "58019FB6B6E3E8A8DCD5C039140BD8C4609AA2124EBF871E7AFF5D35469898E2",
+      "id": "github_release/github.com/coder/coder/v2.26.1/coder_2.26.1_linux_arm64.tar.gz",
+      "checksum": "64DF7CDA98BC65314E028DCEE3A96C5AF753C5C1AE2C9A0516921F4C208A74F0",
       "algorithm": "sha256"
     },
     {
@@ -481,23 +481,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/nektos/act/v0.2.81/act_Darwin_arm64.tar.gz",
-      "checksum": "779242E40CEBC6E2FE21503D50BD1B4E485A7965F1E758ED36871A7986CB4041",
+      "id": "github_release/github.com/nektos/act/v0.2.82/act_Darwin_arm64.tar.gz",
+      "checksum": "C4CC7D34F497EB15F51F8F6E1D25571E18B4909CECEB40933F4A26A8E7293CFB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/nektos/act/v0.2.81/act_Darwin_x86_64.tar.gz",
-      "checksum": "06F4A2D0BCA5746A2404BFB66446DAA06745A2E68B3ECE6FDD39DFA5EAAF6E9A",
+      "id": "github_release/github.com/nektos/act/v0.2.82/act_Darwin_x86_64.tar.gz",
+      "checksum": "CDFCC8B15C55F936287626E13C8B31FA576257133B6595642CDA9B32FA3B17B6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/nektos/act/v0.2.81/act_Linux_arm64.tar.gz",
-      "checksum": "C934DF6C059AE6270449EC6F6D65B399FB321EE38D0A5AF37E337706C4EC1A11",
+      "id": "github_release/github.com/nektos/act/v0.2.82/act_Linux_arm64.tar.gz",
+      "checksum": "EBF375E700F6F2C139FE3C5508AF2EC85032A75E7D29F6A388A58C0FAB76E951",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/nektos/act/v0.2.81/act_Linux_x86_64.tar.gz",
-      "checksum": "2198D2B3B6F5751751C829475255D99F9558D0043970B4A043E3AF16715FA0CF",
+      "id": "github_release/github.com/nektos/act/v0.2.82/act_Linux_x86_64.tar.gz",
+      "checksum": "76645C0BBE4BB69A8F0BA3CAEFA681B2F4C04BABD4679C67861AF9A276A3561F",
       "algorithm": "sha256"
     },
     {
