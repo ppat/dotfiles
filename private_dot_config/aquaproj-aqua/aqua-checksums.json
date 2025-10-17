@@ -81,23 +81,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.66.0/trivy_0.66.0_Linux-64bit.tar.gz",
-      "checksum": "93678741C3223C15120934AC00671CA7E797C9A5A4D89148DB9FFCA9184A5F0D",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.67.0/trivy_0.67.0_Linux-64bit.tar.gz",
+      "checksum": "5B10E9BBA00A508B0F3BCB98E78F1039F7EEE26B57C9266961A415642A9208AB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.66.0/trivy_0.66.0_Linux-ARM64.tar.gz",
-      "checksum": "A51268845BDEB68F5F885F7DE6C92FE33B64D630392E546EEC0E16F79CFD42E8",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.67.0/trivy_0.67.0_Linux-ARM64.tar.gz",
+      "checksum": "0F3AC33954DD918CAD708BDF06731B4AA8CC14B12E879932B4CEEF2F22640A9E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.66.0/trivy_0.66.0_macOS-64bit.tar.gz",
-      "checksum": "284A3D3346429837F3DA11AA6C25BF196E4FE5431733D4F6F99EAC8578B329ED",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.67.0/trivy_0.67.0_macOS-64bit.tar.gz",
+      "checksum": "AE8A13D8C3ABF7F7E7981AC1A5F5EC094D68835F2AAC67DA102D4BA36E820C3C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.66.0/trivy_0.66.0_macOS-ARM64.tar.gz",
-      "checksum": "964BB69FC0E652891B38514FED4EE31DE004A58AC22EA2A23C6891728BB6B6EB",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.67.0/trivy_0.67.0_macOS-ARM64.tar.gz",
+      "checksum": "FEEA8727B501F654683774FE0F98A9C1A128C7D8BCD7C942A8E6F6D05B33BD4B",
       "algorithm": "sha256"
     },
     {
@@ -171,23 +171,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.80.0/gh_2.80.0_linux_amd64.tar.gz",
-      "checksum": "E0AFFFBF36548194AED8A1BDAF474314857A808B1B1CFA38743E2F4ED6A35B0B",
+      "id": "github_release/github.com/cli/cli/v2.81.0/gh_2.81.0_linux_amd64.tar.gz",
+      "checksum": "D507C82E3AE47AF875B93472F39E01CBF9F85808EC0A69751E0932A43514D7FF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.80.0/gh_2.80.0_linux_arm64.tar.gz",
-      "checksum": "785A746A7B42BAAF42F7D792C9CA1732451A28B78112A1A3B38884156CDEB8A2",
+      "id": "github_release/github.com/cli/cli/v2.81.0/gh_2.81.0_linux_arm64.tar.gz",
+      "checksum": "766ADDA9877AFAF55F67626FF5D956BCEA84F1E5371DF5765BA30B1E786A86FD",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.80.0/gh_2.80.0_macOS_amd64.zip",
-      "checksum": "197E55F4E4A5728FA9C3CACF3891CB04A0874493664A80B0D9BDE1223173F205",
+      "id": "github_release/github.com/cli/cli/v2.81.0/gh_2.81.0_macOS_amd64.zip",
+      "checksum": "C93BC9ADBAF768A2789B60360069BE8A623BEF94DF60AE5344F2B57AD8AE024F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.80.0/gh_2.80.0_macOS_arm64.zip",
-      "checksum": "4E3567687D714272BE3664244C045785573660803EABF41DFF9A3A701B39F3B6",
+      "id": "github_release/github.com/cli/cli/v2.81.0/gh_2.81.0_macOS_arm64.zip",
+      "checksum": "B0F5A81601291123A25792859F7CA82229C1F1AE05B4B9F1A7E9E8BB63E649D5",
       "algorithm": "sha256"
     },
     {
@@ -241,23 +241,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/derailed/k9s/v0.50.14/k9s_Darwin_amd64.tar.gz",
-      "checksum": "24066D3C5884F4FDDAE4CE1F835E190CEAF3708DABA7DCD5551A786EBB33F24D",
+      "id": "github_release/github.com/derailed/k9s/v0.50.15/k9s_Darwin_amd64.tar.gz",
+      "checksum": "241657098919C2BA1788517431384C9D08F501CD9B0F5005BC9C345B68C72B49",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/derailed/k9s/v0.50.14/k9s_Darwin_arm64.tar.gz",
-      "checksum": "4917BE4F015D27016C18DE65D1BB14F562BF1811F87FDC01B0D57E6899B79F4D",
+      "id": "github_release/github.com/derailed/k9s/v0.50.15/k9s_Darwin_arm64.tar.gz",
+      "checksum": "3F9C9B1C0208E2DA5AE98E619771D3A7055BAF8EFDC7B95E072CAC6767FAABAE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/derailed/k9s/v0.50.14/k9s_Linux_amd64.tar.gz",
-      "checksum": "0466564FA0E8A492499A4401DBA54E6C9C6C34A98EE0A3125189C91F80A1A85D",
+      "id": "github_release/github.com/derailed/k9s/v0.50.15/k9s_Linux_amd64.tar.gz",
+      "checksum": "C66513543AD8AE7A82856A6DD767D28D11B5ABCDCD78D67ADDED0934B6433D34",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/derailed/k9s/v0.50.14/k9s_Linux_arm64.tar.gz",
-      "checksum": "42F7D8B294D67A423AB7029327CD0FCE8CFE3DB61F47DE3CD90F2BC1FFC4E069",
+      "id": "github_release/github.com/derailed/k9s/v0.50.15/k9s_Linux_arm64.tar.gz",
+      "checksum": "938D8A4DEAEBEEEAB01A0BA521A5A3AEA675DD3119E801A5099D5BD0BF0A1B58",
       "algorithm": "sha256"
     },
     {
@@ -281,23 +281,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.6.4/flux_2.6.4_darwin_amd64.tar.gz",
-      "checksum": "E831808490D6B4953CA3CE11DD80FA17124B200968935333B46B64A960D4D98F",
+      "id": "github_release/github.com/fluxcd/flux2/v2.7.0/flux_2.7.0_darwin_amd64.tar.gz",
+      "checksum": "2A5EEA95DD6576AACA32850EB787042F735459083441AD43655C10A8252D7D89",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.6.4/flux_2.6.4_darwin_arm64.tar.gz",
-      "checksum": "F8272BCE1BC1CE42EC4B725DBA8D2DA30734757F0233B2039A55BD4627A69B1A",
+      "id": "github_release/github.com/fluxcd/flux2/v2.7.0/flux_2.7.0_darwin_arm64.tar.gz",
+      "checksum": "CBA5A9D1AC4CB6605D51F0B6A8C3AD85C271CD7F4F9C3607F67C6F4BAB355835",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.6.4/flux_2.6.4_linux_amd64.tar.gz",
-      "checksum": "9D3E21AD53BAA0D5A062E1BD6F1A22D18B95906C682845BCA9FFA272CFF8A590",
+      "id": "github_release/github.com/fluxcd/flux2/v2.7.0/flux_2.7.0_linux_amd64.tar.gz",
+      "checksum": "81EE173D47FD6DF1015A1C82D083F6242C95E67BADC0A33C00CB9D8A64233D14",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.6.4/flux_2.6.4_linux_arm64.tar.gz",
-      "checksum": "674E605F527841BB9B50A692B3CE497752CFC81438F85B4D1523D86ACA637353",
+      "id": "github_release/github.com/fluxcd/flux2/v2.7.0/flux_2.7.0_linux_arm64.tar.gz",
+      "checksum": "758703B8CD96BE98F1EA23B7BD3FF2AE13D90A23467D8ABA8B83ADBE335C6854",
       "algorithm": "sha256"
     },
     {
