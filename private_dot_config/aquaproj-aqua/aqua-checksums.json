@@ -501,23 +501,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/qarmin/czkawka/9.0.0/linux_czkawka_cli",
-      "checksum": "850CABBD47E3CF2FE33F7FA953B51F43CE90226954ADCE76AED5DDCB38E56D62",
+      "id": "github_release/github.com/qarmin/czkawka/10.0.0/linux_czkawka_cli_arm64",
+      "checksum": "6123C556E788C1A767D0AE03FC1AD647C827D1D1A6ECC6B425F8BE73DDF994A1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/qarmin/czkawka/9.0.0/linux_czkawka_cli_arm",
-      "checksum": "CE401A5877A30065D79BE5BA9B390EED79DD7AB00284DFEB470B8D6E7ED82A5F",
+      "id": "github_release/github.com/qarmin/czkawka/10.0.0/linux_czkawka_cli_x86_64",
+      "checksum": "B261ABA0CA0B1D99D450949BE22F9AE172750FE13DC9B40A32209FC8DB0FC159",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/qarmin/czkawka/9.0.0/mac_czkawka_cli",
-      "checksum": "FD4D1FED905C4959A19BEBA24C1ACFAF17D48618C056CED78B134104FBC519D1",
+      "id": "github_release/github.com/qarmin/czkawka/10.0.0/mac_czkawka_cli_arm64",
+      "checksum": "C3A57D0776168B92B254675B0127F7E5056F4ED016698691CBC98A47504DA3B6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/qarmin/czkawka/9.0.0/mac_czkawka_cli_arm",
-      "checksum": "4096CAB9C9F68B0911B89E3B2D5D2EE814ECCEAF111FC061DF3C2D1E450A2003",
+      "id": "github_release/github.com/qarmin/czkawka/10.0.0/mac_czkawka_cli_x86_64",
+      "checksum": "CEE55344343CB0130031CDB72931D97F287EE7E3B6EFF8D6E43A86F31C1EA40C",
       "algorithm": "sha256"
     },
     {
