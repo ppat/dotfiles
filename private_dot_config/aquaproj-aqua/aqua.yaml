@@ -15,7 +15,7 @@ packages:
 - name: ajeetdsouza/zoxide@v0.9.8
 - name: aristocratos/btop@v1.4.5
 - name: aquasecurity/kube-bench@v0.13.0
-- name: aquasecurity/trivy@v0.67.0
+- name: aquasecurity/trivy@v0.67.2
 - name: atuinsh/atuin@v18.8.0
 - name: bitwarden/clients@cli-v2025.9.0
 - name: bitwarden/sdk-sm@bws-v1.0.0
@@ -26,7 +26,7 @@ packages:
 - name: dandavison/delta@0.18.2
 - name: derailed/k9s@v0.50.15
 - name: fastfetch-cli/fastfetch@2.53.0
-- name: fluxcd/flux2@v2.7.0
+- name: fluxcd/flux2@v2.7.2
 - name: hadolint/hadolint@v2.14.0
 - name: helm/helm@v3.19.0
 # - name: jesseduffield/lazygit@v0.55.1
