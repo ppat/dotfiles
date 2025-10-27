@@ -24,13 +24,13 @@ packages:
 - name: coder/coder@v2.27.1
 - name: dalance/procs@v0.14.10
 - name: dandavison/delta@0.18.2
-- name: derailed/k9s@v0.50.15
+- name: derailed/k9s@v0.50.16
 - name: fastfetch-cli/fastfetch@2.53.0
 - name: fluxcd/flux2@v2.7.2
 - name: hadolint/hadolint@v2.14.0
 - name: helm/helm@v3.19.0
 # - name: jesseduffield/lazygit@v0.55.1
-- name: junegunn/fzf@v0.65.2
+- name: junegunn/fzf@v0.66.0
 - name: koalaman/shellcheck@v0.11.0
 - name: kubernetes/kubectl@v1.34.1
 - name: kubernetes-sigs/kind@v0.30.0
@@ -40,7 +40,7 @@ packages:
     alias: kubectl-krew
 - name: kubernetes-sigs/kustomize@kustomize/v5.7.1
 - name: kyverno/chainsaw@v0.2.13
-- name: mikefarah/yq@v4.47.2
+- name: mikefarah/yq@v4.48.1
 - name: muesli/duf@v0.9.1
 - name: nektos/act@v0.2.82
 - name: qarmin/czkawka@10.0.0
