@@ -1,6 +1,6 @@
 [tools]
 cargo-binstall = "1.12.0"
-go             = "1.24.9"
+go             = "1.24.10"
 node           = "22.18.0"
 rust           = "1.88.0"
 terraform      = "1.6.6"
