@@ -596,23 +596,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.11.3/talosctl-darwin-amd64",
-      "checksum": "3222187E4D8B40A0DC57A971337F5CFA9E9DC443D0758A8BB4F4D0B1298D2FC60C33C654C59D772C69CBE8C703543B40C749D63BCF2DDC1B216517A4260DF899",
+      "id": "github_release/github.com/siderolabs/talos/v1.11.5/talosctl-darwin-amd64",
+      "checksum": "6B58AB4507C5EBBE8B35BB5FA08E67B6FD8815A63B9B992B3DF8801903E4F4DE1C425041BAD4D38021614522258010DD9E5D54983E2187B9E6A3040E675DADC3",
       "algorithm": "sha512"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.11.3/talosctl-darwin-arm64",
-      "checksum": "B55B740174137DA04F195910D9279B1C5301BFD9B342419D77258264F53C3F0EA9AF77C3117E8B716D61D76AB43D474B5F5792D2A148BC1A2D841AFE6824A8C3",
+      "id": "github_release/github.com/siderolabs/talos/v1.11.5/talosctl-darwin-arm64",
+      "checksum": "D87FFACCD7BBE3E244615F14DDD5C5E9BE96BA2C0F93054288F4CA279C0F5B02403CBA9C226A1408D6B2721DC4D768491E65FFBEBF9EE0EF719C870038360F58",
       "algorithm": "sha512"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.11.3/talosctl-linux-amd64",
-      "checksum": "AE470A0F99A94D7B83A31887D29C75BA584B7D92E5FB3D0C049498F66F0443B3F7097501CF43DF6A14B711A0B595AC8165CBC56789636FCED6363FDB7C07FF6C",
+      "id": "github_release/github.com/siderolabs/talos/v1.11.5/talosctl-linux-amd64",
+      "checksum": "8B8963F1FCB0ADD269B2C9B3EEFC60F72F1A30FCE54ED8F1E7E58553E5E3A2F893E7CB48D5443E35BBF9897CCEEEBC4CFF4D036B334DAC31FA384792B85FDCAD",
       "algorithm": "sha512"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.11.3/talosctl-linux-arm64",
-      "checksum": "E73E02345D146235BC76757AF978D7D8BE8D02664008D828C914883D2BBDE5994F36D8787454A86DB68577C82257A04F287450658D8A8CA278BE56FE79458BD4",
+      "id": "github_release/github.com/siderolabs/talos/v1.11.5/talosctl-linux-arm64",
+      "checksum": "434F961AC381DBFEB35CF4049372ECF8FB0F8D547A95FBAC4BA822E9BD836180379068ED0E9691986CCD70DB01EA36A7E6749963088EDD91C28BC1A0A49F667B",
       "algorithm": "sha512"
     },
     {
@@ -696,18 +696,18 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/pkgs.tailscale.com/stable/Tailscale-1.90.4-macos.pkg",
-      "checksum": "42CAADC33859DE5A85603D9009D87BAE6C724A4208B325D0328BFE67718080CB",
+      "id": "http/pkgs.tailscale.com/stable/Tailscale-1.90.6-macos.pkg",
+      "checksum": "8E0634A531C9207EE77402C6211A854EA5864B527E63B33AC4E3E2C4A12A721C",
       "algorithm": "sha256"
     },
     {
-      "id": "http/pkgs.tailscale.com/stable/tailscale_1.90.4_amd64.tgz",
-      "checksum": "8E6D118224063F28895A745E4903ABD62B97886C8767EF284DC257101D55118F",
+      "id": "http/pkgs.tailscale.com/stable/tailscale_1.90.6_amd64.tgz",
+      "checksum": "CC51B5B6FE86A25E66B2EF037334E799A61D06DC64FABCADFE6E2A7588A2B2C7",
       "algorithm": "sha256"
     },
     {
-      "id": "http/pkgs.tailscale.com/stable/tailscale_1.90.4_arm64.tgz",
-      "checksum": "E6CD33832789258736FA92107AE4863FECA089F83C49A2F8C1EF72B3D5CDC7D1",
+      "id": "http/pkgs.tailscale.com/stable/tailscale_1.90.6_arm64.tgz",
+      "checksum": "9792D1DED9D119B04C32C7E77475F89BCBA57DB14BA602EC2714C84CA9786608",
       "algorithm": "sha256"
     },
     {
