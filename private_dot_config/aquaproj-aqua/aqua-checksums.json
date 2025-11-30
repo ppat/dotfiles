@@ -131,13 +131,13 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bitwarden/clients/cli-v2025.10.0/bw-linux-2025.10.0.zip",
-      "checksum": "0544C64D3E9932BB5F2A70E819695EA78186A44AC87A0B1D753E9C55217041D9",
+      "id": "github_release/github.com/bitwarden/clients/cli-v2025.11.0/bw-linux-2025.11.0.zip",
+      "checksum": "943F0107B3A471E7376B08F118E21A59583AFEB49E4EB86F378E3B0D7C79C969",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bitwarden/clients/cli-v2025.10.0/bw-macos-2025.10.0.zip",
-      "checksum": "530C53F680A7C323D55E651F0613F04E547598E353C7D0CA8C903084C4D95C95",
+      "id": "github_release/github.com/bitwarden/clients/cli-v2025.11.0/bw-macos-2025.11.0.zip",
+      "checksum": "213108A65EEB7294FFCD7303F8FE5308DC2AF970735AEFEB4D23FC9753A2AC01",
       "algorithm": "sha256"
     },
     {
@@ -261,23 +261,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.54.0/fastfetch-linux-aarch64.tar.gz",
-      "checksum": "8C8CFEDC6D6EA633FFC8D2B3FA10C49C9F56068338CB2D6704CD1C5B788BD5C0",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.55.1/fastfetch-linux-aarch64.tar.gz",
+      "checksum": "9208E05BE79A00EC88233EE4B24EE51C65028A368E8984E65490B45598D48618",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.54.0/fastfetch-linux-amd64.tar.gz",
-      "checksum": "96702E57B53C72CF2A9F3C58B517BD0CE48F3643DC0311985EE222A71599BE78",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.55.1/fastfetch-linux-amd64.tar.gz",
+      "checksum": "45D62D1B553A8A10EF3939B108F3E6A25D5C8BF017063D35F3A29806AA69CBB0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.54.0/fastfetch-macos-aarch64.tar.gz",
-      "checksum": "0DE5A124E277D3ABF0B23D7C7F0F4180021A95991AB39CEB040A1FCA074209D5",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.55.1/fastfetch-macos-aarch64.tar.gz",
+      "checksum": "22FBD4E21EA1EEC3812F1A9252F3B3D090E7564DADC7FDD79FF630FE392B5A9C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.54.0/fastfetch-macos-amd64.tar.gz",
-      "checksum": "7B969BFB05FE1F4145B892B675AB805FD366FAA52D8F9AF0583D92EF7695BA2B",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.55.1/fastfetch-macos-amd64.tar.gz",
+      "checksum": "CF9E2259402F22A807A1D9153288D671983D609AE33FFF9B3AA0A3315E8F5BBC",
       "algorithm": "sha256"
     },
     {
@@ -401,23 +401,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kubernetes-sigs/kustomize/kustomize/v5.7.1/kustomize_v5.7.1_darwin_amd64.tar.gz",
-      "checksum": "4A0DFF80C5644DF6BC8F51B342842969004CB6BA5F94DDDAABBEA7483493273D",
+      "id": "github_release/github.com/kubernetes-sigs/kustomize/kustomize/v5.8.0/kustomize_v5.8.0_darwin_amd64.tar.gz",
+      "checksum": "2DEAA6F96450C0B3204CCCD9F159A22278EB6CF85AD545D212D608D2428AEB57",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kubernetes-sigs/kustomize/kustomize/v5.7.1/kustomize_v5.7.1_darwin_arm64.tar.gz",
-      "checksum": "073E9D16D5A235E2FF83E62D6B76EDB5D962ADBC33BE1E4860C4B3F1F39B33B9",
+      "id": "github_release/github.com/kubernetes-sigs/kustomize/kustomize/v5.8.0/kustomize_v5.8.0_darwin_arm64.tar.gz",
+      "checksum": "D098F62ECDA500C752303163838AF823F947D245927F3000B629199C1EEEAE0F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kubernetes-sigs/kustomize/kustomize/v5.7.1/kustomize_v5.7.1_linux_amd64.tar.gz",
-      "checksum": "EA375E7372F9AA029129D4B2D16C66B7750B7F1213C4F66F910D981C895818D8",
+      "id": "github_release/github.com/kubernetes-sigs/kustomize/kustomize/v5.8.0/kustomize_v5.8.0_linux_amd64.tar.gz",
+      "checksum": "4DFA8307358DD9284AA4D2B1D5596766A65B93433E8FA3F9F74498941F01C5EF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kubernetes-sigs/kustomize/kustomize/v5.7.1/kustomize_v5.7.1_linux_arm64.tar.gz",
-      "checksum": "4261A040217DF3BD6896597C3986D1465925726E4F22A945304B5233A4DCDBDA",
+      "id": "github_release/github.com/kubernetes-sigs/kustomize/kustomize/v5.8.0/kustomize_v5.8.0_linux_arm64.tar.gz",
+      "checksum": "A4F48B4C3D4CA97D748943E19169DE85A2E86E80BCC09558603E2AA66FB15CE1",
       "algorithm": "sha256"
     },
     {
@@ -696,18 +696,18 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/pkgs.tailscale.com/stable/Tailscale-1.90.6-macos.pkg",
-      "checksum": "8E0634A531C9207EE77402C6211A854EA5864B527E63B33AC4E3E2C4A12A721C",
+      "id": "http/pkgs.tailscale.com/stable/Tailscale-1.90.8-macos.pkg",
+      "checksum": "4349B178F5D775A9E2B2D9CDDEF8032CE05FE649C86E695F76A9847665BA06C7",
       "algorithm": "sha256"
     },
     {
-      "id": "http/pkgs.tailscale.com/stable/tailscale_1.90.6_amd64.tgz",
-      "checksum": "CC51B5B6FE86A25E66B2EF037334E799A61D06DC64FABCADFE6E2A7588A2B2C7",
+      "id": "http/pkgs.tailscale.com/stable/tailscale_1.90.8_amd64.tgz",
+      "checksum": "954F7CBC41CC0FF55FF10612458C3266356464B94C3DA95FB497723C5F131B5F",
       "algorithm": "sha256"
     },
     {
-      "id": "http/pkgs.tailscale.com/stable/tailscale_1.90.6_arm64.tgz",
-      "checksum": "9792D1DED9D119B04C32C7E77475F89BCBA57DB14BA602EC2714C84CA9786608",
+      "id": "http/pkgs.tailscale.com/stable/tailscale_1.90.8_arm64.tgz",
+      "checksum": "E5FEA305A03E30913CC30D088605F0562705EBA66110EA813AB5EF89FA95988B",
       "algorithm": "sha256"
     },
     {
