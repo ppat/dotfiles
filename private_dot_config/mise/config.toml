@@ -9,7 +9,7 @@ usage          = "2.6.0"
 "npm:@anthropic-ai/claude-code" = "2.0.55"
 "npm:@google/gemini-cli"        = "0.16.0"
 "npm:@openai/codex"             = "0.57.0"
-"npm:markdownlint-cli2"         = "0.19.0"
+"npm:markdownlint-cli2"         = "0.19.1"
 
 "pipx:ansible-core" = { version = "2.19.4", uvx_args = "--with jmespath==1.0.1 --with kubernetes==33.1.0" }
 "pipx:pre-commit"   = "4.3.0"
