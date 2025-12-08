@@ -6,7 +6,7 @@ rust           = "1.88.0"
 terraform      = "1.6.6"
 usage          = "2.6.0"
 
-"npm:@anthropic-ai/claude-code" = "2.0.56"
+"npm:@anthropic-ai/claude-code" = "2.0.60"
 "npm:@google/gemini-cli"        = "0.16.0"
 "npm:@openai/codex"             = "0.57.0"
 "npm:markdownlint-cli2"         = "0.19.1"
