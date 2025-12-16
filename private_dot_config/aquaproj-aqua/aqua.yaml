@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.55.2/json-schema/aqua-yaml.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.55.3/json-schema/aqua-yaml.json
 checksum:
   enabled: true
   require_checksum: true
@@ -39,7 +39,7 @@ packages:
   - command: krew
     alias: kubectl-krew
 - name: kubernetes-sigs/kustomize@kustomize/v5.8.0
-- name: kyverno/chainsaw@v0.2.13
+- name: kyverno/chainsaw@v0.2.14
 - name: mikefarah/yq@v4.49.2
 - name: muesli/duf@v0.9.1
 - name: nektos/act@v0.2.83
