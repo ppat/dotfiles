@@ -67,8 +67,6 @@ jobs:
         current_git_ref: ${{ github.head_ref || github.ref }}
         current_repository: ${{ github.repository }}
         mise_ignore_cfg: private_dot_config/mise/config.toml
-        # renovate: datasource=github-releases depName=jdx/mise
-        mise_version: "v2025.12.0"
         token: ${{ secrets.GITHUB_TOKEN }}
         mise_toml: |
           [tools]
