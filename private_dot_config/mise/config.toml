@@ -12,7 +12,7 @@ usage          = "2.9.0"
 "npm:markdownlint-cli2"         = "0.20.0"
 
 "pipx:ansible-core" = { version = "2.19.4", uvx_args = "--with jmespath==1.0.1 --with kubernetes==33.1.0" }
-"pipx:pre-commit"   = "4.5.0"
+"pipx:pre-commit"   = "4.5.1"
 "pipx:yamllint"     = "1.37.1"
 
 [settings]
