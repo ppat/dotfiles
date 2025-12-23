@@ -21,7 +21,7 @@ packages:
 - name: bitwarden/sdk-sm@bws-v1.0.0
 - name: bootandy/dust@v1.2.3
 - name: cli/cli@v2.83.2
-- name: coder/coder@v2.29.0
+- name: coder/coder@v2.29.1
 - name: dalance/procs@v0.14.10
 - name: dandavison/delta@0.18.2
 - name: derailed/k9s@v0.50.16
