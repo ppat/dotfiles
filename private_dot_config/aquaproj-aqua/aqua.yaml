@@ -13,7 +13,7 @@ registries:
   ref: v4.448.1 # renovate: depName=aquaproj/aqua-registry
 packages:
 - name: ajeetdsouza/zoxide@v0.9.8
-- name: aristocratos/btop@v1.4.5
+- name: aristocratos/btop@v1.4.6
 - name: aquasecurity/kube-bench@v0.14.1
 - name: aquasecurity/trivy@v0.68.2
 - name: atuinsh/atuin@v18.10.0
@@ -32,8 +32,8 @@ packages:
 # - name: jesseduffield/lazygit@v0.57.0
 - name: junegunn/fzf@v0.67.0
 - name: koalaman/shellcheck@v0.11.0
-- name: kubernetes/kubectl@v1.34.3
-- name: kubernetes-sigs/kind@v0.30.0
+- name: kubernetes/kubectl@v1.35.0
+- name: kubernetes-sigs/kind@v0.31.0
 - name: kubernetes-sigs/krew@v0.4.5
   command_aliases:
   - command: krew
