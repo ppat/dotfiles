@@ -8,7 +8,7 @@ usage          = "2.11.0"
 
 "npm:@anthropic-ai/claude-code" = "2.1.6"
 "npm:@google/gemini-cli"        = "0.24.5"
-"npm:@openai/codex"             = "0.79.0"
+"npm:@openai/codex"             = "0.87.0"
 "npm:markdownlint-cli2"         = "0.20.0"
 
 "pipx:ansible-core" = { version = "2.20.1", uvx_args = "--with jmespath==1.0.1 --with kubernetes==33.1.0" }
