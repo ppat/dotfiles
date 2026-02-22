@@ -19,7 +19,7 @@ env:
   # renovate: datasource=github-releases depName=twpayne/chezmoi
   CHEZMOI_VERSION: "v2.69.4"
   # renovate: datasource=github-releases depName=dotenv-linter/dotenv-linter
-  DOTENVLINTER_VERSION: "v3.3.0"
+  DOTENVLINTER_VERSION: "v4.0.0"
   # renovate: datasource=github-releases depName=koalaman/shellcheck
   SHELLCHECK_VERSION: "v0.11.0"
 
