@@ -111,18 +111,18 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/atuinsh/atuin/v18.11.0/atuin-aarch64-apple-darwin.tar.gz",
-      "checksum": "B8C8F4584F801873B511ECF74DBFFF1194DD9727745DB9EE9FF6542EAF796AA1",
+      "id": "github_release/github.com/atuinsh/atuin/v18.12.1/atuin-aarch64-apple-darwin.tar.gz",
+      "checksum": "BC4935EA9BDDB1FC63D86F5859BA3C00C9D834AC8E1C689508FFB71054D63231",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/atuinsh/atuin/v18.11.0/atuin-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "94F224FCB65FEDFC9CDDCF2662B639CA53CE62E4E75634862543F4A38818AFF5",
+      "id": "github_release/github.com/atuinsh/atuin/v18.12.1/atuin-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "7C03A5BF2DAAEA389426943213BC82DCE680E0BFD54AFEA4CBB0686A2C9F8D13",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/atuinsh/atuin/v18.11.0/atuin-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "77EAC1EA8483D069265EBCE6BFEEAD3C890E2EA52D7A86344175BFB197768D2A",
+      "id": "github_release/github.com/atuinsh/atuin/v18.12.1/atuin-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "0B25C91FF0619D2CD912F6B74ABEB5F3386A28F06AEE0A9D524077660CEEAEE7",
       "algorithm": "sha256"
     },
     {
@@ -191,23 +191,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.30.0/coder_2.30.0_darwin_amd64.zip",
-      "checksum": "0C64C6ADD2753E54F29EA013A9A0682E6D43D5EB289AB25A36F6BED2053FD388",
+      "id": "github_release/github.com/coder/coder/v2.30.1/coder_2.30.1_darwin_amd64.zip",
+      "checksum": "0734AA33FDB0E28DA946A89BA08E747D367ACEA4A2FDE44F5D4D9D57EC1B3CFF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.30.0/coder_2.30.0_darwin_arm64.zip",
-      "checksum": "E96396028EDC579F41AF1C1C99B59CE3188D6D6C5A2203BE41C3C5F49E5584BB",
+      "id": "github_release/github.com/coder/coder/v2.30.1/coder_2.30.1_darwin_arm64.zip",
+      "checksum": "3728AB372AB4F8A8FA046E8A89346C87D04E9710390CDC57552C89D51F46A526",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.30.0/coder_2.30.0_linux_amd64.tar.gz",
-      "checksum": "20D7644B59655B743A40333B8A4565F3B57A07CB45D40EDE141EBF69B07C0EFE",
+      "id": "github_release/github.com/coder/coder/v2.30.1/coder_2.30.1_linux_amd64.tar.gz",
+      "checksum": "57DDF848F059D44219FF94EA271F5C9B34D30A73944A303DADD026FEB2C1D7B5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.30.0/coder_2.30.0_linux_arm64.tar.gz",
-      "checksum": "D157B4533088D41BB523FDA684207BCB7DE4F1765C20B38E81B9483EBF428863",
+      "id": "github_release/github.com/coder/coder/v2.30.1/coder_2.30.1_linux_arm64.tar.gz",
+      "checksum": "C415067956D1F1C868EB49053B41DBA937BCB2944C342BE67332337C2448416D",
       "algorithm": "sha256"
     },
     {
@@ -261,23 +261,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.58.0/fastfetch-linux-aarch64.tar.gz",
-      "checksum": "08B93D60A916ECA6BF1EE7C62C2A285A1A7FFC7EC1648471E031C26C3FDE776E",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.59.0/fastfetch-linux-aarch64.tar.gz",
+      "checksum": "02A5188837348F7543D4F597BF5CDCEDC958396A669756EB6F40A825D2CD52B5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.58.0/fastfetch-linux-amd64.tar.gz",
-      "checksum": "50A71DCA5ECEEA3334E67149A76BE4345294D7DBE479FEA4C98C47D0BF74F3E5",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.59.0/fastfetch-linux-amd64.tar.gz",
+      "checksum": "CBCBB308136E254420703A1C41BA2AF1EEC17B0DAC792C7FDDFF7BCE04E54805",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.58.0/fastfetch-macos-aarch64.tar.gz",
-      "checksum": "B106964696E4C79980313EF3E81DC5C1AC1D9FC9D8E0A1077F95593F3AFCEA1F",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.59.0/fastfetch-macos-aarch64.tar.gz",
+      "checksum": "05CF1C0E71F80BCD66E12086D0BEF2BD2FA81188A4F83FEB4C7C85091D8D3E67",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.58.0/fastfetch-macos-amd64.tar.gz",
-      "checksum": "71E330959D9AD38D9391406CA1F9E1D56B38FED22C31F74719BA2AA39FBB602D",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.59.0/fastfetch-macos-amd64.tar.gz",
+      "checksum": "201C7F9D5275C1B9BF4EB3FD2BE189EB69D0B316F6777E63AB2DA4813F8A33A9",
       "algorithm": "sha256"
     },
     {
@@ -441,23 +441,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mikefarah/yq/v4.52.2/yq_darwin_amd64",
-      "checksum": "54A63555210E73ABED09108097072E28BF82A6BB20439A72B55509C4DD42378D",
+      "id": "github_release/github.com/mikefarah/yq/v4.52.4/yq_darwin_amd64",
+      "checksum": "D72A75FE9953C707D395F653D90095B133675DDD61AA738E1AC9A73C6C05E8BE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mikefarah/yq/v4.52.2/yq_darwin_arm64",
-      "checksum": "34613EA97C4C77E1894A8978DBF72588D187A69A6292C10DAB396C767A1ECDE7",
+      "id": "github_release/github.com/mikefarah/yq/v4.52.4/yq_darwin_arm64",
+      "checksum": "6BFA43A439936644D63C70308832390C8838290D064970EAADA216219C218A13",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mikefarah/yq/v4.52.2/yq_linux_amd64",
-      "checksum": "A74BD266990339E0C48A2103534AEF692ABF99F19390D12C2B0CE6830385C459",
+      "id": "github_release/github.com/mikefarah/yq/v4.52.4/yq_linux_amd64",
+      "checksum": "0C4D965EA944B64B8FDDAF7F27779EE3034E5693263786506CCD1C120F184E8C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mikefarah/yq/v4.52.2/yq_linux_arm64",
-      "checksum": "C82856AC30DA522F50DCDD4F53065487B5A2927E9B87FF637956900986F1F7C2",
+      "id": "github_release/github.com/mikefarah/yq/v4.52.4/yq_linux_arm64",
+      "checksum": "4C2CC022A129BE5CC1187959BB4B09BEBC7FB543C5837B93001C68F97CE39A5D",
       "algorithm": "sha256"
     },
     {
@@ -676,23 +676,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.1.0-darwin-amd64.tar.gz",
-      "checksum": "A326073AE392BED8B73C415D1D9D6880B0F5ACCB18AA9456975562B44A87C650",
+      "id": "http/get.helm.sh/helm-v4.1.1-darwin-amd64.tar.gz",
+      "checksum": "6B8DBB03ABB74E9AB8E69CA3F9B6459178BE11317D0AC502F922621C05FDC866",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.1.0-darwin-arm64.tar.gz",
-      "checksum": "F12E2723C5E8EAFF3E4B3670536867289FB6AB7F797FA2EFEDD1C53CFACA62FB",
+      "id": "http/get.helm.sh/helm-v4.1.1-darwin-arm64.tar.gz",
+      "checksum": "B8F49E105B1D2FD8C8A90BA3FC9AF48DB91D2D1CA3B9E788352FC7C896BBB71A",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.1.0-linux-amd64.tar.gz",
-      "checksum": "8E7AE5CB890C56F53713BFFEC38E41CD8E7E4619EBE56F8B31CD383BFB3DBB83",
+      "id": "http/get.helm.sh/helm-v4.1.1-linux-amd64.tar.gz",
+      "checksum": "5D4C7623283E6DFB1971957F4B755468AB64917066A8567DD50464AF298F4031",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.1.0-linux-arm64.tar.gz",
-      "checksum": "81315E404B6D09B65BEE577A679AB269D6D44652EF2E1F66A8F922B51CA93F6B",
+      "id": "http/get.helm.sh/helm-v4.1.1-linux-arm64.tar.gz",
+      "checksum": "02A5FB7742469D2D132E24CB7C3F52885894043576588C6788B6813297629EDD",
       "algorithm": "sha256"
     },
     {
