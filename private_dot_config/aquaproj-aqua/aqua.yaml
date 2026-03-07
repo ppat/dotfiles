@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.56.6/json-schema/aqua-yaml.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.56.7/json-schema/aqua-yaml.json
 checksum:
   enabled: true
   require_checksum: true
@@ -14,25 +14,25 @@ registries:
 packages:
 - name: ajeetdsouza/zoxide@v0.9.9
 - name: aristocratos/btop@v1.4.6
-- name: aquasecurity/kube-bench@v0.14.1
+- name: aquasecurity/kube-bench@v0.15.0
 - name: aquasecurity/trivy@v0.69.1
-- name: atuinsh/atuin@v18.11.0
+- name: atuinsh/atuin@v18.12.1
 - name: bitwarden/clients@cli-v2025.12.1
 - name: bitwarden/sdk-sm@bws-v1.0.0
 - name: bootandy/dust@v1.2.4
-- name: cli/cli@v2.86.0
-- name: coder/coder@v2.30.0
-- name: dalance/procs@v0.14.10
+- name: cli/cli@v2.87.2
+- name: coder/coder@v2.30.2
+- name: dalance/procs@v0.14.11
 - name: dandavison/delta@0.18.2
 - name: derailed/k9s@v0.50.18
-- name: fastfetch-cli/fastfetch@2.58.0
+- name: fastfetch-cli/fastfetch@2.59.0
 - name: fluxcd/flux2@v2.7.5
 - name: hadolint/hadolint@v2.14.0
-- name: helm/helm@v4.1.0
+- name: helm/helm@v4.1.1
 # - name: jesseduffield/lazygit@v0.59.0
-- name: junegunn/fzf@v0.67.0
+- name: junegunn/fzf@v0.68.0
 - name: koalaman/shellcheck@v0.11.0
-- name: kubernetes/kubectl@v1.35.1
+- name: kubernetes/kubectl@v1.35.2
 - name: kubernetes-sigs/kind@v0.31.0
 - name: kubernetes-sigs/krew@v0.4.5
   command_aliases:
@@ -40,7 +40,7 @@ packages:
     alias: kubectl-krew
 - name: kubernetes-sigs/kustomize@kustomize/v5.8.1
 - name: kyverno/chainsaw@v0.2.14
-- name: mikefarah/yq@v4.52.2
+- name: mikefarah/yq@v4.52.4
 - name: muesli/duf@v0.9.1
 - name: nektos/act@v0.2.84
 - name: qarmin/czkawka@10.0.0
@@ -49,7 +49,7 @@ packages:
 - name: sharkdp/fd@v10.3.0
 - name: sharkdp/hyperfine@v1.20.0
 - name: siderolabs/talos@v1.12.4
-- name: tailscale/tailscale@v1.94.1
+- name: tailscale/tailscale@v1.94.2
 - name: terraform-linters/tflint@v0.61.0
 - name: yannh/kubeconform@v0.7.0
 - name: BurntSushi/ripgrep@15.1.0
