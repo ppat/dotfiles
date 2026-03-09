@@ -81,23 +81,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.69.1/trivy_0.69.1_Linux-64bit.tar.gz",
-      "checksum": "DD93975BC1E58053810A9BAFEA89923E5DF42DDD3F99905FDF840FD797145157",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.69.2/trivy_0.69.2_Linux-64bit.tar.gz",
+      "checksum": "AFFA59A1E37D86E4B8AB2CD02F0AB2E63D22F1BF9CF6A7AA326C884E25E26CE3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.69.1/trivy_0.69.1_Linux-ARM64.tar.gz",
-      "checksum": "7A98C13E6C5799FC46219C94FA500B807532B4555501CCE85FA4EEAD9F755516",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.69.2/trivy_0.69.2_Linux-ARM64.tar.gz",
+      "checksum": "C73B97699C317B0D25532B3F188564B4E29D13D5472CE6F8EB078082546A6481",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.69.1/trivy_0.69.1_macOS-64bit.tar.gz",
-      "checksum": "1054F37BA02173A7E1A05E2BCC1179D7573124CEA1502A37CC59DE89582DE307",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.69.2/trivy_0.69.2_macOS-64bit.tar.gz",
+      "checksum": "41F6EAC3EBE3A00448A16F08038B55CE769FE2D5128CB0D64BDF282CDAD4831A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.69.1/trivy_0.69.1_macOS-ARM64.tar.gz",
-      "checksum": "AE5CE4A7B9BF2BD3794CCB3C257993526FA47470B3814D729A73788D36AFF3D0",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.69.2/trivy_0.69.2_macOS-ARM64.tar.gz",
+      "checksum": "320C0E6AF90B5733B9326DA0834240E944C6F44091E50019ABDF584237FF4D0C",
       "algorithm": "sha256"
     },
     {
@@ -171,23 +171,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.87.2/gh_2.87.2_linux_amd64.tar.gz",
-      "checksum": "18360B2243E3BF9C1457035DB45F6400AE4CF957DCC2F674E69717B4E0B14D55",
+      "id": "github_release/github.com/cli/cli/v2.87.3/gh_2.87.3_linux_amd64.tar.gz",
+      "checksum": "C6E5537631FCA45F277EF405CE8751D139B491E9402CC20891A003525A8773B2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.87.2/gh_2.87.2_linux_arm64.tar.gz",
-      "checksum": "E37EFDD8EC98425F44175040B5037C767BBD49F192AED1DE5AABC4B4EA9E22C5",
+      "id": "github_release/github.com/cli/cli/v2.87.3/gh_2.87.3_linux_arm64.tar.gz",
+      "checksum": "5F5D89563BF26751E2173B37E594065504E85B6B781C1F1832D24BF2C2B4554F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.87.2/gh_2.87.2_macOS_amd64.zip",
-      "checksum": "5CE4DA6DA0F29E6AA46E54EA6ADB2528243D2BB517A7098E75CCA16A5D983D28",
+      "id": "github_release/github.com/cli/cli/v2.87.3/gh_2.87.3_macOS_amd64.zip",
+      "checksum": "7B8D5495FE9689494B1C69559C0D28209BC057BB028008E903EC4B3E19BD8C75",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.87.2/gh_2.87.2_macOS_arm64.zip",
-      "checksum": "18D90C7AE5B462D47CC665D4C59DE61AF1E208EDB81A9ABEE1B5A82C94E91D94",
+      "id": "github_release/github.com/cli/cli/v2.87.3/gh_2.87.3_macOS_arm64.zip",
+      "checksum": "DEDFC6F569E9DBC5B92D47DCE44ACADBDF5B6B7A861510DB0C748DFAC55002F6",
       "algorithm": "sha256"
     },
     {
