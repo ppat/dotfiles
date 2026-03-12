@@ -81,23 +81,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.69.2/trivy_0.69.2_Linux-64bit.tar.gz",
-      "checksum": "AFFA59A1E37D86E4B8AB2CD02F0AB2E63D22F1BF9CF6A7AA326C884E25E26CE3",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.69.3/trivy_0.69.3_Linux-64bit.tar.gz",
+      "checksum": "1816B632DFE529869C740C0913E36BD1629CB7688BD5634F4A858C1D57C88B75",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.69.2/trivy_0.69.2_Linux-ARM64.tar.gz",
-      "checksum": "C73B97699C317B0D25532B3F188564B4E29D13D5472CE6F8EB078082546A6481",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.69.3/trivy_0.69.3_Linux-ARM64.tar.gz",
+      "checksum": "7E3924A974E912E57B4A99F65ECE7931F8079584DAE12EB7845024F97087BDFD",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.69.2/trivy_0.69.2_macOS-64bit.tar.gz",
-      "checksum": "41F6EAC3EBE3A00448A16F08038B55CE769FE2D5128CB0D64BDF282CDAD4831A",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.69.3/trivy_0.69.3_macOS-64bit.tar.gz",
+      "checksum": "FEC4A9F7569B624DD9D044FCA019E5DA69E032700EDBB1D7318972C448EC2F4E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.69.2/trivy_0.69.2_macOS-ARM64.tar.gz",
-      "checksum": "320C0E6AF90B5733B9326DA0834240E944C6F44091E50019ABDF584237FF4D0C",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.69.3/trivy_0.69.3_macOS-ARM64.tar.gz",
+      "checksum": "A2F2179AFD4F8BB265CA3C7AEFB56A666BC4A9A411663BC0F22C3549FBC643A5",
       "algorithm": "sha256"
     },
     {
@@ -191,23 +191,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.30.2/coder_2.30.2_darwin_amd64.zip",
-      "checksum": "2130FC1A495666F506E76BFB7C9A6E301DA80387A7011B57EE845EE447A6FED3",
+      "id": "github_release/github.com/coder/coder/v2.30.3/coder_2.30.3_darwin_amd64.zip",
+      "checksum": "A0D3FC617C03FC07541E96AFAB6DB6503E079867213D13ED5F5D82A7BBE0596D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.30.2/coder_2.30.2_darwin_arm64.zip",
-      "checksum": "A8E1DF2F17ECA69D270616DD0B093BE70BA884BDA648652FE6192B34F0B2B1BC",
+      "id": "github_release/github.com/coder/coder/v2.30.3/coder_2.30.3_darwin_arm64.zip",
+      "checksum": "875F515544C8C92BB9753D4B622EEAC75B21718A7D5ADC1492AB60BDBF23CB81",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.30.2/coder_2.30.2_linux_amd64.tar.gz",
-      "checksum": "82AF92ADBA8082A7698AA39142F54E96E290BCF1BB59F636E61D358337DE272C",
+      "id": "github_release/github.com/coder/coder/v2.30.3/coder_2.30.3_linux_amd64.tar.gz",
+      "checksum": "350EA4010490008138F2DB7739F1F343B271B44F002D656AB0CB11E0A82F2CC7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.30.2/coder_2.30.2_linux_arm64.tar.gz",
-      "checksum": "7EB283794580E9C8BD992812EBB26857CE9F8E75E1FE8E7E41A456BF0B7DB0ED",
+      "id": "github_release/github.com/coder/coder/v2.30.3/coder_2.30.3_linux_arm64.tar.gz",
+      "checksum": "3EF83FD1F3CD61FCA359FF80162A21FAE14C6D6F9138DCB5B89D6C9A7BCCA39D",
       "algorithm": "sha256"
     },
     {
@@ -281,23 +281,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.7.5/flux_2.7.5_darwin_amd64.tar.gz",
-      "checksum": "2058B49EF38B5773B9AA87B3DB83D68CBAF5082ECF908CBD8952A17F6AF0E2E8",
+      "id": "github_release/github.com/fluxcd/flux2/v2.8.0/flux_2.8.0_darwin_amd64.tar.gz",
+      "checksum": "2A015ED91C748262F47F2C385CEC726B81D42A8A3AE38B9B4715D2D55EFDFECF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.7.5/flux_2.7.5_darwin_arm64.tar.gz",
-      "checksum": "79FAAE964BADC0B08F61EF6228F636BEA99C6750537634855FA8B84F75B006D8",
+      "id": "github_release/github.com/fluxcd/flux2/v2.8.0/flux_2.8.0_darwin_arm64.tar.gz",
+      "checksum": "60FFDB837B20C43DE848029846634C7B2289753EB341E62B7DD5F155265225E8",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.7.5/flux_2.7.5_linux_amd64.tar.gz",
-      "checksum": "1E92141E8498289E4B27411385AEB18396053176CF297B0CB99ABD6CA8293E75",
+      "id": "github_release/github.com/fluxcd/flux2/v2.8.0/flux_2.8.0_linux_amd64.tar.gz",
+      "checksum": "5339D6A6F85BE36238480308458C86FC9A839821A80C7A55F1BAF12151B47FD6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.7.5/flux_2.7.5_linux_arm64.tar.gz",
-      "checksum": "89D3EBB47EE5F7A0DEF33217E8DCB885E0BEC41D01D0E23FC84E9ABA0416C24E",
+      "id": "github_release/github.com/fluxcd/flux2/v2.8.0/flux_2.8.0_linux_arm64.tar.gz",
+      "checksum": "6F995B5AE1C55CBB82212B98EE72C94048C3FE72226ABE9EF020E6D4127A92B2",
       "algorithm": "sha256"
     },
     {
@@ -381,23 +381,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kubernetes-sigs/krew/v0.4.5/krew-darwin_amd64.tar.gz",
-      "checksum": "7FF3DDE825734E74F4975C8E922B4419639E5FBFF738786AB085CF06A0D1CCC0",
+      "id": "github_release/github.com/kubernetes-sigs/krew/v0.5.0/krew-darwin_amd64.tar.gz",
+      "checksum": "2D60559126452B57E3DF0612F0475A473363F064DA35F817290DBBCD877D1EA8",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kubernetes-sigs/krew/v0.4.5/krew-darwin_arm64.tar.gz",
-      "checksum": "5E33636A73392CF88021A85162AC4D4C86D4C0B57677E64094BCBCCA637068E6",
+      "id": "github_release/github.com/kubernetes-sigs/krew/v0.5.0/krew-darwin_arm64.tar.gz",
+      "checksum": "CD6E58B4E954E301ABD19001D772846997216D696BCAA58F0BCF04708339ECE3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kubernetes-sigs/krew/v0.4.5/krew-linux_amd64.tar.gz",
-      "checksum": "BACC06800BDA14EC063CD0B6F377A961FDF4661C00366BF9834723CD28BFABC7",
+      "id": "github_release/github.com/kubernetes-sigs/krew/v0.5.0/krew-linux_amd64.tar.gz",
+      "checksum": "5D5A221FFFDF331D1C5C68D9917530ECD102E0DEF5B5A6D62EEED1C404EFB28A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kubernetes-sigs/krew/v0.4.5/krew-linux_arm64.tar.gz",
-      "checksum": "E02BDB8FE67CD6641B9ED6B45C6D084F7AA5B161FE49191CAF5B1D5E83B0C0F9",
+      "id": "github_release/github.com/kubernetes-sigs/krew/v0.5.0/krew-linux_arm64.tar.gz",
+      "checksum": "AB7A98B992424E76B6C162F8B67FB76C4B1E243598AA2807BDF226752F964548",
       "algorithm": "sha256"
     },
     {
