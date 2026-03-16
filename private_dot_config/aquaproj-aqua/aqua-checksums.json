@@ -126,13 +126,13 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bitwarden/clients/cli-v2025.12.1/bw-linux-2025.12.1.zip",
-      "checksum": "C8F1E011CD4A03A98FDF5AB8C14D84D6F45A11D97FB59F9294C434DB363A5282",
+      "id": "github_release/github.com/bitwarden/clients/cli-v2026.2.0/bw-linux-2026.2.0.zip",
+      "checksum": "8D73E2A471993DB8B2E6E4F69293A71E28E9B4C2CB4B696665F5F396126E1850",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bitwarden/clients/cli-v2025.12.1/bw-macos-2025.12.1.zip",
-      "checksum": "2552457FF49FA8A550DE7AF2E243B3283996C5C8CCAB0D0012818EE6B718C4DD",
+      "id": "github_release/github.com/bitwarden/clients/cli-v2026.2.0/bw-macos-2026.2.0.zip",
+      "checksum": "60CC5109B1CDAD560231E02098F1AB2D16EFA821D51C6EC089CB5C3CC351B2E5",
       "algorithm": "sha256"
     },
     {
