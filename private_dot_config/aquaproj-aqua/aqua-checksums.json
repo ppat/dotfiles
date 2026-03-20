@@ -191,23 +191,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.30.3/coder_2.30.3_darwin_amd64.zip",
-      "checksum": "A0D3FC617C03FC07541E96AFAB6DB6503E079867213D13ED5F5D82A7BBE0596D",
+      "id": "github_release/github.com/coder/coder/v2.31.2/coder_2.31.2_darwin_amd64.zip",
+      "checksum": "F624AC3D377E57BF3BCC71D1DAAE60539C24DA2EF3FCBF361439C04F9B434555",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.30.3/coder_2.30.3_darwin_arm64.zip",
-      "checksum": "875F515544C8C92BB9753D4B622EEAC75B21718A7D5ADC1492AB60BDBF23CB81",
+      "id": "github_release/github.com/coder/coder/v2.31.2/coder_2.31.2_darwin_arm64.zip",
+      "checksum": "60706B95B97347CDF3E3C6297D429F47B6AA84B3983578DACD3439A5870C900C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.30.3/coder_2.30.3_linux_amd64.tar.gz",
-      "checksum": "350EA4010490008138F2DB7739F1F343B271B44F002D656AB0CB11E0A82F2CC7",
+      "id": "github_release/github.com/coder/coder/v2.31.2/coder_2.31.2_linux_amd64.tar.gz",
+      "checksum": "BDA3909995EB7A56DA9823E5859C1F9076C62CB51248D6EB2FA56F840BF09C36",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.30.3/coder_2.30.3_linux_arm64.tar.gz",
-      "checksum": "3EF83FD1F3CD61FCA359FF80162A21FAE14C6D6F9138DCB5B89D6C9A7BCCA39D",
+      "id": "github_release/github.com/coder/coder/v2.31.2/coder_2.31.2_linux_arm64.tar.gz",
+      "checksum": "BBB94DE16F254B16612227DE0E143694E3EBDBC4B9FC00F540AE84C08B8BA6A5",
       "algorithm": "sha256"
     },
     {
@@ -281,23 +281,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.8.1/flux_2.8.1_darwin_amd64.tar.gz",
-      "checksum": "06CD154C50520BFC5CD948199CFDAF8AC3668C85D03424815237CF48BD686CCD",
+      "id": "github_release/github.com/fluxcd/flux2/v2.8.2/flux_2.8.2_darwin_amd64.tar.gz",
+      "checksum": "04282F387A4E4809D25EC59526C2A5DA7BC1C36216B34E93EE511B2FF5A4144E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.8.1/flux_2.8.1_darwin_arm64.tar.gz",
-      "checksum": "8DD67B9151C77115E4486CF8C0533A9FCE8B147803DAB66B6F07FA201380E9AF",
+      "id": "github_release/github.com/fluxcd/flux2/v2.8.2/flux_2.8.2_darwin_arm64.tar.gz",
+      "checksum": "96D9132CE9FF70FC26B3678B455EB89BD1E40778EA0A7B99DE9B124DB392AC4D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.8.1/flux_2.8.1_linux_amd64.tar.gz",
-      "checksum": "15D96C2246E129903C7BDAEB9A5CD3074C774763523601526E1C31F7B1513F08",
+      "id": "github_release/github.com/fluxcd/flux2/v2.8.2/flux_2.8.2_linux_amd64.tar.gz",
+      "checksum": "711A0AC3D1EA15E957C2775AF11DDC48A505B6ADAA8FA5DB5A65355EE6F49CDE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.8.1/flux_2.8.1_linux_arm64.tar.gz",
-      "checksum": "0CF9F567939C38E9735F1DAD525C2118D1E0892ABDB6FF0A03134551F61F0804",
+      "id": "github_release/github.com/fluxcd/flux2/v2.8.2/flux_2.8.2_linux_arm64.tar.gz",
+      "checksum": "5BBEE7EBD84D2976500396DE763802E328581801AD4D2609403FA8A793DDFA64",
       "algorithm": "sha256"
     },
     {
@@ -321,23 +321,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.68.0/fzf-0.68.0-darwin_amd64.tar.gz",
-      "checksum": "DA3AAFC569BDD38C7CB30F992C54C4899C935D8B86B88C2A6831B0733B862CAF",
+      "id": "github_release/github.com/junegunn/fzf/v0.70.0/fzf-0.70.0-darwin_amd64.tar.gz",
+      "checksum": "46AF74CFEB171C5E2EB936096A653061A0DE0F5AEB70319BF9935D8D193E078F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.68.0/fzf-0.68.0-darwin_arm64.tar.gz",
-      "checksum": "1817524989B3987EBC67D16ACBC5526CB51DFBC52CA62BABE37C96D9D09A227B",
+      "id": "github_release/github.com/junegunn/fzf/v0.70.0/fzf-0.70.0-darwin_arm64.tar.gz",
+      "checksum": "75F4905C2E3D00666D81DFFDD001BB2A9A8E0AD4E4AC8CECFC17A7401B99E6E4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.68.0/fzf-0.68.0-linux_amd64.tar.gz",
-      "checksum": "545004A69EB65BB9ADF32000971105AC21AEA54BBECB618C55414D21B823FE95",
+      "id": "github_release/github.com/junegunn/fzf/v0.70.0/fzf-0.70.0-linux_amd64.tar.gz",
+      "checksum": "8FD0E0B93BDF64BA90081FFB6658D77EA5A024C122B36852B1DE30F9D2733754",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.68.0/fzf-0.68.0-linux_arm64.tar.gz",
-      "checksum": "DAD9CC3B617305D504DBBF8812C4C9970A6DC7EFDCE9B5EACBD130D1F1DBC05D",
+      "id": "github_release/github.com/junegunn/fzf/v0.70.0/fzf-0.70.0-linux_arm64.tar.gz",
+      "checksum": "90A07A13B61F56DD59CCFD0F0BF05070E9CEC067713D313FA2607AAB2DC0E422",
       "algorithm": "sha256"
     },
     {
@@ -596,23 +596,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.12.4/talosctl-darwin-amd64",
-      "checksum": "C0B7283352EA0CE7D6435C663727A2CFEF7F504C9B404F982B2F960501F3D9C8",
+      "id": "github_release/github.com/siderolabs/talos/v1.12.5/talosctl-darwin-amd64",
+      "checksum": "8A58A951144D7F1A8EEC4B6BB725553E4CF0D9C5B66785A8E0247890EC144F10",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.12.4/talosctl-darwin-arm64",
-      "checksum": "F4C94D4832E9D41F67CC63CD362CC0BFD44D8C675E9FF04541411BE40916096C",
+      "id": "github_release/github.com/siderolabs/talos/v1.12.5/talosctl-darwin-arm64",
+      "checksum": "8E4ADEC89ACEA650008F65B5E53C601A5115B3B5D6B6D15A8C215E533451B8A6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.12.4/talosctl-linux-amd64",
-      "checksum": "6B85F633721E02D31C8A28A633C9CD8EBFB7E41677FF29E94236A082D4CD6CD9",
+      "id": "github_release/github.com/siderolabs/talos/v1.12.5/talosctl-linux-amd64",
+      "checksum": "3FBD456EC98F96DCA42DE0528220898177077BF023E3AE9432FB90A2DBE8CF66",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.12.4/talosctl-linux-arm64",
-      "checksum": "5D6F37684D337A9B689216A4E7CC07B58996BAD34AFBD9D032AB1BD058CFE282",
+      "id": "github_release/github.com/siderolabs/talos/v1.12.5/talosctl-linux-arm64",
+      "checksum": "108B1745DDB98838B15537E6F7951D25CFAAFBDA62C5740D38273DDB1AEA0FB1",
       "algorithm": "sha256"
     },
     {
@@ -676,23 +676,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.1.1-darwin-amd64.tar.gz",
-      "checksum": "6B8DBB03ABB74E9AB8E69CA3F9B6459178BE11317D0AC502F922621C05FDC866",
+      "id": "http/get.helm.sh/helm-v4.1.3-darwin-amd64.tar.gz",
+      "checksum": "742132E11CC08A81C97F70180CD714AE8376F8C896247A7B14AE1F51838B5A0B",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.1.1-darwin-arm64.tar.gz",
-      "checksum": "B8F49E105B1D2FD8C8A90BA3FC9AF48DB91D2D1CA3B9E788352FC7C896BBB71A",
+      "id": "http/get.helm.sh/helm-v4.1.3-darwin-arm64.tar.gz",
+      "checksum": "21C02FE2F7E27D08E24A6BF93103F9D2B25AAB6F13F91814B2CFABC99B108A5E",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.1.1-linux-amd64.tar.gz",
-      "checksum": "5D4C7623283E6DFB1971957F4B755468AB64917066A8567DD50464AF298F4031",
+      "id": "http/get.helm.sh/helm-v4.1.3-linux-amd64.tar.gz",
+      "checksum": "02CE9722D541238F81459938B84CF47DF2FDF1187493B4BFB2346754D82A4700",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.1.1-linux-arm64.tar.gz",
-      "checksum": "02A5FB7742469D2D132E24CB7C3F52885894043576588C6788B6813297629EDD",
+      "id": "http/get.helm.sh/helm-v4.1.3-linux-arm64.tar.gz",
+      "checksum": "5DB45E027CC8DE4677EC869E5D803FC7631B0BAB1C1EB62AC603A62D22359A43",
       "algorithm": "sha256"
     },
     {
