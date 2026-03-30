@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.57.0/json-schema/aqua-yaml.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.57.1/json-schema/aqua-yaml.json
 checksum:
   enabled: true
   require_checksum: true
@@ -16,7 +16,7 @@ packages:
 - name: aristocratos/btop@v1.4.6
 - name: aquasecurity/kube-bench@v0.15.0
 - name: aquasecurity/trivy@v0.69.3
-- name: atuinsh/atuin@v18.13.2
+- name: atuinsh/atuin@v18.13.3
 - name: bitwarden/clients@cli-v2026.2.0
 - name: bitwarden/sdk-sm@bws-v1.0.0
 - name: bootandy/dust@v1.2.4
