@@ -2,7 +2,7 @@
 cargo-binstall = "1.12.0"
 go             = "1.26.2"
 node           = "24.14.1"
-rust           = "1.92.0"
+rust           = "1.93.0"
 terraform      = "1.6.6"
 usage          = "3.0.0"
 
