@@ -16,6 +16,13 @@
         "hashicorp/terraform",
         "terraform"
       ]
+    },
+    {
+      "description": "separate tailscale from being grouped with other cli tools as it breaks often due to missing download links",
+      "groupName": "cli-tools-tailscale",
+      "matchPackageNames": [ 
+        "tailscale/tailscale" 
+      ]
     }
   ]
 }
