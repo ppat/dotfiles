@@ -1,10 +1,16 @@
 # Baseline System Packages
 brew "gnupg"
 brew "nmap"
+brew "starship"
 
 # Package Managers
+brew "aqua"
+brew "mise"
 brew "oven-sh/bun/bun"
 brew "uv"
+
+# Dotfile Manager
+brew "chezmoi"
 
 # Fonts
 cask "font-fira-code"        # Monospaced font with programming ligatures
