@@ -163,5 +163,6 @@
 
   "terminal.external.osxExec": "iTerm.app",
   "terminal.integrated.copyOnSelection": true,
-  "terminal.integrated.cursorStyle": "line"
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.scrollback": 10000
 }
