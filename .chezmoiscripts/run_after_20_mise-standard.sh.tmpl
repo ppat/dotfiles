@@ -26,6 +26,9 @@ main() {
 
   setup_mise_packages $setup_type | sed -E 's|^(.*)|    \1|g'
   echo
+  log_success "Mise | $setup_type | Pruning unused packages..."
+  mise prune --yes 2>&1 | sed -E 's|^(.*)|    \1|g'
+  echo
   display_installed_mise_packages $setup_type
   log_success "Mise | $setup_type | Complete!"
   echo "-------------------------------------------------------------------------------------------"
