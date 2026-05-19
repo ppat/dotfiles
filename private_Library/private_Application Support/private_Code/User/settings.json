@@ -96,11 +96,14 @@
   },
   "security.workspace.trust.untrustedFiles": "open",
   "roo-cline.allowedCommands": [
-    "npm test",
-    "tsc",
     "git log",
     "git diff",
-    "git show"
+    "git show",
+    "cd",
+    "yamllint",
+    "kubectl --dry-run=client",
+    "npm test",
+    "tsc"
   ],
   "roo-cline.vsCodeLmModelSelector": {
 
@@ -157,4 +160,8 @@
   // JINJA HTML SETTINGS
   // Disable Emmet abbreviation expansion within Jinja templates
   "jinjahtml.enableEmmetForJinja": false,
+
+  "terminal.external.osxExec": "iTerm.app",
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.cursorStyle": "line"
 }
