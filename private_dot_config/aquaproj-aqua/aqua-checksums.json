@@ -111,18 +111,18 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/atuinsh/atuin/v18.16.0/atuin-aarch64-apple-darwin.tar.gz",
-      "checksum": "1C37735C64286449F9BE567029D55E678F89F68FE9766C52C42AA734EE560749",
+      "id": "github_release/github.com/atuinsh/atuin/v18.16.1/atuin-aarch64-apple-darwin.tar.gz",
+      "checksum": "0A3FDC4CFA18758D6A872950625F2042233DF0412A0C10D0DADF30BFC3BC6D6B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/atuinsh/atuin/v18.16.0/atuin-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "ADEF3D748709E1F23DD77A7E58C6C8F2883D06653CC67CB2EF467824AA98151B",
+      "id": "github_release/github.com/atuinsh/atuin/v18.16.1/atuin-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "5245DC1553F40AFE3A160878A71076E4C5257C83CF819E259C0447A67A9C2D37",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/atuinsh/atuin/v18.16.0/atuin-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "1B8D633E27F4AFC80E99B11A92E01854A84F7F4C77DDA1B312AB8A8D80EB2F13",
+      "id": "github_release/github.com/atuinsh/atuin/v18.16.1/atuin-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "AEEE16FAAB126D2F11658AD4920C73FA8479B25FBD3E26570450AF7310AAC70A",
       "algorithm": "sha256"
     },
     {
@@ -191,23 +191,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.32.1/coder_2.32.1_darwin_amd64.zip",
-      "checksum": "57091BC07AAB9C8B54AC1423ADAB50AB4368D04C169009CE48CF6B3E8CC124E1",
+      "id": "github_release/github.com/coder/coder/v2.33.1/coder_2.33.1_darwin_amd64.zip",
+      "checksum": "ECC2658F5970D42EB5661FC6B00BEC5545E9F1DAE254900BB7BF6E3131B7EA27",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.32.1/coder_2.32.1_darwin_arm64.zip",
-      "checksum": "267EC8B27DBDA93F23E34D5E031454D31B8C7F06447A3817663B9239B9AA1D08",
+      "id": "github_release/github.com/coder/coder/v2.33.1/coder_2.33.1_darwin_arm64.zip",
+      "checksum": "2C168105AA5453ADB27281EA32693CC87F009223BEC5E7FB462C09588EE5754E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.32.1/coder_2.32.1_linux_amd64.tar.gz",
-      "checksum": "200EE6CF54569EA76C4B88886BEC434F359D710098E9BE20D535079F03756890",
+      "id": "github_release/github.com/coder/coder/v2.33.1/coder_2.33.1_linux_amd64.tar.gz",
+      "checksum": "3973571206F71A4C8F41E880C1967EFB60D1776E31D924A17AB9CC1B1A5C09DD",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.32.1/coder_2.32.1_linux_arm64.tar.gz",
-      "checksum": "5711D65C05ECEF6E15D42C9E456EFE260227FC512EB392B02A2620E3368E64BC",
+      "id": "github_release/github.com/coder/coder/v2.33.1/coder_2.33.1_linux_arm64.tar.gz",
+      "checksum": "00A4ADDD887A9B0FD320A2BEE052B3AAEA3AF49B4EBE281F4B224AE377F4E3C8",
       "algorithm": "sha256"
     },
     {
@@ -276,23 +276,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.8.6/flux_2.8.6_darwin_amd64.tar.gz",
-      "checksum": "83CE032F39248ED04324F3E50344794575FB5F7149F24C071972E320B64826A6",
+      "id": "github_release/github.com/fluxcd/flux2/v2.8.7/flux_2.8.7_darwin_amd64.tar.gz",
+      "checksum": "58ED87D1AAFCADB7365F43286882EC81522384AD5018E965A0A1F1A3108430D5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.8.6/flux_2.8.6_darwin_arm64.tar.gz",
-      "checksum": "20DE67EBF2DA689DD165B004DC073469F33AA2A3EAC45A69F38A40435E14D20B",
+      "id": "github_release/github.com/fluxcd/flux2/v2.8.7/flux_2.8.7_darwin_arm64.tar.gz",
+      "checksum": "060A43698D4AD29A0AEA86159B7C1B1171704FD375934F0201F7C914FAAC2182",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.8.6/flux_2.8.6_linux_amd64.tar.gz",
-      "checksum": "C53CC990AE266F7840F64C81515D701D8821D558A9062AA4211D71B38CF044BE",
+      "id": "github_release/github.com/fluxcd/flux2/v2.8.7/flux_2.8.7_linux_amd64.tar.gz",
+      "checksum": "493A8DF42BF89F8481F03AFB44B6F4801A76EC0F0B9233042487D0CB5C6CF4E3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.8.6/flux_2.8.6_linux_arm64.tar.gz",
-      "checksum": "BC460320C2D33AD833791277896DD1AAF1CFF6B3E64BA397C44238F00D4AE5BC",
+      "id": "github_release/github.com/fluxcd/flux2/v2.8.7/flux_2.8.7_linux_arm64.tar.gz",
+      "checksum": "F6B19F6F2D85DD47CECB9169111C3F35F220217AB488D254CA3D8FABA58E0217",
       "algorithm": "sha256"
     },
     {
@@ -586,43 +586,43 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.0/talosctl-darwin-amd64",
-      "checksum": "166C4CB74765837E20430516BE739757376DF769346FD70FF1093A88391DCFA8",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.2/talosctl-darwin-amd64",
+      "checksum": "7CEB65ABA7AB532210696D7886D934DBABC21A1F8243058378D3E7C0E94F413A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.0/talosctl-darwin-arm64",
-      "checksum": "728CB09E34EADCB2C122C626DABA8202281944F4851B43E9E37836551C8E9D19",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.2/talosctl-darwin-arm64",
+      "checksum": "6A7C0CD313D0B549F135EC4D51E6101A6D4BEC753B9F86E516E77F31E2311613",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.0/talosctl-linux-amd64",
-      "checksum": "4AA5CD191C708B8C1A3B358BFD7DD21FB0CC6BD4DC7A07F2AA925CD2A8473BAE",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.2/talosctl-linux-amd64",
+      "checksum": "86E21C434300AB71C27E8644570B14463C8CE78FC272853691DE906AF8D1C1BB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.0/talosctl-linux-arm64",
-      "checksum": "6171ECE2062A350D2FC12AA14894A4AD06235005C12F76701E0127FFDF6026B9",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.2/talosctl-linux-arm64",
+      "checksum": "DCF55741D8FFF5793BAC0EA9BBCEA3147645C1EEE6942EB6562DB6C2235AAC5C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/terraform-linters/tflint/v0.62.0/tflint_darwin_amd64.zip",
-      "checksum": "6AA1DEFAAC89EAB227008301AF399225AFD9EE6F124D13E570323CF588491B8A",
+      "id": "github_release/github.com/terraform-linters/tflint/v0.62.1/tflint_darwin_amd64.zip",
+      "checksum": "7F55DF3A25DEB610C267F600EB4247657E3FF776D0322916CEECD7B58142A73A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/terraform-linters/tflint/v0.62.0/tflint_darwin_arm64.zip",
-      "checksum": "56064A392E688F51C893A0D3BC1470FDF523F8D579080C718D026F1692613419",
+      "id": "github_release/github.com/terraform-linters/tflint/v0.62.1/tflint_darwin_arm64.zip",
+      "checksum": "927866FEF68382138B8FED038721A03C0928CE9486E1616B18BD3DD11E7CDACB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/terraform-linters/tflint/v0.62.0/tflint_linux_amd64.zip",
-      "checksum": "000400D7F4C2236D9ED4B35FEC3EE95617C3747571593CC6138169FC78CC226A",
+      "id": "github_release/github.com/terraform-linters/tflint/v0.62.1/tflint_linux_amd64.zip",
+      "checksum": "C004EC45ADE3CAF87CD4089FEB1D2AF9F7DF57B13140A36DF8A63C0A8CC69F14",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/terraform-linters/tflint/v0.62.0/tflint_linux_arm64.zip",
-      "checksum": "064206EC85ADAF90F637C880EB3CD5A8E07DDCE09E4DA7C813EB362CB794F95F",
+      "id": "github_release/github.com/terraform-linters/tflint/v0.62.1/tflint_linux_arm64.zip",
+      "checksum": "9F3BCE43F7F58F05DDCF193F0BF1F7E7A9C7A79D7F46F72DD38E97F96FCAF14C",
       "algorithm": "sha256"
     },
     {
@@ -646,23 +646,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.k8s.io/v1.36.0/bin/darwin/amd64/kubectl",
-      "checksum": "06D7E9A3A26A326D43102C70B19F9D233DB219D09890E558DBDC3647DB732F06",
+      "id": "http/dl.k8s.io/v1.36.1/bin/darwin/amd64/kubectl",
+      "checksum": "B4973E90EBB00537D735B63D6F8293C1959156E6FF435F6A43C08AEAA1A2E7D7",
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.k8s.io/v1.36.0/bin/darwin/arm64/kubectl",
-      "checksum": "4BCF268EACDC1D2DF74E37D86F639F27CA7DEA3AE185B7B452B73B9FB5DDC14E",
+      "id": "http/dl.k8s.io/v1.36.1/bin/darwin/arm64/kubectl",
+      "checksum": "9092778ABAEF3079449DA4CD70DED0E4BE112480C93EFCDEACE3155968D1D133",
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.k8s.io/v1.36.0/bin/linux/amd64/kubectl",
-      "checksum": "123D8C8844F46B1244C547FFFB3C17180C0C26DAC9890589FE7E67763298748E",
+      "id": "http/dl.k8s.io/v1.36.1/bin/linux/amd64/kubectl",
+      "checksum": "629D3F410E09BF49B64AE7079F7F0BDA1191EFED311F7D37FDBAB0AD5B0EC2B7",
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.k8s.io/v1.36.0/bin/linux/arm64/kubectl",
-      "checksum": "9F9D9C44A7B5264515AC9DA5991584E2395BD50662E651132337E7B4D0C56F8F",
+      "id": "http/dl.k8s.io/v1.36.1/bin/linux/arm64/kubectl",
+      "checksum": "59F7EE8E477FAE658447607DC3C8790AC17A1B016C01C622C12070E969E2D4E7",
       "algorithm": "sha256"
     },
     {
