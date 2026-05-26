@@ -1,5 +1,5 @@
 [tools]
-cargo-binstall = "1.12.0"
+cargo-binstall = "1.19.1"
 go             = "1.26.3"
 node           = "24.15.0"
 rust           = "1.93.1"
