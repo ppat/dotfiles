@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.58.1/json-schema/aqua-yaml.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.59.0/json-schema/aqua-yaml.json
 checksum:
   enabled: true
   require_checksum: true
@@ -14,21 +14,21 @@ registries:
 packages:
 - name: ajeetdsouza/zoxide@v0.9.9
 - name: aristocratos/btop@v1.4.7
-- name: aquasecurity/kube-bench@v0.15.4
+- name: aquasecurity/kube-bench@v0.15.5
 - name: aquasecurity/trivy@v0.70.0
 - name: atuinsh/atuin@v18.16.1
-- name: bitwarden/clients@cli-v2026.4.1
+- name: bitwarden/clients@cli-v2026.4.2
 - name: bitwarden/sdk-sm@bws-v1.0.0
 - name: bootandy/dust@v1.2.4
 - name: cli/cli@v2.92.0
-- name: coder/coder@v2.33.5
+- name: coder/coder@v2.33.6
 - name: dalance/procs@v0.14.11
 - name: dandavison/delta@0.19.2
 - name: derailed/k9s@v0.50.18
-- name: fastfetch-cli/fastfetch@2.62.1
-- name: fluxcd/flux2@v2.8.7
+- name: fastfetch-cli/fastfetch@2.63.1
+- name: fluxcd/flux2@v2.8.8
 - name: hadolint/hadolint@v2.14.0
-- name: helm/helm@v4.1.4
+- name: helm/helm@v4.2.0
 # - name: jesseduffield/lazygit@v0.61.1
 - name: junegunn/fzf@v0.72.0
 - name: koalaman/shellcheck@v0.11.0
