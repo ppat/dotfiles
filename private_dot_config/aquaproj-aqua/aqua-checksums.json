@@ -586,23 +586,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.2/talosctl-darwin-amd64",
-      "checksum": "7CEB65ABA7AB532210696D7886D934DBABC21A1F8243058378D3E7C0E94F413A",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.3/talosctl-darwin-amd64",
+      "checksum": "E283191829456C5E24C2619F54F1E28864B8140B142979C2C42D7564C1AAF4DA",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.2/talosctl-darwin-arm64",
-      "checksum": "6A7C0CD313D0B549F135EC4D51E6101A6D4BEC753B9F86E516E77F31E2311613",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.3/talosctl-darwin-arm64",
+      "checksum": "BADBF454E3FEA46018AF69B8704B7ACDCCB7A70906538619DA6BDABC382C8F05",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.2/talosctl-linux-amd64",
-      "checksum": "86E21C434300AB71C27E8644570B14463C8CE78FC272853691DE906AF8D1C1BB",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.3/talosctl-linux-amd64",
+      "checksum": "50E87176DC532FD82B3136F321E8C292E175C98A4C6573C505B07FEF21E476CF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.2/talosctl-linux-arm64",
-      "checksum": "DCF55741D8FFF5793BAC0EA9BBCEA3147645C1EEE6942EB6562DB6C2235AAC5C",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.3/talosctl-linux-arm64",
+      "checksum": "549BCDF2BCE9552BC6AEE69BD6FB5B0618EFB048831CDF729B3DBF92B59F3AE0",
       "algorithm": "sha256"
     },
     {
