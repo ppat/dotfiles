@@ -1,6 +1,6 @@
 [tools]
 cargo-binstall = "1.19.1"
-go             = "1.26.3"
+go             = "1.26.4"
 node           = "24.16.0"
 rust           = "1.93.1"
 
