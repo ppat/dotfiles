@@ -4,7 +4,7 @@ go             = "1.26.4"
 node           = "24.16.0"
 rust           = "1.93.1"
 terraform      = "1.6.6"
-usage          = "3.3.0"
+usage          = "3.4.0"
 
 "npm:@anthropic-ai/claude-code" = "2.1.177"
 "npm:@google/gemini-cli"        = "0.45.2"
