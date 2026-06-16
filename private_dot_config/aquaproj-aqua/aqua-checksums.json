@@ -81,23 +81,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.70.0/trivy_0.70.0_Linux-64bit.tar.gz",
-      "checksum": "8B4376D5D6BEFE5C24D503F10FF136D9E0C49F9127A4279FD110B727929A5AA9",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.71.0/trivy_0.71.0_Linux-64bit.tar.gz",
+      "checksum": "30A3D22B23F88C233F1658F562FB477CAE3B3E8B4761109D515B7698DAF85814",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.70.0/trivy_0.70.0_Linux-ARM64.tar.gz",
-      "checksum": "2F6BB988B553A1BBAC6BDD1CE890F5E412439564E17522B88A4541B4F364FC8D",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.71.0/trivy_0.71.0_Linux-ARM64.tar.gz",
+      "checksum": "2561BE394A3199C911F82FCED606CBC05E1CB23EB6CE1DA6935540ADB76F4252",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.70.0/trivy_0.70.0_macOS-64bit.tar.gz",
-      "checksum": "52D531452B19E7593DA29366007D02A810E1E0080D02F9CF6A1AFB46C35AAA93",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.71.0/trivy_0.71.0_macOS-64bit.tar.gz",
+      "checksum": "4558AFB13D017615CA85011901CAAB78B4F09196E320B05A56C9FDC5615A1428",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.70.0/trivy_0.70.0_macOS-ARM64.tar.gz",
-      "checksum": "68E543C51DCC96E1C344053A4FDE9660CF602C25565D9F09DC17DD41E13B838A",
+      "id": "github_release/github.com/aquasecurity/trivy/v0.71.0/trivy_0.71.0_macOS-ARM64.tar.gz",
+      "checksum": "95D4E896B120816EDD0995A2DF8ADCA26A8621B7BF62036A89B1D54A7B718A74",
       "algorithm": "sha256"
     },
     {
@@ -191,23 +191,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.33.6/coder_2.33.6_darwin_amd64.zip",
-      "checksum": "CEC93443313FEC68D8BEDC7569BC88883B56EDCD42E429C590918BB2E7FF3EB1",
+      "id": "github_release/github.com/coder/coder/v2.33.7/coder_2.33.7_darwin_amd64.zip",
+      "checksum": "38C15502B181DC1B95F6813B5AD5BB7B1F94B665DCC55CBB2F3C9FDF8CC9682E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.33.6/coder_2.33.6_darwin_arm64.zip",
-      "checksum": "5699B208312651AFC5FA1D2BC06DB32C303B2D0C343833BBD890403B01EB7B0F",
+      "id": "github_release/github.com/coder/coder/v2.33.7/coder_2.33.7_darwin_arm64.zip",
+      "checksum": "4CCA75387F3514AE7EB4CEF77F1C6122C6046FA5E36E3BDC42F0883C0ECC9C99",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.33.6/coder_2.33.6_linux_amd64.tar.gz",
-      "checksum": "1E45052A2851488394C7CE4D9E6DAAF35D9F0138AA0580F75418C16F6D75E19B",
+      "id": "github_release/github.com/coder/coder/v2.33.7/coder_2.33.7_linux_amd64.tar.gz",
+      "checksum": "EDB5FDCCE314068A1A80171BC52DED848B71C41F735448D2C216863B555B1031",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.33.6/coder_2.33.6_linux_arm64.tar.gz",
-      "checksum": "AEE38961E4CAB22352CDAC8284ED747887DBFDCF602EED3F09259CB963ABBA11",
+      "id": "github_release/github.com/coder/coder/v2.33.7/coder_2.33.7_linux_arm64.tar.gz",
+      "checksum": "85E7C7645D4A007F4D66278658B7156487C9811AB59FAFB606A5EDB75A4875D4",
       "algorithm": "sha256"
     },
     {
