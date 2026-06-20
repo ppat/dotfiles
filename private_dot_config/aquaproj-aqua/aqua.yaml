@@ -21,19 +21,19 @@ packages:
 - name: bitwarden/sdk-sm@bws-v1.0.0
 - name: bootandy/dust@v1.2.4
 - name: cli/cli@v2.93.0
-- name: coder/coder@v2.33.7
+- name: coder/coder@v2.34.0
 - name: dalance/procs@v0.14.11
 - name: dandavison/delta@0.19.2
 - name: derailed/k9s@v0.50.18
-- name: fastfetch-cli/fastfetch@2.63.1
+- name: fastfetch-cli/fastfetch@2.64.2
 - name: fluxcd/flux2@v2.8.8
 - name: hadolint/hadolint@v2.14.0
-- name: helm/helm@v4.2.0
+- name: helm/helm@v4.2.1
 # - name: jesseduffield/lazygit@v0.62.2
 - name: junegunn/fzf@v0.73.1
 - name: koalaman/shellcheck@v0.11.0
-- name: kubernetes/kubectl@v1.36.1
-- name: kubernetes-sigs/kind@v0.31.0
+- name: kubernetes/kubectl@v1.36.2
+- name: kubernetes-sigs/kind@v0.32.0
 - name: kubernetes-sigs/krew@v0.5.0
   command_aliases:
   - command: krew
@@ -48,9 +48,9 @@ packages:
 - name: sharkdp/bat@v0.26.1
 - name: sharkdp/fd@v10.4.2
 - name: sharkdp/hyperfine@v1.20.0
-- name: siderolabs/talos@v1.13.3
+- name: siderolabs/talos@v1.13.4
 - name: tailscale/tailscale@v1.94.2
-- name: terraform-linters/tflint@v0.62.1
-- name: yannh/kubeconform@v0.7.0
+- name: terraform-linters/tflint@v0.63.1
+- name: yannh/kubeconform@v0.8.0
 - name: BurntSushi/ripgrep@15.1.0
 - name: Wilfred/difftastic@0.69.0

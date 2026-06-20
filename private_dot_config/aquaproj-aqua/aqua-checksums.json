@@ -191,23 +191,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.33.7/coder_2.33.7_darwin_amd64.zip",
-      "checksum": "38C15502B181DC1B95F6813B5AD5BB7B1F94B665DCC55CBB2F3C9FDF8CC9682E",
+      "id": "github_release/github.com/coder/coder/v2.34.0/coder_2.34.0_darwin_amd64.zip",
+      "checksum": "721B9647CC08E128C349D9E8C272F91CF0F4E3594FB20CF8562BA939955E97A3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.33.7/coder_2.33.7_darwin_arm64.zip",
-      "checksum": "4CCA75387F3514AE7EB4CEF77F1C6122C6046FA5E36E3BDC42F0883C0ECC9C99",
+      "id": "github_release/github.com/coder/coder/v2.34.0/coder_2.34.0_darwin_arm64.zip",
+      "checksum": "57C3C828C76BFA8D30AC99A4762AE23821DF71079AC54EABE29C55752BD93B64",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.33.7/coder_2.33.7_linux_amd64.tar.gz",
-      "checksum": "EDB5FDCCE314068A1A80171BC52DED848B71C41F735448D2C216863B555B1031",
+      "id": "github_release/github.com/coder/coder/v2.34.0/coder_2.34.0_linux_amd64.tar.gz",
+      "checksum": "B44FBBC63AEEB86A1988122626AFAF2DB784EDA3EB7C481948583169998DA868",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.33.7/coder_2.33.7_linux_arm64.tar.gz",
-      "checksum": "85E7C7645D4A007F4D66278658B7156487C9811AB59FAFB606A5EDB75A4875D4",
+      "id": "github_release/github.com/coder/coder/v2.34.0/coder_2.34.0_linux_arm64.tar.gz",
+      "checksum": "C6B7F29DC8CD439564DDF940E44ADDDB27A9F5D64ED08A7595AE6AE94F038E27",
       "algorithm": "sha256"
     },
     {
@@ -256,23 +256,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.63.1/fastfetch-linux-aarch64.tar.gz",
-      "checksum": "2F4FC07751D2CDF3D8CB41EF6598699A1A4DA5E7C50A0EA67EA601077A3D6AC1",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.64.2/fastfetch-linux-aarch64.tar.gz",
+      "checksum": "F69DC4779DC65F48FA0C2D54D45AD7ABBE5FCDF9B979C7104018B965400BCCA7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.63.1/fastfetch-linux-amd64.tar.gz",
-      "checksum": "75DCBCF5DBE51A6C3785767085BDA00F5253AF46A1292A6444746B33215D4199",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.64.2/fastfetch-linux-amd64.tar.gz",
+      "checksum": "5DC341EC4853DDEB0C0EFA62E033FED57B0A00F7D805EBB6D354241CA244ABA5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.63.1/fastfetch-macos-aarch64.tar.gz",
-      "checksum": "19A6635E237F93BDC8EA7921EAA5DD72B2584EEBB7BDAEC91956F895033F1EFB",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.64.2/fastfetch-macos-aarch64.tar.gz",
+      "checksum": "BD5E0283C5F55B2887E7476E65A875283AFBF21C279E637CE0E8ED024C523760",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.63.1/fastfetch-macos-amd64.tar.gz",
-      "checksum": "A606D18EBACBCFD388CE0E6971CF4696936D66A5D0274C6CBCA8A55E5E483039",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.64.2/fastfetch-macos-amd64.tar.gz",
+      "checksum": "ABED3BD33CEFDB431966EB410F8BE3EEDC6EA3172F810848DB098CEC5662CF2B",
       "algorithm": "sha256"
     },
     {
@@ -356,23 +356,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kubernetes-sigs/kind/v0.31.0/kind-darwin-amd64",
-      "checksum": "A8B3CF77B2AD77AEC5BF710D1A2589D9117576132AF812885CAD41E9DEDE4D4E",
+      "id": "github_release/github.com/kubernetes-sigs/kind/v0.32.0/kind-darwin-amd64",
+      "checksum": "295AC6D0D634C9819C9907DF45E3017D1F13166BD13C3404C45E79F7FAA47498",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kubernetes-sigs/kind/v0.31.0/kind-darwin-arm64",
-      "checksum": "88BF554FE9DA6311C9F8C2D082613C002911A476F6B5090E9420B35D84E70C5C",
+      "id": "github_release/github.com/kubernetes-sigs/kind/v0.32.0/kind-darwin-arm64",
+      "checksum": "DCA67911095A110C2B5C36E26DF6CAC860C602033E456C0DB47BE498CDEF1EBB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kubernetes-sigs/kind/v0.31.0/kind-linux-amd64",
-      "checksum": "EB244CBAFCC157DFF60CF68693C14C9A75C4E6E6FEDAF9CD71C58117CB93E3FA",
+      "id": "github_release/github.com/kubernetes-sigs/kind/v0.32.0/kind-linux-amd64",
+      "checksum": "50030DE23CF40A18505F20426F6A8506BEDF13C6E509244BD1FA9463721B0F54",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kubernetes-sigs/kind/v0.31.0/kind-linux-arm64",
-      "checksum": "8E1014E87C34901CC422A1445866835D1E666F2A61301C27E722BDEAB5A1F7E4",
+      "id": "github_release/github.com/kubernetes-sigs/kind/v0.32.0/kind-linux-arm64",
+      "checksum": "B92CD615E97585DE8DDADE28ED5CD7FEB4248D717C233EEA5B03C37298900F5D",
       "algorithm": "sha256"
     },
     {
@@ -586,103 +586,103 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.3/talosctl-darwin-amd64",
-      "checksum": "E283191829456C5E24C2619F54F1E28864B8140B142979C2C42D7564C1AAF4DA",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.4/talosctl-darwin-amd64",
+      "checksum": "BDEE0433A4EF7668CEA884B80B536F018160B0F998429D7440388C62A76E2062",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.3/talosctl-darwin-arm64",
-      "checksum": "BADBF454E3FEA46018AF69B8704B7ACDCCB7A70906538619DA6BDABC382C8F05",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.4/talosctl-darwin-arm64",
+      "checksum": "2D86630F623486D247DAC8EB0DB1E2F9F581C4AEBD201A193E4EAF7EB13392FA",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.3/talosctl-linux-amd64",
-      "checksum": "50E87176DC532FD82B3136F321E8C292E175C98A4C6573C505B07FEF21E476CF",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.4/talosctl-linux-amd64",
+      "checksum": "AAE1DADD238F9DFBC9790D117A114424B2D59200EE12872D0D9F89E178A69AAE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.3/talosctl-linux-arm64",
-      "checksum": "549BCDF2BCE9552BC6AEE69BD6FB5B0618EFB048831CDF729B3DBF92B59F3AE0",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.4/talosctl-linux-arm64",
+      "checksum": "71CB14AB72AEE8BD89D3EE08931747A9238A10025A689DC4117D532D4C6C444F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/terraform-linters/tflint/v0.62.1/tflint_darwin_amd64.zip",
-      "checksum": "7F55DF3A25DEB610C267F600EB4247657E3FF776D0322916CEECD7B58142A73A",
+      "id": "github_release/github.com/terraform-linters/tflint/v0.63.1/tflint_darwin_amd64.zip",
+      "checksum": "1A22782473E4A01F0DD23EDC649BED4420655A9E3459FFC06951E698EED7AD01",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/terraform-linters/tflint/v0.62.1/tflint_darwin_arm64.zip",
-      "checksum": "927866FEF68382138B8FED038721A03C0928CE9486E1616B18BD3DD11E7CDACB",
+      "id": "github_release/github.com/terraform-linters/tflint/v0.63.1/tflint_darwin_arm64.zip",
+      "checksum": "6AAB157B22367DCAB1635B370E98D6E791D9B40B021D4F9BAEF010D88F53E16B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/terraform-linters/tflint/v0.62.1/tflint_linux_amd64.zip",
-      "checksum": "C004EC45ADE3CAF87CD4089FEB1D2AF9F7DF57B13140A36DF8A63C0A8CC69F14",
+      "id": "github_release/github.com/terraform-linters/tflint/v0.63.1/tflint_linux_amd64.zip",
+      "checksum": "8441A7D97DF20431F19C9B9D27FF4C63E308C964E86660BC7CC0CF7BBE0725E8",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/terraform-linters/tflint/v0.62.1/tflint_linux_arm64.zip",
-      "checksum": "9F3BCE43F7F58F05DDCF193F0BF1F7E7A9C7A79D7F46F72DD38E97F96FCAF14C",
+      "id": "github_release/github.com/terraform-linters/tflint/v0.63.1/tflint_linux_arm64.zip",
+      "checksum": "6D858CA7F11858C3FE3C5E29CC746823ABCCB55E2D2E2DA130FA7AD7EA4EECB8",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/yannh/kubeconform/v0.7.0/kubeconform-darwin-amd64.tar.gz",
-      "checksum": "C6771CC894D82E1B12F35EE797DCDA1F7DA6A3787AA30902A15C264056DD40D4",
+      "id": "github_release/github.com/yannh/kubeconform/v0.8.0/kubeconform-darwin-amd64.tar.gz",
+      "checksum": "71DBC87AC9F24099A62B93570E65AA06312BA6AC8AEA63B7F86E9D999EDF5A92",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/yannh/kubeconform/v0.7.0/kubeconform-darwin-arm64.tar.gz",
-      "checksum": "B5D32B2CB77F9C781C976B20A85E2D0BC8F9184D5D1CFE665A2F31A19F99EEB9",
+      "id": "github_release/github.com/yannh/kubeconform/v0.8.0/kubeconform-darwin-arm64.tar.gz",
+      "checksum": "F84F4DFBEBF4A6B0B230385FA065A39EA35E02608C2B50D025DCF64775A69D67",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/yannh/kubeconform/v0.7.0/kubeconform-linux-amd64.tar.gz",
-      "checksum": "C31518DDD122663B3F3AA874CFE8178CB0988DE944F29C74A0B9260920D115D3",
+      "id": "github_release/github.com/yannh/kubeconform/v0.8.0/kubeconform-linux-amd64.tar.gz",
+      "checksum": "9BC2BFFBF71F261128533EDAF912153948B7FF238F9A531AE6D34466EC287883",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/yannh/kubeconform/v0.7.0/kubeconform-linux-arm64.tar.gz",
-      "checksum": "CC907CCF9E3C34523F0F32B69745265E0A6908CA85B92F41931D4537860EB83C",
+      "id": "github_release/github.com/yannh/kubeconform/v0.8.0/kubeconform-linux-arm64.tar.gz",
+      "checksum": "1F53FC8E81258197A35E8603054162A5AF1DE8C5AF13746C71AB680D9534ED87",
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.k8s.io/v1.36.1/bin/darwin/amd64/kubectl",
-      "checksum": "B4973E90EBB00537D735B63D6F8293C1959156E6FF435F6A43C08AEAA1A2E7D7",
+      "id": "http/dl.k8s.io/v1.36.2/bin/darwin/amd64/kubectl",
+      "checksum": "CE6C5E55CD17559E87E4FB5E73EBBBC2511BCF2B695D7A40C1B1461A9817D4B3",
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.k8s.io/v1.36.1/bin/darwin/arm64/kubectl",
-      "checksum": "9092778ABAEF3079449DA4CD70DED0E4BE112480C93EFCDEACE3155968D1D133",
+      "id": "http/dl.k8s.io/v1.36.2/bin/darwin/arm64/kubectl",
+      "checksum": "4408C85C83FD3A31ADAA555BDF3C7A6C81F74B19449A9060BA31AB91926F023D",
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.k8s.io/v1.36.1/bin/linux/amd64/kubectl",
-      "checksum": "629D3F410E09BF49B64AE7079F7F0BDA1191EFED311F7D37FDBAB0AD5B0EC2B7",
+      "id": "http/dl.k8s.io/v1.36.2/bin/linux/amd64/kubectl",
+      "checksum": "1E9045EC32BEA85DA43DE85F0065358529EA7C7A152ECA78154FBA5B58C27D82",
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.k8s.io/v1.36.1/bin/linux/arm64/kubectl",
-      "checksum": "59F7EE8E477FAE658447607DC3C8790AC17A1B016C01C622C12070E969E2D4E7",
+      "id": "http/dl.k8s.io/v1.36.2/bin/linux/arm64/kubectl",
+      "checksum": "C957EB8C4BEA27A3BB35B269EDD9082E27F027F7B76B20B5BF4AFEBC726C6D3E",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.2.0-darwin-amd64.tar.gz",
-      "checksum": "1376EA697140E4DB316736E760D5A47D12AFC1524DCE704476EF06FD7FDEDDC6",
+      "id": "http/get.helm.sh/helm-v4.2.1-darwin-amd64.tar.gz",
+      "checksum": "2A21C9F368D608BCF6EB794EBC06514EB6B529A846B60FE4A43DEA7BCCE65228",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.2.0-darwin-arm64.tar.gz",
-      "checksum": "F13F959015447B6BC309F9FD506509926543988A39035C088B52522EC95E2ACB",
+      "id": "http/get.helm.sh/helm-v4.2.1-darwin-arm64.tar.gz",
+      "checksum": "896472D2EC0740C60F64A9DF0FC30D478BEEE38A1A2A6ED91AA6E6EE177C1575",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.2.0-linux-amd64.tar.gz",
-      "checksum": "97DBEB971BE4AC4B27E3839976D9564C0FB35C6F3B1DA89DD1E292D236AF4096",
+      "id": "http/get.helm.sh/helm-v4.2.1-linux-amd64.tar.gz",
+      "checksum": "479DCA836E5B45E8BD222400C5591B0E3A647378F03FF96597180DB97C17FDAE",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.2.0-linux-arm64.tar.gz",
-      "checksum": "1F8DE130DFBD04DE64978E7B852A7A547BE1404956A366608276D2520B678670",
+      "id": "http/get.helm.sh/helm-v4.2.1-linux-arm64.tar.gz",
+      "checksum": "596B9A73D366C1E72CE67D595C22805480E30914593AAFBC9F547694E72814DB",
       "algorithm": "sha256"
     },
     {
