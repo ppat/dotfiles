@@ -171,43 +171,43 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.93.0/gh_2.93.0_linux_amd64.tar.gz",
-      "checksum": "02D1290EBA130E0B896F3709FFFF22E1C75A51475DDB70476A85ABC6B5807AF0",
+      "id": "github_release/github.com/cli/cli/v2.94.0/gh_2.94.0_linux_amd64.tar.gz",
+      "checksum": "A757F1BA6DB18F4DE8CBADB244843A5F89BC75B5E7C6FC127D2BD77FBD12ED62",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.93.0/gh_2.93.0_linux_arm64.tar.gz",
-      "checksum": "C55FEB33684ABBA57E9909737340D5B39282257C0363E1EDDE6785AC4A413BE7",
+      "id": "github_release/github.com/cli/cli/v2.94.0/gh_2.94.0_linux_arm64.tar.gz",
+      "checksum": "705A23B70B0F1B7BA4C302FDCEF392CE3EDAACFA7CE8E85E4D93D72EA800A538",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.93.0/gh_2.93.0_macOS_amd64.zip",
-      "checksum": "009425B9D175C482037FE25181817FD6B1EA3AE1F51CFAE0E18F29F33D3152AC",
+      "id": "github_release/github.com/cli/cli/v2.94.0/gh_2.94.0_macOS_amd64.zip",
+      "checksum": "733EE8FA49247D27CD94A6C7384455BDECAA82172A3BCFAD63AC1ECC2867251D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.93.0/gh_2.93.0_macOS_arm64.zip",
-      "checksum": "A86BE4E0A86C26456CF71177D6572D6F1165CF1679E532B72F7F15918EE51FD2",
+      "id": "github_release/github.com/cli/cli/v2.94.0/gh_2.94.0_macOS_arm64.zip",
+      "checksum": "4F9BC1A5E77500737290A307B40B4C396A4D23729F55340F2A83F414410165A1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.34.2/coder_2.34.2_darwin_amd64.zip",
-      "checksum": "D4746FED81A2D567FAB196309152F0E5F57A52613EACF84EA3E8774818FA28E6",
+      "id": "github_release/github.com/coder/coder/v2.34.3/coder_2.34.3_darwin_amd64.zip",
+      "checksum": "30924AD0D7971DF77F8A998F52B761ADC08E02B69F607DECABE316EC688B5676",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.34.2/coder_2.34.2_darwin_arm64.zip",
-      "checksum": "04FAA3A917BCE9EB7490230DECCF1214A01D49F84249BF321D00B8CEB5480610",
+      "id": "github_release/github.com/coder/coder/v2.34.3/coder_2.34.3_darwin_arm64.zip",
+      "checksum": "A821EC2B4CCEA893BF1026FD69F684C0D89AF51FC024C82D46920551F65E6356",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.34.2/coder_2.34.2_linux_amd64.tar.gz",
-      "checksum": "28E8548507A4C6B7D6C2053FD2DE35DA63658038A4759661CEF2F5CC63AAC9C5",
+      "id": "github_release/github.com/coder/coder/v2.34.3/coder_2.34.3_linux_amd64.tar.gz",
+      "checksum": "8FBAF9AAEA40B23900D75289A5D4C856DA205AF4B1CF9F6730AB534BDD8D3039",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.34.2/coder_2.34.2_linux_arm64.tar.gz",
-      "checksum": "D9F7DD58AF743550DBA1D1FE354E84DA7258A7837B5C47B739452978B2A695F9",
+      "id": "github_release/github.com/coder/coder/v2.34.3/coder_2.34.3_linux_arm64.tar.gz",
+      "checksum": "6AF0D403FDD12DCA32B7A419DC2965BE3369F0EEB983ED0290026330E39528B8",
       "algorithm": "sha256"
     },
     {
@@ -666,23 +666,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.2.1-darwin-amd64.tar.gz",
-      "checksum": "2A21C9F368D608BCF6EB794EBC06514EB6B529A846B60FE4A43DEA7BCCE65228",
+      "id": "http/get.helm.sh/helm-v4.2.2-darwin-amd64.tar.gz",
+      "checksum": "10C1E36EE8C5F2E2EE25A16599CB03AB74C0953CD889CACB980A49BA4B6574BA",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.2.1-darwin-arm64.tar.gz",
-      "checksum": "896472D2EC0740C60F64A9DF0FC30D478BEEE38A1A2A6ED91AA6E6EE177C1575",
+      "id": "http/get.helm.sh/helm-v4.2.2-darwin-arm64.tar.gz",
+      "checksum": "5410A0DAE3D5D91F45653B161260D9301AABC4AE80AE50A6605D66884B6DF8EA",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.2.1-linux-amd64.tar.gz",
-      "checksum": "479DCA836E5B45E8BD222400C5591B0E3A647378F03FF96597180DB97C17FDAE",
+      "id": "http/get.helm.sh/helm-v4.2.2-linux-amd64.tar.gz",
+      "checksum": "9ADAFECAB4D406853BBA163A70E9F104F47DBBF65CE24B7653BAE7E36150BCB6",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.2.1-linux-arm64.tar.gz",
-      "checksum": "596B9A73D366C1E72CE67D595C22805480E30914593AAFBC9F547694E72814DB",
+      "id": "http/get.helm.sh/helm-v4.2.2-linux-arm64.tar.gz",
+      "checksum": "78803142087A0069FA4B50D3F32A84D3EF25C14D1EE8A40FBCCF86A6216D2F36",
       "algorithm": "sha256"
     },
     {
