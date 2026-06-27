@@ -15,7 +15,7 @@ packages:
 - name: ajeetdsouza/zoxide@v0.9.9
 - name: aristocratos/btop@v1.4.7
 - name: aquasecurity/kube-bench@v0.15.6
-- name: aquasecurity/trivy@v0.71.1
+- name: aquasecurity/trivy@v0.71.2
 - name: atuinsh/atuin@v18.16.1
 - name: bitwarden/clients@cli-v2026.5.0
 - name: bitwarden/sdk-sm@bws-v1.0.0
