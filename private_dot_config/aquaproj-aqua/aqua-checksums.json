@@ -171,53 +171,53 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.94.0/gh_2.94.0_linux_amd64.tar.gz",
-      "checksum": "A757F1BA6DB18F4DE8CBADB244843A5F89BC75B5E7C6FC127D2BD77FBD12ED62",
+      "id": "github_release/github.com/cli/cli/v2.95.0/gh_2.95.0_linux_amd64.tar.gz",
+      "checksum": "25D1E4729E8808C9ED3D613E96EBD3F3E44446F2D368C89D878A71A36DDB3D8C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.94.0/gh_2.94.0_linux_arm64.tar.gz",
-      "checksum": "705A23B70B0F1B7BA4C302FDCEF392CE3EDAACFA7CE8E85E4D93D72EA800A538",
+      "id": "github_release/github.com/cli/cli/v2.95.0/gh_2.95.0_linux_arm64.tar.gz",
+      "checksum": "D41E0B3B6218E5741C8BB4DB39B16E53A59E0E06299A8489BD38F623EF7EBAAE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.94.0/gh_2.94.0_macOS_amd64.zip",
-      "checksum": "733EE8FA49247D27CD94A6C7384455BDECAA82172A3BCFAD63AC1ECC2867251D",
+      "id": "github_release/github.com/cli/cli/v2.95.0/gh_2.95.0_macOS_amd64.zip",
+      "checksum": "985707E9AC60C95ED51CDDD808C338B481ABE69FFFA77E9D6547C3750045F77E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.94.0/gh_2.94.0_macOS_arm64.zip",
-      "checksum": "4F9BC1A5E77500737290A307B40B4C396A4D23729F55340F2A83F414410165A1",
+      "id": "github_release/github.com/cli/cli/v2.95.0/gh_2.95.0_macOS_arm64.zip",
+      "checksum": "3677F9C27965825F9C7D50395473C134EDAEA4B484373EF6B25DE653570A0489",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.34.3/coder_2.34.3_darwin_amd64.zip",
-      "checksum": "30924AD0D7971DF77F8A998F52B761ADC08E02B69F607DECABE316EC688B5676",
+      "id": "github_release/github.com/coder/coder/v2.34.4/coder_2.34.4_darwin_amd64.zip",
+      "checksum": "93A5A906EE46C6ADC83F89E97C70FF1FE4D6CDC58ADAC7CCA1FF67E91AB01EFA",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.34.3/coder_2.34.3_darwin_arm64.zip",
-      "checksum": "A821EC2B4CCEA893BF1026FD69F684C0D89AF51FC024C82D46920551F65E6356",
+      "id": "github_release/github.com/coder/coder/v2.34.4/coder_2.34.4_darwin_arm64.zip",
+      "checksum": "191F397322F8F2A46EFFF45B5BCDFCEDE5870A287FC6E7728203A847015FE634",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.34.3/coder_2.34.3_linux_amd64.tar.gz",
-      "checksum": "8FBAF9AAEA40B23900D75289A5D4C856DA205AF4B1CF9F6730AB534BDD8D3039",
+      "id": "github_release/github.com/coder/coder/v2.34.4/coder_2.34.4_linux_amd64.tar.gz",
+      "checksum": "8F376BFC54C12C04A5A8B991DCD43A0ED155236D00D9A964680FE792F53B351D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.34.3/coder_2.34.3_linux_arm64.tar.gz",
-      "checksum": "6AF0D403FDD12DCA32B7A419DC2965BE3369F0EEB983ED0290026330E39528B8",
+      "id": "github_release/github.com/coder/coder/v2.34.4/coder_2.34.4_linux_arm64.tar.gz",
+      "checksum": "7FAD86473567385D41F9A729BD95544B643E78321DB0CEDEB43A37CECA069474",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/dalance/procs/v0.14.11/procs-v0.14.11-x86_64-linux.zip",
-      "checksum": "9C4FAECF85A3AF4D3D39AAE47D04FA31D0A6EB0A239039F68D3F55043F04F974",
+      "id": "github_release/github.com/dalance/procs/v0.14.12/procs-v0.14.12-x86_64-linux.zip",
+      "checksum": "81964FAF9D5CD0E9F399D5D0954FB6FE4D4D9F7D3CBEC4507633DF5A45B11713",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/dalance/procs/v0.14.11/procs-v0.14.11-x86_64-mac.zip",
-      "checksum": "72E45A61660E1C586AFFF64B3A8A393FED06F3A133DF8E716ADE68B00190EA87",
+      "id": "github_release/github.com/dalance/procs/v0.14.12/procs-v0.14.12-x86_64-mac.zip",
+      "checksum": "2C276F40C99051984942A5B135B74CE4BC9184984A1543DDDFCF275BDE71D8D4",
       "algorithm": "sha256"
     },
     {
