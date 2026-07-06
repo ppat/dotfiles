@@ -21,26 +21,6 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.69.0/difft-aarch64-apple-darwin.tar.gz",
-      "checksum": "C958B87885A5825A356C5899AC7ECDD752A7942084199F2BE4BC0BF8C9DE8E33",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/Wilfred/difftastic/0.69.0/difft-aarch64-unknown-linux-gnu.tar.gz",
-      "checksum": "ABD2F42D2AFD424312B4862AA7C7BB0320447670AE22FABCC5159DB03E2DCCBD",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/Wilfred/difftastic/0.69.0/difft-x86_64-apple-darwin.tar.gz",
-      "checksum": "5F5487E7A6E817194A1CEF297D2FFB300454371635A4CDE865087DBC064730A2",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/Wilfred/difftastic/0.69.0/difft-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "C120A4315B33E89678D52B47EA0097CDB1FB57B4F3910B4D77CBEEE5EECC8CED",
-      "algorithm": "sha256"
-    },
-    {
       "id": "github_release/github.com/ajeetdsouza/zoxide/v0.9.9/zoxide-0.9.9-aarch64-apple-darwin.tar.gz",
       "checksum": "57E733D0436309DAE2ED97E46BBA43937209395298E1D88812D4E893900CB40A",
       "algorithm": "sha256"
@@ -58,46 +38,6 @@
     {
       "id": "github_release/github.com/ajeetdsouza/zoxide/v0.9.9/zoxide-0.9.9-x86_64-unknown-linux-musl.tar.gz",
       "checksum": "4FF057D3C4D957946937274C2B8BE7AF2A9BBAE7F90A1B5E9BAAA7CB65A20CAA",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/aquasecurity/kube-bench/v0.15.6/kube-bench_0.15.6_darwin_amd64.tar.gz",
-      "checksum": "89B42B68D19882D130482E3086CEE57DC59CA776B58E1DE4D413B64399F887C7",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/aquasecurity/kube-bench/v0.15.6/kube-bench_0.15.6_darwin_arm64.tar.gz",
-      "checksum": "DF74AC0157F1040539C2BF4B3FBF676ECBC855F55D5B51AFD5124467CAA3F345",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/aquasecurity/kube-bench/v0.15.6/kube-bench_0.15.6_linux_amd64.tar.gz",
-      "checksum": "783882D23A13837FFD9D2A3DC713D86BED121802F51C93465F47ADD4DAE9EB23",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/aquasecurity/kube-bench/v0.15.6/kube-bench_0.15.6_linux_arm64.tar.gz",
-      "checksum": "69A3870F5CE3578429DE8D5D771B7703A062EEC64B8D7E6D014B15350FCB4A35",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.71.2/trivy_0.71.2_Linux-64bit.tar.gz",
-      "checksum": "0510E71E2FD39BF863856D499C8DC19FEB4E7336546394C502A8F5CC7AB27460",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.71.2/trivy_0.71.2_Linux-ARM64.tar.gz",
-      "checksum": "FE1C7106E15A5365D485B098A8C338F91E3B7BA71CB0E4963B98A3A098763CFC",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.71.2/trivy_0.71.2_macOS-64bit.tar.gz",
-      "checksum": "C27BCF4DDD281AECB7267EB5DF804EC49AC0F8FA23FE018D33932E17F30A38BF",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/aquasecurity/trivy/v0.71.2/trivy_0.71.2_macOS-ARM64.tar.gz",
-      "checksum": "A9F585CAD53542A54EF286B5FA4199D081E5A061F8894635BDF3CE2608ECE7A9",
       "algorithm": "sha256"
     },
     {
@@ -683,21 +623,6 @@
     {
       "id": "http/get.helm.sh/helm-v4.2.2-linux-arm64.tar.gz",
       "checksum": "78803142087A0069FA4B50D3F32A84D3EF25C14D1EE8A40FBCCF86A6216D2F36",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/pkgs.tailscale.com/stable/Tailscale-1.94.2-macos.pkg",
-      "checksum": "EF90A84BE44A296DAF8B05A8A586B3665A50281F07BB784155780CD11ADBB995",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/pkgs.tailscale.com/stable/tailscale_1.94.2_amd64.tgz",
-      "checksum": "C6F99A5D774C7783B56902188D69E9756FC3DDDFB08AC6BE4CB2585F3FECDC32",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/pkgs.tailscale.com/stable/tailscale_1.94.2_arm64.tgz",
-      "checksum": "76300E808C57EB7853090D69C8BD8806E86341862E244183F6611F9105799BBA",
       "algorithm": "sha256"
     },
     {
