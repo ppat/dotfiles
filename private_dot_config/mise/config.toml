@@ -4,7 +4,7 @@ go             = "1.26.4"
 node           = "24.18.0"
 rust           = "1.94.1"
 terraform      = "1.6.6"
-usage          = "3.5.3"
+usage          = "3.5.4"
 
 "npm:@anthropic-ai/claude-code" = "2.1.201"
 "npm:markdownlint-cli2"         = "0.22.1"
