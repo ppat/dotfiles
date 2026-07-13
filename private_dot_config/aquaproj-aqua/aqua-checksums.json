@@ -66,13 +66,13 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bitwarden/clients/cli-v2026.5.0/bw-linux-2026.5.0.zip",
-      "checksum": "5DDBF5383BEC9C71613D7B699FFA5249B5E7B68B2A3D15B4C75738BA8A8F9A19",
+      "id": "github_release/github.com/bitwarden/clients/cli-v2026.6.0/bw-linux-2026.6.0.zip",
+      "checksum": "392549496C712AB86BFBD6C27302DF9FD2C431CFC7A47E26941AC3E3893F4D27",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bitwarden/clients/cli-v2026.5.0/bw-macos-2026.5.0.zip",
-      "checksum": "4A4F6BD48A21E67DCD6C31000844E34F991CCCF778389568A0DCF95249C48657",
+      "id": "github_release/github.com/bitwarden/clients/cli-v2026.6.0/bw-macos-2026.6.0.zip",
+      "checksum": "C668BB3875029A2B6000AAB0ABF9579182A79F8E25304A602256685387EF52C6",
       "algorithm": "sha256"
     },
     {
@@ -196,23 +196,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.65.1/fastfetch-linux-aarch64.tar.gz",
-      "checksum": "A00A3461C1E0BF2D4BA430D7D78CA92D4DF9A8F6A08466F6669865599F5B963D",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.65.2/fastfetch-linux-aarch64.tar.gz",
+      "checksum": "7485815BE2817DB722096353C3440967B9B39CDD5500EAF29D3724CA3DC9C1B5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.65.1/fastfetch-linux-amd64.tar.gz",
-      "checksum": "3B6D58E167142067F8231132F428CFE91A94633E33BE0A6D867BDCD84E68294D",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.65.2/fastfetch-linux-amd64.tar.gz",
+      "checksum": "D8A477A016FBCF6CF184B1E2A54F38E702AAE0D27078F72F5DAC54D6D0010739",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.65.1/fastfetch-macos-aarch64.tar.gz",
-      "checksum": "B746531308D626AF82192316AC887EC09FBBD1DA026CB5EC18732D72B9261AF4",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.65.2/fastfetch-macos-aarch64.tar.gz",
+      "checksum": "BE86C281B2FC57410399357153731AE723856FBB80EE66A074648F597B80530C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.65.1/fastfetch-macos-amd64.tar.gz",
-      "checksum": "DD7EEB6C8382D9B9A36F603F848AF323AA33E7845881FC4F33984D406DE21039",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.65.2/fastfetch-macos-amd64.tar.gz",
+      "checksum": "2C2026826AB2F663BA6544961C2FDF45725B5BE5ED0DF57838ADE58C7B82328F",
       "algorithm": "sha256"
     },
     {
