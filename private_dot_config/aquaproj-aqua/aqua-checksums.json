@@ -71,8 +71,18 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/bitwarden/clients/cli-v2026.6.0/bw-linux-arm64-2026.6.0.zip",
+      "checksum": "626156E0CA60606C85B5B8EDE0DD4E546B886A36E7F827B81D8CD5B8B487EE7C",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/bitwarden/clients/cli-v2026.6.0/bw-macos-2026.6.0.zip",
       "checksum": "C668BB3875029A2B6000AAB0ABF9579182A79F8E25304A602256685387EF52C6",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/bitwarden/clients/cli-v2026.6.0/bw-macos-arm64-2026.6.0.zip",
+      "checksum": "57D1E60D7748C6EFED96559833CE0423A5C825CBF1356D952970C87A497A64D4",
       "algorithm": "sha256"
     },
     {
@@ -621,8 +631,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.531.0/registry.yaml",
-      "checksum": "6809CBCF3DB5C26072A32B2F2A9C5CABD2636874AA633BBBA6C463385BD1B35E",
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.536.1/registry.yaml",
+      "checksum": "149100F507AD8C4E75D9C5CA5DB050FB88817005DDD72E76A40C92379233C170",
       "algorithm": "sha256"
     }
   ]
