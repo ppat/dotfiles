@@ -226,23 +226,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.9.0/flux_2.9.0_darwin_amd64.tar.gz",
-      "checksum": "F6B22502360A530D440F622A52753D8D152953BBF972DBAE23FE25A0AD3447CB",
+      "id": "github_release/github.com/fluxcd/flux2/v2.9.1/flux_2.9.1_darwin_amd64.tar.gz",
+      "checksum": "BAFE1A486DA47D7F077AF4057B7E8D290D6634AB34AB91544583EC3CB57C0DBD",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.9.0/flux_2.9.0_darwin_arm64.tar.gz",
-      "checksum": "B69F857A632683C38531093743A08BE00BF172EA1EAE65118F11C560B42F6466",
+      "id": "github_release/github.com/fluxcd/flux2/v2.9.1/flux_2.9.1_darwin_arm64.tar.gz",
+      "checksum": "1ADAED698058F6954B443482320CCB852D55F668EDE345D64C49132188B26DCB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.9.0/flux_2.9.0_linux_amd64.tar.gz",
-      "checksum": "7AA9779FC7EC6D030E609DAB7DBED8C6FC9E3A7F4670834AD02369268AAF341F",
+      "id": "github_release/github.com/fluxcd/flux2/v2.9.1/flux_2.9.1_linux_amd64.tar.gz",
+      "checksum": "6E984C92AA02250EA3F907367DC7829411E31D667B100CE2005CB87D5509E5B3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.9.0/flux_2.9.0_linux_arm64.tar.gz",
-      "checksum": "76B4ED5535C04C32789743D7D2C29D1F7B5B3A4A269EF305C4C9757029ECCE2A",
+      "id": "github_release/github.com/fluxcd/flux2/v2.9.1/flux_2.9.1_linux_arm64.tar.gz",
+      "checksum": "16409DF2FBD40B23458D81C22DD57ABD39E82450831BDF522716D9D1030976C6",
       "algorithm": "sha256"
     },
     {
