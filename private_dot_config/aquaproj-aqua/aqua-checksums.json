@@ -121,23 +121,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.95.0/gh_2.95.0_linux_amd64.tar.gz",
-      "checksum": "25D1E4729E8808C9ED3D613E96EBD3F3E44446F2D368C89D878A71A36DDB3D8C",
+      "id": "github_release/github.com/cli/cli/v2.96.0/gh_2.96.0_linux_amd64.tar.gz",
+      "checksum": "83D5C2CCAD5498F58BF6368ACB1AB32588CF43AB3A4B1C301BF36328B1C8BD60",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.95.0/gh_2.95.0_linux_arm64.tar.gz",
-      "checksum": "D41E0B3B6218E5741C8BB4DB39B16E53A59E0E06299A8489BD38F623EF7EBAAE",
+      "id": "github_release/github.com/cli/cli/v2.96.0/gh_2.96.0_linux_arm64.tar.gz",
+      "checksum": "06F86EC7103D41993B76CD78072F43595C34AAA56506D971D9860E67140BF909",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.95.0/gh_2.95.0_macOS_amd64.zip",
-      "checksum": "985707E9AC60C95ED51CDDD808C338B481ABE69FFFA77E9D6547C3750045F77E",
+      "id": "github_release/github.com/cli/cli/v2.96.0/gh_2.96.0_macOS_amd64.zip",
+      "checksum": "4BD449DF9AD639391BC62B8032546F0FE9EDCD8526E06682A4F88ABD8C5D163C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.95.0/gh_2.95.0_macOS_arm64.zip",
-      "checksum": "3677F9C27965825F9C7D50395473C134EDAEA4B484373EF6B25DE653570A0489",
+      "id": "github_release/github.com/cli/cli/v2.96.0/gh_2.96.0_macOS_arm64.zip",
+      "checksum": "F23A0C37D963AACC3BED703CCBD59B41C5CA22101FAB7F00EB2B7CAD23ABA463",
       "algorithm": "sha256"
     },
     {
@@ -531,23 +531,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.5/talosctl-darwin-amd64",
-      "checksum": "B5808A8F650C53987D0133704259F3CDF31C081710BDA598F9B4CAB934ABC78C",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.6/talosctl-darwin-amd64",
+      "checksum": "156C4189C36F4419774E17EBF7CE7818869B7C1068031A026F4702B5AB271495",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.5/talosctl-darwin-arm64",
-      "checksum": "5CFC42F5A51B01EA391C9760A1C5450517F7E85A74D145FD20B6ABC4AC1DF37E",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.6/talosctl-darwin-arm64",
+      "checksum": "8BADC3F3907776488E9B13B6A521FFADF301DFF9A3F097C1551102C363905C9F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.5/talosctl-linux-amd64",
-      "checksum": "CB12209727C0C4D57D74C0595F34D441BA491421E1D3C8A5142ED91028A20232",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.6/talosctl-linux-amd64",
+      "checksum": "540C5E7CB0D3FA3A9B2E1C717CED212727B73BCAF0CF9CF9BA2472EC381041D4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.5/talosctl-linux-arm64",
-      "checksum": "BD053D8264C1B0C091CBAF15E7B414AB1CD14A56DDD5860F2E2BA01E5AEE3BC3",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.6/talosctl-linux-arm64",
+      "checksum": "59F59E2C0C79504F4666CB7C2307CA32CE2925A53FBEBEE3E2454AD5EA1F230E",
       "algorithm": "sha256"
     },
     {
@@ -611,23 +611,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.2.2-darwin-amd64.tar.gz",
-      "checksum": "10C1E36EE8C5F2E2EE25A16599CB03AB74C0953CD889CACB980A49BA4B6574BA",
+      "id": "http/get.helm.sh/helm-v4.2.3-darwin-amd64.tar.gz",
+      "checksum": "FF3AC86755A45F3422473BC1200776AAC0FE04C5766ABE6CA66699F7B564B23B",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.2.2-darwin-arm64.tar.gz",
-      "checksum": "5410A0DAE3D5D91F45653B161260D9301AABC4AE80AE50A6605D66884B6DF8EA",
+      "id": "http/get.helm.sh/helm-v4.2.3-darwin-arm64.tar.gz",
+      "checksum": "048ECF5AD3160F83D918F9FE945238D2132B079640F7B106175331C25F242C64",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.2.2-linux-amd64.tar.gz",
-      "checksum": "9ADAFECAB4D406853BBA163A70E9F104F47DBBF65CE24B7653BAE7E36150BCB6",
+      "id": "http/get.helm.sh/helm-v4.2.3-linux-amd64.tar.gz",
+      "checksum": "E9B88B4EE95B18C706839C28D3A0220E5BC470E9CD9262410C90793C45FF8B7C",
       "algorithm": "sha256"
     },
     {
-      "id": "http/get.helm.sh/helm-v4.2.2-linux-arm64.tar.gz",
-      "checksum": "78803142087A0069FA4B50D3F32A84D3EF25C14D1EE8A40FBCCF86A6216D2F36",
+      "id": "http/get.helm.sh/helm-v4.2.3-linux-arm64.tar.gz",
+      "checksum": "21ABD9354D39B2CD79A8D76BE6912CD137A983CBF997193503FB8A6A6E2F2785",
       "algorithm": "sha256"
     },
     {
