@@ -76,3 +76,10 @@ Chezmoi will:
 
 - Fetch latest from git
 - Apply all the updates
+
+## More
+
+- [DESIGN.md](DESIGN.md) — why this repo is structured the way it is: the three-package-manager split,
+  first-time vs. standard setup, secrets handling, and CI/Renovate design.
+- [TESTING.md](TESTING.md) — how a change here is actually verified before merging.
+- [CLAUDE.md](CLAUDE.md) — command reference and conventions for AI coding assistants working in this repo.
