@@ -24,11 +24,11 @@ packages:
 - name: dandavison/delta@0.19.2
 - name: derailed/k9s@v0.51.0
 - name: fastfetch-cli/fastfetch@2.65.2
-- name: fluxcd/flux2@v2.9.1
+- name: fluxcd/flux2@v2.9.2
 - name: hadolint/hadolint@v2.14.0
 - name: helm/helm@v4.2.3
 # - name: jesseduffield/lazygit@v0.63.0
-- name: junegunn/fzf@v0.73.1
+- name: junegunn/fzf@v0.74.0
 - name: koalaman/shellcheck@v0.11.0
 - name: kubernetes/kubectl@v1.36.2
 - name: kubernetes-sigs/kind@v0.32.0
