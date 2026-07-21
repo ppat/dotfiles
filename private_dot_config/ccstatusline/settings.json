@@ -1,0 +1,147 @@
+{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "model",
+        "color": "cyan"
+      },
+      {
+        "id": "5",
+        "type": "thinking-effort",
+        "color": "magenta"
+      },
+      {
+        "id": "3",
+        "type": "output-style",
+        "color": "brightBlack"
+      },
+      {
+        "id": "16f592b4-641d-4af0-93e0-5a3d06fd9e58",
+        "type": "flex-separator",
+        "backgroundColor": "bgBrightYellow"
+      },
+      {
+        "id": "66aa32ec-1b83-4a42-939c-b685ec71c9ed",
+        "type": "tokens-input",
+        "backgroundColor": "bgBrightBlack"
+      },
+      {
+        "id": "ab964fe1-9e68-4a30-80a5-05afa9fe919d",
+        "type": "tokens-output",
+        "backgroundColor": "bgMagenta"
+      },
+      {
+        "id": "358c2810-264d-4e5e-860b-fbe164ba1a6a",
+        "type": "tokens-cached",
+        "backgroundColor": "bgCyan"
+      },
+      {
+        "id": "2",
+        "type": "context-bar"
+      }
+    ],
+    [
+      {
+        "id": "62238b98-182c-4b27-8f1c-5620e434a0bd",
+        "type": "session-name",
+        "backgroundColor": "bgGreen"
+      },
+      {
+        "id": "f3595822-53f8-49fb-bdc8-d8cf0700327e",
+        "type": "session-usage",
+        "backgroundColor": "bgBrightMagenta"
+      },
+      {
+        "id": "3561735b-2c5e-4f77-8de0-05a8a88849e7",
+        "type": "weekly-usage",
+        "backgroundColor": "bgRed"
+      },
+      {
+        "id": "1047b9ce-b604-47b4-88bd-12617fac7ead",
+        "type": "flex-separator",
+        "backgroundColor": "bgBrightRed"
+      },
+      {
+        "id": "2ebc57ee-56e3-4a45-9e70-876b62de1692",
+        "type": "reset-timer",
+        "backgroundColor": "bgBrightYellow"
+      },
+      {
+        "id": "0fe0496a-ab97-4875-8bad-f451bab7e45f",
+        "type": "weekly-reset-timer",
+        "backgroundColor": "bgBrightCyan"
+      },
+      {
+        "id": "e93f5a4a-5cdd-44da-8add-51c5159457e5",
+        "type": "extra-usage-used",
+        "backgroundColor": "bgBlue"
+      },
+      {
+        "id": "703c1f12-ee4a-4cb0-a042-1584c20866b7",
+        "type": "session-cost",
+        "backgroundColor": "bgBrightBlack"
+      }
+    ],
+    [
+      {
+        "id": "220d4da1-1c9e-4804-b34e-d5d5c71d2997",
+        "type": "git-upstream-owner-repo",
+        "backgroundColor": "bgBrightCyan"
+      },
+      {
+        "id": "d73a63ee-61e0-41b2-b522-c00fd8d2e5b3",
+        "type": "worktree-mode",
+        "backgroundColor": "bgBrightGreen"
+      },
+      {
+        "id": "9cd2443e-2485-4745-8530-0bdfac5da48b",
+        "type": "git-branch",
+        "backgroundColor": "bgBrightMagenta"
+      },
+      {
+        "id": "52397530-7e09-473a-bc43-039f26e59619",
+        "type": "flex-separator",
+        "backgroundColor": "bgGreen"
+      },
+      {
+        "id": "69084654-8ef2-4c04-bbc3-89964b072aab",
+        "type": "git-changes",
+        "backgroundColor": "bgYellow"
+      },
+      {
+        "id": "0764dc65-ed0b-4cfe-b419-9759436430ba",
+        "type": "git-ci-status",
+        "backgroundColor": "bgBrightGreen"
+      }
+    ]
+  ],
+  "flexMode": "full-until-compact",
+  "compactThreshold": 60,
+  "colorLevel": 3,
+  "defaultPadding": " ",
+  "defaultPaddingSide": "both",
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "gitCacheTtlSeconds": 60,
+  "minimalistMode": false,
+  "powerline": {
+    "enabled": true,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": [],
+    "theme": "nord-aurora",
+    "autoAlign": false,
+    "continueThemeAcrossLines": false
+  },
+  "installation": {
+    "method": "pinned",
+    "installedVersion": "2.2.25"
+  }
+}
