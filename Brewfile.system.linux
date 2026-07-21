@@ -12,6 +12,5 @@ brew "uv"
 # Dotfile Manager
 brew "chezmoi"
 
-# Fonts
-cask "font-fira-code"        # Monospaced font with programming ligatures
-cask "font-jetbrains-mono"   # Monospaced font for coding
+# Fonts are installed via .chezmoiscripts/run_after_32_fonts.sh.tmpl on Linux -
+# Homebrew font casks download into the Caskroom but never reach fontconfig here.

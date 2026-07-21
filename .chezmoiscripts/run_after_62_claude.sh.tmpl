@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "mise.env" . -}}
+{{ template "homebrew.env" . -}}
+set +o allexport
+export PATH=${MISE_DATA_DIR}/shims:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+
+{{ template "script_header.sh" . }}
+
+configure_mcp_servers() {
+  log_info "Claude Code | Configuring MCP servers..."
+
+  # TODO: verify this Bitwarden secret UUID points at the context7 API key
+  local context7_apikey="{{ (bitwardenSecrets "7fed2eed-aa51-4083-be0d-b48c0176a3db" .bwsAccessToken).value }}"
+  if ! claude mcp get context7 > /dev/null 2>&1; then
+    log_info "Claude Code | Adding context7 MCP server..."
+    claude mcp add --scope user context7 -- context7-mcp --api-key "${context7_apikey}" 2>&1 | sed -E 's|^(.*)|    \1|g'
+    log_success "Claude Code | context7 MCP server added."
+  else
+    log_info "Claude Code | context7 MCP server already configured, skipping."
+  fi
+}
+
+configure_plugin_marketplaces() {
+  log_info "Claude Code | Configuring plugin marketplaces..."
+
+  if ! claude plugin marketplace list --json | jq -e 'any(.name == "claude-plugins-official")' > /dev/null; then
+    log_info "Claude Code | Adding claude-plugins-official marketplace..."
+    claude plugin marketplace add anthropics/claude-plugins-official 2>&1 | sed -E 's|^(.*)|    \1|g'
+    log_success "Claude Code | claude-plugins-official marketplace added."
+  else
+    log_info "Claude Code | claude-plugins-official marketplace already configured, skipping."
+  fi
+}
+
+configure_plugins() {
+  log_info "Claude Code | Installing plugins enabled in settings.json..."
+
+  local installed_ids
+  installed_ids=$(claude plugin list --json | jq -r '.[].id')
+
+  jq -r '.enabledPlugins | to_entries[] | select(.value == true) | .key' ~/.claude/settings.json | while read -r plugin_id; do
+    if ! grep -qxF "$plugin_id" <<< "$installed_ids"; then
+      log_info "Claude Code | Installing plugin ${plugin_id}..."
+      claude plugin install "$plugin_id" 2>&1 | sed -E 's|^(.*)|    \1|g'
+      log_success "Claude Code | Plugin ${plugin_id} installed."
+    else
+      log_info "Claude Code | Plugin ${plugin_id} already installed, skipping."
+    fi
+  done
+}
+
+main() {
+  if ! command -v claude > /dev/null; then
+    log_error "Claude Code | Claude binary is not in path, cannot proceed!"
+    exit 1
+  fi
+
+  configure_mcp_servers
+  echo
+  configure_plugin_marketplaces
+  echo
+  configure_plugins
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main
