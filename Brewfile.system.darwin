@@ -27,8 +27,10 @@ brew "uv"
 brew "chezmoi"
 
 # Fonts
-cask "font-fira-code"        # Monospaced font with programming ligatures
-cask "font-jetbrains-mono"   # Monospaced font for coding
+cask "font-fira-code"                 # Monospaced font with programming ligatures
+cask "font-fira-code-nerd-font"       # Fira Code patched with Nerd Font + Powerline glyphs
+cask "font-jetbrains-mono"            # Monospaced font for coding
+cask "font-jetbrains-mono-nerd-font"  # JetBrains Mono patched with Nerd Font + Powerline glyphs
 
 # Macos settings management
 tap "dsully/tap"

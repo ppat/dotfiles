@@ -1,0 +1,71 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "homebrew.env" . -}}
+set +o allexport
+export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+
+{{ template "script_header.sh" . }}
+
+# Nerd Fonts (which bundle the Powerline glyph set) are installed here by
+# downloading the upstream release archives into a fontconfig-scanned directory.
+# On Linux, Homebrew font casks only download into the Caskroom and never reach
+# fontconfig - so the cask approach used on macOS (Brewfile.system.darwin) does
+# not work here and archives are fetched directly instead.
+
+# renovate: datasource=github-releases depName=ryanoasis/nerd-fonts
+NERD_FONTS_VERSION="v3.4.0"
+NERD_FONTS=("JetBrainsMono" "FiraCode")
+FONT_DIR="${HOME}/.local/share/fonts/NerdFonts"
+
+install_nerd_fonts() {
+  log_info "Fonts | Installing Nerd Fonts (${NERD_FONTS_VERSION})..."
+  mkdir -p "${FONT_DIR}"
+
+  local tmp_dir
+  tmp_dir=$(mktemp -d)
+  # shellcheck disable=SC2064
+  trap "rm -rf '${tmp_dir}'" RETURN
+
+  local changed=0
+  local font
+  for font in "${NERD_FONTS[@]}"; do
+    if fc-list 2>/dev/null | grep -qi "${font} Nerd Font"; then
+      log_info "Fonts | ${font} Nerd Font already installed, skipping."
+      continue
+    fi
+    log_info "Fonts | Downloading ${font} Nerd Font..."
+    curl -fsSL -o "${tmp_dir}/${font}.zip" \
+      "https://github.com/ryanoasis/nerd-fonts/releases/download/${NERD_FONTS_VERSION}/${font}.zip"
+    unzip -oq "${tmp_dir}/${font}.zip" -d "${FONT_DIR}" -x "*.md" "LICENSE*"
+    log_success "Fonts | ${font} Nerd Font installed."
+    changed=1
+  done
+
+  if [[ "${changed}" -eq 1 ]]; then
+    log_info "Fonts | Refreshing font cache..."
+    fc-cache -f "${FONT_DIR}" 2>&1 | sed -E 's|^(.*)|    \1|g'
+    log_success "Fonts | Font cache refreshed."
+  else
+    log_info "Fonts | All Nerd Fonts already present, font cache not refreshed."
+  fi
+}
+
+main() {
+  log_info "Fonts | Setting up..."
+  local tool
+  for tool in curl unzip fc-cache; do
+    if ! command -v "${tool}" > /dev/null; then
+      log_error "Fonts | Required tool '${tool}' is not in path, cannot proceed!"
+      exit 1
+    fi
+  done
+  install_nerd_fonts
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main
+{{ end -}}
