@@ -6,7 +6,7 @@ node           = "24.18.0"
 rust           = "1.95.0"
 terraform      = "1.6.6"
 usage          = "3.5.5"
-uv             = "0.11.30"
+uv             = "0.11.31"
 
 "npm:@anthropic-ai/claude-code" = "2.1.215"
 "npm:@upstash/context7-mcp"     = "3.2.4"
