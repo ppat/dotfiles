@@ -51,18 +51,18 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/atuinsh/atuin/v18.17.0/atuin-aarch64-apple-darwin.tar.gz",
-      "checksum": "AE8A6F84557EE14F60EE50AD9430C78110ACFA5C53DACAD493B809C574A094B7",
+      "id": "github_release/github.com/atuinsh/atuin/v18.17.1/atuin-aarch64-apple-darwin.tar.gz",
+      "checksum": "F4F6FF23452D42D1E981C0878ADE4F3EDAEE4BD5CE83C39B0D134D926CA04377",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/atuinsh/atuin/v18.17.0/atuin-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "3B109E0FCCA599DCF0ADAF90500D5C68B4C8E70E4CBDD5E598A8308EE8EFED72",
+      "id": "github_release/github.com/atuinsh/atuin/v18.17.1/atuin-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "13FC31E9F40FCC97B28C626ADF4015EED080B5D8D8DF31BB23E8DDF504D19D59",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/atuinsh/atuin/v18.17.0/atuin-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "0FF7C20A6EDAF00C9A20AB0BFA4DB890A84A56630BB4ADB8045BE6A94E46E0FC",
+      "id": "github_release/github.com/atuinsh/atuin/v18.17.1/atuin-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "5772DF4121174A9F0B71C17260727794FDE22A71B5A3EE5AC07B227EEBCBFA9A",
       "algorithm": "sha256"
     },
     {
@@ -141,23 +141,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.35.1/coder_2.35.1_darwin_amd64.zip",
-      "checksum": "ECF9CCC23A135088A62782682AD8AC3866FBE6EB2633E69CC4AB1BDF7022D965",
+      "id": "github_release/github.com/coder/coder/v2.35.2/coder_2.35.2_darwin_amd64.zip",
+      "checksum": "1AF6025E20A521CE49349CD1C910729132E605D4BA5D0948FB0C4E4BF60F03D2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.35.1/coder_2.35.1_darwin_arm64.zip",
-      "checksum": "9E8B29BCFC0CCF5FA9D2F8977CD4DB545D859DA28B1236E2F27E6E0199783F25",
+      "id": "github_release/github.com/coder/coder/v2.35.2/coder_2.35.2_darwin_arm64.zip",
+      "checksum": "1B3E067F31914BB733EDA6834E8EF51B53FF4155F51D23E4ADD8834AAA74131A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.35.1/coder_2.35.1_linux_amd64.tar.gz",
-      "checksum": "A63D45B3F63A8B87CD944D893C114168BCAA702C500C1C24B5B670FCB9FD01C0",
+      "id": "github_release/github.com/coder/coder/v2.35.2/coder_2.35.2_linux_amd64.tar.gz",
+      "checksum": "907017FFEFAE1AF67BD6533B6C9DDD6B975E39EA9EF9340DEBA3DC72231B209C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.35.1/coder_2.35.1_linux_arm64.tar.gz",
-      "checksum": "D6086BE5A33B3AAC8D8FD456373B773E41D67F8B22890B257BD351E500856F4C",
+      "id": "github_release/github.com/coder/coder/v2.35.2/coder_2.35.2_linux_arm64.tar.gz",
+      "checksum": "12E4FBD607321CB2464A0625C021E8CFDCB109FE73D3C42C70CD86D7702796B5",
       "algorithm": "sha256"
     },
     {
