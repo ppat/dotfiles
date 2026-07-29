@@ -9,7 +9,7 @@ usage          = "3.5.7"
 uv             = "0.11.32"
 
 "npm:@anthropic-ai/claude-code" = "2.1.220"
-"npm:@upstash/context7-mcp"     = "3.2.4"
+"npm:@upstash/context7-mcp"     = "3.2.5"
 "npm:ccstatusline"              = "2.2.27"
 "npm:markdownlint-cli2"         = "0.23.1"
 
