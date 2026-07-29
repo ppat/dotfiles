@@ -11,7 +11,7 @@ uv             = "0.11.32"
 "npm:@anthropic-ai/claude-code" = "2.1.220"
 "npm:@upstash/context7-mcp"     = "3.2.5"
 "npm:ccstatusline"              = "2.2.27"
-"npm:markdownlint-cli2"         = "0.23.1"
+"npm:markdownlint-cli2"         = "0.23.2"
 
 "pipx:ansible-core" = { version = "2.21.2", uvx_args = "--with jmespath==1.0.1 --with kubernetes==33.1.0" }
 "pipx:pre-commit"   = "4.6.1"
