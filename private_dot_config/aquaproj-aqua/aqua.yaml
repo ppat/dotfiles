@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.61.0/json-schema/aqua-yaml.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.62.0/json-schema/aqua-yaml.json
 checksum:
   enabled: true
   require_checksum: true
@@ -24,13 +24,13 @@ packages:
 - name: dandavison/delta@0.19.2
 - name: derailed/k9s@v0.51.0
 - name: fastfetch-cli/fastfetch@2.66.0
-- name: fluxcd/flux2@v2.9.2
+- name: fluxcd/flux2@v2.9.3
 - name: hadolint/hadolint@v2.14.0
 - name: helm/helm@v4.2.3
 # - name: jesseduffield/lazygit@v0.63.1
 - name: junegunn/fzf@v0.74.1
 - name: koalaman/shellcheck@v0.11.0
-- name: kubernetes/kubectl@v1.36.2
+- name: kubernetes/kubectl@v1.36.3
 - name: kubernetes-sigs/kind@v0.32.0
 - name: kubernetes-sigs/krew@v0.5.0
   command_aliases:
@@ -46,7 +46,7 @@ packages:
 - name: sharkdp/bat@v0.26.1
 - name: sharkdp/fd@v10.4.2
 - name: sharkdp/hyperfine@v1.20.0
-- name: siderolabs/talos@v1.13.6
-- name: terraform-linters/tflint@v0.63.1
+- name: siderolabs/talos@v1.13.7
+- name: terraform-linters/tflint@v0.64.0
 - name: yannh/kubeconform@v0.8.0
-- name: BurntSushi/ripgrep@15.1.0
+- name: BurntSushi/ripgrep@15.2.0
