@@ -1,23 +1,23 @@
 {
   "checksums": [
     {
-      "id": "github_release/github.com/BurntSushi/ripgrep/15.1.0/ripgrep-15.1.0-aarch64-apple-darwin.tar.gz",
-      "checksum": "378E973289176CA0C6054054EE7F631A065874A352BF43F0FA60EF079B6BA715",
+      "id": "github_release/github.com/BurntSushi/ripgrep/15.2.0/ripgrep-15.2.0-aarch64-apple-darwin.tar.gz",
+      "checksum": "3750B2E93F37E0C692657DA574D7019A101C0084DA05A790C83FD335BAD973E4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/BurntSushi/ripgrep/15.1.0/ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz",
-      "checksum": "2B661C6EF508E902F388E9098D9C4C5ACA72C87B55922D94ABDBA830B4DC885E",
+      "id": "github_release/github.com/BurntSushi/ripgrep/15.2.0/ripgrep-15.2.0-aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "A740B91C82EAF9914CFEDD353572F2791CBE0162C84101EE0951058F4DCBC90D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/BurntSushi/ripgrep/15.1.0/ripgrep-15.1.0-x86_64-apple-darwin.tar.gz",
-      "checksum": "64811CB24E77CAC3057D6C40B63AC9BECF9082EEDD54CA411B475B755D334882",
+      "id": "github_release/github.com/BurntSushi/ripgrep/15.2.0/ripgrep-15.2.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "AF7825FCC69A2AFC7A7AEA55FC9AF90E26421D8F20FE59DF32E233C0B8A231C1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/BurntSushi/ripgrep/15.1.0/ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "1C9297BE4A084EEA7ECAEDF93EB03D058D6FAAE29BBC57ECDAF5063921491599",
+      "id": "github_release/github.com/BurntSushi/ripgrep/15.2.0/ripgrep-15.2.0-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "33E15BCF1624B25CDD2A55813A47A2F95DBE126268203E76AA6A585D1E7B149C",
       "algorithm": "sha256"
     },
     {
@@ -226,23 +226,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.9.2/flux_2.9.2_darwin_amd64.tar.gz",
-      "checksum": "E4583DB32E4F4F4EC195084F0381C704E5104A55A7EC4C1A444396137ECDB161",
+      "id": "github_release/github.com/fluxcd/flux2/v2.9.3/flux_2.9.3_darwin_amd64.tar.gz",
+      "checksum": "CFE276124801F2057B7960B5AC2FE5DC019CDF245D1E791ED947B9F4E97E06C2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.9.2/flux_2.9.2_darwin_arm64.tar.gz",
-      "checksum": "1DD6791738B1C250748C24C24B48E92908881596F999AD8BF10F84763D66FDB3",
+      "id": "github_release/github.com/fluxcd/flux2/v2.9.3/flux_2.9.3_darwin_arm64.tar.gz",
+      "checksum": "59627AC109A59B2C7E94A9CE0E290A81906D0EA435D53806699385E9D54EC10A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.9.2/flux_2.9.2_linux_amd64.tar.gz",
-      "checksum": "4092B367FD060097976FB7261601F79420ECF7266328417DFD8DFEE27DE0E6A3",
+      "id": "github_release/github.com/fluxcd/flux2/v2.9.3/flux_2.9.3_linux_amd64.tar.gz",
+      "checksum": "EAE4E8608C0ADE2BF4E8DEC1669DBB6B0C28B5822B252D97FECCFB4FB1181FD2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fluxcd/flux2/v2.9.2/flux_2.9.2_linux_arm64.tar.gz",
-      "checksum": "665BFE5AEB843FAF907E7F77250C31840499FF2DC65A64C2479409E3728748D1",
+      "id": "github_release/github.com/fluxcd/flux2/v2.9.3/flux_2.9.3_linux_arm64.tar.gz",
+      "checksum": "24EC315313621BF82EA97DB8A544725BC4F6DE19737681F01F49C651AD3B884E",
       "algorithm": "sha256"
     },
     {
@@ -536,43 +536,43 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.6/talosctl-darwin-amd64",
-      "checksum": "156C4189C36F4419774E17EBF7CE7818869B7C1068031A026F4702B5AB271495",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.7/talosctl-darwin-amd64",
+      "checksum": "0E4B75EE78DA180103ACEDA6DA9C906BD2CBA48CD7C7C2E9049776445BEAB688",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.6/talosctl-darwin-arm64",
-      "checksum": "8BADC3F3907776488E9B13B6A521FFADF301DFF9A3F097C1551102C363905C9F",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.7/talosctl-darwin-arm64",
+      "checksum": "8965B026F416A25147B99530721C25FC2616C4FA655480673BCB63EB7F0DE331",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.6/talosctl-linux-amd64",
-      "checksum": "540C5E7CB0D3FA3A9B2E1C717CED212727B73BCAF0CF9CF9BA2472EC381041D4",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.7/talosctl-linux-amd64",
+      "checksum": "97D08E5584E56114659F131E95E227910D1F3B427D26360DCA2AF3ED821B71F8",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/siderolabs/talos/v1.13.6/talosctl-linux-arm64",
-      "checksum": "59F59E2C0C79504F4666CB7C2307CA32CE2925A53FBEBEE3E2454AD5EA1F230E",
+      "id": "github_release/github.com/siderolabs/talos/v1.13.7/talosctl-linux-arm64",
+      "checksum": "756EF525DBFF50BCAA67750FCE70EFBEF2899EC87C87468914A8390CE292B1D4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/terraform-linters/tflint/v0.63.1/tflint_darwin_amd64.zip",
-      "checksum": "1A22782473E4A01F0DD23EDC649BED4420655A9E3459FFC06951E698EED7AD01",
+      "id": "github_release/github.com/terraform-linters/tflint/v0.64.0/tflint_darwin_amd64.zip",
+      "checksum": "0F3A9FD17526014646A2DFC3F9122F7B4161ABE3D6B0F0F03F9014483DDF4D19",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/terraform-linters/tflint/v0.63.1/tflint_darwin_arm64.zip",
-      "checksum": "6AAB157B22367DCAB1635B370E98D6E791D9B40B021D4F9BAEF010D88F53E16B",
+      "id": "github_release/github.com/terraform-linters/tflint/v0.64.0/tflint_darwin_arm64.zip",
+      "checksum": "2496E9CB3D24992D553B45E7C87A0FDC9449CA975233876247A9BFEDA857E6C0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/terraform-linters/tflint/v0.63.1/tflint_linux_amd64.zip",
-      "checksum": "8441A7D97DF20431F19C9B9D27FF4C63E308C964E86660BC7CC0CF7BBE0725E8",
+      "id": "github_release/github.com/terraform-linters/tflint/v0.64.0/tflint_linux_amd64.zip",
+      "checksum": "CCA9D13E2E1D7A2C627AF60FF899A3C9B74212899416AEB96EC764D2EF954537",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/terraform-linters/tflint/v0.63.1/tflint_linux_arm64.zip",
-      "checksum": "6D858CA7F11858C3FE3C5E29CC746823ABCCB55E2D2E2DA130FA7AD7EA4EECB8",
+      "id": "github_release/github.com/terraform-linters/tflint/v0.64.0/tflint_linux_arm64.zip",
+      "checksum": "560DA89AACF59389D4EB029730DD5B109B7288096C32F2726A0D9E783A5EA8EB",
       "algorithm": "sha256"
     },
     {
@@ -596,23 +596,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.k8s.io/v1.36.2/bin/darwin/amd64/kubectl",
-      "checksum": "CE6C5E55CD17559E87E4FB5E73EBBBC2511BCF2B695D7A40C1B1461A9817D4B3",
+      "id": "http/dl.k8s.io/v1.36.3/bin/darwin/amd64/kubectl",
+      "checksum": "158B3B46CF74E8B6BD9B1D7CD30F665E3EFB2BC1EC3C843EC925BCFDD2930DE0",
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.k8s.io/v1.36.2/bin/darwin/arm64/kubectl",
-      "checksum": "4408C85C83FD3A31ADAA555BDF3C7A6C81F74B19449A9060BA31AB91926F023D",
+      "id": "http/dl.k8s.io/v1.36.3/bin/darwin/arm64/kubectl",
+      "checksum": "FC8582ACDE13869A606730A79379D6515F30C68AFCCED0B5AC8789D5D002B7D6",
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.k8s.io/v1.36.2/bin/linux/amd64/kubectl",
-      "checksum": "1E9045EC32BEA85DA43DE85F0065358529EA7C7A152ECA78154FBA5B58C27D82",
+      "id": "http/dl.k8s.io/v1.36.3/bin/linux/amd64/kubectl",
+      "checksum": "EBBD080E7C2E275093B55915722043257EB24004363E20ACB3C4D71919F88336",
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.k8s.io/v1.36.2/bin/linux/arm64/kubectl",
-      "checksum": "C957EB8C4BEA27A3BB35B269EDD9082E27F027F7B76B20B5BF4AFEBC726C6D3E",
+      "id": "http/dl.k8s.io/v1.36.3/bin/linux/arm64/kubectl",
+      "checksum": "3D86F24401C41AE5A46AC50EEF8865FE891D3647D324A0836F6C63757A126E62",
       "algorithm": "sha256"
     },
     {
