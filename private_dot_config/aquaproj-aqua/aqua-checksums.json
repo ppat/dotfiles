@@ -141,23 +141,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.35.2/coder_2.35.2_darwin_amd64.zip",
-      "checksum": "1AF6025E20A521CE49349CD1C910729132E605D4BA5D0948FB0C4E4BF60F03D2",
+      "id": "github_release/github.com/coder/coder/v2.35.3/coder_2.35.3_darwin_amd64.zip",
+      "checksum": "4AA7808C9618787FB42E20F2AB974A0EDF6C803B439B13E87CB2C0E9C23ACD19",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.35.2/coder_2.35.2_darwin_arm64.zip",
-      "checksum": "1B3E067F31914BB733EDA6834E8EF51B53FF4155F51D23E4ADD8834AAA74131A",
+      "id": "github_release/github.com/coder/coder/v2.35.3/coder_2.35.3_darwin_arm64.zip",
+      "checksum": "CA8D9787DE86F85A479C060E695BC9DAFBB5E336248047116480033D338F4BB2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.35.2/coder_2.35.2_linux_amd64.tar.gz",
-      "checksum": "907017FFEFAE1AF67BD6533B6C9DDD6B975E39EA9EF9340DEBA3DC72231B209C",
+      "id": "github_release/github.com/coder/coder/v2.35.3/coder_2.35.3_linux_amd64.tar.gz",
+      "checksum": "07874E0D2EFAE597647661178935D8000EE7959B6FE6D7AC3CE57ED2438D4A2E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/coder/coder/v2.35.2/coder_2.35.2_linux_arm64.tar.gz",
-      "checksum": "12E4FBD607321CB2464A0625C021E8CFDCB109FE73D3C42C70CD86D7702796B5",
+      "id": "github_release/github.com/coder/coder/v2.35.3/coder_2.35.3_linux_arm64.tar.gz",
+      "checksum": "F15FCD1DE31FD7A44B419635FD8837EA18CD7B270C92382099B4F5BB44504E9D",
       "algorithm": "sha256"
     },
     {
