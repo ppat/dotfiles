@@ -245,6 +245,39 @@ so and then ending your turn regardless was itself one of the observed
 failures — it reads as compliance ("I started the watch") while producing the
 identical unobserved-outcome as never watching at all.
 
+#### Alternative shape: a bounded, exit-on-terminal poll loop
+
+`gh run watch` plus a redirect (above) isn't the only valid implementation
+of "block in the foreground." A hand-rolled loop sidesteps the
+redraw-flooding problem structurally instead of by redirecting around it —
+its output is bounded by how many ticks it takes, not by the size of the
+job/step tree, and its last printed line already *is* your last-observed
+state, so there's no file to `tail` on a bound-hit:
+
+```bash
+end=$((SECONDS + <bound_seconds>))
+status=unknown; conclusion=""
+while [ "$SECONDS" -lt "$end" ]; do
+  read -r status conclusion <<< "$(gh run view <id> -R <owner>/<repo> \
+    --json status,conclusion --jq '[.status,.conclusion] | @tsv')"
+  echo "$(date -u +%H:%M:%S) status=$status conclusion=$conclusion"
+  [ "$status" = "completed" ] && break
+  sleep 20
+done
+echo "final: status=$status conclusion=$conclusion"
+```
+
+This satisfies exactly the same invariant as step 2, it's just a different
+implementation of it: one foreground tool call, blocking until terminal or
+bound, minimal output either way. It is *not* the polling this skill warns
+against — checking once and then giving up, or coming back later on your
+own schedule outside this tool call, is the failure mode; a loop that holds
+the tool call open and doesn't return control until it's done or out of
+bound is not. Use whichever shape you find easier to get right; both were
+run against a real multi-minute suite as part of writing this skill (the
+loop above cost 6 lines of output total across a 7m41s wait when tested
+directly).
+
 ### 3. On a bound-hit: resume, don't restart, don't ask for a new watcher
 
 A single foreground call can run out its bound before a long suite (e.g. a
@@ -283,6 +316,17 @@ gh run list -R <owner>/<repo> --workflow=<file>.yaml --status completed --limit 
 ```
 
 and size the bound above the slowest observed run, not the fastest.
+
+**One bound-hit on a genuinely long suite is ordinary, not a sign anything
+is wrong.** Measured directly: a real kind-cluster/chainsaw module suite ran
+7m41s for its longest job, 7m50s end to end, 41 passed / 3 skipped, on a
+completely healthy run. Against a single foreground tool call capped near
+10 minutes, that leaves thin headroom — hitting the bound once on a suite
+this size, resuming per step 3, and finishing on the second call is the
+*expected* shape of watching it, not evidence of a stall. Misreading a
+normal bound-hit as a problem was part of what produced both incidents in
+[Observed in practice](#observed-in-practice); don't repeat it in the other
+direction by treating your own bound-hit as bad news either.
 
 ### 4. Get the outcome, not the raw log
 
