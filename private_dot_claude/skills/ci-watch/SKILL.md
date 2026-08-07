@@ -86,7 +86,7 @@ This cuts against several things that otherwise feel like reasonable moves:
 - **If the pull to defer comes from the watch itself feeling too heavy to
   sit through in the foreground** — too much output, too long a block —
   that's a problem to fix, not a reason to hand the wait to something else.
-  See [step 2](#2-block-in-the-foreground-with-a-bound--and-redirect-its-output):
+  See [step 2](#2-block-in-the-foreground-with-a-bound--and-set-the-tool-calls-own-timeout):
   foreground watching doesn't have to flood your context, so there's no
   remaining reason to defer it.
 - **The last tool call before you end your turn, for any reason — terminal
@@ -116,6 +116,25 @@ was.
 Reality: every check was already green at the moment that was written. It
 had handed the wait to a `Monitor` and stopped — and never ran the one fresh
 check that would have caught it.
+
+**Both are plausibly explained by the same mechanical trigger, not two
+separate discipline lapses.** This harness's Bash tool defaults to a
+120-second cap and *silently backgrounds* a call once that cap fires,
+handing control back regardless of whether the run is done. Neither quote
+reads like a deliberate choice to background anything — both read like an
+agent rationalizing control that had already been handed back to it without
+its choosing. See the [tool-call timeout guidance in step
+2](#2-block-in-the-foreground-with-a-bound--and-set-the-tool-calls-own-timeout)
+for the actual fix: set the timeout parameter explicitly, don't rely on a
+shell wrapper alone.
+
+The recovery this points to has also been observed working correctly: one
+subagent's tool call returned with a "moved to background" style message —
+the timeout parameter hadn't been set — and rather than treat that as
+license to end its turn, it stopped the backgrounded task and reissued the
+watch with the timeout parameter set to its actual bound. That's the
+intended response to seeing that message: stop and reissue, not stop and
+wait.
 
 If you are a subagent and this is your whole task, your task is not complete
 until you can report a terminal status (`success`/`failure`/`cancelled`/
@@ -217,9 +236,54 @@ gh run view <id> -R <owner>/<repo> --json status,conclusion,startedAt,updatedAt
 [Decomplecting the states](#decomplecting-the-states) below. Only skip step 2
 if `status == "completed"`.
 
-### 2. Block, in the foreground, with a bound — and redirect its output
+### 2. Block, in the foreground, with a bound — and set the tool call's own timeout
+
+**Before you issue anything below: set the timeout parameter on the tool
+call itself, explicitly, to your bound. A shell-level `timeout` wrapper does
+not substitute for this, and skipping it is plausibly the actual mechanism
+behind the worst failures this skill exists to prevent.**
+
+Confirmed directly: this harness's own Bash tool defaults to a
+**120-second** cap, and once that cap fires, the harness **silently
+backgrounds the call** and hands control back to you — while the run can
+still be minutes from finishing. Wrapping the command in
+`timeout 590 gh run watch ...` does **not** prevent this: the shell wrapper
+only bounds the command once it's already running in the foreground, but the
+harness's own default cap can fire *first*, moving the whole call to the
+background regardless of what you wrapped it in. So: set the tool call's own
+timeout parameter (this harness exposes one up to 600000ms) to your bound,
+every time, not just when a run "seems long." Keep an inner shell `timeout`
+too if you like, as a belt-and-suspenders bound below the tool's own — it's
+just not sufficient by itself.
+
+**Calibration for a kind/Flux/chainsaw-class suite: start at 8-10 minutes
+(580000-600000ms) for the tool-call timeout, not the harness default.**
+Three real measurements so far, all comfortably inside that range and all
+well past the 120-second default: 5m50s, 5m56s, and 7m41s for the longest
+job (7m50s end to end, needing one bound-hit-then-resume). A 120-second
+default is nowhere near sufficient for anything in this class.
+
+**If a tool call ever returns with something like "moved to background" /
+"running in background" / a task id to check on later, that is not the run
+finishing and it is not you legitimately watching.** It means the timeout
+parameter wasn't set explicitly and the harness's default cap fired. Stop
+the backgrounded task (this harness: `TaskStop`) and reissue the watch with
+the timeout parameter set correctly this time — don't read the returned
+control as permission to end your turn. This is plausibly the actual
+mechanism behind both incidents in
+[Observed in practice](#observed-in-practice): both quotes read like an
+agent rationalizing control that was handed back to it ("wait for the actual
+completion notification from the background CI watch," "I'll hold here
+until the monitor reports"), not a deliberate choice to background anything.
+If that's right, "don't background the watch" isn't purely a discipline
+rule with a discipline fix — it has a mechanical trigger, and the durable
+fix is setting the bound correctly up front so the harness never backgrounds
+you in the first place.
 
 ```bash
+# the tool call's own timeout parameter is set to e.g. 580000ms here —
+# that's the setting doing the real work; the shell `timeout` below it is
+# a secondary bound, not a substitute for it
 timeout <bound_seconds> gh run watch <id> -R <owner>/<repo> --exit-status --interval 15 \
   > /tmp/watch-<id>.log 2>&1
 echo "watch exited: $?"
@@ -260,16 +324,18 @@ here and they mean opposite things:
 - **Any other non-zero value** — `gh run watch --exit-status` propagating the
   run's actual conclusion. The run itself finished and failed/was cancelled.
 
-Neither of those is the same thing as `gh` itself erroring out (auth
-failure, rate limit, a transient 5xx) before it ever reached a terminal run
-state — that's a tooling failure, not a CI-run outcome, and reporting it as
-"the run failed" would be wrong. Check `/tmp/watch-<id>.log` for a `gh`-level
-error message (rather than normal job/step output) to tell the two apart.
+If instead of either of those, control returns via the tool's own
+background/timeout mechanism (no exit code at all, just a "moved to
+background" style message) — that's the case described above, not a bound-
+hit. Treat it as "the timeout parameter wasn't set," stop the task, and
+reissue with it set.
 
-If your harness's own tool call has a built-in timeout parameter (many do,
-often capped around 10 minutes), prefer that over `timeout` — but if you use
-it, treat hitting *that* cap exactly like exit code 124 above: unresolved,
-not failed.
+Neither an exit 124 nor a backgrounded-call is the same thing as `gh` itself
+erroring out (auth failure, rate limit, a transient 5xx) before it ever
+reached a terminal run state — that's a tooling failure, not a CI-run
+outcome, and reporting it as "the run failed" would be wrong. Check
+`/tmp/watch-<id>.log` for a `gh`-level error message (rather than normal
+job/step output) to tell the two apart.
 
 **Do not** run this with `&`, `nohup`, or a background-execution flag. Doing
 so and then ending your turn regardless was itself one of the observed
@@ -283,7 +349,10 @@ of "block in the foreground." A hand-rolled loop sidesteps the
 redraw-flooding problem structurally instead of by redirecting around it —
 its output is bounded by how many ticks it takes, not by the size of the
 job/step tree, and its last printed line already *is* your last-observed
-state, so there's no file to `tail` on a bound-hit:
+state, so there's no file to `tail` on a bound-hit. **The tool-call timeout
+parameter rule above applies here too** — a `while` loop is still one long
+foreground tool call as far as the harness's own default cap is concerned,
+so set the parameter explicitly regardless of which shape you use:
 
 ```bash
 end=$((SECONDS + <bound_seconds>))
