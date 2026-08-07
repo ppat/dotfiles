@@ -28,6 +28,18 @@
           }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/shellcheck-on-edit.sh",
+            "timeout": 15
+          }
+        ]
+      }
     ]
   },
   "permissions": {
