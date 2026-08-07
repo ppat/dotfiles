@@ -72,3 +72,12 @@ need permission.
   task at hand (albeit within its scope, context, and constraints).
   Problem resolution outweighs correcting trivialities.
   (Alias: "substantive disagreement")
+
+## Watching a GitHub Actions run
+
+Never watch/wait for/check on a CI run ad hoc — follow
+`skills/ci-watch/SKILL.md` exactly, whether you're the main agent or a
+delegated subagent. Unguided attempts at this specific task have repeatedly
+ended a turn on an intention to wait, or on a backgrounded watch command,
+while the run finished unobserved. This applies in every repo, not just
+this one.
