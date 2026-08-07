@@ -33,6 +33,27 @@ first-pass understanding, not a closed set. If you hit a way this task can
 go wrong that isn't named here, that's a gap in this file, not a sign you
 misread it — see [Amending this skill](#amending-this-skill).
 
+## Check first — you may already be done
+
+Everything past this point is about how to behave *while a run is still in
+flight*. If you're coming back to this after time has passed since the push
+— you did other work in between, you're resuming a task picked up earlier —
+don't assume any of the blocking machinery below applies. One cheap call
+answers whether you even need it:
+
+```bash
+gh run view <id> -R <owner>/<repo> --json status,conclusion,startedAt,updatedAt
+```
+
+(No `<id>` handy? `gh run list -R <owner>/<repo> --branch <branch> --limit 1
+--json databaseId` — see [step 0](#0-find-the-run) for matching it to your
+push rather than assuming "most recent.") If `status == "completed"`, you're
+already done: skip straight to
+[step 4](#4-get-the-outcome-not-the-raw-log) to read the result and
+[The report shape](#the-report-shape) to write it up — none of the rest of
+this file is relevant to that case. The blocking procedure below is for when
+the run is genuinely still going.
+
 ## The one rule that overrides your instincts
 
 **Run the blocking watch command in the foreground. Only end your turn once
@@ -170,7 +191,17 @@ gh pr checks <pr-number-or-branch> -R <owner>/<repo> --json name,state,bucket
 By default this lists *every* check, required or not — a report of "PR is
 green" from this alone can be true of the optional checks and still miss a
 required one still pending. If the actual question is "can this merge," add
-`--required` to filter to just those rather than eyeballing the full list.
+`--required` to filter to just those.
+
+**`--required` is narrower, not better — don't reach for it as the default.**
+It answers "can this merge," not "did my change pass." Measured directly: on
+a repo where the expensive suite (a multi-minute chainsaw job) isn't
+configured as a required branch-protection check, `--required` returned only
+4 rows and silently omitted that job entirely — the one that actually
+mattered for the task at hand. A short row count from `--required` reads
+like the full picture; it isn't. Use the unfiltered list for "did everything
+run and pass," and reach for `--required` only when mergeability is
+specifically the question being asked.
 
 ### 1. Cheap pre-check — has it already finished?
 
@@ -317,14 +348,17 @@ gh run list -R <owner>/<repo> --workflow=<file>.yaml --status completed --limit 
 
 and size the bound above the slowest observed run, not the fastest.
 
-**One bound-hit on a genuinely long suite is ordinary, not a sign anything
-is wrong.** Measured directly: a real kind-cluster/chainsaw module suite ran
-7m41s for its longest job, 7m50s end to end, 41 passed / 3 skipped, on a
-completely healthy run. Against a single foreground tool call capped near
-10 minutes, that leaves thin headroom — hitting the bound once on a suite
-this size, resuming per step 3, and finishing on the second call is the
-*expected* shape of watching it, not evidence of a stall. Misreading a
-normal bound-hit as a problem was part of what produced both incidents in
+**Expect most suites to finish inside one call; a single bound-hit on the
+longest ones is ordinary, not a sign anything is wrong.** Two real data
+points so far, both kind-cluster/chainsaw module suites: one ran 7m41s for
+its longest job (7m50s end to end, 41 passed / 3 skipped) and needed one
+bound-hit-then-resume against a foreground call capped near 10 minutes;
+another — one of the longer suites in the same repo — ran 356s (5m56s) all
+green with no bound-hit at all. So don't read "one bound-hit" as a fixed
+expectation for every suite; it's specifically what to expect from the
+slowest ones, and it isn't evidence of a stall when it happens. Resume per
+step 3, and finish on the next call. Misreading a normal bound-hit as a
+problem was part of what produced both incidents in
 [Observed in practice](#observed-in-practice); don't repeat it in the other
 direction by treating your own bound-hit as bad news either.
 
@@ -395,15 +429,25 @@ gh run list -R <owner>/<repo> --workflow=<file>.yaml --branch main --status comp
 
 If the same job fails the same way on `main`/the PR's base with no relation
 to your diff, name it as a known pre-existing failure and move on — don't
-burn a cycle re-diagnosing it as something your change caused. (Concrete
-example from this estate: in `homelab-ops-kubernetes-apps`, the `diff` and
-`validate-k8s` jobs fail for reasons unrelated to any given change —
-flux-local can't diff digest-pinned OCI charts. An agent that chases that as
-its own regression has misspent a cycle on a known issue.) This generalizes:
-whenever a repo's own docs/README/CI history already name a job as
-persistently red for an unrelated reason, trust that over re-deriving it from
-scratch — but still verify it's still true for *this* run rather than
-assuming forever.
+burn a cycle re-diagnosing it as something your change caused.
+
+The pattern this section teaches matters more than any specific example of
+it, because a "known pre-existing red" doesn't stay true forever — it gets
+fixed, and a skill that states one as a current fact will eventually be
+wrong about it. (This already happened once while writing this section: an
+earlier draft cited `homelab-ops-kubernetes-apps`'s `diff`/`validate-k8s`
+jobs, red because flux-local couldn't diff digest-pinned OCI charts, as a
+live example — a later run of this exact procedure against that repo found
+both passing. Whatever caused it seems to have been fixed since, which is
+itself the point: the *method* — check the base branch, don't trust a
+remembered "that job's always red" — is what caught the staleness, not
+memory of the specific example.) So treat any specific pre-existing-red fact
+you're told, including any example that was ever in this file, as something
+to re-verify against the base branch for *this* run, not as ambient
+knowledge to assume forever. Whenever a repo's own docs/README/CI history do
+currently name a job as persistently red for an unrelated reason, that's a
+useful head start over re-deriving it from scratch — but "useful head start"
+still means confirm it, not skip the check.
 
 ## Triggering a run (adjacent, same machinery)
 
