@@ -35,25 +35,66 @@ misread it — see [Amending this skill](#amending-this-skill).
 
 ## The one rule that overrides your instincts
 
-**Run the blocking watch command in the foreground, and do not end your turn
-until you have a terminal result or have deliberately hit your own stated
-bound.**
+**Run the blocking watch command in the foreground. Only end your turn once
+you have a terminal result, or a bound-hit you're reporting using a status
+you just freshly checked — never on an unverified belief that something is
+still pending.**
 
-This cuts against two things that otherwise feel like reasonable moves:
+This cuts against several things that otherwise feel like reasonable moves:
 
-- General agent guidance (including this harness's own Bash-tool
-  instructions) says to background long-running commands and let a
-  notification resume you later. **Do not apply that here.** A watch that
-  gets backgrounded and then the turn ends anyway is indistinguishable from
-  never having watched at all — the run finishes unobserved, whether or not
-  a notification was theoretically wired up to fire. This is the specific,
-  deliberate exception to that general advice.
-- Saying "I'll wait for the run to complete" or "waiting for CI" and ending
-  your turn is not progress, it's a stall wearing the shape of an update. If
-  you find yourself about to write a sentence like that, stop — either issue
-  the blocking command in the foreground right now, or if you already hit
-  your bound, report the bound-hit explicitly (see below) instead of an
-  intention.
+- **Not fabricating a result is not the same as stopping.** "I won't guess,
+  so I'll wait for it to resolve on its own" is the single most common way
+  this task actually fails, and it's the hardest to catch because it reads
+  as caution rather than as the stall it is. The correct alternatives to
+  fabricating are exactly two: keep blocking, or report the real state you
+  actually just observed — with a resume handle — because you've hit a
+  genuine bound. Ending your turn on an unverified "still waiting" is
+  neither of those; it's silence dressed up as integrity.
+- **Deferring the wait to any mechanism is the same failure as
+  backgrounding, whatever it's called** — a backgrounded shell command, a
+  `Monitor` subscription, "I'll be notified when it's done." **Do not apply
+  that here.** Ending your turn ends *your* participation regardless of what
+  you set up to run after you. A watch that's been handed off to something
+  else, followed by the turn ending anyway, is indistinguishable from never
+  having watched at all — the run finishes unobserved, whether or not
+  something was theoretically wired up to resume you later. This is a
+  deliberate, specific exception to general agent guidance (including this
+  harness's own Bash-tool docs, and the existence of the `Monitor` tool
+  itself) that otherwise correctly recommends exactly this kind of deferral
+  for long-running work.
+- **If the pull to defer comes from the watch itself feeling too heavy to
+  sit through in the foreground** — too much output, too long a block —
+  that's a problem to fix, not a reason to hand the wait to something else.
+  See [step 2](#2-block-in-the-foreground-with-a-bound--and-redirect-its-output):
+  foreground watching doesn't have to flood your context, so there's no
+  remaining reason to defer it.
+- **The last tool call before you end your turn, for any reason — terminal
+  result, bound-hit, or a mid-task update — is always one fresh status
+  query** (`gh pr checks` / `gh run view --json status,conclusion`), even
+  when you're confident you already know the answer. Its actual output goes
+  in the report, not your memory of an earlier check; a belief that
+  something is "still pending" is only as good as the last time you
+  genuinely looked.
+
+### Observed in practice
+
+Two real subagents, in the session this amendment was written for, both had
+this skill available and both stub-ended anyway:
+
+> "I'll stop here and wait for the actual completion notification from the
+> background CI watch rather than poll or fabricate a result."
+
+Reality: the work was fully complete and pushed — 40 checks passing, one job
+still running. It had backgrounded the watch, then ended its turn; "rather
+than poll or fabricate" made the stop read as rigor instead of the stall it
+was.
+
+> "Still waiting on the `pre-commit` check; I'll hold here until the monitor
+> reports all checks resolved."
+
+Reality: every check was already green at the moment that was written. It
+had handed the wait to a `Monitor` and stopped — and never ran the one fresh
+check that would have caught it.
 
 If you are a subagent and this is your whole task, your task is not complete
 until you can report a terminal status (`success`/`failure`/`cancelled`/
@@ -169,6 +210,15 @@ actually keeps it out of context; you don't need the live progress view,
 only the final exit code, so nothing is lost by never reading that file
 (only tail it, per step 3, if a bound-hit leaves you needing "what was the
 last observed state").
+
+This is worth doing even when it feels like extra ceremony, because it's
+plausibly *why* this task gets deferred to backgrounding or a `Monitor` in
+the first place: foreground-watching a long run used to mean sitting through
+a context-flooding wall of redraws, so deferring it looked like the only way
+to avoid that cost. Redirecting removes the flood, which removes the reason
+to defer — the fix in this section and the "watch in the foreground, always"
+rule above are meant to reinforce each other, not stand as two unrelated
+rules.
 
 Read the exit code carefully — two different things produce a non-zero exit
 here and they mean opposite things:
@@ -349,13 +399,29 @@ this text alone, so write it that way rather than assuming shared context.
 
 ## Before you end your turn
 
-Check your own report against the failure modes this skill exists to
-prevent. If any answer is "yes", go fix it before ending the turn:
+**Hard rule, checked first, no exceptions: is the status in your report from
+a query you just ran, or from something you checked earlier and are now
+recalling?** If it's recalled rather than fresh, run one more `gh pr checks`
+/ `gh run view --json status,conclusion` right now and use *that* output.
+This single check would have caught both real incidents in
+[Observed in practice](#observed-in-practice) — one thought it was still
+waiting on a check that had already gone green, and both would have produced
+a correct report from a check they either skipped or let go stale.
 
-- Did I write anything like "I'll wait" / "waiting for the run" / "monitoring
-  in the background" as my final message? → Stop. Issue the foreground
-  blocking call now, or report a bound-hit instead.
-- Did I background the watch command and end the turn anyway? → Same fix.
+Then check your own report against the rest of the failure modes this skill
+exists to prevent. If any answer is "yes", go fix it before ending the turn:
+
+- Did I write anything like "I'll wait" / "waiting for the run" / "I'll hold
+  here until it reports" as my final message — with no fresh check backing
+  it? → Stop. That's a stall wearing the shape of rigor, not a report. Issue
+  the foreground blocking call now, or report a bound-hit instead.
+- Did I hand the wait off to *anything* — a backgrounded command, a
+  `Monitor`, "I'll be notified" — and end the turn anyway? → Same fix,
+  regardless of which mechanism it was.
+- Did I tell myself stopping was the responsible alternative to fabricating
+  a result? → It isn't; the two real alternatives are keep blocking, or
+  report the freshly-checked real state. See
+  [The one rule](#the-one-rule-that-overrides-your-instincts).
 - Did I read `conclusion` without first confirming `status == "completed"`?
   → Re-check; a `queued`/`in_progress` run's `conclusion` is `null` and means
   nothing yet.
