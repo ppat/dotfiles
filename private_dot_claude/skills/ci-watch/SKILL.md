@@ -286,7 +286,9 @@ you in the first place.
 # a secondary bound, not a substitute for it
 timeout <bound_seconds> gh run watch <id> -R <owner>/<repo> --exit-status --interval 15 \
   > /tmp/watch-<id>.log 2>&1
-echo "watch exited: $?"
+ec=$?
+echo "watch exited: $ec"
+exit "$ec"
 ```
 
 **Redirect to a file — don't let `gh run watch`'s own progress output print
@@ -323,6 +325,27 @@ here and they mean opposite things:
   wrapper cutting the command off. See the next section for what to do next.
 - **Any other non-zero value** — `gh run watch --exit-status` propagating the
   run's actual conclusion. The run itself finished and failed/was cancelled.
+
+**A background-task completion notification's reported exit code can be the
+wrong command's — this is a false-green trap, not just noise.** The exit
+status of a shell compound is the status of its *last* command. Confirmed
+directly: an agent ran `cmd; echo "result: $?"` in the background; the
+completion notification reported exit code **0**, because that's `echo`'s
+own status — the real value (`124`, the actual timeout firing) was only
+visible by opening the output file. That reads as confirmation the run
+succeeded when it says nothing of the kind. This is exactly why the example
+above ends with `exit "$ec"`: it's not decoration, it's what makes the
+invocation's own top-level exit status actually equal the watch's real
+result instead of an unrelated `echo`'s. Write every variant of this
+pattern the same way — capture the real exit code into a variable, then end
+the script with `exit "$variable"` — so that if a notification, wrapper, or
+any other layer ever reports "exit code: N" on your behalf, N is
+trustworthy. And regardless of how careful the script is, never treat a
+notification's exit-code summary alone as the verdict — this is the
+concrete, mechanical reason the [mandatory fresh final
+check](#before-you-end-your-turn) exists: a dedicated `gh run view --json
+status,conclusion` query is authoritative in a way no wrapper's reported
+exit code can be assumed to be.
 
 If instead of either of those, control returns via the tool's own
 background/timeout mechanism (no exit code at all, just a "moved to
@@ -365,7 +388,18 @@ while [ "$SECONDS" -lt "$end" ]; do
   sleep 20
 done
 echo "final: status=$status conclusion=$conclusion"
+[ "$conclusion" = "success" ]
 ```
+
+This shape's verdict lives in the printed `status`/`conclusion` text, not in
+a process exit code — which is exactly why, if this loop is ever read via a
+background notification instead of directly, that notification's exit-code
+summary still tells you nothing trustworthy on its own (see the
+[false-green trap above](#2-block-in-the-foreground-with-a-bound--and-set-the-tool-calls-own-timeout)).
+The trailing `[ "$conclusion" = "success" ]` gives the invocation a real
+top-level exit code that matches its own printed verdict, for the same
+reason step 2's snippet ends with `exit "$ec"` — but the text is still the
+authoritative answer either way.
 
 This satisfies exactly the same invariant as step 2, it's just a different
 implementation of it: one foreground tool call, blocking until terminal or
@@ -388,6 +422,9 @@ command again in the same turn:
 ```bash
 timeout <bound_seconds> gh run watch <id> -R <owner>/<repo> --exit-status --interval 15 \
   > /tmp/watch-<id>.log 2>&1
+ec=$?
+echo "watch exited: $ec"
+exit "$ec"
 ```
 
 `gh run watch` reattaches to the same run and picks up wherever it left off.
