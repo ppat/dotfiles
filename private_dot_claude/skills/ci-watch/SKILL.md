@@ -23,11 +23,15 @@ description: >
 
 This skill governs any task shaped like "watch/wait for/check on a GitHub
 Actions run" — whether you're the main agent watching your own push or a
-subagent dispatched for exactly this. It closes off six specific failure
-modes seen across real sessions (root cause:
-[ppat/dotfiles#705](https://github.com/ppat/dotfiles/issues/705)). Each
-section below exists to close one of them off — see the checklist at the
-bottom to verify you actually did.
+subagent dispatched for exactly this (the common case in practice — this
+task gets delegated more often than not, precisely because "watch a
+multi-minute run" is exactly the kind of thing worth getting off the main
+thread). It closes off the specific failure modes seen across real sessions
+so far (root cause: [ppat/dotfiles#705](https://github.com/ppat/dotfiles/issues/705)),
+each with its own section below — but treat that issue's list as a
+first-pass understanding, not a closed set. If you hit a way this task can
+go wrong that isn't named here, that's a gap in this file, not a sign you
+misread it — see [Amending this skill](#amending-this-skill).
 
 ## The one rule that overrides your instincts
 
@@ -54,6 +58,34 @@ This cuts against two things that otherwise feel like reasonable moves:
 If you are a subagent and this is your whole task, your task is not complete
 until you can report a terminal status (`success`/`failure`/`cancelled`/
 timed-out-at-my-bound) — not "started" or "in progress."
+
+## If you're a subagent
+
+This is the default way this skill gets invoked, so it earns its own section
+rather than a caveat. Three things follow from being a delegate specifically:
+
+- **Your final report is your entire return value.** The agent that spawned
+  you sees the text you send back, not your tool-call history — it never saw
+  the run's live progress, doesn't know which commands you tried, and can't
+  scroll up. The [report shape](#the-report-shape) below has to be
+  self-contained: quote the actual evidence inline, don't write "as shown
+  above."
+- **"Block until terminal" has a practical ceiling even though it's the
+  rule.** You have your own finite context and the caller has finite
+  patience. If you've reissued the blocking watch several times (a handful,
+  not an open-ended loop) and still have no terminal result, that's the
+  moment to stop and hand back an honest non-terminal report — last observed
+  status, how many bound-hits, elapsed time — rather than trying to be the
+  one invocation that sees it through no matter what. A clear "not yet
+  resolved, here's exactly where it stood" is a legitimate result for one
+  invocation; the caller's job is then to resume *you* (the same way it
+  reached you the first time) rather than treat the non-terminal report as a
+  failure or spin up a second watcher.
+- **Confirm your own tool access before committing to the task.** If you
+  don't actually have `gh`/Bash available in this context, say so in your
+  first response instead of quietly reaching for one of the MCP tools this
+  skill tells you to avoid (see below) and reporting whatever it happens to
+  return.
 
 ## Tools, and traps to skip
 
@@ -94,6 +126,11 @@ named workflow run is a different, equally valid entry point:
 gh pr checks <pr-number-or-branch> -R <owner>/<repo> --json name,state,bucket
 ```
 
+By default this lists *every* check, required or not — a report of "PR is
+green" from this alone can be true of the optional checks and still miss a
+required one still pending. If the actual question is "can this merge," add
+`--required` to filter to just those rather than eyeballing the full list.
+
 ### 1. Cheap pre-check — has it already finished?
 
 This has been skipped often enough to call out on its own: check status
@@ -108,12 +145,30 @@ gh run view <id> -R <owner>/<repo> --json status,conclusion,startedAt,updatedAt
 [Decomplecting the states](#decomplecting-the-states) below. Only skip step 2
 if `status == "completed"`.
 
-### 2. Block, in the foreground, with a bound
+### 2. Block, in the foreground, with a bound — and redirect its output
 
 ```bash
-timeout <bound_seconds> gh run watch <id> -R <owner>/<repo> --exit-status
+timeout <bound_seconds> gh run watch <id> -R <owner>/<repo> --exit-status --interval 15 \
+  > /tmp/watch-<id>.log 2>&1
 echo "watch exited: $?"
 ```
+
+**Redirect to a file — don't let `gh run watch`'s own progress output print
+straight into your transcript.** This is separate from, and just as
+important as, the "don't paste a whole log into context" rule in step 4:
+`gh run watch` redraws its *entire* job/step tree on every refresh tick, and
+when it isn't attached to a real terminal — which is exactly the case when a
+tool call captures it — those redraws don't overwrite in place, they print
+one after another. A run that takes 20+ minutes at the default 3-second
+interval emits hundreds of near-duplicate full-tree snapshots. That's a
+correct, foreground, non-backgrounded command that still floods context
+purely from its own verbosity — confirmed directly: an 18-second run in this
+skill's own dogfooding produced four full redraws before finishing. Setting
+`--interval` higher thins that out, but redirecting to a file is what
+actually keeps it out of context; you don't need the live progress view,
+only the final exit code, so nothing is lost by never reading that file
+(only tail it, per step 3, if a bound-hit leaves you needing "what was the
+last observed state").
 
 Read the exit code carefully — two different things produce a non-zero exit
 here and they mean opposite things:
@@ -123,6 +178,12 @@ here and they mean opposite things:
   wrapper cutting the command off. See the next section for what to do next.
 - **Any other non-zero value** — `gh run watch --exit-status` propagating the
   run's actual conclusion. The run itself finished and failed/was cancelled.
+
+Neither of those is the same thing as `gh` itself erroring out (auth
+failure, rate limit, a transient 5xx) before it ever reached a terminal run
+state — that's a tooling failure, not a CI-run outcome, and reporting it as
+"the run failed" would be wrong. Check `/tmp/watch-<id>.log` for a `gh`-level
+error message (rather than normal job/step output) to tell the two apart.
 
 If your harness's own tool call has a built-in timeout parameter (many do,
 often capped around 10 minutes), prefer that over `timeout` — but if you use
@@ -142,13 +203,17 @@ done. That is expected, not a failure — reissue the exact same blocking
 command again in the same turn:
 
 ```bash
-timeout <bound_seconds> gh run watch <id> -R <owner>/<repo> --exit-status
+timeout <bound_seconds> gh run watch <id> -R <owner>/<repo> --exit-status --interval 15 \
+  > /tmp/watch-<id>.log 2>&1
 ```
 
 `gh run watch` reattaches to the same run and picks up wherever it left off.
 Keep doing this — same turn, still foreground — until you get a terminal
-result or you decide (see next) that you've spent enough bound-hits to stop
-and report.
+result, or (as a subagent) you've hit the practical ceiling described in
+[If you're a subagent](#if-youre-a-subagent) and it's time to report a
+non-terminal status instead. Either way, if you need to say what the last
+observed state was, `tail -n 20 /tmp/watch-<id>.log` gives you that without
+having ever let the full redraw history into context.
 
 If you are the one who *dispatched* a watcher (main agent orchestrating a
 subagent) and it appears stalled, resume that same subagent — don't spawn a
@@ -263,7 +328,9 @@ The new run doesn't appear instantly — poll `gh run list` a few times
 ## The report shape
 
 Five slots, in this order. Lead with the run id and workflow name so a human
-can find it without asking.
+can find it without asking. If you're a subagent, this report *is* your
+return value in full — the caller reconstructs everything about the run from
+this text alone, so write it that way rather than assuming shared context.
 
 1. **Workflow health** — did it select/run anything, with counts quoted; did
    it complete inside its bound.
@@ -294,10 +361,20 @@ prevent. If any answer is "yes", go fix it before ending the turn:
   nothing yet.
 - Did I paste a large log into context instead of grepping a file? → Redo via
   the structured `--json jobs` query or a targeted `grep` on the saved file.
+- Did I let `gh run watch`'s own progress output print directly into my
+  transcript instead of redirecting it to a file? → On anything longer than a
+  trivial run, that's the same context-flood as pasting a log, just from a
+  different command.
+- Did I read a `gh`-level error (auth/rate-limit/network) as if it were the
+  run's own conclusion? → Check the log for a tooling error before reporting
+  a run failure.
 - Did I call a red job "my regression" without checking whether it's also
   red on the base branch? → Check before naming it.
 - Am I about to spawn a second watcher because the first one seems stalled?
   → Resume the existing one instead.
+- (Subagent) Am I looping the resume step indefinitely instead of reporting
+  a non-terminal status back after a reasonable number of bound-hits? → See
+  [If you're a subagent](#if-youre-a-subagent).
 
 ## Amending this skill
 
@@ -305,7 +382,7 @@ This skill is expected to accumulate corrections as it gets used on real
 runs — especially long chainsaw-style suites, which is where it earns its
 keep. When a real run surfaces friction this file doesn't cover (a bound that
 was wrong, a `gh` output shape that didn't match what's documented here, a
-seventh failure mode), fold the correction directly into the relevant
+failure mode not named above), fold the correction directly into the relevant
 section above rather than appending a changelog — keep this file describing
 current best practice, not a history of edits. Prefer tightening an existing
 section over growing new ones; this file works because it's short enough to
