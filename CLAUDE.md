@@ -99,9 +99,10 @@ SOME_VERSION: "v1.2.3"
 Use this pattern for any new tool version embedded directly in workflow YAML (see `CHEZMOI_VERSION` in
 `lint.yaml`). Mise-managed tool versions (including `aqua:owner/repo` entries) are bumped directly in
 `mise/config.toml` instead — do not add a `# renovate:` comment for those, Renovate already tracks them
-natively, including `mise.lock` itself via `lockFileMaintenance`. That lockfile refresh needs `"mise"` added
-to this org's Renovate instance's global `allowedUnsafeExecutions` setting (self-hosted/admin config, not
-something this repo's `renovate.json` can grant) before it actually runs — see DESIGN.md.
+natively, including `mise.lock` itself via `lockFileMaintenance` (enabled repo-wide by the
+`ppat/renovate-presets:dev-tools` preset, not this repo's own config). That lockfile refresh needs `"mise"`
+added to the self-hosted `RENOVATE_ALLOWED_UNSAFE_EXECUTIONS` env var in `ppat/github-workflows`'s
+`renovate.yaml` before it actually runs — see DESIGN.md.
 
 ## Commit style
 

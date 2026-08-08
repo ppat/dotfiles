@@ -134,12 +134,17 @@ pinned SHA current — the same automation-over-manual-toil principle applied to
 
 Mise tracks its own tool versions natively (`mise/config.toml`), so Renovate's built-in `mise` manager handles
 version bumps directly — including the `aqua:owner/repo`-backed entries — and also understands `mise.lock`
-directly: it extracts each dependency's `lockedVersion` from the lockfile, and `lockFileMaintenance` (enabled
-in `.github/renovate.json`) periodically runs `mise lock --bump` to refresh it. That lockfile refresh is
-gated behind Renovate's "unsafe execution" trust model, though, since running `mise lock` can execute
-repository-defined behavior: it only actually runs once whoever administers this org's Renovate instance adds
-`"mise"` to the *global* `allowedUnsafeExecutions` setting — a self-hosted/admin-level config this repo's own
-`renovate.json` cannot grant itself. Tool versions embedded as plain strings inside YAML/`.env` files (e.g.
-`CHEZMOI_VERSION` in `lint.yaml`) aren't a format Renovate understands out of the box. The custom regex manager
-in `.github/renovate.json` closes that narrow gap by keying off a `# renovate: datasource=... depName=...`
-comment convention — one mechanism, used only where the native managers don't reach.
+directly: it extracts each dependency's `lockedVersion` from the lockfile, and `lockFileMaintenance` (already
+enabled repo-wide by the `ppat/renovate-presets:dev-tools` preset this repo extends — no extra config needed
+here) periodically runs `mise lock --bump` to refresh it. That lockfile refresh is gated behind Renovate's
+"unsafe execution" trust model, though, since running `mise lock` can execute repository-defined behavior: it
+only actually runs once `mise` is added to the `allowedUnsafeExecutions` setting. That's a *self-hosted global*
+Renovate setting (`RENOVATE_ALLOWED_UNSAFE_EXECUTIONS` env var / `--allowed-unsafe-executions` CLI flag /
+admin config file — never something a repo's own `renovate.json` can set), and this org's Renovate runs
+self-hosted via GitHub Actions (`ppat/github-workflows`'s `renovate.yaml`, which drives
+`renovatebot/github-action` through env vars) — so the fix lives there
+(`RENOVATE_ALLOWED_UNSAFE_EXECUTIONS: '["mise"]'` in that workflow's `env:` block), not in this repo. Tool
+versions embedded as plain strings inside YAML/`.env` files (e.g. `CHEZMOI_VERSION` in `lint.yaml`) aren't a
+format Renovate understands out of the box. The custom regex manager in `.github/renovate.json` closes that
+narrow gap by keying off a `# renovate: datasource=... depName=...` comment convention — one mechanism, used
+only where the native managers don't reach.
