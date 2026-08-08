@@ -26,14 +26,25 @@ manage_homebrew_package_manager() {
   fi
 }
 
+manage_homebrew_trusted_taps() {
+  local brew_file="$1"
+  log_info "Homebrew | Trusting third-party taps..."
+  local tap
+  grep -ohE '"[^"/]+/[^"/]+/[^"/]+"' "${brew_file}" | tr -d '"' | awk -F/ '{print $1"/"$2}' | sort -u | while read -r tap; do
+    brew tap "${tap}" 2>&1 | sed -E -n 's|^|    |p'
+    brew trust "${tap}" 2>&1 | sed -E -n 's|^|    |p'
+  done
+}
+
 manage_homebrew_system_packages() {
   local brew_file="$1"
-  log_info "Homebrew | Installing Homebrew system packages..."
   if ! command -v brew > /dev/null; then
     log_error "Homebrew | Brew binary is not in path, cannot proceed!"
     exit 1
   fi
-  brew bundle --file="${brew_file}" 2>&1 | sed -E -n 's|^|    |g'
+  manage_homebrew_trusted_taps "${brew_file}"
+  log_info "Homebrew | Installing Homebrew system packages..."
+  brew bundle --file="${brew_file}" 2>&1 | sed -E -n 's|^|    |p'
   log_success "Homebrew | Homebrew system packages have been installed."
 }
 
