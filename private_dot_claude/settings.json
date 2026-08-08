@@ -17,18 +17,6 @@
     "DISABLE_AUTOUPDATER": "1"
   },
   "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.claude/hooks/guard-git-push.sh",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
     "PostToolUse": [
       {
         "matcher": "Edit|MultiEdit|Write",
@@ -50,23 +38,66 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/guard-git-push.sh",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ccstatusline --hook"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ccstatusline --hook"
+          }
+        ]
+      }
     ]
   },
   "permissions": {
     "allow": [
       "Bash(git add:*)",
-      "Bash(git amend:*)",
-      "Bash(git bisect:*)",
-      "Bash(git checkout:*)",
+      "Bash(git branch)",
+      "Bash(git remote -v)",
+      "Bash(git tag)",
+      "Bash(git bisect start)",
+      "Bash(git bisect good)",
+      "Bash(git bisect bad)",
+      "Bash(git bisect reset)",
+      "Bash(git switch:*)",
+      "Bash(git switch -c:*)",
       "Bash(git commit:*)",
       "Bash(git diff:*)",
-      "Bash(git fetch:*)",
+      "Bash(git fetch)",
+      "Bash(git fetch origin)",
       "Bash(git grep:*)",
       "Bash(git log:*)",
       "Bash(git ls-files:*)",
       "Bash(git merge --ff-only:*)",
-      "Bash(git pull:*)",
-      "Bash(git rebase:*)",
+      "Bash(git pull)",
+      "Bash(git pull origin)",
+      "Bash(git pull origin main)",
+      "Bash(git rebase main)",
+      "Bash(git rebase --continue)",
+      "Bash(git rebase --abort)",
+      "Bash(git rebase --skip)",
       "Bash(git show:*)",
       "Bash(git stash:*)",
       "Bash(git status:*)",
@@ -77,10 +108,26 @@
       "Bash(pre-commit run:*)",
       "Bash(shellcheck:*)",
       "Bash(yamllint:*)",
-      "Bash(jq *)",
+      "Bash(ls *)",
       "Bash(yq *)",
+      "Bash(jq *)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh release list:*)",
+      "Bash(gh label list:*)",
+      "Bash(gh search repos:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh workflow list:*)",
+      "Bash(gh repo list:*)",
       "Edit",
+      "Grep(~/code/*/**)",
       "MultiEdit",
+      "Read(~/code/*/**)",
       "WebFetch",
       "WebSearch",
       "mcp__context7"

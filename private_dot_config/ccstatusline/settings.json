@@ -38,6 +38,11 @@
         "backgroundColor": "bgCyan"
       },
       {
+        "id": "d6a8fe1e-f8af-428a-86a7-05d7ff6aaa66",
+        "type": "cache-hit-rate",
+        "backgroundColor": "bgRed"
+      },
+      {
         "id": "2",
         "type": "context-bar"
       }
@@ -47,6 +52,11 @@
         "id": "62238b98-182c-4b27-8f1c-5620e434a0bd",
         "type": "session-name",
         "backgroundColor": "bgGreen"
+      },
+      {
+        "id": "e3765417-41a4-4d30-b36a-d3eb35b5a228",
+        "type": "skills",
+        "backgroundColor": "bgBrightRed"
       },
       {
         "id": "f3595822-53f8-49fb-bdc8-d8cf0700327e",
@@ -74,14 +84,9 @@
         "backgroundColor": "bgBrightCyan"
       },
       {
-        "id": "e93f5a4a-5cdd-44da-8add-51c5159457e5",
-        "type": "extra-usage-used",
-        "backgroundColor": "bgBlue"
-      },
-      {
-        "id": "703c1f12-ee4a-4cb0-a042-1584c20866b7",
-        "type": "session-cost",
-        "backgroundColor": "bgBrightBlack"
+        "id": "b2eb56e0-a3c7-4bc6-8beb-529559ee6eef",
+        "type": "session-clock",
+        "backgroundColor": "bgYellow"
       }
     ],
     [
@@ -114,6 +119,26 @@
         "id": "0764dc65-ed0b-4cfe-b419-9759436430ba",
         "type": "git-ci-status",
         "backgroundColor": "bgBrightGreen"
+      },
+      {
+        "id": "06e11edd-72c9-4895-ab42-b4e9fe3d44b3",
+        "type": "remote-control-status",
+        "backgroundColor": "bgBrightMagenta"
+      },
+      {
+        "id": "d6fe7798-ca63-442a-a382-8b890ec46600",
+        "type": "voice-status",
+        "backgroundColor": "bgRed"
+      },
+      {
+        "id": "bac17ea4-6451-4532-8e3f-a62eb73af708",
+        "type": "extra-usage-used",
+        "backgroundColor": "bgBrightBlack"
+      },
+      {
+        "id": "e79bae6f-7a05-4901-8a84-6818c8e84310",
+        "type": "session-cost",
+        "backgroundColor": "bgBrightWhite"
       }
     ]
   ],
