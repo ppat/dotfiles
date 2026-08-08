@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   renovate:
-    uses: ppat/github-workflows/.github/workflows/renovate.yaml@893637588e91e7e531e8d54f07f3ffa468b7b253 # v4.3.0
+    uses: ppat/github-workflows/.github/workflows/renovate.yaml@aef1bacdb25f21fa034ba044c590cc54087e119c # main, pending v4.4.0 release (adds RENOVATE_ALLOWED_UNSAFE_EXECUTIONS for mise.lock)
     with:
       dry_run: ${{ github.event_name == 'pull_request' }}
       git_ref: ${{ github.head_ref || github.ref }}
