@@ -37,6 +37,11 @@ main() {
   echo
   display_installed_mise_packages $setup_type
 
+  log_info "Mise | $setup_type | Making chezmoi dependencies (bws) available without mise activation..."
+  mkdir -p "$HOME/.local/bin"
+  cp "$(mise which bws)" "$HOME/.local/bin/bws"
+  echo
+
   touch "$MISE_DATA_DIR/.first-time-setup-complete"
   log_success "Mise | $setup_type | Complete!"
   echo "-------------------------------------------------------------------------------------------"

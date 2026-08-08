@@ -2,28 +2,29 @@
 set -euo pipefail
 
 set -o allexport
-{{ template "aqua.env" . -}}
+{{ template "mise.env" . -}}
 {{ template "krew.env" . -}}
 {{ template "homebrew.env" . -}}
 set +o allexport
-export PATH=${AQUA_ROOT_DIR}/bin:${KREW_ROOT}/bin:$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+export PATH=${KREW_ROOT}/bin:$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 
 {{ template "script_header.sh" . }}
 
+# shellcheck disable=SC2016
+eval "$(mise activate bash)"
 
 main() {
   log_info "Shell Completions | Setting up..."
   if [[ ! -d ~/.local/bash-completions ]]; then
     mkdir ~/.local/bash-completions
   fi
-  aqua completion bash > ~/.local/bash-completions/aqua
   flux completion bash > ~/.local/bash-completions/flux
   gh completion -s bash > ~/.local/bash-completions/gh
   helm completion bash > ~/.local/bash-completions/helm
   kubectl completion bash > ~/.local/bash-completions/kubectl
   kustomize completion bash > ~/.local/bash-completions/kustomize
   mise completion bash --include-bash-completion-lib > ~/.local/bash-completions/mise
-  zoxide init bash > ~/.local/bash-completions/mise
+  zoxide init bash > ~/.local/bash-completions/zoxide
   log_success "Shell Completions | Configured."
   echo "-------------------------------------------------------------------------------------------"
   echo

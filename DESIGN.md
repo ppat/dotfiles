@@ -21,9 +21,9 @@ flowchart TD
         Prompt["prompt once: name, email, bwsAccessToken"]
     end
     Prompt --> Render["render every .tmpl\n(.chezmoi.os, .chezmoi.homeDir, bitwardenSecrets)"]
-    Render --> Before["run_before_* scripts\n(homebrew, mise/aqua first-time)"]
+    Render --> Before["run_before_* scripts\n(homebrew, mise first-time)"]
     Before --> Write["write rendered dotfiles to $HOME"]
-    Write --> After["run_after_* scripts\n(mise/aqua standard, krew, docker, completions, kubeconfig)"]
+    Write --> After["run_after_* scripts\n(mise standard, krew, docker, completions, kubeconfig)"]
     After --> OnChange["run_onchange_* scripts\n(macOS defaults, launch agents —\nonly re-run when their own rendered content changes)"]
 
     Update["chezmoi update\n(day-to-day)"] -.->|git pull, then same pipeline| Render
@@ -31,51 +31,50 @@ flowchart TD
 
 Chezmoi is the only orchestrator. It isn't a script that happens to call package managers — it *is* the thing
 that decides what runs, in what order, against what rendered template context. Everything downstream (Homebrew,
-Aqua, Mise, Krew) is invoked *by* chezmoi scripts, never the reverse.
+Mise, Krew) is invoked *by* chezmoi scripts, never the reverse.
 
-## Why three package managers, not one
+## Why two package managers, not one
 
 ```mermaid
 flowchart LR
     subgraph Homebrew["Homebrew — OS-level bootstrap"]
         H1["baseline system packages\n(git, curl, bash, coreutils...)"]
-        H2["installs aqua + mise themselves"]
+        H2["installs mise itself"]
         H3["macOS-only: GUI casks, Docker/Colima"]
     end
-    subgraph Aqua["Aqua — pinned CLI binaries"]
-        A1["kubectl, helm, gh, flux, yq...\nchecksum-verified, tag-pinned"]
-    end
-    subgraph Mise["Mise — language runtimes"]
+    subgraph Mise["Mise — everything else"]
         M1["go, rust, node, terraform\n+ npm/pipx global tools"]
+        M2["kubectl, helm, gh, flux, yq...\nvia the aqua: backend,\nchecksum/cosign/SLSA-verified"]
     end
-    Homebrew --> Aqua
     Homebrew --> Mise
-    Aqua --> Krew["Krew — kubectl plugins"]
+    Mise --> Krew["Krew — kubectl plugins"]
 ```
 
 Each tool is used for what it's actually best at, not for uniformity:
 
-- **Homebrew** is the only one of the three that can install itself on a bare OS and that ships macOS GUI apps
-  (casks) — so it's the bootstrap layer, and it stays responsible for anything Aqua/Mise can't do (GUI apps,
+- **Homebrew** is the only one of the two that can install itself on a bare OS and that ships macOS GUI apps
+  (casks) — so it's the bootstrap layer, and it stays responsible for anything Mise can't do (GUI apps,
   Colima/Docker on macOS, baseline OS packages like `coreutils`/`gnupg`).
-- **Aqua** enforces checksums (`checksum.require_checksum: true` in `aqua.yaml`) on every install — every CLI
-  binary version is pinned to an exact tag and its release-artifact hash is verified before use. That matters for
-  security-relevant tools (`kubectl`, `helm`, `gh`, cloud CLIs) where supply-chain integrity is the point;
-  Homebrew formulas and Mise's registry don't give the same per-artifact verification.
-- **Mise** owns language runtimes and per-project version switching (`go`, `rust`, `node`, `terraform`), plus a
-  handful of npm/pipx-distributed tools (Claude Code, markdownlint-cli2, ansible-core) that don't have Aqua
-  registry entries. Mise's `[[env]]` file-loading in `private_dot_config/mise/config.toml` is also how this repo
-  gets environment variables into every shell — no chezmoi script is needed for that.
+- **Mise** owns everything else: language runtimes and per-project version switching (`go`, `rust`, `node`,
+  `terraform`), npm/pipx-distributed tools (Claude Code, markdownlint-cli2, ansible-core), and pinned CLI
+  binaries (`kubectl`, `helm`, `gh`, cloud CLIs) via its `aqua:` backend. That backend independently verifies
+  cosign signatures, SLSA provenance, and GitHub artifact attestations by default, and every install is
+  checksum-pinned per platform in a checked-in `mise.lock` (`[settings] lockfile = true` in
+  `private_dot_config/mise/config.toml`) — the same per-artifact supply-chain guarantee a separate Aqua
+  installation used to provide, now covered by one tool instead of two. Mise's `[[env]]` file-loading in
+  `private_dot_config/mise/config.toml` is also how this repo gets environment variables into every shell — no
+  chezmoi script is needed for that.
 
-Trade-off accepted: three tools means three update mechanisms and three places dependency drift can hide. This is
-mitigated by giving each tool exactly one job — no package is ever installable through more than one of them —
-and by automating all three through Renovate (below) instead of relying on manual upgrades.
+Historical note: this repo used to run Aqua alongside Mise specifically because Mise's `aqua` backend couldn't
+maintain a lockfile at the time, so it couldn't give the same checksum guarantee Aqua's own
+`checksum.require_checksum` did. Mise's lockfile support closed that gap, so the two-package-manager split
+above reflects the current (not original) architecture — see git history for the migration.
 
 ## First-time vs. standard setup
 
 Chezmoi scripts split into `run_before_NN_*` (before dotfiles are written) and `run_after_NN_*` (after). Within
-that, the Aqua and Mise scripts each fork into a `First-Time` path and a `Standard` path (see
-`.chezmoitemplates/script_aqua.sh` / `script_mise.sh`):
+that, the Mise scripts fork into a `First-Time` path and a `Standard` path (see
+`.chezmoitemplates/script_mise.sh`):
 
 - **First-time**: destructive — wipes and reinitializes the tool's global config directory from
   `.first-time-setup/`, then does a fresh install. Runs once, guarded by a sentinel file
@@ -133,8 +132,14 @@ pinned SHA current — the same automation-over-manual-toil principle applied to
 
 ## Renovate: one custom manager for template-pinned versions
 
-Aqua and Mise track their own tool versions natively (`aqua.yaml`, `mise/config.toml`), so Renovate's built-in
-managers handle those directly. But tool versions embedded as plain strings inside YAML/`.env` files (e.g.
+Mise tracks its own tool versions natively (`mise/config.toml`), so Renovate's built-in `mise` manager handles
+version bumps directly — including the `aqua:owner/repo`-backed entries — and also understands `mise.lock`
+directly: it extracts each dependency's `lockedVersion` from the lockfile, and `lockFileMaintenance` (enabled
+in `.github/renovate.json`) periodically runs `mise lock --bump` to refresh it. That lockfile refresh is
+gated behind Renovate's "unsafe execution" trust model, though, since running `mise lock` can execute
+repository-defined behavior: it only actually runs once whoever administers this org's Renovate instance adds
+`"mise"` to the *global* `allowedUnsafeExecutions` setting — a self-hosted/admin-level config this repo's own
+`renovate.json` cannot grant itself. Tool versions embedded as plain strings inside YAML/`.env` files (e.g.
 `CHEZMOI_VERSION` in `lint.yaml`) aren't a format Renovate understands out of the box. The custom regex manager
 in `.github/renovate.json` closes that narrow gap by keying off a `# renovate: datasource=... depName=...`
 comment convention — one mechanism, used only where the native managers don't reach.

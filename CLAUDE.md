@@ -5,14 +5,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Overview
 
 Personal dotfiles managed by [Chezmoi](https://www.chezmoi.io/), targeting macOS and Linux. Chezmoi renders
-templated files into `$HOME` and runs numbered scripts to install/configure tools. Three package managers, each
+templated files into `$HOME` and runs numbered scripts to install/configure tools. Two package managers, each
 with one job:
 
 ```mermaid
 flowchart LR
-    Homebrew["Homebrew\nOS bootstrap, GUI apps,\nBrewfile.system.*/.docker/.gui"] --> Aqua["Aqua\nchecksum-pinned CLI binaries\naqua.yaml"]
-    Homebrew --> Mise["Mise\nlanguage runtimes + npm/pipx tools\nmise/config.toml"]
-    Aqua --> Krew["Krew\nkubectl plugins\nkrew-plugins.txt"]
+    Homebrew["Homebrew\nOS bootstrap, GUI apps,\nBrewfile.system.*/.docker/.gui"] --> Mise["Mise\nlanguage runtimes, npm/pipx tools,\nchecksum-pinned CLI binaries (aqua: backend)\nmise/config.toml"]
+    Mise --> Krew["Krew\nkubectl plugins\nkrew-plugins.txt"]
 ```
 
 **Why it's shaped this way, and what secrets/CI/Renovate do**: see [DESIGN.md](DESIGN.md).
@@ -52,7 +51,7 @@ go stale as scripts are added); this is the stable, abstract shape underneath ev
 - Every `.tmpl` file must render successfully with `.chezmoi.os` forced to `"linux"` and every `bitwardenSecrets`
   call blanked — that's what CI actually checks (see [TESTING.md](TESTING.md)). Don't write template logic whose
   only valid path is `darwin` or depends on a real secret value being present.
-- Env vars shared across multiple chezmoi scripts (`AQUA_ROOT_DIR`, `MISE_DATA_DIR`, `HOMEBREW_PREFIX`, etc.) live
+- Env vars shared across multiple chezmoi scripts (`MISE_DATA_DIR`, `HOMEBREW_PREFIX`, etc.) live
   once in `.chezmoitemplates/*.env` and get pulled in per-script — add new shared vars there rather than
   redefining them in an individual script.
 
@@ -89,8 +88,8 @@ references get added.
 
 ## Renovate
 
-`.github/renovate.json` extends shared presets (`ppat/renovate-presets`, `aquaproj/aqua-renovate-config`) plus a
-custom regex manager for versions pinned in YAML/`.env` comments:
+`.github/renovate.json` extends shared presets (`ppat/renovate-presets`) plus a custom regex manager for
+versions pinned in YAML/`.env` comments:
 
 ```yaml
 # renovate: datasource=github-releases depName=owner/repo
@@ -98,8 +97,11 @@ SOME_VERSION: "v1.2.3"
 ```
 
 Use this pattern for any new tool version embedded directly in workflow YAML (see `CHEZMOI_VERSION` in
-`lint.yaml`). Aqua/Mise-managed tool versions are bumped directly in `aqua.yaml`/`mise/config.toml` instead — do
-not add a `# renovate:` comment for those, Renovate already tracks them natively.
+`lint.yaml`). Mise-managed tool versions (including `aqua:owner/repo` entries) are bumped directly in
+`mise/config.toml` instead — do not add a `# renovate:` comment for those, Renovate already tracks them
+natively, including `mise.lock` itself via `lockFileMaintenance`. That lockfile refresh needs `"mise"` added
+to this org's Renovate instance's global `allowedUnsafeExecutions` setting (self-hosted/admin config, not
+something this repo's `renovate.json` can grant) before it actually runs — see DESIGN.md.
 
 ## Commit style
 

@@ -86,6 +86,48 @@
         "minor"
       ],
       "minimumReleaseAge": "90 days"
+    },
+    {
+      "matchFileNames": [
+        "private_dot_config/mise/config.toml",
+        ".first-time-setup/mise.toml",
+        "mise.toml"
+      ],
+      "matchManagers": [
+        "mise"
+      ],
+      "matchDepNames": [
+        "aqua:kubernetes-sigs/kustomize"
+      ],
+      "extractVersion": "^kustomize/v(?<version>.+)$"
+    },
+    {
+      "matchFileNames": [
+        "private_dot_config/mise/config.toml",
+        ".first-time-setup/mise.toml",
+        "mise.toml"
+      ],
+      "matchManagers": [
+        "mise"
+      ],
+      "matchDepNames": [
+        "aqua:bitwarden/clients"
+      ],
+      "extractVersion": "^cli-v(?<version>.+)$"
+    },
+    {
+      "matchFileNames": [
+        "private_dot_config/mise/config.toml",
+        ".first-time-setup/mise.toml",
+        "mise.toml"
+      ],
+      "matchManagers": [
+        "mise"
+      ],
+      "matchDepNames": [
+        "aqua:bitwarden/sdk-sm"
+      ],
+      "extractVersion": "^bws-v(?<version>.+)$"
     }
   ]
 }
