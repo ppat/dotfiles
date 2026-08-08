@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.62.1/json-schema/aqua-yaml.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/v2.62.2/json-schema/aqua-yaml.json
 checksum:
   enabled: true
   require_checksum: true
@@ -15,7 +15,7 @@ packages:
 - name: ajeetdsouza/zoxide@v0.10.0
 - name: aristocratos/btop@v1.4.7
 - name: atuinsh/atuin@v18.17.1
-- name: bitwarden/clients@cli-v2026.6.0
+- name: bitwarden/clients@cli-v2026.7.0
 - name: bitwarden/sdk-sm@bws-v1.0.0
 - name: bootandy/dust@v1.2.4
 - name: cli/cli@v2.96.0
@@ -28,7 +28,7 @@ packages:
 - name: hadolint/hadolint@v2.14.0
 - name: helm/helm@v4.2.3
 # - name: jesseduffield/lazygit@v0.63.1
-- name: junegunn/fzf@v0.74.1
+- name: junegunn/fzf@v0.74.2
 - name: koalaman/shellcheck@v0.11.0
 - name: kubernetes/kubectl@v1.36.3
 - name: kubernetes-sigs/kind@v0.32.0
