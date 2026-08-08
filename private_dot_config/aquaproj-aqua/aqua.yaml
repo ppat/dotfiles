@@ -27,7 +27,6 @@ packages:
 - name: fluxcd/flux2@v2.9.3
 - name: hadolint/hadolint@v2.14.0
 - name: helm/helm@v4.2.3
-# - name: jesseduffield/lazygit@v0.63.1
 - name: junegunn/fzf@v0.74.2
 - name: koalaman/shellcheck@v0.11.0
 - name: kubernetes/kubectl@v1.36.3
