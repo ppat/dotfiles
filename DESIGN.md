@@ -88,8 +88,12 @@ before any template calling `bitwardenSecrets` is rendered**, and rendering happ
   `mise upgrade`, then prune anything no longer declared. Safe on every `chezmoi update`.
 
 That same "mise owns the lockfile" property is why `mise.lock` is `.chezmoiignore`d and copied explicitly by the
-script instead of being deployed as a chezmoi target: a managed target that its own tooling rewrites produces
-drift on every run and hard-fails a non-interactive apply. It looks like untidiness; it is load-bearing.
+script instead of being deployed as a chezmoi target. mise rewrites the deployed `~/.config/mise/mise.lock`
+whenever it has to lock something that file doesn't already cover — not on every run (with the lockfile in sync,
+`mise upgrade`/`mise prune` leave it byte-identical), but on any run where `config.toml` is ahead of it. Measured
+with the file managed rather than ignored: one `chezmoi apply --force` left it modified, and the next
+non-interactive apply hard-failed on "has changed since chezmoi last wrote it" with no TTY to answer on. It looks
+like untidiness; it is load-bearing.
 
 There is deliberately **no** first-run special case — no seed config, no sentinel file, no wiping of the mise
 config directory. An earlier design staged fresh machines in two passes on the assumption that `npm:`/`pipx:`/
