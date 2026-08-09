@@ -270,48 +270,63 @@ url = "https://github.com/bitwarden/clients/releases/download/cli-v2026.7.0/bw-w
 url_api = "https://api.github.com/repos/bitwarden/clients/releases/assets/487644184"
 
 [[tools."aqua:bitwarden/sdk-sm"]]
-version = "1.0.0"
+version = "2.1.0"
 backend = "aqua:bitwarden/sdk-sm"
 
 [tools."aqua:bitwarden/sdk-sm"."platforms.linux-arm64"]
-checksum = "sha256:20a3dcb9e3ce7716a1dc3c0e1c76cea9d5e2bf75094cbb5aad54ced4304929cb"
-url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v1.0.0/bws-aarch64-unknown-linux-gnu-1.0.0.zip"
-url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/195116607"
+checksum = "sha256:18253757286e119d450133a87eb463bf8c1ce418ce24c834f4f250d60cba6f9e"
+url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.1.0/bws-aarch64-unknown-linux-gnu-2.1.0.zip"
+url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/426507287"
+
+[tools."aqua:bitwarden/sdk-sm"."platforms.linux-arm64-musl"]
+checksum = "sha256:eb0f1ae61d1c3b74244d2841233276e05c77e8be4da197ed90fc6248387005e1"
+url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.1.0/bws-aarch64-unknown-linux-musl-2.1.0.zip"
+url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/426507265"
 
 [tools."aqua:bitwarden/sdk-sm"."platforms.linux-x64"]
-checksum = "sha256:9077fb7b336a62abc8194728fea8753afad8b0baa3a18723fc05fc02fdb53568"
-url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v1.0.0/bws-x86_64-unknown-linux-gnu-1.0.0.zip"
-url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/195116605"
+checksum = "sha256:ba8233c3a4aee5d43e3c73bbd04d99e9bc5aba13bbbfd06d89b073abe732b860"
+url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.1.0/bws-x86_64-unknown-linux-gnu-2.1.0.zip"
+url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/426507282"
 
 [tools."aqua:bitwarden/sdk-sm"."platforms.linux-x64-baseline"]
-checksum = "sha256:9077fb7b336a62abc8194728fea8753afad8b0baa3a18723fc05fc02fdb53568"
-url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v1.0.0/bws-x86_64-unknown-linux-gnu-1.0.0.zip"
-url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/195116605"
+checksum = "sha256:ba8233c3a4aee5d43e3c73bbd04d99e9bc5aba13bbbfd06d89b073abe732b860"
+url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.1.0/bws-x86_64-unknown-linux-gnu-2.1.0.zip"
+url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/426507282"
+
+[tools."aqua:bitwarden/sdk-sm"."platforms.linux-x64-musl"]
+checksum = "sha256:f59ee150e42b82128d437087e9bac920053c6bfddcb960d20ce9386e5ac9bba6"
+url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.1.0/bws-x86_64-unknown-linux-musl-2.1.0.zip"
+url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/426507255"
+
+[tools."aqua:bitwarden/sdk-sm"."platforms.linux-x64-musl-baseline"]
+checksum = "sha256:f59ee150e42b82128d437087e9bac920053c6bfddcb960d20ce9386e5ac9bba6"
+url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.1.0/bws-x86_64-unknown-linux-musl-2.1.0.zip"
+url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/426507255"
 
 [tools."aqua:bitwarden/sdk-sm"."platforms.macos-arm64"]
-checksum = "sha256:5dd716878e5627220aa254cbe4e41e978f226f72d9117fc195046709db363e20"
-url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v1.0.0/bws-aarch64-apple-darwin-1.0.0.zip"
-url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/195116595"
+checksum = "sha256:9cb1c1c6e6164d83b2e339883ba02b4cbb37188ce9a484b1ce8249443163e066"
+url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.1.0/bws-aarch64-apple-darwin-2.1.0.zip"
+url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/426507211"
 
 [tools."aqua:bitwarden/sdk-sm"."platforms.macos-x64"]
-checksum = "sha256:7e06cbc0f3543dd68585a22bf1ce09eca1d413322aa22554a713cf97de60495a"
-url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v1.0.0/bws-x86_64-apple-darwin-1.0.0.zip"
-url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/195116591"
+checksum = "sha256:6f626b3971368902af1b9847c02791a1b4666969d7561e2047681cded7997537"
+url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.1.0/bws-x86_64-apple-darwin-2.1.0.zip"
+url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/426507196"
 
 [tools."aqua:bitwarden/sdk-sm"."platforms.macos-x64-baseline"]
-checksum = "sha256:7e06cbc0f3543dd68585a22bf1ce09eca1d413322aa22554a713cf97de60495a"
-url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v1.0.0/bws-x86_64-apple-darwin-1.0.0.zip"
-url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/195116591"
+checksum = "sha256:6f626b3971368902af1b9847c02791a1b4666969d7561e2047681cded7997537"
+url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.1.0/bws-x86_64-apple-darwin-2.1.0.zip"
+url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/426507196"
 
 [tools."aqua:bitwarden/sdk-sm"."platforms.windows-x64"]
-checksum = "sha256:69b8d0fb2facc8cec4dd2b8157a3496ecaaa376ee1b0fd822012192ce7437505"
-url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v1.0.0/bws-x86_64-pc-windows-msvc-1.0.0.zip"
-url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/195116600"
+checksum = "sha256:8d6f2b51beb6f992b5b1de8b85a98bdf18de74096b724d17fa06219fc23f2bd5"
+url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.1.0/bws-x86_64-pc-windows-msvc-2.1.0.zip"
+url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/426507247"
 
 [tools."aqua:bitwarden/sdk-sm"."platforms.windows-x64-baseline"]
-checksum = "sha256:69b8d0fb2facc8cec4dd2b8157a3496ecaaa376ee1b0fd822012192ce7437505"
-url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v1.0.0/bws-x86_64-pc-windows-msvc-1.0.0.zip"
-url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/195116600"
+checksum = "sha256:8d6f2b51beb6f992b5b1de8b85a98bdf18de74096b724d17fa06219fc23f2bd5"
+url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.1.0/bws-x86_64-pc-windows-msvc-2.1.0.zip"
+url_api = "https://api.github.com/repos/bitwarden/sdk-sm/releases/assets/426507247"
 
 [[tools."aqua:bootandy/dust"]]
 version = "1.2.4"
