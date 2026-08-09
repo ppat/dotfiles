@@ -36,6 +36,27 @@ manage_homebrew_trusted_taps() {
   done
 }
 
+retire_superseded_bash_completion() {
+  # `bash-completion` (v1.3, bash-3.2 era) is superseded by `bash-completion@2`, and homebrew marks
+  # the two as conflicting -- so `brew bundle` cannot install the replacement while v1 is still
+  # installed. Retire it here, idempotently, ahead of the bundle run.
+  #
+  # v1 is not merely stale. It drops ~190 legacy completion scripts into etc/bash_completion.d that
+  # call its `have` helper, and v1 unsets that helper once it has finished loading. bash-completion
+  # 2.x reads that same directory as its compat dir, so anything pulling in a 2.x library after v1
+  # has loaded re-sources all ~190 scripts with `have` already gone -- one "command not found: have"
+  # per script, on every new interactive shell. Removing v1 removes those scripts with it.
+  if ! command -v brew > /dev/null; then
+    log_error "Homebrew | Brew binary is not in path, cannot proceed!"
+    exit 1
+  fi
+  if brew list --formula --versions bash-completion &> /dev/null; then
+    log_info "Homebrew | Retiring superseded formula: bash-completion (v1)..."
+    brew uninstall bash-completion 2>&1 | sed -E -n 's|^|    |p'
+    log_success "Homebrew | bash-completion (v1) retired, bash-completion@2 installs below."
+  fi
+}
+
 manage_homebrew_system_packages() {
   local brew_file="$1"
   if ! command -v brew > /dev/null; then
@@ -74,6 +95,7 @@ main() {
   echo
   manage_homebrew_package_manager
   echo
+  retire_superseded_bash_completion
   manage_homebrew_system_packages "{{ .chezmoi.sourceDir }}/Brewfile.system.{{ .chezmoi.os }}"
   echo
   cleanup_homebrew_cache

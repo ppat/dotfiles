@@ -1,4 +1,5 @@
 # Baseline System Packages
+brew "bash-completion@2"  # completion framework the generated completions in run_after_60 rely on
 brew "gnupg"
 brew "nmap"
 brew "starship"

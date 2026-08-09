@@ -1,11 +1,15 @@
 # Load shell completions
 
 # enable bash completions
+#
+# The homebrew entry is `etc/profile.d/bash_completion.sh`, not `etc/bash_completion`: that is the
+# path `bash-completion@2` documents and the only one it ships. The old v1 formula happened to
+# provide both, so this covers either -- but nothing here may load v1, see Brewfile.system.darwin.
+# The remaining branches are the distro-packaged locations, for hosts where homebrew isn't the
+# provider.
 if ! shopt -oq posix; then
-  if [ -f $HOMEBREW_PREFIX/etc/bash_completion ]; then
-    . $HOMEBREW_PREFIX/etc/bash_completion
-  elif [ -f /usr/local/etc/bash_completion ]; then
-    . /usr/local/etc/bash_completion
+  if [ -f $HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh ]; then
+    . $HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh
   elif [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
