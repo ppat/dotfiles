@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #MISE description="Reconcile installed kubectl plugins against the declared krew plugin list"
 #MISE tools=["aqua:kubernetes/kubectl", "aqua:kubernetes-sigs/krew"]
-#USAGE flag "--plugin-file <plugin_file>" help="newline-delimited list of krew plugins to install" default="{{ .chezmoi.homeDir }}/.config/mise/data/krew-plugins.txt"
+#USAGE flag "--plugin-file <plugin_file>" help="newline-delimited list of krew plugins to install" default="{{ .chezmoi.homeDir }}/.local/share/dotfiles/krew-plugins.txt"
 #USAGE flag "--krew-root <krew_root>" help="krew installation root" default="{{ .chezmoi.homeDir }}/.krew"
 #
 # ---------------------------------------------------------------------------------------------------

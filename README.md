@@ -43,7 +43,7 @@ The repository integrates several specialized tools:
 
 - **[Krew](https://krew.sigs.k8s.io/)**: Manages kubectl plugins (ctx, ns, stern, etc.)
   - Uses a simple text file listing required plugins
-  - Packages: [krew-plugins.txt](krew-plugins.txt)
+  - Packages: [.local/share/dotfiles/krew-plugins.txt](private_dot_local/share/dotfiles/krew-plugins.txt)
 
 ## Getting Started
 

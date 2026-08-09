@@ -1,10 +1,22 @@
 #!/usr/bin/env bash
-# Thin wrapper: chezmoi owns *when* this runs, the mise task owns *what* it does.
+# =====================================================================================================
+# PoC #747 verdict: SCRIPT form, not a mise task. See poc/README.md and poc/747-krew-task-form/ for the
+# counterfactual this was judged against (kept in-tree, .chezmoiignore'd, not deployed).
 #
-# `run_after_` (not `run_onchange_`) is deliberate. `run_onchange_` hashes the rendered *wrapper*, so a
-# change confined to the task file would leave the hash untouched and the work would silently never
-# re-run (#747 §C5). Since this wrapper's body never changes, `run_onchange_` would mean "run once,
-# ever". `run_after_` keeps today's semantics: reconcile on every apply.
+# The improvements over the pre-PoC script are exactly the two the task form would otherwise be credited
+# with, so that the comparison was not rigged:
+#
+#   P3 (tool resolution) -- `eval "$(mise activate bash)"` plus two `command -v` guards are replaced by
+#      a single `mise exec <tools> --` re-exec. This is the script-form equivalent of a task's
+#      `tools = [...]`: mise resolves (and installs) the tools against the same config.toml pins and
+#      hands the body a PATH that already has them. Verified from a bare PATH=/usr/bin:/bin.
+#
+#   D4 (typed named parameters) -- the identical `#USAGE` header a mise task would carry, parsed by
+#      `usage bash`. `usage` is a plain `[tools]` entry, not a mise-task feature. Verified: same
+#      `usage_*` env vars, same `--help` rendering, same rejection of unknown flags.
+# =====================================================================================================
+#USAGE flag "--plugin-file <plugin_file>" help="newline-delimited list of krew plugins to install" default="{{ .chezmoi.homeDir }}/.local/share/dotfiles/krew-plugins.txt"
+#USAGE flag "--krew-root <krew_root>" help="krew installation root" default="{{ .chezmoi.homeDir }}/.krew"
 set -euo pipefail
 
 set -o allexport
@@ -15,12 +27,79 @@ export PATH=$HOME/.local/bin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PAT
 
 {{ template "script_header.sh" . }}
 
-main() {
+# Re-exec once, under mise's toolset and usage's argument parser. Everything below the guard runs with
+# kubectl/krew on PATH and the `usage_*` variables populated -- the same two guarantees `mise run` gives
+# a file task, obtained without one.
+if [[ -z "${DOTFILES_KREW_BOOTSTRAPPED:-}" ]]; then
   if ! command -v mise > /dev/null; then
     log_error "Krew Plugins | Mise binary is not in path, cannot proceed!"
     exit 1
   fi
-  mise run dotfiles:krew
+  export DOTFILES_KREW_BOOTSTRAPPED=1
+  exec mise exec "aqua:kubernetes/kubectl" "aqua:kubernetes-sigs/krew" usage \
+    -- usage bash "${BASH_SOURCE[0]}" "$@"
+fi
+
+# `usage_*` are injected by the argument parser, so shellcheck cannot see them assigned. Identical cost
+# in the task form -- it is a property of `usage`, not of mise tasks.
+# shellcheck disable=SC2154
+export KREW_ROOT="${usage_krew_root}"
+# shellcheck disable=SC2154
+readonly PLUGIN_FILE="${usage_plugin_file}"
+export PATH="${KREW_ROOT}/bin:${PATH}"
+
+krew_prerequisites() {
+  log_info "Krew Plugins | Initializing krew..."
+  if [[ ! -r "${PLUGIN_FILE}" ]]; then
+    log_error "Krew Plugins | Plugin list not readable: ${PLUGIN_FILE}"
+    exit 1
+  fi
+  if [[ ! -d "${KREW_ROOT}/bin" ]]; then
+    log_info "Krew Plugins | Creating directories..."
+    mkdir -p "${KREW_ROOT}/bin"
+  fi
+}
+
+update_krew_index() {
+  log_info "Krew Plugins | Updating index..."
+  kubectl krew update
+}
+
+install_or_upgrade_plugins() {
+  log_info "Krew Plugins | Detecting installed krew plugins..."
+  local installed_list
+  installed_list=$(mktemp -t "krew.installed.XXXXX")
+  # shellcheck disable=SC2064
+  trap "rm -f '$installed_list'" EXIT
+  kubectl krew list > "$installed_list"
+  echo
+  log_info "Krew Plugins | Upgrading existing plugins..."
+  kubectl krew upgrade --no-update-index
+  echo
+  log_info "Krew Plugins | Installing new plugins..."
+  while read -r plugin; do
+    if [[ -n "$plugin" && ! "$plugin" =~ ^# ]]; then
+      if ! grep -qx "$plugin" "$installed_list"; then
+        kubectl krew install --no-update-index "$plugin"
+      fi
+    fi
+  done < "${PLUGIN_FILE}"
+  log_success "Krew Plugins | Krew plugins installed successfully!"
+}
+
+display_installed_plugins() {
+  log_info "Krew Plugins | Display installed packages..."
+  kubectl krew list | column -t
+}
+
+main() {
+  krew_prerequisites
+  echo
+  update_krew_index
+  echo
+  install_or_upgrade_plugins
+  echo
+  display_installed_plugins
   echo "-------------------------------------------------------------------------------------------"
   echo
 }
