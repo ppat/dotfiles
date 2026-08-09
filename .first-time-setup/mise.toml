@@ -3,7 +3,7 @@ cargo-binstall          = "1.21.1"
 go                      = "1.26.5"
 node                    = "24.18.1"
 rust                    = "1.95.0"
-"aqua:bitwarden/sdk-sm" = "1.0.0"
+"aqua:bitwarden/sdk-sm" = "2.1.0"
 
 [settings]
 lockfile = true
