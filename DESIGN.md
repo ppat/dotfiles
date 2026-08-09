@@ -21,9 +21,9 @@ flowchart TD
         Prompt["prompt once: name, email, bwsAccessToken"]
     end
     Prompt --> Render["render every .tmpl\n(.chezmoi.os, .chezmoi.homeDir, bitwardenSecrets)"]
-    Render --> Before["run_before_* scripts\n(homebrew, mise first-time)"]
+    Render --> Before["run_before_* scripts\n(homebrew, mise install)"]
     Before --> Write["write rendered dotfiles to $HOME"]
-    Write --> After["run_after_* scripts\n(mise standard, krew, docker, completions, kubeconfig)"]
+    Write --> After["run_after_* scripts\n(mise upgrade, krew, docker, completions, kubeconfig)"]
     After --> OnChange["run_onchange_* scripts\n(macOS defaults, launch agents —\nonly re-run when their own rendered content changes)"]
 
     Update["chezmoi update\n(day-to-day)"] -.->|git pull, then same pipeline| Render
@@ -70,21 +70,39 @@ maintain a lockfile at the time, so it couldn't give the same checksum guarantee
 `checksum.require_checksum` did. Mise's lockfile support closed that gap, so the two-package-manager split
 above reflects the current (not original) architecture — see git history for the migration.
 
-## First-time vs. standard setup
+## Mise setup: install before the render, maintain after
 
-Chezmoi scripts split into `run_before_NN_*` (before dotfiles are written) and `run_after_NN_*` (after). Within
-that, the Mise scripts fork into a `First-Time` path and a `Standard` path (see
-`.chezmoitemplates/script_mise.sh`):
+Chezmoi scripts split into `run_before_NN_*` (before the rendered dotfiles are written to `$HOME`) and
+`run_after_NN_*` (after). Mise appears on both sides of that line for exactly one reason: **`bws` has to exist
+before any template calling `bitwardenSecrets` is rendered**, and rendering happens in the write phase, after
+`run_before_*` has run.
 
-- **First-time**: destructive — wipes and reinitializes the tool's global config directory from
-  `.first-time-setup/`, then does a fresh install. Runs once, guarded by a sentinel file
-  (`.first-time-setup-complete`) so it never repeats.
-- **Standard**: idempotent maintenance — upgrades installed packages, then prunes/vacuums anything unused. Safe
-  to run on every `chezmoi update`.
+- **`run_before_20_mise-install`** — one `mise install` against the repo's single `config.toml`, then copies the
+  resulting `bws` binary into `~/.local/bin` so the render phase (and every later script) can call it without
+  mise activation. `~/.config/mise/config.toml` hasn't been written yet at this point, so mise is pointed at the
+  source-of-truth config via `MISE_GLOBAL_CONFIG_FILE` — specifically at a throwaway *copy* of it, because mise
+  rewrites `mise.lock` next to whichever config file it is handed, and the chezmoi source directory is a git
+  clone that `chezmoi update` pulls into. A lockfile dirtied there would break the next pull.
+- **`run_after_20_mise-upgrade`** — idempotent maintenance against the now-deployed
+  `~/.config/mise/config.toml`: refresh `mise.lock` from source (picking up Renovate-driven checksum bumps),
+  `mise upgrade`, then prune anything no longer declared. Safe on every `chezmoi update`.
 
-This split exists because a fresh machine and a years-old machine need different things: a fresh machine needs
-its config directory seeded from a known-good state, not whatever partial state a previous half-run left behind,
-while an established machine must never have its config directory wiped just because `chezmoi update` ran again.
+That same "mise owns the lockfile" property is why `mise.lock` is `.chezmoiignore`d and copied explicitly by the
+script instead of being deployed as a chezmoi target. mise rewrites the deployed `~/.config/mise/mise.lock`
+whenever it has to lock something that file doesn't already cover — not on every run (with the lockfile in sync,
+`mise upgrade`/`mise prune` leave it byte-identical), but on any run where `config.toml` is ahead of it. Measured
+with the file managed rather than ignored: one `chezmoi apply --force` left it modified, and the next
+non-interactive apply hard-failed on "has changed since chezmoi last wrote it" with no TTY to answer on. It looks
+like untidiness; it is load-bearing.
+
+There is deliberately **no** first-run special case — no seed config, no sentinel file, no wiping of the mise
+config directory. An earlier design staged fresh machines in two passes on the assumption that `npm:`/`pipx:`/
+`cargo:` entries need `node`/`bun`/`uv`/`cargo-binstall` installed by an earlier pass. That premise is false:
+mise sequences its own backends. Measured on a container with mise 2026.8.3 and no ambient
+`node`/`bun`/`uv`/`python3`/`cargo`, a single `mise install` against this repo's config installed all 49 tools
+in ~27s, exit 0, with `mise ls --missing` empty afterwards. Nothing needs sequencing, so nothing needs a second
+pass — and the destructive re-initialization of the config directory that the "a fresh machine needs a
+known-good starting state" story justified goes away with it.
 
 ## Secrets: Bitwarden Secrets Manager, not plaintext
 

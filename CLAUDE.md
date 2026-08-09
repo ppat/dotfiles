@@ -32,14 +32,11 @@ go stale as scripts are added); this is the stable, abstract shape underneath ev
 ├── .chezmoiscripts/                          # the only place imperative setup logic lives (install/upgrade
 │                                             # tools, generate what can't just be templated). Numeric prefix
 │                                             # = execution order; run_before_* / run_after_* = before/after
-│                                             # dotfiles are written; first-time vs. standard (see DESIGN.md)
-│                                             # are separate files, not a branch in one script
+│                                             # dotfiles are written (see DESIGN.md for why mise appears on
+│                                             # both sides of that boundary)
 ├── .chezmoitemplates/                        # cross-cutting snippets (env vars, shared shell functions)
 │                                             # included by >1 file in .chezmoiscripts/ — factor duplication
 │                                             # between scripts here, not by copy-pasting between scripts
-├── .first-time-setup/                        # seed config consumed once by the matching first-time script,
-│                                             # then never read again. Not the live config — that's under
-│                                             # private_dot_config/
 └── root-level loose files                    # machine-wide inputs that aren't themselves deployed as
                                               # dotfiles (Brewfile.*, krew-plugins.txt, .chezmoi.toml.tmpl),
                                               # or apply to the repo itself rather than to $HOME (lint

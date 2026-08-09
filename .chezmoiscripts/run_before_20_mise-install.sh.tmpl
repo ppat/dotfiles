@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "mise.env" . -}}
+{{ template "node.env" . -}}
+{{ template "homebrew.env" . -}}
+set +o allexport
+export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+
+{{ template "script_header.sh" . }}
+{{ template "script_mise.sh" . }}
+
+
+# run_before_* scripts run before chezmoi writes ~/.config/mise/config.toml, so mise has to be pointed at the
+# source-of-truth config in the chezmoi source directory for this run. It is handed a throwaway *copy* rather
+# than the source file itself because mise rewrites mise.lock next to whichever config it is given, and the
+# source directory is a git clone that `chezmoi update` pulls into -- see the mise.lock note in DESIGN.md.
+bootstrap_mise_config() {
+  local source_dir="{{ .chezmoi.sourceDir }}/private_dot_config/mise"
+  local bootstrap_dir
+  bootstrap_dir="$(mktemp -d)"
+  cp "${source_dir}/config.toml" "${bootstrap_dir}/config.toml"
+  cp "${source_dir}/mise.lock" "${bootstrap_dir}/mise.lock"
+  echo "${bootstrap_dir}"
+}
+
+main() {
+  mise_prerequisites
+
+  local bootstrap_dir
+  bootstrap_dir="$(bootstrap_mise_config)"
+  # shellcheck disable=SC2064  # expand bootstrap_dir now, the trap must not depend on later scope
+  trap "rm -rf '${bootstrap_dir}'" EXIT
+  export MISE_GLOBAL_CONFIG_FILE="${bootstrap_dir}/config.toml"
+
+  log_info "Mise | Installing tools from {{ .chezmoi.sourceDir }}/private_dot_config/mise/config.toml..."
+  show_mise_env
+  echo
+
+  install_mise_packages | sed -E 's|^(.*)|    \1|g'
+  echo
+  display_installed_mise_packages
+  echo
+
+  log_info "Mise | Making chezmoi dependencies (bws) available without mise activation..."
+  mkdir -p "$HOME/.local/bin"
+  cp "$(mise which bws)" "$HOME/.local/bin/bws"
+  echo
+
+  log_success "Mise | Install complete!"
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main
