@@ -13,28 +13,21 @@ export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/b
 
 
 main() {
-  local setup_type="Standard"
-
-  mise_prerequisites $setup_type
-  show_mise_env $setup_type
+  mise_prerequisites
+  show_mise_env
   echo
 
-  if ! [[ -d "$MISE_CACHE_DIR" && -d "$MISE_DATA_DIR" && -d "$MISE_STATE_DIR" ]]; then
-    log_error "Mise | $setup_type | First time setup has not been run, cannot run standard setup..."
-    exit 1
-  fi
-
-  log_info "Mise | $setup_type | Refreshing mise.lock from source (picks up Renovate-driven checksum updates)..."
+  log_info "Mise | Refreshing mise.lock from source (picks up Renovate-driven checksum updates)..."
   cp {{ .chezmoi.sourceDir }}/private_dot_config/mise/mise.lock "$(dirname "${MISE_GLOBAL_CONFIG_FILE}")/mise.lock"
   echo
 
-  setup_mise_packages $setup_type | sed -E 's|^(.*)|    \1|g'
+  upgrade_mise_packages | sed -E 's|^(.*)|    \1|g'
   echo
-  log_success "Mise | $setup_type | Pruning unused packages..."
+  log_success "Mise | Pruning unused packages..."
   mise prune --yes 2>&1 | sed -E 's|^(.*)|    \1|g'
   echo
-  display_installed_mise_packages $setup_type
-  log_success "Mise | $setup_type | Complete!"
+  display_installed_mise_packages
+  log_success "Mise | Upgrade complete!"
   echo "-------------------------------------------------------------------------------------------"
   echo
 }
