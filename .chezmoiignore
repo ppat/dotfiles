@@ -2,6 +2,14 @@ Brewfile*
 krew-plugins.txt
 mise.toml
 README.md
+
+# Keep mise.lock out of chezmoi's deploy path (#728) -- still required after the single-install collapse.
+# mise rewrites ~/.config/mise/mise.lock in place whenever it has to lock something the deployed lockfile
+# doesn't already cover, which is exactly what run_after_20_mise-upgrade asks it to do. Verified on a
+# throwaway pod from this branch: with this line removed, one `chezmoi apply --force` left
+# `MM .config/mise/mise.lock` behind, and the next non-interactive apply hard-failed -- chezmoi asked
+# "has changed since chezmoi last wrote it?" with no TTY to answer on. With the line in place the same
+# sequence is clean. run_after_20_mise-upgrade copies the file in from the source directory instead.
 .config/mise/mise.lock
 
 # Do not collapse this homeDir guard into `eq .chezmoi.os "linux"`. The implication only runs one way: a coder
