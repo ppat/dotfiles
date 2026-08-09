@@ -24,8 +24,29 @@ main() {
     exit 1
   fi
 
-  log_info "Mise | $setup_type | Refreshing mise.lock from source (picks up Renovate-driven checksum updates)..."
-  cp {{ .chezmoi.sourceDir }}/private_dot_config/mise/mise.lock "$(dirname "${MISE_GLOBAL_CONFIG_FILE}")/mise.lock"
+  # The lockfile is .chezmoiignore'd (#728) precisely so chezmoi never manages it as a normal
+  # target -- doing so produced drift on every run and hard-failed non-interactively. This `cp`
+  # is how a Renovate-driven checksum bump in the source-of-truth lockfile reaches the machine
+  # *before* `mise upgrade` verifies against it below, and that guarantee is load-bearing: do
+  # not remove the cp, and do not make chezmoi manage mise.lock instead.
+  #
+  # It IS conditional on content, not unconditional, because `~/.config/mise/mise.lock` is a
+  # declared `#MISE sources=` entry of the dotfiles:completions task, and mise's staleness check
+  # for that task is mtime-based. An unconditional `cp` bumped the destination's mtime on every
+  # apply even when the bytes were identical, which made dotfiles:completions re-run every time
+  # instead of ever reporting "sources up-to-date, skipping" -- defeating the caching that task
+  # exists to demonstrate (PoC #747 acceptance criterion 9). Comparing first means an unchanged
+  # lockfile leaves the destination's mtime untouched, while a genuinely changed one still lands
+  # before `mise upgrade` runs, exactly as before. If you're tempted to simplify this back to a
+  # bare `cp`, don't -- that reintroduces the criterion-9 regression this comment is about.
+  local mise_lock_src="{{ .chezmoi.sourceDir }}/private_dot_config/mise/mise.lock"
+  local mise_lock_dst="$(dirname "${MISE_GLOBAL_CONFIG_FILE}")/mise.lock"
+  if [[ -f "$mise_lock_dst" ]] && cmp -s "$mise_lock_src" "$mise_lock_dst"; then
+    log_info "Mise | $setup_type | mise.lock already matches source, leaving destination mtime untouched (preserves dotfiles:completions caching)..."
+  else
+    log_info "Mise | $setup_type | Refreshing mise.lock from source (picks up Renovate-driven checksum updates)..."
+    cp "$mise_lock_src" "$mise_lock_dst"
+  fi
   echo
 
   setup_mise_packages $setup_type | sed -E 's|^(.*)|    \1|g'
