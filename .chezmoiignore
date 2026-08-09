@@ -4,6 +4,27 @@ mise.toml
 README.md
 .config/mise/mise.lock
 
+# .config/mise/conf.d/{linux,darwin}.toml are plain (non-.tmpl) files, so chezmoi would otherwise
+# copy both to every OS verbatim. Only the overlay matching the current OS may land: a wrong-OS
+# overlay is not a no-op here, it's a hard `mise` error (e.g. brew-cask casks fail outright on
+# Linux; "mise bootstrap plan --detailed-exitcode" returns 1 instead of 0/2 -- #747 fact 2).
+# Excluding with `ne` (rather than keeping with `eq`) means an OS this repo doesn't target (i.e.
+# neither "linux" nor "darwin") drops both overlays instead of guessing -- it fails safe onto the
+# ~50 common [tools] entries rather than risking the wrong platform-specific one landing.
+{{- if ne .chezmoi.os "linux" }}
+.config/mise/conf.d/linux.toml
+{{- end }}
+{{- if ne .chezmoi.os "darwin" }}
+.config/mise/conf.d/darwin.toml
+{{- end }}
+
+# NOT collapsed to `eq .chezmoi.os "linux"` even though every current coder workspace is Linux:
+# the implication only runs one way. A coder workspace is always Linux, but Linux is not always a
+# coder workspace -- GitHub Actions runners (/home/runner) and #747's own test pods are both Linux
+# and neither is a coder workspace. Collapsing this guard would start applying private_Library/**
+# in CI and in throwaway test pods, which is a behaviour change, not a tidy-up. (#747 §1 floated
+# this as "a proxy for os == linux ... optional cleanup" -- that reading is wrong; confirmed by the
+# repo owner. Leave it keyed on homeDir.)
 {{- if eq .chezmoi.homeDir "/home/coder" }}
 Library/
 {{- end }}

@@ -1,2 +1,9 @@
+# conf.d overlays load in alphabetical filename order, and for a key defined in more than one
+# overlay, the alphabetically FIRST file wins (observed: 10-a.toml's value beat 20-b.toml and
+# 30-c.toml) -- the inverse of the sudoers.d/systemd drop-in convention where later/higher-numbered
+# wins. This doesn't matter today: .chezmoiignore never lets linux.toml and darwin.toml coexist on
+# the same machine. It will matter the moment a second darwin-*.toml (or linux-*.toml) is added.
+
 [tools]
-just = "1.42.4"
+mas = "7.0.0" # aqua:mas-cli/mas -- macOS App Store CLI, macOS-only by nature (#747).
+              # Additive: Brewfile.system.darwin's `mas` cask stays for this phase; dropping it is phase 2.

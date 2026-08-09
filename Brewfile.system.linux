@@ -11,5 +11,7 @@ brew "uv"
 # Dotfile Manager
 brew "chezmoi"
 
-# Fonts are installed via .chezmoiscripts/run_after_32_fonts.sh.tmpl on Linux -
-# Homebrew font casks download into the Caskroom but never reach fontconfig here.
+# Fonts are installed via `[bootstrap.packages]` in private_dot_config/mise/conf.d/linux.toml on
+# Linux (applied by run_after_20_mise-standard.sh.tmpl), not via Homebrew casks: Homebrew font
+# casks download into the Caskroom but never reach fontconfig here. mise itself writes straight
+# into $XDG_DATA_HOME/fonts, which is why it works where a `brew` cask wouldn't (#747).

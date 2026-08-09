@@ -1,2 +1,17 @@
+# See conf.d/darwin.toml for the conf.d precedence note (alphabetically FIRST-wins).
+
 [tools]
-jq = "1.7.1"
+"aqua:containerd/nerdctl" = "2.3.5" # linux/windows-only per the aqua registry's supported_envs
+                                     # (no darwin version_override, no darwin release asset has ever
+                                     # existed) -- categorically Linux-only, not merely unused on darwin.
+
+# mise writes these straight into $XDG_DATA_HOME/fonts (defaults to ~/.local/share/fonts) itself --
+# it is NOT shelling out to `brew install --cask`. That distinction matters: Homebrew casks only
+# populate the Caskroom and never reach fontconfig on Linux, which is *still true of Homebrew* and
+# is exactly why .chezmoiscripts/run_after_32_fonts.sh.tmpl existed (curl+unzip+fc-cache, deleted by
+# #747 -- see git history). If a future reader sees this working and concludes the original
+# Homebrew-casks-don't-reach-fontconfig finding was wrong, it wasn't -- mise just isn't using brew
+# here. Homebrew's own font casks (Brewfile.system.darwin) are untouched; macOS is untested by #747.
+[bootstrap.packages]
+"brew-cask:font-fira-code-nerd-font" = "latest"
+"brew-cask:font-jetbrains-mono-nerd-font" = "latest"
