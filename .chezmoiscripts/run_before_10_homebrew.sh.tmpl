@@ -48,12 +48,35 @@ manage_homebrew_system_packages() {
   log_success "Homebrew | Homebrew system packages have been installed."
 }
 
+cleanup_homebrew_cache() {
+  # HOMEBREW_NO_INSTALL_CLEANUP (see .chezmoitemplates/homebrew.env) turns off the automatic
+  # cleanup that races Homebrew's own parallel downloads. Reclaim the cache deterministically
+  # here instead -- unconditionally, but only once `brew bundle` is done and nothing is
+  # downloading concurrently -- so disabling that cleanup doesn't let the cache grow forever.
+  #
+  # Housekeeping must never fail a bootstrap that otherwise succeeded, and must never *look*
+  # like one either: that misreading is the whole point of this ticket. So the output is
+  # buffered and only replayed when cleanup worked; a failure collapses to a single warning
+  # and the script carries on.
+  local cleanup_log="${TMPDIR:-/tmp}/homebrew-cleanup.$$.log"
+  log_info "Homebrew | Cleaning up old versions and stale downloads..."
+  if brew cleanup > "${cleanup_log}" 2>&1; then
+    sed -E -n 's|^|    |p' "${cleanup_log}"
+    log_success "Homebrew | Homebrew cleanup completed."
+  else
+    log_warning "Homebrew | Homebrew cleanup failed; cache not reclaimed this run, continuing."
+  fi
+  rm -f "${cleanup_log}"
+}
+
 main() {
   show_homebrew_env
   echo
   manage_homebrew_package_manager
   echo
   manage_homebrew_system_packages "{{ .chezmoi.sourceDir }}/Brewfile.system.{{ .chezmoi.os }}"
+  echo
+  cleanup_homebrew_cache
   echo "-------------------------------------------------------------------------------------------"
   echo
 }
