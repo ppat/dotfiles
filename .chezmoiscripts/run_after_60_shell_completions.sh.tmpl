@@ -40,7 +40,12 @@ main() {
   helm completion bash > ~/.local/bash-completions/helm
   kubectl completion bash > ~/.local/bash-completions/kubectl
   kustomize completion bash > ~/.local/bash-completions/kustomize
-  mise completion bash --include-bash-completion-lib > ~/.local/bash-completions/mise
+  # Deliberately without --include-bash-completion-lib: that flag prepends a full ~3.5k-line copy of
+  # the bash-completion 2.x library to the generated file, for hosts that have no bash-completion at
+  # all. Here bash-completion@2 is a system package (Brewfile.system.*), so the copy is redundant --
+  # and harmful: sourcing it re-runs the framework's whole init, re-reading every file in the compat
+  # dir, and pins the loaded library to whatever version mise happens to vendor.
+  mise completion bash > ~/.local/bash-completions/mise
   zoxide init bash > ~/.local/bash-completions/zoxide
   log_success "Shell Completions | Configured."
   echo "-------------------------------------------------------------------------------------------"

@@ -1,6 +1,6 @@
 # Baseline System Packages
 brew "bash"
-brew "bash-completion"
+brew "bash-completion@2"  # v1 is bash-3.2 era and conflicts with this; run_before_10 retires it
 brew "ca-certificates"
 brew "coreutils"
 brew "curl"
