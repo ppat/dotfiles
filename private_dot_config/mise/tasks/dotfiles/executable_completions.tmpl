@@ -18,10 +18,12 @@
 # PoC (#747 C2) finding, falsifiable and reproduced against mise 2026.8.3 in a scratch rig (positive
 # and negative control, same rig): config-level `redactions` (config.toml) DOES mask a `#MISE env=`
 # value -- DOTFILES_COMPLETIONS_DUMMY_SECRET above prints as "[redacted]" in `mise run` stdout, on a
-# default run and a forced re-run alike. It does NOT mask a `#USAGE`-flag-derived `usage_*` value
-# (tried first, here, before this file's current form -- see config.toml's comment for the
-# falsification and the exact-case-sensitivity gotcha): that channel would have printed
-# --output-dir's value in the clear had it ever been named in `redactions`, default or CLI-supplied.
+# default run and a forced re-run alike. It does NOT mask a `#USAGE`-flag-derived `usage_*` value:
+# an earlier version of this file carried a second, dummy `#USAGE` flag named identically in
+# `redactions` (see config.toml's comment for the exact falsification and the
+# exact-case-sensitivity gotcha) and it printed in the clear, default and CLI-supplied alike --
+# `--output-dir` above was never itself a redaction target, it's the standing example of what
+# `#USAGE` stays good for: ordinary, non-secret parameters.
 # Root cause: `redactions` resolves against the env map built *before* #USAGE values are merged in,
 # so the #USAGE lookup never fires -- there's no separate #MISE-level syntax or sensitivity flag
 # that covers it, on this mise version. Checked mise's own debug log too, at the setting that
