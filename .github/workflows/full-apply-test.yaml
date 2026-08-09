@@ -4,18 +4,23 @@ name: full-apply-test
 
 on:
   pull_request:
+    # Broad by design: almost anything chezmoi-managed can break the pipeline (a single bad
+    # template aborts the whole apply), and a narrow allowlist just goes stale as dotfiles get
+    # added. Start from everything, exclude only what genuinely can't affect a real apply --
+    # docs, this repo's own editor/CI tooling, and lint configs -- and explicitly re-include this
+    # workflow file itself since it's excluded by the blanket .github/** rule below.
     paths:
-    - '.chezmoiscripts/**'
-    - '.chezmoitemplates/**'
-    - '.first-time-setup/**'
-    - 'private_dot_config/mise/**'
-    - 'private_dot_env*'
-    - 'Brewfile*'
-    - 'krew-plugins.txt'
-    - '.chezmoiignore'
-    - '.chezmoi.toml.tmpl'
-    - 'dot_bashrc'
+    - '**'
+    - '!**/*.md'
+    - '!.claude/**'
+    - '!.vscode/**'
+    - '!.github/**'
     - '.github/workflows/full-apply-test.yaml'
+    - '!.markdownlint-cli2.yaml'
+    - '!.pre-commit-config.yaml'
+    - '!.shellcheckrc'
+    - '!.yamllint'
+    - '!mise.toml'
   schedule:
   # Aqua and Homebrew have both broken this repo's bootstrap in the past (aqua changing
   # where it places binaries, Homebrew requiring explicit tap trust) with zero local diff
