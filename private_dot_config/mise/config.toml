@@ -23,7 +23,7 @@ uv             = "0.11.33"
 # real upstream tag from the aqua registry's own per-package version template.
 "aqua:ajeetdsouza/zoxide"        = "0.10.0"
 "aqua:aristocratos/btop"         = "1.4.7"
-"aqua:atuinsh/atuin"             = "18.17.1"
+"aqua:atuinsh/atuin"             = "18.18.1"
 "aqua:bitwarden/clients"         = "2026.7.0"
 "aqua:bitwarden/sdk-sm"          = "1.0.0"
 "aqua:bootandy/dust"             = "1.2.4"
