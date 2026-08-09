@@ -22,7 +22,10 @@ uv             = "0.12.3"
 # aqua backend resolves the exact same artifact/checksum regardless of prefix, since it reconstructs the
 # real upstream tag from the aqua registry's own per-package version template.
 "aqua:ajeetdsouza/zoxide"        = "0.10.0"
-"aqua:aristocratos/btop"         = "1.4.7"
+# Linux-only: aqua-registry's btop package declares `supported_envs: [linux]` and publishes no darwin
+# asset, so mise cannot install it on macOS -- without this filter `mise install` aborts the whole apply
+# with "unsupported env: darwin/arm64". mise.lock carries linux-* platforms only, so nothing to relock.
+"aqua:aristocratos/btop"         = { version = "1.4.7", os = ["linux"] }
 "aqua:atuinsh/atuin"             = "18.18.1"
 "aqua:bitwarden/clients"         = "2026.7.0"
 "aqua:bitwarden/sdk-sm"          = "2.1.0"
