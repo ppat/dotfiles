@@ -3,28 +3,25 @@ set -euo pipefail
 
 set -o allexport
 {{ template "mise.env" . -}}
-{{ template "krew.env" . -}}
 {{ template "homebrew.env" . -}}
 set +o allexport
-export PATH=${KREW_ROOT}/bin:$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+export PATH=$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 
 {{ template "script_header.sh" . }}
 
-# shellcheck disable=SC2016
-eval "$(mise activate bash)"
-
+# PoC (#747 C2): this wrapper stays chezmoi's -- it owns *when* (run_after_60, i.e. after dotfiles
+# are written, so mise.lock has already been refreshed from source by run_after_20_mise-standard.sh.tmpl
+# -- see that script's `cp {{ "{{" }} .chezmoi.sourceDir {{ "}}" }}/private_dot_config/mise/mise.lock ...`
+# step, which must run first or dotfiles:completions' cache key is meaningless). The task
+# (`dotfiles:completions`, ~/.config/mise/tasks/dotfiles/completions) owns *what*: it declares its
+# own `tools=`, so unlike this wrapper it does NOT need `eval "$(mise activate bash)"` first -- only
+# a bare `mise` binary on PATH, which homebrew.env's PATH export above already guarantees (mise
+# itself is Homebrew-installed, see DESIGN.md). mise.env is still sourced here because it also
+# carries MISE_CONFIG_DIR/MISE_LOG_FILE/MISE_TRUSTED_CONFIG_PATHS etc., which `mise run` needs
+# regardless of activation. krew.env is dropped: nothing in this script touches krew.
 main() {
   log_info "Shell Completions | Setting up..."
-  if [[ ! -d ~/.local/bash-completions ]]; then
-    mkdir ~/.local/bash-completions
-  fi
-  flux completion bash > ~/.local/bash-completions/flux
-  gh completion -s bash > ~/.local/bash-completions/gh
-  helm completion bash > ~/.local/bash-completions/helm
-  kubectl completion bash > ~/.local/bash-completions/kubectl
-  kustomize completion bash > ~/.local/bash-completions/kustomize
-  mise completion bash --include-bash-completion-lib > ~/.local/bash-completions/mise
-  zoxide init bash > ~/.local/bash-completions/zoxide
+  mise run dotfiles:completions 2>&1 | sed -E 's|^(.*)|    \1|g'
   log_success "Shell Completions | Configured."
   echo "-------------------------------------------------------------------------------------------"
   echo

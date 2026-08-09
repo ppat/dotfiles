@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+#MISE description="Generate bash completions for flux, gh, helm, kubectl, kustomize, mise, and zoxide"
+#MISE sources=["{{ .chezmoi.homeDir }}/.config/mise/config.toml", "{{ .chezmoi.homeDir }}/.config/mise/mise.lock"]
+#MISE outputs=["{{ .chezmoi.homeDir }}/.local/bash-completions/flux", "{{ .chezmoi.homeDir }}/.local/bash-completions/gh", "{{ .chezmoi.homeDir }}/.local/bash-completions/helm", "{{ .chezmoi.homeDir }}/.local/bash-completions/kubectl", "{{ .chezmoi.homeDir }}/.local/bash-completions/kustomize", "{{ .chezmoi.homeDir }}/.local/bash-completions/mise", "{{ .chezmoi.homeDir }}/.local/bash-completions/zoxide"]
+# PoC (#747 C2): bare names, no version pins. Confirmed empirically that mise resolves each of
+# these against whatever version is already pinned in the ambient [tools] table in config.toml --
+# even where the config key is a full backend spec ("aqua:cli/cli") rather than the bare registry
+# name ("gh") used here. That keeps the version pin single-sourced in config.toml (Renovate-managed)
+# instead of duplicated in this task. "mise" is the one exception: config.toml has no [tools] entry
+# for mise itself (it's seeded by run_before_20_mise-first-time, not Renovate-managed here), so this
+# resolves to whatever "mise" is already first on PATH rather than a pinned/installed copy -- it
+# documents intent but does not actually pin a version. Declaring these removes the need for the
+# caller to have run `eval "$(mise activate bash)"` first (see #728) -- four scripts still do that.
+#MISE tools=["flux", "gh", "helm", "kubectl", "kustomize", "mise", "zoxide"]
+#USAGE flag "--output-dir <dir>" default="{{ .chezmoi.homeDir }}/.local/bash-completions" help="Directory to write generated completion scripts into"
+#USAGE flag "--dummy-param <value>" default="not-a-real-secret" help="Non-secret stand-in for the bitwardenSecrets values phase 5 will pass through this same usage-flag channel; declared in config.toml's [redactions] to probe whether that masks it"
+
+# PoC (#747 C2) finding, falsifiable and reproduced: config-level `redactions = ["usage_dummy_param"]`
+# in config.toml does NOT mask this value below. Verified against mise 2026.8.3:
+#   - A plain `#MISE env={NAME="secret"}` var named in `redactions` DOES print as "[redacted]".
+#   - This `usage_dummy_param` (mise's own env var for a #USAGE flag value), named identically in
+#     `redactions`, prints in the clear -- for both the default above and an explicit
+#     `--dummy-param` on the command line, forced re-run included.
+#   - Neither case appears in mise's own debug log (~/.log/mise.log) at MISE_LOG_FILE_LEVEL=debug --
+#     but that's because task stdout is never mirrored into that log at all, in the working case
+#     as well as the broken one. So "0 occurrences in the debug log" does not, by itself, mean
+#     redaction is working; the log was never the leak surface. Stdout is, and there it leaks.
+# Net: mise's redaction channel does not yet cover #USAGE-derived values, only config/task
+# `env`-directive values. Phase 5 wants to pass `bitwardenSecrets` through the #USAGE channel
+# specifically -- as designed, that would ship secrets to stdout unmasked. This needs a decision
+# before phase 5, not silent hope that it's fixed by then. See the vehicle's report for detail.
+
+set -euo pipefail
+
+# shellcheck disable=SC2154 # usage_output_dir is injected by mise's #USAGE parsing at run time
+output_dir="${usage_output_dir}"
+# shellcheck disable=SC2154 # usage_dummy_param is injected by mise's #USAGE parsing at run time
+echo "dotfiles:completions | dummy param received (expected to leak -- see comment above): ${usage_dummy_param}"
+
+mkdir -p "${output_dir}"
+
+flux completion bash > "${output_dir}/flux"
+gh completion -s bash > "${output_dir}/gh"
+helm completion bash > "${output_dir}/helm"
+kubectl completion bash > "${output_dir}/kubectl"
+kustomize completion bash > "${output_dir}/kustomize"
+# #728: this file must be written before zoxide's below, and the two must target different
+# filenames ("mise" vs "zoxide"). The original bug had zoxide's line targeting "mise", clobbering
+# the completion written here. If either the target filename or the ordering is changed again,
+# this silently reintroduces that bug -- neither command errors, only one file ends up wrong.
+mise completion bash --include-bash-completion-lib > "${output_dir}/mise"
+zoxide init bash > "${output_dir}/zoxide"
+
+echo "dotfiles:completions | wrote 7 completion files to ${output_dir}"
