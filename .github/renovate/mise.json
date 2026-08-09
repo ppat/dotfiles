@@ -4,7 +4,6 @@
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
-        ".first-time-setup/mise.toml",
         "mise.toml"
       ],
       "matchManagers": [
@@ -27,7 +26,6 @@
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
-        ".first-time-setup/mise.toml",
         "mise.toml"
       ],
       "matchManagers": [
@@ -50,7 +48,6 @@
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
-        ".first-time-setup/mise.toml",
         "mise.toml"
       ],
       "matchManagers": [
@@ -69,7 +66,6 @@
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
-        ".first-time-setup/mise.toml",
         "mise.toml"
       ],
       "matchManagers": [
@@ -90,7 +86,6 @@
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
-        ".first-time-setup/mise.toml",
         "mise.toml"
       ],
       "matchManagers": [
@@ -104,7 +99,6 @@
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
-        ".first-time-setup/mise.toml",
         "mise.toml"
       ],
       "matchManagers": [
@@ -118,7 +112,6 @@
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
-        ".first-time-setup/mise.toml",
         "mise.toml"
       ],
       "matchManagers": [
