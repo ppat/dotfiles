@@ -5,7 +5,7 @@ set -o allexport
 {{ template "mise.env" . -}}
 {{ template "homebrew.env" . -}}
 set +o allexport
-export PATH=${MISE_DATA_DIR}/shims:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 {{ if eq .chezmoi.os "darwin" }}
 export LITELLM_APIKEY="{{ (bitwardenSecrets "b443797d-f93f-4e01-a8ae-b49100825b18" .bwsAccessToken).value }}"
 {{ else }}
@@ -14,6 +14,19 @@ export LITELLM_APIKEY="{{ (bitwardenSecrets "3d97880e-879d-48ed-aa1c-b4910081d2e
 export DOMAIN_NAME="{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}"
 
 {{ template "script_header.sh" . }}
+
+# Re-enter this script once under `mise exec`, so the tools it needs are resolved (and installed if
+# missing) and placed on PATH. The sentinel env var makes the re-entry happen exactly once.
+# NOTE: `jq` has no pin in private_dot_config/mise/config.toml, so it resolves to the latest release
+# rather than a mise.lock-verified version -- unlike every other spec named across these scripts.
+if [[ -z "${DOTFILES_CLAUDE_BOOTSTRAPPED:-}" ]]; then
+  if ! command -v mise > /dev/null; then
+    log_error "Claude Code | Mise binary is not in path, cannot proceed!"
+    exit 1
+  fi
+  export DOTFILES_CLAUDE_BOOTSTRAPPED=1
+  exec mise exec "npm:@anthropic-ai/claude-code" "jq" -- "${BASH_SOURCE[0]}" "$@"
+fi
 
 configure_mcp_servers() {
   for mcp in context7 github grafana home_assistant kubernetes_homelab kubernetes_nas kubernetes_sandbox playwright unifi_network unifi_protect; do
@@ -53,11 +66,6 @@ configure_plugins() {
 }
 
 main() {
-  if ! command -v claude > /dev/null; then
-    log_error "Claude Code | Claude binary is not in path, cannot proceed!"
-    exit 1
-  fi
-
   log_info "Claude Code | Configuring MCP servers..."
   configure_mcp_servers 2>&1 | sed -E 's|^(.*)|    \1|g'
   echo

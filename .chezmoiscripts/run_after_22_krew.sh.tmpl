@@ -10,19 +10,21 @@ export PATH=${KREW_ROOT}/bin:$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/l
 
 {{ template "script_header.sh" . }}
 
-# shellcheck disable=SC2016
-eval "$(mise activate bash)"
+# Re-enter this script once under `mise exec`, so the tools it needs are resolved (and installed if
+# missing) at their config.toml-pinned versions and placed on PATH. The sentinel env var makes the
+# re-entry happen exactly once. The `kubectl-krew` alias krew needs comes from the mise `postinstall`
+# hook on `aqua:kubernetes-sigs/krew` in private_dot_config/mise/config.toml.
+if [[ -z "${DOTFILES_KREW_BOOTSTRAPPED:-}" ]]; then
+  if ! command -v mise > /dev/null; then
+    log_error "Krew Plugins | Mise binary is not in path, cannot proceed!"
+    exit 1
+  fi
+  export DOTFILES_KREW_BOOTSTRAPPED=1
+  exec mise exec "aqua:kubernetes/kubectl" "aqua:kubernetes-sigs/krew" -- "${BASH_SOURCE[0]}" "$@"
+fi
 
 krew_prerequisites() {
   log_info "Krew Plugins | Initializing krew..."
-  if ! command -v kubectl > /dev/null; then
-    log_error "Krew Plugins | Kubectl binary is not in path, cannot proceed!"
-    exit 1
-  fi
-  if ! command -v kubectl-krew > /dev/null; then
-    log_error "Krew Plugins | Krew binary is not in path, cannot proceed!"
-    exit 1
-  fi
   if [[ ! -d $KREW_ROOT/bin ]]; then
     log_info "Krew Plugins | Creating directories..."
     mkdir -p $KREW_ROOT/bin

@@ -10,8 +10,25 @@ export PATH=${KREW_ROOT}/bin:$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/l
 
 {{ template "script_header.sh" . }}
 
-# shellcheck disable=SC2016
-eval "$(mise activate bash)"
+# Re-enter this script once under `mise exec`, so the tools it needs are resolved (and installed if
+# missing) at their config.toml-pinned versions and placed on PATH. The sentinel env var makes the
+# re-entry happen exactly once. `mise` itself is deliberately not listed as a spec -- it is the binary
+# doing the exec'ing, so it is already on PATH in the re-entered process.
+if [[ -z "${DOTFILES_SHELL_COMPLETIONS_BOOTSTRAPPED:-}" ]]; then
+  if ! command -v mise > /dev/null; then
+    log_error "Shell Completions | Mise binary is not in path, cannot proceed!"
+    exit 1
+  fi
+  export DOTFILES_SHELL_COMPLETIONS_BOOTSTRAPPED=1
+  exec mise exec \
+    "aqua:fluxcd/flux2" \
+    "aqua:cli/cli" \
+    "aqua:helm/helm" \
+    "aqua:kubernetes/kubectl" \
+    "aqua:kubernetes-sigs/kustomize" \
+    "aqua:ajeetdsouza/zoxide" \
+    -- "${BASH_SOURCE[0]}" "$@"
+fi
 
 main() {
   log_info "Shell Completions | Setting up..."
