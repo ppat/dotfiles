@@ -84,6 +84,49 @@ phases build on them at scale. Full reasoning and falsification steps: ticket #7
 hard `mise` error on this mise version (e.g. `brew-cask:` entries fail outright on Linux;
 `mise bootstrap plan --detailed-exitcode` returns 1 instead of 0/2), not a harmless no-op.
 
+**A `[tools]` entry needs a matching `mise.lock` entry, or the apply never converges.** Adding
+`"aqua:containerd/nerdctl" = "2.3.5"` to `conf.d/linux.toml` without regenerating
+`private_dot_config/mise/mise.lock` (an actual gap in this PoC, caught in a real pod, not a hypothetical) does
+not fail loudly — it fails by never settling. `run_after_20_mise-standard.sh.tmpl` copies the committed
+lockfile onto the machine and only then runs `mise upgrade --yes`; `mise upgrade` happily adds the missing
+tool's entries to that *live* copy, but nothing ever writes them back into the repo. The next apply overwrites
+the live lockfile with the (still-incomplete) committed one, `mise upgrade` re-adds the same entries, and the
+cycle repeats forever. Three concrete costs, not just tidiness: (1) it never converges — the live lockfile
+permanently differs from source-of-truth on every single apply; (2) `dotfiles:completions` declares
+`~/.config/mise/mise.lock` as a `#MISE sources=` input, so a lockfile whose mtime changes on every apply
+cache-busts that task forever, for a reason that has nothing to do with the task itself; (3) until the entry
+exists in the lockfile, that tool installs **unverified** — `[settings] lockfile = true` and the checked-in
+lockfile are this repo's supply-chain guarantee (see above), and a `[tools]` entry with no lock entry is a hole
+in that guarantee, not a cosmetic omission. Fix: `mise lock "<tool>"` (the exact `[tools]` key, e.g.
+`aqua:containerd/nerdctl`), not a bare `mise lock` — the latter re-resolves and rewrites every existing entry,
+turning a one-tool addition into an unreviewable diff across the whole file. Verify the diff is purely additive
+before committing.
+
+This generalizes past Linux: `mise lock` gates on the *invoking host's* OS against the aqua package's own
+`supported_envs`, not on the target platform being locked. `conf.d/darwin.toml`'s `mas = "7.0.0"`
+(`aqua:mas-cli/mas`) has the identical defect right now — no lockfile entry — and it cannot be closed from a
+Linux machine at all: `mise lock mas` was tried from Linux with an explicit `--platform macos-arm64,macos-x64`
+and even with `MISE_OS` overridden, and silently no-opped every time (confirmed against aqua-registry's
+`pkgs/mas-cli/mas/registry.yaml`, whose current version entry is `supported_envs: [darwin]` — a categorical
+host restriction, not a missing flag). Contrast with `nerdctl`'s `supported_envs: [linux, windows]`: the same
+Linux host locked `windows-x64` entries for it without complaint, proving the limitation isn't "can't target a
+platform other than the host's" in general — only "can't target a platform the package excludes the *host*
+from". Practical effect: **a real macOS apply of this branch has the same non-convergence bug today**, unnoticed
+because `full-apply-test` (`.github/workflows/full-apply-test.yaml`) only runs `ubuntu-24.04` — there is no
+macOS CI leg to catch it. Closing it requires running `mise lock mas` on an actual Mac and committing the
+result; phase 2 (chezmoi/bws/mise/mas as real `[tools]` entries) and the phase 4 bulk migration should budget
+for a macOS run before merging, not assume a Linux box can produce the whole lockfile.
+
+**This is a mechanism gap, not just a documentation one.** A rule that has to be remembered ("run `mise lock`
+after editing `[tools]`") will be forgotten exactly like this one was. The cheap, non-built version: a CI check
+that parses every `[tools]` key out of `config.toml` and both `conf.d/*.toml` files and asserts each has a
+corresponding `[[tools."<key>"]]` table in `mise.lock` (a `yq`/`tomlq` diff, no new dependency) — failing PR CI
+the same way `full-apply-test` already does, before a gap like this reaches a real pod. It can only check the
+overlay whose OS matches the runner (Linux CI can't validate `darwin.toml`'s coverage), so it wouldn't have
+caught the `mas` gap above without a macOS runner either — but it would have caught `nerdctl` on day one
+instead of in a live pod. Rough cost: a short script plus one new CI step, well under an hour; not built here
+because the task at hand was closing the specific gap, not standing up new CI — left as a follow-up.
+
 **Task layout.** File tasks live under `private_dot_config/mise/tasks/dotfiles/`, one `executable_<name>.tmpl`
 per task, namespaced `dotfiles:*` so they're discoverable via `mise tasks ls -g` and can't collide with
 per-project tasks elsewhere. Nesting a subdirectory produces a colon-separated group (e.g.

@@ -527,6 +527,58 @@ url = "https://github.com/coder/coder/releases/download/v2.35.3/coder_2.35.3_win
 url_api = "https://api.github.com/repos/coder/coder/releases/assets/491256534"
 provenance = "github-attestations"
 
+[[tools."aqua:containerd/nerdctl"]]
+version = "2.3.5"
+backend = "aqua:containerd/nerdctl"
+
+[tools."aqua:containerd/nerdctl"."platforms.linux-arm64"]
+checksum = "sha256:76ced9bd0d03f6140f9cf7b927958b654cb8d5ecd3c58af585d096c8bdf9d6c2"
+url = "https://github.com/containerd/nerdctl/releases/download/v2.3.5/nerdctl-2.3.5-linux-arm64.tar.gz"
+url_api = "https://api.github.com/repos/containerd/nerdctl/releases/assets/483225348"
+provenance = "github-attestations"
+
+[tools."aqua:containerd/nerdctl"."platforms.linux-arm64-musl"]
+checksum = "sha256:76ced9bd0d03f6140f9cf7b927958b654cb8d5ecd3c58af585d096c8bdf9d6c2"
+url = "https://github.com/containerd/nerdctl/releases/download/v2.3.5/nerdctl-2.3.5-linux-arm64.tar.gz"
+url_api = "https://api.github.com/repos/containerd/nerdctl/releases/assets/483225348"
+provenance = "github-attestations"
+
+[tools."aqua:containerd/nerdctl"."platforms.linux-x64"]
+checksum = "sha256:de3206aeb7cbd5f20f5fb1f55c1e3bf2db1be567812a8a3f5e65eba2488347ee"
+url = "https://github.com/containerd/nerdctl/releases/download/v2.3.5/nerdctl-2.3.5-linux-amd64.tar.gz"
+url_api = "https://api.github.com/repos/containerd/nerdctl/releases/assets/483225342"
+provenance = "github-attestations"
+
+[tools."aqua:containerd/nerdctl"."platforms.linux-x64-baseline"]
+checksum = "sha256:de3206aeb7cbd5f20f5fb1f55c1e3bf2db1be567812a8a3f5e65eba2488347ee"
+url = "https://github.com/containerd/nerdctl/releases/download/v2.3.5/nerdctl-2.3.5-linux-amd64.tar.gz"
+url_api = "https://api.github.com/repos/containerd/nerdctl/releases/assets/483225342"
+provenance = "github-attestations"
+
+[tools."aqua:containerd/nerdctl"."platforms.linux-x64-musl"]
+checksum = "sha256:de3206aeb7cbd5f20f5fb1f55c1e3bf2db1be567812a8a3f5e65eba2488347ee"
+url = "https://github.com/containerd/nerdctl/releases/download/v2.3.5/nerdctl-2.3.5-linux-amd64.tar.gz"
+url_api = "https://api.github.com/repos/containerd/nerdctl/releases/assets/483225342"
+provenance = "github-attestations"
+
+[tools."aqua:containerd/nerdctl"."platforms.linux-x64-musl-baseline"]
+checksum = "sha256:de3206aeb7cbd5f20f5fb1f55c1e3bf2db1be567812a8a3f5e65eba2488347ee"
+url = "https://github.com/containerd/nerdctl/releases/download/v2.3.5/nerdctl-2.3.5-linux-amd64.tar.gz"
+url_api = "https://api.github.com/repos/containerd/nerdctl/releases/assets/483225342"
+provenance = "github-attestations"
+
+[tools."aqua:containerd/nerdctl"."platforms.windows-x64"]
+checksum = "sha256:eda2a08d8a5ea97443c73fed1a827fbc385d4f7847486721899cd7e2c2f9dc36"
+url = "https://github.com/containerd/nerdctl/releases/download/v2.3.5/nerdctl-2.3.5-windows-amd64.tar.gz"
+url_api = "https://api.github.com/repos/containerd/nerdctl/releases/assets/483225358"
+provenance = "github-attestations"
+
+[tools."aqua:containerd/nerdctl"."platforms.windows-x64-baseline"]
+checksum = "sha256:eda2a08d8a5ea97443c73fed1a827fbc385d4f7847486721899cd7e2c2f9dc36"
+url = "https://github.com/containerd/nerdctl/releases/download/v2.3.5/nerdctl-2.3.5-windows-amd64.tar.gz"
+url_api = "https://api.github.com/repos/containerd/nerdctl/releases/assets/483225358"
+provenance = "github-attestations"
+
 [[tools."aqua:dalance/procs"]]
 version = "0.14.12"
 backend = "aqua:dalance/procs"
