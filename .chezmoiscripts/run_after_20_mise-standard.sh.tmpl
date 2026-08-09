@@ -24,6 +24,10 @@ main() {
     exit 1
   fi
 
+  log_info "Mise | $setup_type | Refreshing mise.lock from source (picks up Renovate-driven checksum updates)..."
+  cp {{ .chezmoi.sourceDir }}/private_dot_config/mise/mise.lock "$(dirname "${MISE_GLOBAL_CONFIG_FILE}")/mise.lock"
+  echo
+
   setup_mise_packages $setup_type | sed -E 's|^(.*)|    \1|g'
   echo
   log_success "Mise | $setup_type | Pruning unused packages..."

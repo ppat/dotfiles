@@ -31,6 +31,7 @@ main() {
     rm -rf "${mise_cfg_dir}"
     mkdir -p "${mise_cfg_dir}"
     cp {{ .chezmoi.sourceDir }}/.first-time-setup/mise.toml "${MISE_GLOBAL_CONFIG_FILE}"
+    cp {{ .chezmoi.sourceDir }}/.first-time-setup/mise.lock "${mise_cfg_dir}/mise.lock"
   fi
 
   setup_mise_packages $setup_type | sed -E 's|^(.*)|    \1|g'
