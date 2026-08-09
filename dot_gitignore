@@ -1,13 +1,13 @@
 # python
 .cache
-.eggs/
+.eggs
 .Python
-build/
-eggs/
-dist/
-sdist/
-wheels/
-*.egg-info/
+build
+eggs
+dist
+sdist
+wheels
+*.egg-info
 *.egg
 *.pyc
 **/__pycache__
@@ -16,15 +16,18 @@ MANIFEST
 # python testing
 .coverage
 .coverage.*
-.hypothesis/
-.nox/
-.pytest_cache/
-.tox/
+.hypothesis
+.nox
+.pytest_cache
+.tox
 coverage.xml
-htmlcov/
-cover/
+htmlcov
+cover
 
 # node
-node_modules/
+node_modules
 
 *.secrets
+
+.claude/settings.local.json
+.claude/worktrees
