@@ -123,5 +123,5 @@ kprp() {
 }
 alias kprp='kprp'
 
-alias reset-to-first-time='rm -rf ~/.cache/mise ~/.cache/uv ~/.cargo ~/.colima ~/.config/aquaproj-aqua ~/.config/mise ~/.docker ~/.krew ~/.local/share/aquaproj-aqua ~/.local/share/mise ~/.local/state/mise ~/.rustup'
+alias reset-to-first-time='rm -rf ~/.cache/mise ~/.cache/uv ~/.cargo ~/.colima ~/.config/mise ~/.docker ~/.krew ~/.local/share/mise ~/.local/state/mise ~/.rustup'
 alias yaml-keys='yq eval '"'"'.. | select(tag == "!!str" or tag == "!!int" or tag == "!!bool" or tag == "!!null") | path | join(".")'"'"''

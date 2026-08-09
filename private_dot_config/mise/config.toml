@@ -18,10 +18,50 @@ uv             = "0.11.33"
 "pipx:pre-commit"   = "4.6.1"
 "pipx:yamllint"     = "1.38.0"
 
+# CLI binaries (formerly managed by aqua) -- pinned + checksum-verified via mise.lock
+# Versions are bare (no "v"/"cli-v"/"bws-v"/"kustomize/v" prefix) for consistency: verified that mise's
+# aqua backend resolves the exact same artifact/checksum regardless of prefix, since it reconstructs the
+# real upstream tag from the aqua registry's own per-package version template.
+"aqua:ajeetdsouza/zoxide"        = "0.10.0"
+"aqua:aristocratos/btop"         = "1.4.7"
+"aqua:atuinsh/atuin"             = "18.17.1"
+"aqua:bitwarden/clients"         = "2026.7.0"
+"aqua:bitwarden/sdk-sm"          = "1.0.0"
+"aqua:bootandy/dust"             = "1.2.4"
+"aqua:cli/cli"                   = "2.96.0"
+"aqua:coder/coder"               = "2.35.3"
+"aqua:dalance/procs"             = "0.14.12"
+"aqua:dandavison/delta"          = "0.19.2"
+"aqua:derailed/k9s"              = "0.51.0"
+"aqua:fastfetch-cli/fastfetch"   = "2.66.0"
+"aqua:fluxcd/flux2"              = "2.9.3"
+"aqua:hadolint/hadolint"         = "2.14.0"
+"aqua:helm/helm"                 = "4.2.3"
+"aqua:junegunn/fzf"              = "0.74.2"
+"aqua:koalaman/shellcheck"       = "0.11.0"
+"aqua:kubernetes/kubectl"        = "1.36.3"
+"aqua:kubernetes-sigs/kind"      = "0.32.0"
+"aqua:kubernetes-sigs/krew"      = { version = "0.5.0", postinstall = "ln -sf krew \"$MISE_TOOL_INSTALL_PATH/kubectl-krew\"" }
+"aqua:kubernetes-sigs/kustomize" = "5.8.1"
+"aqua:kyverno/chainsaw"          = "0.2.15"
+"aqua:mikefarah/yq"              = "4.53.3"
+"aqua:muesli/duf"                = "0.9.1"
+"aqua:nektos/act"                = "0.2.89"
+"aqua:qarmin/czkawka"            = "11.0.1"
+"aqua:rhysd/actionlint"          = "1.7.7"
+"aqua:sharkdp/bat"               = "0.26.1"
+"aqua:sharkdp/fd"                = "10.4.2"
+"aqua:sharkdp/hyperfine"         = "1.20.0"
+"aqua:siderolabs/talos"          = "1.13.7"
+"aqua:terraform-linters/tflint"  = "0.64.0"
+"aqua:yannh/kubeconform"         = "0.8.0"
+"aqua:BurntSushi/ripgrep"        = "15.2.0"
+
 [settings]
 experimental                        = true
 trusted_config_paths                = ["~/code"]
 idiomatic_version_file_enable_tools = []
+lockfile                            = true
 
 [settings.npm]
 package_manager = "bun"

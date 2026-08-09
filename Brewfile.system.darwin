@@ -18,7 +18,6 @@ brew "vim"
 brew "wget"
 
 # Package Managers
-brew "aqua"
 brew "mise"
 brew "oven-sh/bun/bun"
 brew "uv"

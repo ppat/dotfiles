@@ -1,6 +1,6 @@
 # Dotfiles
 
-A dotfiles management system using Chezmoi for orchestration and best-in-class tools (aqua, mise, homebrew) for package management.
+A dotfiles management system using Chezmoi for orchestration and best-in-class tools (mise, homebrew) for package management.
 
 ## Overview
 
@@ -26,14 +26,11 @@ This dotfiles repository provides a way for managing my development environment 
 
 The repository integrates several specialized tools:
 
-- **[Aqua](https://aquaproj.github.io/)**: Manages CLI binaries (kubectl, helm, etc.)
-  - Speedy, lightweight, reproducible installation
-  - Version-controlled binary management
-  - Packages: [.config/aquaproj-aqua/aqua.yaml](private_dot_config/aquaproj-aqua/aqua.yaml)
-
-- **[Mise](https://mise.jdx.dev/)**: Manages language SDKs and runtimes
+- **[Mise](https://mise.jdx.dev/)**: Manages language SDKs, runtimes, and CLI binaries
   - Handles multiple versions of languages (Rust, Go, Node, Python, etc.)
   - Manages global tool installations via pipx, npm, etc.
+  - Manages checksum-verified CLI binaries (kubectl, helm, etc.) via its `aqua:` backend, with a
+    checked-in `mise.lock` for supply-chain integrity
   - Packages: [.config/mise/config.toml](private_dot_config/mise/config.toml)
 
 - **[Homebrew](https://brew.sh/)**: Manages system packages (Linux/MacOS) and GUI apps (macOS)
@@ -60,7 +57,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ppat/dotfiles
 
 Chezmoi will:
 
-- Install required tools (Homebrew, Aqua, Mise)
+- Install required tools (Homebrew, Mise)
 - Set up environment files
 - Configure your shell and environment
 

@@ -2,14 +2,16 @@
 set -euo pipefail
 
 set -o allexport
-{{ template "aqua.env" . -}}
+{{ template "mise.env" . -}}
 {{ template "krew.env" . -}}
 {{ template "homebrew.env" . -}}
 set +o allexport
-export PATH=${AQUA_ROOT_DIR}/bin:${KREW_ROOT}/bin:$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+export PATH=${KREW_ROOT}/bin:$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 
 {{ template "script_header.sh" . }}
 
+# shellcheck disable=SC2016
+eval "$(mise activate bash)"
 
 krew_prerequisites() {
   log_info "Krew Plugins | Initializing krew..."

@@ -1,0 +1,87 @@
+---
+# yamllint disable rule:line-length
+name: full-apply-test
+
+on:
+  pull_request:
+    # Broad by design: almost anything chezmoi-managed can break the pipeline (a single bad
+    # template aborts the whole apply), and a narrow allowlist just goes stale as dotfiles get
+    # added. Start from everything, exclude only what genuinely can't affect a real apply --
+    # docs, this repo's own editor/CI tooling, and lint configs -- and explicitly re-include this
+    # workflow file itself since it's excluded by the blanket .github/** rule below.
+    paths:
+    - '**'
+    - '!**/*.md'
+    - '!.claude/**'
+    - '!.vscode/**'
+    - '!.github/**'
+    - '.github/workflows/full-apply-test.yaml'
+    - '!.markdownlint-cli2.yaml'
+    - '!.pre-commit-config.yaml'
+    - '!.shellcheckrc'
+    - '!.yamllint'
+    - '!mise.toml'
+  schedule:
+  # Aqua and Homebrew have both broken this repo's bootstrap in the past (aqua changing
+  # where it places binaries, Homebrew requiring explicit tap trust) with zero local diff
+  # to trigger a PR check -- only a schedule catches that class of drift.
+  - cron: '0 6 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  full-apply-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+    - name: Fake out bitwardenSecrets calls
+      # This job proves the bootstrap *pipeline* runs end-to-end; it cannot and should not
+      # prove real Bitwarden Secrets Manager resolution works, which requires a real
+      # bwsAccessToken on a real machine (see DESIGN.md's "CI can't be the full story").
+      run: |
+        grep -rl 'bitwardenSecrets' . --include='*.tmpl' --include='*.toml' | xargs -r sed -i 's|{{ (bitwardenSecrets "[^"]*" .bwsAccessToken).value }}|fake-test-value|g'
+
+    - name: Install chezmoi
+      run: |
+        mkdir -p "$HOME/.local/bin"
+        sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
+        echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+    - name: Seed chezmoi config to skip interactive prompts
+      run: |
+        mkdir -p "$HOME/.config/chezmoi"
+        cat > "$HOME/.config/chezmoi/chezmoi.toml" <<EOF
+        [data]
+        name = "CI Test"
+        email = "ci@example.com"
+        bwsAccessToken = "unused-fake-token"
+        EOF
+
+    - name: chezmoi init --apply (first-time bootstrap)
+      env:
+        MISE_EXPERIMENTAL: "1"
+        # Gives mise a working, authenticated token so it doesn't hit GitHub's
+        # unauthenticated 60-requests/hour rate limit across ~50 tool installs.
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: chezmoi init --source="$(pwd)" --apply
+
+    - name: chezmoi apply again (simulates `chezmoi update`, checks idempotency)
+      # `chezmoi init --source=X --apply` does not persist X as the default source dir for
+      # later bare `chezmoi apply` calls -- confirmed live, this needs --source again too.
+      # --force: some chezmoi-managed files (e.g. .claude/settings.json, mutated locally by
+      # the tools that manage them) legitimately drift from what chezmoi last wrote. On a
+      # real machine chezmoi would just prompt; non-interactively it hard-fails instead.
+      # There's no human to prompt in CI, so always converge to source state here.
+      env:
+        MISE_EXPERIMENTAL: "1"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: chezmoi apply --source="$(pwd)" --force

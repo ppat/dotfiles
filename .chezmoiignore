@@ -2,6 +2,7 @@ Brewfile*
 krew-plugins.txt
 mise.toml
 README.md
+.config/mise/mise.lock
 
 {{- if eq .chezmoi.homeDir "/home/coder" }}
 Library/

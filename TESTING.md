@@ -85,6 +85,31 @@ always forced to `"linux"`). macOS-only logic and real-secret behavior can only 
   are already covered above, by the dedicated jobs, using this repo's own config rather than pre-commit's hook
   wrapper).
 
+### 4. Full bootstrap pipeline: a real `chezmoi apply`, not just render+lint
+
+`.github/workflows/full-apply-test.yaml` is separate from `lint.yaml` and runs on a different
+trigger model: a daily schedule, PRs that touch bootstrap-relevant paths (`.chezmoiscripts/**`,
+`Brewfile*`, `private_dot_config/mise/**`, etc.), and manual dispatch — not every PR regardless of
+relevance, since a full apply (Homebrew, ~50 mise tools, krew plugins, fonts, Claude Code plugins)
+is too slow for that. The schedule is the important trigger: the bug that forced the aqua→mise
+migration (a recent Aqua release changing where it places binaries) broke `chezmoi update` with
+zero local diff to trigger a path-scoped PR check — only a schedule catches that class of drift
+proactively.
+
+Mechanism: every `bitwardenSecrets` call in every `.tmpl`/`.toml` file is replaced with a literal
+fake value (same intent as the `chezmoi` job's rendering step, applied repo-wide), a throwaway
+`chezmoi.toml` is seeded to skip the interactive `name`/`email`/`bwsAccessToken` prompts, then a
+real `chezmoi init --apply` runs, followed by a second `chezmoi apply --force` to check
+idempotency (`--force` because some chezmoi-managed files are legitimately mutated locally by
+their own tooling — e.g. `.claude/settings.json` — which would otherwise hit chezmoi's interactive
+drift-conflict prompt; there's no human to answer that prompt in CI).
+
+What this proves, that the `chezmoi` job's render+lint step doesn't: that the *actual* bootstrap
+scripts run successfully in the right order against a real Homebrew/mise install, not just that
+they parse as valid shell. What it still doesn't prove: real Bitwarden Secrets Manager resolution
+(needs a real `bwsAccessToken` on a real machine — see "CI can't be the full story" in DESIGN.md),
+or macOS-only code paths (this job runs on `ubuntu-24.04` only).
+
 ## What gains confidence locally, before pushing
 
 ```bash
