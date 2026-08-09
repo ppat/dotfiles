@@ -1,6 +1,6 @@
 Brewfile*
-krew-plugins.txt
 mise.toml
+poc/
 README.md
 .config/mise/mise.lock
 

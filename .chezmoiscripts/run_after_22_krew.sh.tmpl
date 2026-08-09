@@ -1,73 +1,26 @@
 #!/usr/bin/env bash
+# Thin wrapper: chezmoi owns *when* this runs, the mise task owns *what* it does.
+#
+# `run_after_` (not `run_onchange_`) is deliberate. `run_onchange_` hashes the rendered *wrapper*, so a
+# change confined to the task file would leave the hash untouched and the work would silently never
+# re-run (#747 §C5). Since this wrapper's body never changes, `run_onchange_` would mean "run once,
+# ever". `run_after_` keeps today's semantics: reconcile on every apply.
 set -euo pipefail
 
 set -o allexport
 {{ template "mise.env" . -}}
-{{ template "krew.env" . -}}
 {{ template "homebrew.env" . -}}
 set +o allexport
-export PATH=${KREW_ROOT}/bin:$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+export PATH=$HOME/.local/bin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 
 {{ template "script_header.sh" . }}
 
-# shellcheck disable=SC2016
-eval "$(mise activate bash)"
-
-krew_prerequisites() {
-  log_info "Krew Plugins | Initializing krew..."
-  if ! command -v kubectl > /dev/null; then
-    log_error "Krew Plugins | Kubectl binary is not in path, cannot proceed!"
-    exit 1
-  fi
-  if ! command -v kubectl-krew > /dev/null; then
-    log_error "Krew Plugins | Krew binary is not in path, cannot proceed!"
-    exit 1
-  fi
-  if [[ ! -d $KREW_ROOT/bin ]]; then
-    log_info "Krew Plugins | Creating directories..."
-    mkdir -p $KREW_ROOT/bin
-  fi
-}
-
-update_krew_index() {
-  log_info "Krew Plugins | Updating index..."
-  kubectl krew update 2>&1 | sed -E 's/^(.*)/    \1/g'
-}
-
-install_or_upgrade_plugins() {
-  log_info "Krew Plugins | Detecting installed krew plugins..."
-  local installed_list=$(mktemp "krew.$(date +%Y%m%d_%H%M%S).XXXXX" -p /tmp --suffix ".list")
-  # shellcheck disable=SC2064
-  trap "rm -f $installed_list" EXIT
-  kubectl krew list > $installed_list
-  echo
-  log_info "Krew Plugins | Upgrading existing plugins..."
-  kubectl krew upgrade --no-update-index 2>&1 | sed -E 's/^(.*)/    \1/g'
-  echo
-  log_info "Krew Plugins | Installing new plugins..."
-  while read -r plugin; do
-    if [[ -n "$plugin" && ! "$plugin" =~ ^# ]]; then
-      if ! grep '^'$plugin'$' $installed_list >/dev/null; then
-        kubectl krew install --no-update-index "$plugin" 2>&1 | sed -E 's/^(.*)/    \1/g'
-      fi
-    fi
-  done < {{ .chezmoi.sourceDir }}/krew-plugins.txt
-  log_success "Krew Plugins | Krew plugins installed successfully!"
-}
-
-display_installed_plugins() {
-  log_info "Krew Plugins | Display installed packages..."
-  kubectl krew list | column -t 2>&1 | sed -E 's|^(.*)|    \1|g'
-}
-
 main() {
-  krew_prerequisites
-  echo
-  update_krew_index
-  echo
-  install_or_upgrade_plugins
-  echo
-  display_installed_plugins
+  if ! command -v mise > /dev/null; then
+    log_error "Krew Plugins | Mise binary is not in path, cannot proceed!"
+    exit 1
+  fi
+  mise run dotfiles:krew
   echo "-------------------------------------------------------------------------------------------"
   echo
 }

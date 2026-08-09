@@ -41,7 +41,7 @@ go stale as scripts are added); this is the stable, abstract shape underneath ev
 │                                             # then never read again. Not the live config — that's under
 │                                             # private_dot_config/
 └── root-level loose files                    # machine-wide inputs that aren't themselves deployed as
-                                              # dotfiles (Brewfile.*, krew-plugins.txt, .chezmoi.toml.tmpl),
+                                              # dotfiles (Brewfile.*, .chezmoi.toml.tmpl),
                                               # or apply to the repo itself rather than to $HOME (lint
                                               # configs, this doc set)
 ```

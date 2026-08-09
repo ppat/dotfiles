@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+#MISE description="Reconcile installed kubectl plugins against the declared krew plugin list"
+#MISE tools=["aqua:kubernetes/kubectl", "aqua:kubernetes-sigs/krew"]
+#USAGE flag "--plugin-file <plugin_file>" help="newline-delimited list of krew plugins to install" default="{{ .chezmoi.homeDir }}/.config/mise/data/krew-plugins.txt"
+#USAGE flag "--krew-root <krew_root>" help="krew installation root" default="{{ .chezmoi.homeDir }}/.krew"
+#
+# ---------------------------------------------------------------------------------------------------
+# DELIBERATELY NO `sources=` / `outputs=`. This is not an oversight -- it is the finding of PoC #747.
+#
+# The obvious encoding is sources=[<plugin-file>], outputs=["$KREW_ROOT/receipts/*.yaml"]. Measured
+# against mise 2026.8.3, that encoding produces silent wrong answers, because mise's staleness check is
+# "is the newest output at least as new as the newest source", evaluated over a glob:
+#
+#   * Delete one receipt (a plugin removed or broken out-of-band) and mise still reports
+#     "sources up-to-date, skipping". The plugin is never reinstalled and nothing says so.
+#   * Fail halfway through (network drop after 3 of 11 installs) and the partial receipts are newer
+#     than the plugin file, so the FAILURE IS CACHED. The next run skips, reports success, and the
+#     machine stays divergent from the declaration forever.
+#
+# Both are silent. This task's whole job is to reconcile against live external state, and that state is
+# not a file set mise can fingerprint -- so declaring a file set that merely correlates with it trades a
+# cheap re-run for an expensive lie. `krew` is already fast and idempotent when converged; paying that
+# every apply is the correct trade. See the ticket for the full write-up.
+# ---------------------------------------------------------------------------------------------------
+set -euo pipefail
+
+{{ template "script_header.sh" . }}
+
+# `usage_*` are injected by the argument parser, so shellcheck cannot see them assigned. Note this cost
+# is identical in the script form -- it is a property of `usage`, not of mise tasks.
+# shellcheck disable=SC2154
+export KREW_ROOT="${usage_krew_root}"
+# shellcheck disable=SC2154
+readonly PLUGIN_FILE="${usage_plugin_file}"
+export PATH="${KREW_ROOT}/bin:${PATH}"
+
+krew_prerequisites() {
+  log_info "Krew Plugins | Initializing krew..."
+  if [[ ! -r "${PLUGIN_FILE}" ]]; then
+    log_error "Krew Plugins | Plugin list not readable: ${PLUGIN_FILE}"
+    exit 1
+  fi
+  if [[ ! -d "${KREW_ROOT}/bin" ]]; then
+    log_info "Krew Plugins | Creating directories..."
+    mkdir -p "${KREW_ROOT}/bin"
+  fi
+}
+
+update_krew_index() {
+  log_info "Krew Plugins | Updating index..."
+  kubectl krew update
+}
+
+install_or_upgrade_plugins() {
+  log_info "Krew Plugins | Detecting installed krew plugins..."
+  local installed_list
+  installed_list=$(mktemp -t "krew.installed.XXXXX")
+  # shellcheck disable=SC2064
+  trap "rm -f '$installed_list'" EXIT
+  kubectl krew list > "$installed_list"
+  echo
+  log_info "Krew Plugins | Upgrading existing plugins..."
+  kubectl krew upgrade --no-update-index
+  echo
+  log_info "Krew Plugins | Installing new plugins..."
+  while read -r plugin; do
+    if [[ -n "$plugin" && ! "$plugin" =~ ^# ]]; then
+      if ! grep -qx "$plugin" "$installed_list"; then
+        kubectl krew install --no-update-index "$plugin"
+      fi
+    fi
+  done < "${PLUGIN_FILE}"
+  log_success "Krew Plugins | Krew plugins installed successfully!"
+}
+
+display_installed_plugins() {
+  log_info "Krew Plugins | Display installed packages..."
+  kubectl krew list | column -t
+}
+
+main() {
+  krew_prerequisites
+  echo
+  update_krew_index
+  echo
+  install_or_upgrade_plugins
+  echo
+  display_installed_plugins
+  echo
+}
+
+main
