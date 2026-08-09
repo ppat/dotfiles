@@ -53,8 +53,24 @@ main() {
   echo
   apply_bootstrap_packages $setup_type | sed -E 's|^(.*)|    \1|g'
   echo
+  # `mise prune` re-serializes and rewrites mise.lock on every invocation, even when nothing is
+  # actually pruned -- confirmed empirically (identical before/after bytes, fresh mtime either
+  # way). That is the exact same dotfiles:completions cache-defeat mechanism as the `cp` above,
+  # just triggered by a different command further down this same script: fixing only the `cp`
+  # left criterion 9 failing in a real pod, because this unconditional rewrite alone was enough
+  # to bump mise.lock's mtime on every apply. Snapshot mise.lock (content + mtime) beforehand and
+  # restore the old mtime afterward whenever prune's output is byte-identical, so a no-op prune
+  # doesn't invalidate the cache either -- while a prune that genuinely removes something still
+  # gets a fresh mtime, correctly invalidating it.
+  local mise_lock_pre_prune
+  mise_lock_pre_prune="$(mktemp)"
+  cp -p "$mise_lock_dst" "$mise_lock_pre_prune" 2>/dev/null || true
   log_success "Mise | $setup_type | Pruning unused packages..."
   mise prune --yes 2>&1 | sed -E 's|^(.*)|    \1|g'
+  if [[ -s "$mise_lock_pre_prune" ]] && cmp -s "$mise_lock_pre_prune" "$mise_lock_dst"; then
+    touch -r "$mise_lock_pre_prune" "$mise_lock_dst"
+  fi
+  rm -f "$mise_lock_pre_prune"
   echo
   display_installed_mise_packages $setup_type
   log_success "Mise | $setup_type | Complete!"
