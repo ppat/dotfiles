@@ -18,6 +18,18 @@ README.md
 .config/mise/conf.d/darwin.toml
 {{- end }}
 
+# .config/mise/tasks/dotfiles/darwin/ is a darwin-only mise *task* group (#747 C4) -- excluded the
+# same way as conf.d/darwin.toml above, to prove .chezmoiignore governs tasks the same way it
+# already governs configs, before phase 5 depends on that for real darwin-only tasks (docker
+# cli-plugins, macOS defaults). Deliberately a different mechanism from the existing
+# run_after_30_docker.sh.tmpl / run_after_31_macos_gui_apps.sh.tmpl chezmoi scripts, which wrap their
+# whole body in an in-template os-equals-darwin conditional and render an empty file on other OSes
+# instead of being excluded outright -- both are valid, but only this one generalises to a directory
+# of many task files without repeating the conditional in each.
+{{- if ne .chezmoi.os "darwin" }}
+.config/mise/tasks/dotfiles/darwin/
+{{- end }}
+
 # NOT collapsed to `eq .chezmoi.os "linux"` even though every current coder workspace is Linux:
 # the implication only runs one way. A coder workspace is always Linux, but Linux is not always a
 # coder workspace -- GitHub Actions runners (/home/runner) and #747's own test pods are both Linux

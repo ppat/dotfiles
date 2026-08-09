@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#MISE description="Placeholder darwin-only task (#747 C4)"
+set -euo pipefail
+
+# ---------------------------------------------------------------------------------------------------
+# PoC #747 C4. Content is a deliberate placeholder -- phase 5 replaces this with real darwin-only
+# work (the docker cli-plugin symlinks and macOS-defaults tasks P9 names). The point of this task is
+# not what it does but where it lives: proving that `.chezmoiignore` governs *tasks* the same way it
+# already governs the `conf.d/{linux,darwin}.toml` *configs* (§A), before phase 5 depends on that for
+# real work. See .chezmoiignore for the matching exclusion and DESIGN doc / mise-tasks doc for the
+# reasoning and the render-time assertion this can't self-verify (no `chezmoi apply` from this repo
+# checkout -- see repo invariants).
+#
+# Nesting under tasks/dotfiles/darwin/ (task id `dotfiles:darwin:placeholder`) rather than a flat
+# tasks/dotfiles/*.tmpl file is deliberate too: it's what makes the `.chezmoiignore` exclusion a
+# directory-level pattern instead of a per-file one, matching how phase 5's real darwin-only tasks
+# are expected to arrive as more than one file.
+# ---------------------------------------------------------------------------------------------------
+
+echo "dotfiles:darwin:placeholder | darwin-only task ran (unreachable on Linux -- see .chezmoiignore)."
