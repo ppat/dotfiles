@@ -8,7 +8,7 @@ node           = "24.18.1"
 rust           = "1.95.0"
 terraform      = "1.6.6"
 usage          = "3.6.0"
-uv             = "0.11.33"
+uv             = "0.12.3"
 
 "npm:@anthropic-ai/claude-code" = "2.1.224"
 "npm:ccstatusline"              = "2.2.27"
