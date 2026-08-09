@@ -32,7 +32,7 @@ configure_mcp_servers() {
   for mcp in context7 github grafana home_assistant kubernetes_homelab kubernetes_nas kubernetes_sandbox playwright unifi_network unifi_protect; do
     if ! claude mcp get ${mcp} > /dev/null 2>&1; then
       log_info "Claude Code | Adding ${mcp} MCP server..."
-      claude mcp add --scope user ${mcp} --transport http ${mcp} https://litellm.homelab.${DOMAIN_NAME}/${mcp}_mcp/mcp --header "x-litellm-api-key: Bearer ${LITELLM_APIKEY}"
+      claude mcp add --scope user --transport http ${mcp} https://litellm.homelab.${DOMAIN_NAME}/${mcp}_mcp/mcp --header "x-litellm-api-key: Bearer ${LITELLM_APIKEY}"
       log_success "Claude Code | ${mcp} MCP server added."
     else
       log_info "Claude Code | ${mcp} MCP server already configured, skipping."
