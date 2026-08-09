@@ -1,9 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "mise": {
+    "managerFilePatterns": [
+      "**/{,.}mise/conf.d/*.toml"
+    ]
+  },
   "packageRules": [
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
+        "private_dot_config/mise/conf.d/*.toml",
         ".first-time-setup/mise.toml",
         "mise.toml"
       ],
@@ -27,6 +33,7 @@
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
+        "private_dot_config/mise/conf.d/*.toml",
         ".first-time-setup/mise.toml",
         "mise.toml"
       ],
@@ -50,6 +57,7 @@
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
+        "private_dot_config/mise/conf.d/*.toml",
         ".first-time-setup/mise.toml",
         "mise.toml"
       ],
@@ -69,6 +77,7 @@
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
+        "private_dot_config/mise/conf.d/*.toml",
         ".first-time-setup/mise.toml",
         "mise.toml"
       ],
@@ -90,6 +99,7 @@
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
+        "private_dot_config/mise/conf.d/*.toml",
         ".first-time-setup/mise.toml",
         "mise.toml"
       ],
@@ -104,6 +114,7 @@
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
+        "private_dot_config/mise/conf.d/*.toml",
         ".first-time-setup/mise.toml",
         "mise.toml"
       ],
@@ -118,6 +129,7 @@
     {
       "matchFileNames": [
         "private_dot_config/mise/config.toml",
+        "private_dot_config/mise/conf.d/*.toml",
         ".first-time-setup/mise.toml",
         "mise.toml"
       ],
