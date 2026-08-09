@@ -18,3 +18,11 @@ set -euo pipefail
 # ---------------------------------------------------------------------------------------------------
 
 echo "dotfiles:darwin:placeholder | darwin-only task ran (unreachable on Linux -- see .chezmoiignore)."
+
+# TEMPORARY -- deliberate shellcheck violation (SC2181) to demonstrate criterion 20.
+# This commit is reverted immediately by the next one. If you are reading this on a merged
+# branch, something went wrong.
+true
+if [ $? -eq 0 ]; then
+  echo "this line exists only to make the lint job fail"
+fi
