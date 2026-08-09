@@ -9,5 +9,9 @@ export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/b
 
 # SCRATCH probe for PoC #747 C5 (run_onchange_ + task interaction).
 # wrapper-version=2 -- not a deliverable, safe to delete once C5 is settled.
+# Fix candidate under test: embed a hash of the invoked task's rendered content so
+# the wrapper's own rendered content (and therefore chezmoi's onchange hash) changes
+# whenever the task body changes, even though this line's *source text* never does.
+# task-content-hash: {{ include "private_dot_config/mise/tasks/poc747/executable_onchange" | sha256sum }}
 echo "wrapper-version=2 invoked-at=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >>"$HOME/.poc747-onchange-probe-wrapper.log"
 mise run poc747:onchange
