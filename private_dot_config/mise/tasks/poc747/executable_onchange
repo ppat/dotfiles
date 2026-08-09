@@ -2,4 +2,4 @@
 #MISE description="SCRATCH probe for PoC #747 C5 (run_onchange_ + task interaction). Safe to delete; not a deliverable."
 set -euo pipefail
 
-echo "task-body-version=1 ran-at=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >>"$HOME/.poc747-onchange-probe.log"
+echo "task-body-version=2 ran-at=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >>"$HOME/.poc747-onchange-probe.log"
