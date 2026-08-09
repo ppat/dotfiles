@@ -72,10 +72,38 @@ above reflects the current (not original) architecture — see git history for t
 
 ## Mise tasks and `conf.d` overlays (PoC #747)
 
-Phase 1 of the mise-bootstrap migration (ticket #747) converted a narrow, reversible slice of this repo's
-chezmoi scripts to mise's `conf.d` overlays and file tasks, specifically to bank conventions before later
-phases build on them at scale. Full reasoning and falsification steps: ticket #747 and `poc/README.md` (the
-`poc/` tree itself never deploys — see that file). This section records the conventions that came out of it.
+Phase 1 of the mise-bootstrap migration (ticket #747) evaluated two mise mechanisms beyond a plain `[tools]`
+table: `conf.d` overlays (adopted — layout below) and mise's *task* runner as a place to move chezmoi script
+bodies (evaluated, **not adopted**). The full investigation — every script scored against the criteria, every
+falsification step, and the task files themselves (including the one that would have qualified) — is preserved
+verbatim in a public gist rather than in this tree: <https://gist.github.com/ppat/ecca96047e599a58b121d513ec2c0b7e>.
+This section keeps only the findings that outlive that verdict.
+
+**Why mise tasks were evaluated and not adopted.** Of this repo's twelve `run_after_*`/`run_onchange_*` chezmoi
+scripts, exactly one (`dotfiles:completions`, generating shell completions) qualified as a mise task: it is a
+pure function that owns 100% of its own outputs. The other eleven were disqualified by one of two mechanisms
+this PoC surfaced:
+
+- `sources=`/`outputs=` staleness checking is pure-mtime, argument-blind, and has no success gate. That kills
+  any query-then-mutate script (krew, the mise-standard upgrade, etc.) whose "outputs" are also written or
+  deleted by the tool it wraps, outside the task's control — a receipt deleted out-of-band or a mid-run failure
+  gets cached as a permanent false "up-to-date, skipping".
+- chezmoi's `run_onchange_` hashes the *rendered wrapper script*, not anything it transitively calls. A wrapper
+  whose only job is `mise run dotfiles:something` has bytes that never change, so editing the task body alone
+  leaves the wrapper's hash untouched and chezmoi silently never re-runs it — exit 0, nothing logged, the work
+  silently never happens. A hash-embedding fix (baking a hash of the task's rendered content into the wrapper)
+  was built and confirmed to work, but was **not adopted**: it's a second, easy-to-forget coupling between a
+  script and a task file, for logic that doesn't gain anything from being a task in the first place.
+
+The remaining scripts are excluded by lifecycle position (they run before dotfiles exist, or are one-time
+decommissioning, etc.) — a constraint mise's task runner has no lever for, independent of `sources`/`outputs`.
+
+The owner's call: one task is worse than none. A pattern used exactly once isn't a pattern — it's an exception
+with infrastructure attached: a second mental model for the same job, a `tasks/` directory, CI lint wiring that
+existed *solely* to cover it, and a standing invitation for a future reader to "helpfully" add the
+deliberately-omitted `sources=`/`outputs=` to `dotfiles:completions` and reintroduce the exact false-success
+failure mode described above. `private_dot_config/mise/tasks/` and `poc/` have been removed accordingly; nothing
+below this point describes a mechanism that still exists in this tree.
 
 **`conf.d` overlay layout.** `private_dot_config/mise/conf.d/{linux,darwin}.toml` hold per-OS `[tools]`/
 `[bootstrap.packages]` entries; the ~50 common entries stay in `private_dot_config/mise/config.toml` itself.
@@ -91,13 +119,11 @@ not fail loudly — it fails by never settling. `run_after_20_mise-standard.sh.t
 lockfile onto the machine and only then runs `mise upgrade --yes`; `mise upgrade` happily adds the missing
 tool's entries to that *live* copy, but nothing ever writes them back into the repo. The next apply overwrites
 the live lockfile with the (still-incomplete) committed one, `mise upgrade` re-adds the same entries, and the
-cycle repeats forever. Three concrete costs, not just tidiness: (1) it never converges — the live lockfile
-permanently differs from source-of-truth on every single apply; (2) `dotfiles:completions` declares
-`~/.config/mise/mise.lock` as a `#MISE sources=` input, so a lockfile whose mtime changes on every apply
-cache-busts that task forever, for a reason that has nothing to do with the task itself; (3) until the entry
-exists in the lockfile, that tool installs **unverified** — `[settings] lockfile = true` and the checked-in
-lockfile are this repo's supply-chain guarantee (see above), and a `[tools]` entry with no lock entry is a hole
-in that guarantee, not a cosmetic omission. Fix: `mise lock "<tool>"` (the exact `[tools]` key, e.g.
+cycle repeats forever. Two concrete costs, not just tidiness: (1) it never converges — the live lockfile
+permanently differs from source-of-truth on every single apply; (2) until the entry exists in the lockfile, that
+tool installs **unverified** — `[settings] lockfile = true` and the checked-in lockfile are this repo's
+supply-chain guarantee (see above), and a `[tools]` entry with no lock entry is a hole in that guarantee, not a
+cosmetic omission. Fix: `mise lock "<tool>"` (the exact `[tools]` key, e.g.
 `aqua:containerd/nerdctl`), not a bare `mise lock` — the latter re-resolves and rewrites every existing entry,
 turning a one-tool addition into an unreviewable diff across the whole file. Verify the diff is purely additive
 before committing.
@@ -127,99 +153,47 @@ caught the `mas` gap above without a macOS runner either — but it would have c
 instead of in a live pod. Rough cost: a short script plus one new CI step, well under an hour; not built here
 because the task at hand was closing the specific gap, not standing up new CI — left as a follow-up.
 
-**Task layout.** File tasks live under `private_dot_config/mise/tasks/dotfiles/`, one `executable_<name>.tmpl`
-per task, namespaced `dotfiles:*` so they're discoverable via `mise tasks ls -g` and can't collide with
-per-project tasks elsewhere. Nesting a subdirectory produces a colon-separated group (e.g.
-`tasks/dotfiles/darwin/executable_placeholder.tmpl` → `dotfiles:darwin:placeholder`); CI's task linting covers
-nested files on both the PR-diff path (`private_dot_config/mise/tasks/**/*.tmpl` glob) and the schedule path
-(`find -path './private_dot_config/mise/tasks/*.tmpl'`, whose `*` matches across `/`).
+**The absolute-path rule, and what it actually gates.** The symptom PoC started from was "`sources=`/`outputs=`
+need absolute paths" — mise does not expand `~` in either field: a tilde path re-runs on every apply with a
+silent warning instead of caching, while a `{{ .chezmoi.homeDir }}`-rendered absolute path caches correctly
+(`sources up-to-date, skipping`). But the mechanism-level rule underneath that symptom is narrower and matters
+more, and it's the one that produced the 1-of-12 result above: **`sources=`/`outputs=` may only be used where a
+task's outputs are the complete, exclusive product of the task itself.** The shell-completions logic satisfies
+this — it owns all seven completion files it writes, so "have the sources changed since the outputs were last
+written" is a sound staleness question. Krew's logic does not: its "outputs" are krew's own receipt files, state
+also written and deleted by `kubectl krew` itself outside any wrapper's control. Declaring
+`outputs=["$KREW_ROOT/receipts/*.yaml"]` there (tried during the PoC) made the cache *lie* — delete one receipt
+out-of-band and it reports "up-to-date, skipping" forever; fail mid-install and the partial receipt set is
+cached as a permanent false success. This is a property of what the logic reconciles against, not of
+tilde-vs-absolute paths or of tasks specifically, and it doesn't go away with more careful glob-writing — it's
+why krew (and the other three query-then-mutate scripts) stay plain chezmoi scripts.
 
-`.chezmoiignore` governs task *files* exactly as it already governs `conf.d` *config* files: a darwin-only task
-group (`tasks/dotfiles/darwin/`) is excluded on Linux the same way `conf.d/darwin.toml` is, verified by
-diffing `chezmoi managed` output between the real host (`.chezmoi.os` == `linux`: the darwin task group and
-`conf.d/darwin.toml` both absent) and a copy with `.chezmoi.os` forced to `darwin` (both present, and
-`conf.d/linux.toml` absent instead). This is a second, independent mechanism from the one the pre-existing
-darwin-only *scripts* (`run_after_30_docker.sh.tmpl`, `run_after_31_macos_gui_apps.sh.tmpl`) use — those wrap
-their entire body in an in-template `{{ if eq .chezmoi.os "darwin" }}`, rendering an empty file on other OSes
-rather than being excluded outright. Both work; `.chezmoiignore` is the one that generalises to a whole
-directory of future task files without repeating the conditional in each, which is why phase 5's real
-darwin-only tasks (docker cli-plugin symlinks, macOS defaults) should follow the task-group form.
+**The data-file convention.** Any data a script or task needs to iterate at run time (krew's plugin list today;
+the Brewfiles in a later phase) should be a *deployed* file, referenced by a render-time-baked absolute path
+(`{{ .chezmoi.homeDir }}/...`), not a source-tree path resolved at run time — `{{ .chezmoi.sourceDir }}` isn't
+guaranteed to exist or be current once anything runs outside a live `chezmoi apply`. This is why
+`krew-plugins.txt` lives at `~/.local/share/dotfiles/krew-plugins.txt` rather than under `~/.config/mise/data/`
+(a location that only ever made sense if `dotfiles:krew` were a mise task, which the finding above rules out):
+`~/.local/share/dotfiles/` is this repo's own data, depending on nothing else's directory conventions. Phase 4
+should put the Brewfiles in the same place for the same reason.
 
-**The absolute-path rule, and what it actually gates.** The symptom is "`sources=`/`outputs=` need absolute
-paths" — mise does not expand `~` in either field: a tilde path re-runs on every apply with a silent warning
-instead of caching, while `{{ .chezmoi.homeDir }}`-rendered absolute paths cache correctly (`sources up-to-date,
-skipping`). But the mechanism-level rule underneath that symptom is narrower and matters more:
-**`sources=`/`outputs=` may only be used where the task's outputs are the complete, exclusive product of the
-task itself.** `dotfiles:completions` satisfies this — it owns all seven completion files it writes, so "have
-the sources changed since the outputs were last written" is a sound staleness question. `dotfiles:krew` does
-not: its "outputs" are krew's own receipt files, state also written and deleted by `kubectl krew` itself
-outside this task's control. Declaring `outputs=["$KREW_ROOT/receipts/*.yaml"]` there made the cache *lie* —
-delete one receipt out-of-band and the task reports "up-to-date, skipping" forever; fail mid-install and the
-partial receipt set is cached as a permanent false success. `sources` alone (no `outputs`) avoids the lie but
-also gives up the only reason to prefer a task there. Verdict: `dotfiles:krew` stays a chezmoi script (see
-`poc/README.md`); this is a property of what the task reconciles against, not of tilde-vs-absolute paths, and
-it doesn't go away with more careful glob-writing.
-
-**The data-file convention.** A task cannot read `{{ .chezmoi.sourceDir }}` at run time the way a chezmoi
-script can — the source tree isn't guaranteed to exist or be current on the target machine once tasks run
-outside a `chezmoi apply`. So any data file a task needs to iterate (krew's plugin list today; the Brewfiles in
-a later phase) must be a *deployed* file, referenced by a render-time-baked absolute path
-(`{{ .chezmoi.homeDir }}/...`), not a source-tree path resolved at run time. This is also why
-`krew-plugins.txt` moved from `~/.config/mise/data/` (coupled to mise's own directory conventions, and
-meaningless now that `dotfiles:krew` isn't a mise task) to `~/.local/share/dotfiles/` — this repo's own data,
-depending on nothing else's layout. Phase 4 should put the Brewfiles in the same place for the same reason.
-
-**Secrets channel: `#MISE env=`, never `#USAGE`.** Config-level `redactions` (in
+**Secrets channel: `#MISE env=`, never `#USAGE`.** This finding is preserved because it's relevant if mise tasks
+are ever revisited, even though no task currently reads it. Config-level `redactions` (in
 `private_dot_config/mise/config.toml`) only masks values that reach a task through a `#MISE env={NAME="..."}`
 directive. It does **not** mask a `#USAGE`-flag-derived `usage_*` value, default or CLI-supplied, on mise
-2026.8.3 — confirmed with a positive and a negative control in the same rig (see
-`private_dot_config/mise/tasks/dotfiles/executable_completions.tmpl`'s own comment for the exact commands).
-Root cause: `redactions` resolves names against the env map built *before* `#USAGE` values are merged in, so
-naming a `usage_*` var in `redactions` never actually looks it up. There is no alternate `#USAGE` sensitivity
-flag or per-task syntax that covers this on the current version. Two corollaries worth keeping in mind before
-phase 5 wires real `bitwardenSecrets` values into tasks: matching is exact-case-sensitive (a `redactions` entry
-that doesn't case-match its `env=` var name silently fails to mask, indistinguishable at a glance from naming
-the wrong channel), and mise's own debug log is not a safe fallback check — task stdout is never mirrored into
-it either way (so "0 occurrences in the log" proves nothing about stdout), and when file-level debug logging
-*is* genuinely enabled (`MISE_LOG_LEVEL=debug`, not just `MISE_LOG_FILE_LEVEL=debug`, which alone is a silent
-no-op), a CLI-supplied value leaks into that log **twice** — via the `DEBUG ARGS:` line and the unredacted
-command-echo line — regardless of which channel carried it in. Net rule: `#USAGE` stays for ordinary,
-non-secret parameters (`--output-dir` on `dotfiles:completions` is the standing example); anything secret goes
+2026.8.3 — confirmed with a positive and a negative control in the same rig (exact commands and the task file
+that carried them: see the gist linked above). Root cause: `redactions` resolves names against the env map
+built *before* `#USAGE` values are merged in, so naming a `usage_*` var in `redactions` never actually looks it
+up. There is no alternate `#USAGE` sensitivity flag or per-task syntax that covers this on the current version.
+Two corollaries worth keeping in mind if a real `bitwardenSecrets` value is ever routed into a task: matching is
+exact-case-sensitive (a `redactions` entry that doesn't case-match its `env=` var name silently fails to mask,
+indistinguishable at a glance from naming the wrong channel), and mise's own debug log is not a safe fallback
+check — task stdout is never mirrored into it either way (so "0 occurrences in the log" proves nothing about
+stdout), and when file-level debug logging *is* genuinely enabled (`MISE_LOG_LEVEL=debug`, not just
+`MISE_LOG_FILE_LEVEL=debug`, which alone is a silent no-op), a CLI-supplied value leaks into that log **twice**
+— via the `DEBUG ARGS:` line and the unredacted command-echo line — regardless of which channel carried it in.
+Net rule, if this is ever revisited: `#USAGE` stays for ordinary, non-secret parameters; anything secret goes
 through `#MISE env=`.
-
-**`run_onchange_` + task interaction: confirmed silent failure, not adopted.** chezmoi's `run_onchange_`
-mechanism hashes the *rendered wrapper script*, not anything it calls. A thin wrapper whose only job is
-`mise run dotfiles:something` has rendered bytes that never change, so editing only the task's body leaves the
-wrapper's hash untouched and chezmoi never re-runs it — exit 0, nothing logged, the work silently never
-happens. This was reproduced with a positive control (a scratch probe: bump the task body only, confirm the
-wrapper's onchange script does not re-run; bump the wrapper, confirm it does) rather than assumed. A fix
-candidate — embedding a hash of the task's rendered content into the wrapper via chezmoi's `include | sha256sum`
-so the wrapper's own bytes change whenever the task does — was built and verified to work on the same probe.
-**It was not adopted.** The decision instead is to keep onchange-driven logic (macOS defaults, launch agents)
-inline in the wrapper script body, not delegated to a mise task at all: the hash-embed fix works, but it's a
-second, easy-to-forget coupling between a script and a task file that only exists to route around a mechanism
-mismatch, for logic that doesn't gain anything from being a task in the first place (it isn't reused, doesn't
-need `sources=`/`outputs=` caching, and doesn't benefit from `tools=` resolution any more than the krew script
-does). Phase 5 should treat this as settled rather than re-deriving it.
-
-**`dotfiles:setup`, the fan-in, and its actual limits.** `dotfiles:setup` `depends` on `dotfiles:completions`
-and has no body of its own, proving two things: `depends` can stand in for the numeric `run_after_NN` filename
-ordering chezmoi scripts use today, and a cached (skipped-as-up-to-date) dependency doesn't break the
-aggregate run (`dotfiles:setup` still exits 0 on a re-run while `dotfiles:completions` reports
-"sources up-to-date, skipping" — verified in a scratch rig). What it does **not** prove, because it currently
-has exactly one member: ordering or conflict resolution between multiple dependencies, behavior when one
-dependency in the set fails outright, or fan-out width. Treat those as open until phase 5 gives this task a
-second real dependency.
-
-**`dotfiles:packages` was deliberately not built.** The ticket's §C5 vehicle wanted a task that would (a)
-provoke the `run_onchange_`/task question above and (b) apply bootstrap packages. Both are now satisfied
-elsewhere: (a) by the dedicated onchange probe referenced above, and (b) by `apply_bootstrap_packages` in
-`.chezmoitemplates/script_mise.sh`, already called from `run_after_20_mise-standard.sh.tmpl` on every apply.
-Building `dotfiles:packages` now would ship a `run_onchange_`-triggered task purely to have a third
-`dotfiles:setup` dependency, which is exactly the mechanism this section just said not to use. Its omission is
-a resourced decision, not an unfinished corner: `mise tasks ls -g` lists `dotfiles:{completions,setup}` and the
-excluded `dotfiles:darwin:placeholder`, not `dotfiles:{packages,completions,krew,setup}` as the ticket's
-original criterion 8 assumed.
 
 ## First-time vs. standard setup
 

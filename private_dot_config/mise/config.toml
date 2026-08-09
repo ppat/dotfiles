@@ -1,16 +1,3 @@
-# PoC (#747 C2): redacts DOTFILES_COMPLETIONS_DUMMY_SECRET, a stand-in for a bitwardenSecrets value,
-# declared via `#MISE env=` on the dotfiles:completions task (see that task's own comment). This is
-# the channel phase 5 must route secrets through -- NOT `#USAGE` flags. Verified in a scratch rig,
-# both directions, on mise 2026.8.3: a `#MISE env={NAME="..."}` var named here masks to "[redacted]"
-# in `mise run` stdout (default run and forced re-run alike); a `#USAGE`-flag-derived `usage_*` var
-# named here does NOT mask, in the clear for both the flag's default and an explicit CLI value.
-# Root cause: `redactions` resolves names against the env map built *before* #USAGE values are
-# merged in, so the #USAGE lookup never happens -- there's no separate #MISE-level syntax or
-# sensitivity flag that covers it. Also verified: matching is exact-case-sensitive (a redactions
-# entry that doesn't case-match its env var name silently fails to mask, same as naming the wrong
-# channel). Net rule: `#USAGE` for ordinary parameters, `env=` for anything secret.
-redactions = ["DOTFILES_COMPLETIONS_DUMMY_SECRET"]
-
 [tools]
 bun            = "1.3.14"
 cargo-binstall = "1.21.1"

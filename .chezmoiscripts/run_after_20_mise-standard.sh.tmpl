@@ -30,19 +30,19 @@ main() {
   # *before* `mise upgrade` verifies against it below, and that guarantee is load-bearing: do
   # not remove the cp, and do not make chezmoi manage mise.lock instead.
   #
-  # It IS conditional on content, not unconditional, because `~/.config/mise/mise.lock` is a
-  # declared `#MISE sources=` entry of the dotfiles:completions task, and mise's staleness check
-  # for that task is mtime-based. An unconditional `cp` bumped the destination's mtime on every
-  # apply even when the bytes were identical, which made dotfiles:completions re-run every time
-  # instead of ever reporting "sources up-to-date, skipping" -- defeating the caching that task
-  # exists to demonstrate (PoC #747 acceptance criterion 9). Comparing first means an unchanged
-  # lockfile leaves the destination's mtime untouched, while a genuinely changed one still lands
-  # before `mise upgrade` runs, exactly as before. If you're tempted to simplify this back to a
-  # bare `cp`, don't -- that reintroduces the criterion-9 regression this comment is about.
+  # It IS conditional on content, not unconditional, because an unconditional `cp` bumps the
+  # destination's mtime on every apply even when the bytes are byte-identical. This was originally
+  # caught (PoC #747) because it defeated a mise task's mtime-based `sources=` staleness cache --
+  # that task has since been retired (see DESIGN.md's "Mise tasks and conf.d overlays" section),
+  # but the underlying problem is general, not task-specific: needless mtime churn on a file
+  # anything else might use as a staleness signal. Comparing first means an unchanged lockfile
+  # leaves the destination's mtime untouched, while a genuinely changed one still lands before
+  # `mise upgrade` runs, exactly as before. If you're tempted to simplify this back to a bare
+  # `cp`, don't -- that reintroduces the needless-churn regression this comment is about.
   local mise_lock_src="{{ .chezmoi.sourceDir }}/private_dot_config/mise/mise.lock"
   local mise_lock_dst="$(dirname "${MISE_GLOBAL_CONFIG_FILE}")/mise.lock"
   if [[ -f "$mise_lock_dst" ]] && cmp -s "$mise_lock_src" "$mise_lock_dst"; then
-    log_info "Mise | $setup_type | mise.lock already matches source, leaving destination mtime untouched (preserves dotfiles:completions caching)..."
+    log_info "Mise | $setup_type | mise.lock already matches source, leaving destination mtime untouched..."
   else
     log_info "Mise | $setup_type | Refreshing mise.lock from source (picks up Renovate-driven checksum updates)..."
     cp "$mise_lock_src" "$mise_lock_dst"
@@ -55,10 +55,10 @@ main() {
   echo
   # `mise prune` re-serializes and rewrites mise.lock on every invocation, even when nothing is
   # actually pruned -- confirmed empirically (identical before/after bytes, fresh mtime either
-  # way). That is the exact same dotfiles:completions cache-defeat mechanism as the `cp` above,
-  # just triggered by a different command further down this same script: fixing only the `cp`
-  # left criterion 9 failing in a real pod, because this unconditional rewrite alone was enough
-  # to bump mise.lock's mtime on every apply. Snapshot mise.lock (content + mtime) beforehand and
+  # way). That is the exact same needless-mtime-churn mechanism as the `cp` above (see that
+  # comment), just triggered by a different command further down this same script: fixing only
+  # the `cp` left this rewrite alone still bumping mise.lock's mtime on every apply, confirmed in
+  # a real pod during PoC #747. Snapshot mise.lock (content + mtime) beforehand and
   # restore the old mtime afterward whenever prune's output is byte-identical, so a no-op prune
   # doesn't invalidate the cache either -- while a prune that genuinely removes something still
   # gets a fresh mtime, correctly invalidating it.

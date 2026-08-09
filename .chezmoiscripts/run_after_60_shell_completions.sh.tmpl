@@ -9,19 +9,43 @@ export PATH=$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${H
 
 {{ template "script_header.sh" . }}
 
-# PoC (#747 C2): this wrapper stays chezmoi's -- it owns *when* (run_after_60, i.e. after dotfiles
-# are written, so mise.lock has already been refreshed from source by run_after_20_mise-standard.sh.tmpl
-# -- see that script's `cp {{ "{{" }} .chezmoi.sourceDir {{ "}}" }}/private_dot_config/mise/mise.lock ...`
-# step, which must run first or dotfiles:completions' cache key is meaningless). The task
-# (`dotfiles:completions`, ~/.config/mise/tasks/dotfiles/completions) owns *what*: it declares its
-# own `tools=`, so unlike this wrapper it does NOT need `eval "$(mise activate bash)"` first -- only
-# a bare `mise` binary on PATH, which homebrew.env's PATH export above already guarantees (mise
-# itself is Homebrew-installed, see DESIGN.md). mise.env is still sourced here because it also
-# carries MISE_CONFIG_DIR/MISE_LOG_FILE/MISE_TRUSTED_CONFIG_PATHS etc., which `mise run` needs
-# regardless of activation. krew.env is dropped: nothing in this script touches krew.
+# Re-exec once under mise's resolved toolset -- the #747 PoC's harvest (see DESIGN.md's "Mise tasks and
+# conf.d overlays" section): a single `mise exec <tools> --` replaces `eval "$(mise activate bash)"` plus a
+# `command -v` guard per tool, the same technique run_after_22_krew.sh.tmpl uses, minus its `usage`
+# argument-parsing tail -- this script takes no arguments (chezmoi always invokes it bare), so there's
+# nothing for `usage` to buy here. No caching: unlike the PoC's mise-task form, a plain script has no
+# `sources=`/`outputs=` staleness check, so all seven completion files below are regenerated on every
+# apply. That's an accepted cost of not adopting mise tasks, not an oversight -- see DESIGN.md.
+if [[ -z "${DOTFILES_COMPLETIONS_BOOTSTRAPPED:-}" ]]; then
+  if ! command -v mise > /dev/null; then
+    log_error "Shell Completions | Mise binary is not in path, cannot proceed!"
+    exit 1
+  fi
+  export DOTFILES_COMPLETIONS_BOOTSTRAPPED=1
+  exec mise exec "flux" "gh" "helm" "kubectl" "kustomize" "mise" "zoxide" -- "${BASH_SOURCE[0]}" "$@"
+fi
+
+readonly OUTPUT_DIR="{{ .chezmoi.homeDir }}/.local/bash-completions"
+
+generate_completions() {
+  mkdir -p "${OUTPUT_DIR}"
+
+  flux completion bash > "${OUTPUT_DIR}/flux"
+  gh completion -s bash > "${OUTPUT_DIR}/gh"
+  helm completion bash > "${OUTPUT_DIR}/helm"
+  kubectl completion bash > "${OUTPUT_DIR}/kubectl"
+  kustomize completion bash > "${OUTPUT_DIR}/kustomize"
+  # #728: this file must be written before zoxide's below, and the two must target different
+  # filenames ("mise" vs "zoxide"). The original bug had zoxide's line targeting "mise", clobbering
+  # the completion written here. If either the target filename or the ordering is changed again,
+  # this silently reintroduces that bug -- neither command errors, only one file ends up wrong.
+  mise completion bash --include-bash-completion-lib > "${OUTPUT_DIR}/mise"
+  zoxide init bash > "${OUTPUT_DIR}/zoxide"
+}
+
 main() {
   log_info "Shell Completions | Setting up..."
-  mise run dotfiles:completions 2>&1 | sed -E 's|^(.*)|    \1|g'
+  generate_completions 2>&1 | sed -E 's|^(.*)|    \1|g'
   log_success "Shell Completions | Configured."
   echo "-------------------------------------------------------------------------------------------"
   echo
