@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "mise.env" . -}}
+{{ template "homebrew.env" . -}}
+set +o allexport
+export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+
+# SCRATCH probe for PoC #747 C5 (run_onchange_ + task interaction).
+# wrapper-version=1 -- not a deliverable, safe to delete once C5 is settled.
+echo "wrapper-version=1 invoked-at=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >>"$HOME/.poc747-onchange-probe-wrapper.log"
+mise run poc747:onchange
