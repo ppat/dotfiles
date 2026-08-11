@@ -26,7 +26,7 @@ uv             = "0.12.3"
 # asset, so mise cannot install it on macOS -- without this filter `mise install` aborts the whole apply
 # with "unsupported env: darwin/arm64". mise.lock carries linux-* platforms only, so nothing to relock.
 "aqua:aristocratos/btop"         = { version = "1.4.7", os = ["linux"] }
-"aqua:atuinsh/atuin"             = "18.18.1"
+"aqua:atuinsh/atuin"             = "18.19.0"
 "aqua:bitwarden/clients"         = "2026.7.0"
 "aqua:bitwarden/sdk-sm"          = "2.1.0"
 "aqua:bootandy/dust"             = "1.2.4"
