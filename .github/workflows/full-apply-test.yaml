@@ -64,6 +64,7 @@ jobs:
         name = "CI Test"
         email = "ci@example.com"
         bwsAccessToken = "unused-fake-token"
+        coderUsername = "ci-test"
         EOF
 
     - name: chezmoi init --apply (first-time bootstrap)
