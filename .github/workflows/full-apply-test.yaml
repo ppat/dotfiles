@@ -48,7 +48,9 @@ jobs:
       # prove real Bitwarden Secrets Manager resolution works, which requires a real
       # bwsAccessToken on a real machine (see DESIGN.md's "CI can't be the full story").
       run: |
-        grep -rl 'bitwardenSecrets' . --include='*.tmpl' --include='*.toml' | xargs -r sed -i 's|{{ (bitwardenSecrets "[^"]*" .bwsAccessToken).value }}|fake-test-value|g'
+        # -Z/-0: NUL-delimited, so paths with spaces (e.g. "private_Application Support")
+        # survive the grep -> xargs handoff intact instead of being word-split.
+        grep -rlZ 'bitwardenSecrets' . --include='*.tmpl' --include='*.toml' | xargs -0 -r sed -i 's|{{ (bitwardenSecrets "[^"]*" .bwsAccessToken).value }}|fake-test-value|g'
 
     - name: Install chezmoi
       run: |
