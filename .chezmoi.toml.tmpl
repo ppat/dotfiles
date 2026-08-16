@@ -4,6 +4,7 @@
 {{- $gitName := promptStringOnce . "name" "Enter your full name for Git" -}}
 {{- $gitEmail := promptStringOnce . "email" "Enter your email for Git" -}}
 {{- $accessToken := promptStringOnce . "bwsAccessToken" "Enter your BWS Access Token" -}}
+{{- $coderUsername := promptStringOnce . "coderUsername" "Enter your Coder deployment username (used in the VS Code remote.SSH.remotePlatform host key)" -}}
 {{- $editor := or (env "EDITOR") "vim" -}}
 
 # Set values in the data section
@@ -12,6 +13,7 @@
     email = {{ $gitEmail | quote }}
     editor = {{ $editor | quote }}
     bwsAccessToken = {{ $accessToken | quote }}
+    coderUsername = {{ $coderUsername | quote }}
 
 [diff]
     command = "diff"

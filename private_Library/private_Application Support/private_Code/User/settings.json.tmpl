@@ -38,18 +38,64 @@
   // Increase delay before showing code completion suggestions (default: 10ms)
   "editor.suggestDelay": 3000,
   "editor.suggest.preview": true,
-  // Prevent extensions from automatically updating in the background
-  "extensions.autoUpdate": true,
+  // Prevent extensions from automatically updating in the background.
+  // "off" (not boolean false) matches the current extensions.autoUpdate schema -- VS Code
+  // migrates a legacy boolean to "on"/"off" automatically, but writing the string directly
+  // avoids relying on that migration (and an in-place rewrite of this chezmoi-managed file).
+  "extensions.autoUpdate": "off",
+  "extensions.autoCheckUpdates": false,
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 300,
-  // Exclude large directories from file watching to reduce I/O and CPU load
+  // Exclude large/generated directories from file watching to reduce I/O and CPU load.
+  // The remote (Coder workspace) home holds an 11 GB ~/.vscode-server tree that VS Code
+  // would otherwise watch recursively (including itself), plus a Homebrew symlink farm and
+  // every installed mise toolchain version -- none of these are ever hand-edited.
   "files.watcherExclude": {
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
     "**/node_modules/**": true,
     "**/dist/**": true,
-    "**/build/**": true
+    "**/build/**": true,
+    "**/.vscode-server/**": true,
+    "**/.linuxbrew/**": true,
+    "**/.local/share/mise/**": true,
+    "**/.terraform/**": true,
+    "**/.cache/**": true,
+    "**/.cargo/**": true,
+    "**/go/pkg/**": true,
+    "**/.claude/**": true,
+    "**/target/**": true,
+    "**/vendor/**": true,
+    "**/.venv/**": true
   },
+  // Same directories as files.watcherExclude -- keep full-text search from indexing them too.
+  "search.exclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/.vscode-server/**": true,
+    "**/.linuxbrew/**": true,
+    "**/.local/share/mise/**": true,
+    "**/.terraform/**": true,
+    "**/.cache/**": true,
+    "**/.cargo/**": true,
+    "**/go/pkg/**": true,
+    "**/.claude/**": true,
+    "**/target/**": true,
+    "**/vendor/**": true,
+    "**/.venv/**": true
+  },
+  // Homebrew/mise symlink farms make plain (non-excluded) symlink traversal expensive.
+  "search.followSymlinks": false,
+  // Cap the TypeScript server's heap instead of leaving it unbounded.
+  "typescript.tsserver.maxTsServerMemory": 2048,
+  "typescript.disableAutomaticTypeAcquisition": true,
+  // Reduce the git extension's background repository scanning.
+  "git.autoRepositoryDetection": "openEditors",
+  "git.repositoryScanMaxDepth": 1,
+  "git.autofetch": false,
   "telemetry.telemetryLevel": "off",
   "window.restoreWindows": "preserve",
   "window.zoomLevel": 0,
@@ -59,9 +105,21 @@
   "workbench.list.smoothScrolling": false,
 
   "remote.SSH.connectTimeout": 1800,
+  // Host key matches the "coder-vscode.<deployment>--<username>--<workspace>.<agent>" format
+  // that the Coder VS Code extension's SSH authority parser actually produces (verified against
+  // coder/vscode-coder's src/util/authority.ts). A second, differently-shaped entry that used
+  // to live here (a "--<workspace>--<agent>" tail instead of ".<agent>") does not parse under
+  // that scheme -- it predates the current extension version and was dropped rather than
+  // templated (dotfiles#772).
   "remote.SSH.remotePlatform": {
-    "coder-vscode.coder.homelab.nikara.net--ppat--peter--main": "linux",
-    "coder-vscode.coder.homelab.nikara.net--peter--peter.main": "linux"
+    "coder-vscode.coder.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}--{{ .coderUsername }}--{{ .coderUsername }}.main": "linux"
+  },
+  // APPLICATION/WINDOW-scoped in VS Code's own configuration registry (never MACHINE or
+  // MACHINE_OVERRIDABLE), so it must live in this file -- the remote Machine settings file
+  // parses only [MACHINE, MACHINE_OVERRIDABLE] scopes and silently drops anything else.
+  "remote.extensionKind": {
+    "vscode-icons-team.vscode-icons": ["ui"],
+    "bierner.markdown-mermaid": ["ui"]
   },
   "remote.SSH.defaultExtensions": [
     "bierner.markdown-mermaid",
