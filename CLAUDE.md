@@ -79,9 +79,13 @@ dotenv-linter --skip QuoteCharacter <file>
 
 Every credential is pulled via the `bitwardenSecrets` template function keyed by a fixed secret UUID, resolved
 only at `chezmoi apply` time — never hardcoded. See [DESIGN.md](DESIGN.md#secrets-bitwarden-secrets-manager-not-plaintext)
-for why. In practice: `private_dot_env.secrets.tmpl` (API keys, cloud creds, Terraform vars) and
-`.chezmoiscripts/run_after_61_kubeconfig.sh.tmpl` (OIDC client credentials) are the two places new secret
-references get added.
+for why. In practice: `private_dot_env.secrets.tmpl` (API keys, cloud creds, Terraform vars),
+`.chezmoiscripts/run_after_61_kubeconfig.sh.tmpl` (OIDC client credentials), and `private_dot_ssh/` /
+`private_dot_talos/` (sandbox VM SSH key and talosconfig, see `.chezmoiscripts/run_after_63_sandbox.sh.tmpl`)
+are where new secret references get added. Not every credential is meant to land on disk automatically, though:
+`private_dot_local/bin/executable_fetch-sandbox-talos-machine-config` fetches its secret on demand via `bws`
+at *invocation* time rather than at `chezmoi apply` time, specifically to keep a CA private key off the
+(shared, RWX) workspace home PVC by default — see the script's own header comment for the reasoning.
 
 ## Renovate
 
