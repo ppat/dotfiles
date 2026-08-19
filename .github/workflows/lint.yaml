@@ -153,13 +153,50 @@ jobs:
       files: ${{ github.event_name != 'pull_request' && 'ALL' || fromJSON(needs.detect-changes.outputs.results).renovate_all_changed_files }}
       mise_ignore_cfg: private_dot_config/mise/config.toml
 
-  shellcheck:
+  # The reusable lint-shellcheck.yaml's own ALL-discovery (used on the weekly scheduled sweep
+  # and workflow_dispatch) selects files via `find ... -executable`. This is a chezmoi source
+  # repo: scripts are committed at mode 100644 and only gain the executable bit at deploy time,
+  # applied by chezmoi via the `executable_` filename-prefix convention -- so ALL-discovery
+  # matches nothing here (verified with `git ls-tree`: every script is 100644). Compute the
+  # real file list ourselves instead of hardcoding one: see
+  # .github/scripts/discover-shellcheck-files.sh for the predicate and its rationale. Keeping
+  # this chezmoi-specific knowledge here, rather than teaching it to the shared workflow, is
+  # deliberate -- lint-shellcheck.yaml is consumed by ~16 repos.
+  # Always runs (rather than only on non-PR events) so the "shellcheck" job below -- which
+  # does have a conditional `if:` -- never has to reason about a skipped dependency.
+  shellcheck-discover-files:
     needs: [detect-changes]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      files: ${{ steps.discover.outputs.files }}
+    steps:
+    - name: Checkout current
+      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      with:
+        ref: ${{ github.head_ref || github.ref }}
+
+    - name: Discover shell scripts
+      id: discover
+      shell: bash
+      # yamllint disable-line rule:indentation
+      run: |
+        files="$(.github/scripts/discover-shellcheck-files.sh)"
+        {
+          echo "files<<EOF"
+          echo "${files}"
+          echo "EOF"
+        } >> "$GITHUB_OUTPUT"
+        echo "discovered $(wc -l <<< "${files}") shell file(s):"
+        echo "${files}"
+
+  shellcheck:
+    needs: [detect-changes, shellcheck-discover-files]
     if: ${{ github.event_name != 'pull_request' || fromJSON(needs.detect-changes.outputs.results).shellscripts_any_changed == 'true' }}
     uses: ppat/github-workflows/.github/workflows/lint-shellcheck.yaml@1e8ca1b00b6e69bdf5aef8b33111c594c051ff65 # v4.4.0
     with:
       git_ref: ${{ github.head_ref || github.ref }}
-      files: ${{ github.event_name != 'pull_request' && 'ALL' || fromJSON(needs.detect-changes.outputs.results).shellscripts_all_changed_files }}
+      files: ${{ github.event_name != 'pull_request' && needs.shellcheck-discover-files.outputs.files || fromJSON(needs.detect-changes.outputs.results).shellscripts_all_changed_files }}
       mise_ignore_cfg: private_dot_config/mise/config.toml
 
   yaml:
