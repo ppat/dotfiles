@@ -91,3 +91,6 @@ need permission.
   a conclusion already given, not build up to one.
 - Cut findings that can't change a decision; keep one anyway only if it's
   labeled incidental.
+- When I ask for a specific output format (table, list, diff, JSON, a
+  brevity level), keep using it for later updates on the same thread of
+  work, not just the reply that asked for it — until I say otherwise.
