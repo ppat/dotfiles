@@ -1,12 +1,16 @@
 ---
 name: derive-commit-taxonomy
 description: >
-  Use this skill when asked to derive, design, or overhaul a commit type/scope
-  taxonomy for a repository — "design the commit taxonomy", "what scopes should
-  this repo have", "set up commitlint scopes", "align commitlint with
-  release-please and Renovate", "write the commit conventions rule for this
-  repo", or any task whose deliverable is a repo's conventional-commit
-  vocabulary plus the enforcement that makes it real. It teaches a METHOD — an
+  Use this skill when asked to derive, design, overhaul, or audit a commit
+  type/scope taxonomy for a repository — "design the commit taxonomy", "what
+  scopes should this repo have", "set up commitlint scopes", "align commitlint
+  with release-please and Renovate", "write the commit conventions rule for
+  this repo", or any task whose deliverable is a repo's conventional-commit
+  vocabulary plus the enforcement that makes it real. Use it equally when
+  diagnosing the machinery around an existing taxonomy — "Renovate is emitting
+  scopes commitlint rejects", "the commit lint gate isn't actually blocking
+  anything", "what does this preset bump do to commit scopes" — those are this
+  skill's questions Q3, Q4 and Q6 standing alone. It teaches a METHOD — an
   ordered set of questions, the traps that took adversarial review rounds to
   find, and a verification shape — not an answer: every repo's taxonomy is
   different (especially the scopes), and importing another repo's enum is the
@@ -26,7 +30,9 @@ You are producing four things, grounded in evidence from this specific repo:
    suggestion, sequenced so no intermediate state is unsafe.
 3. **A rule document** future sessions can decide from (see
    [Writing the rule](#writing-the-rule-document)).
-4. **Verification** that the machinery cannot emit what the gate rejects.
+4. **Verification** that the emission machinery and the gate agree — closure
+   where the mechanism permits it, declared sampling where it does not (see
+   [Verification](#verification)).
 
 What you are NOT doing: copying the enum from a repo where this was done
 before. Two repos have been through this method; one needed scopes carrying
@@ -163,6 +169,8 @@ rules reaching the end of the chain.
 ## The traps
 
 These took two adversarial review rounds to find. Check each one explicitly.
+Two further traps attack verification schemes specifically; they live in
+[Verification](#verification), next to the layer each one breaks.
 
 ### Enforcement decomposes further than "is the check required"
 
@@ -173,10 +181,10 @@ so the hazard was called "silent accumulation by the bot" — but the repo had
 `allow_auto_merge: false`, which made platform automerge **inert**; the bot's
 fallback merge path gated on *all* checks, and every red PR in history had
 been merged by a *human* clicking past the red. Same config text, opposite
-hazard, different remedy. The lesson: do not stop at the first config flag
-that implies a merge behaviour — resolve who actually merged the
+hazard, different remedy. The lesson: resolve who actually merged the
 non-conforming PRs (`gh pr view --json mergedBy`) and design the gate for
-that actor.
+that actor — a config flag that implies a merge behaviour is a hypothesis
+about the merge path, not an observation of it.
 
 ### A check the dominant actor cannot satisfy is not a check
 
@@ -191,34 +199,6 @@ for machine commits), weaken to advisory **with a recorded sunset condition**
 (review the fire log by a date; gate on demonstrated true positives; delete if
 noise-only), or drop the check. Every check should end up either required or
 explicitly advisory-with-a-sunset — nothing permanently in between.
-
-### Equivalence classes must be cut on what varies the outcome — including repo state
-
-Any sampling-based verification ("test one cell per class") is only as good as
-the class boundary. The tempting axes are config properties: manager, update
-type, datasource. The real axis often includes **repo state** — which package
-files share a branch, which directories a dependency occupies — which changes
-with the dependency graph, not the config. The strongest attack on any
-class scheme, and the first one to run: **find two real cells in one declared
-class with different outcomes.** One counterexample (the same dependency, same
-manager, same update type, resolving to two different scopes on two real PRs)
-collapses the class and the coverage it implied. Where the outcome depends on
-repo state, either include that state in the class axis or stop claiming
-closure and say "sampling" (see verification below).
-
-### Verify the verifier's own scope
-
-A soundness argument like "every emitted scope is in the enum" holds only over
-the mechanism it was checked against. Both live defects found in one repo came
-from a config field the checker did not enumerate (`commitMessagePrefix`
-templates, while the checker read only `semanticCommitScope`). Enumerate
-**every** field and site that can produce the artifact you are constraining —
-including sites outside the system you were told to check (the release tool's
-own PR-title pattern is a scope-carrying site) — and enumerate them
-mechanically, not by hand: a hand-written site list is the same failure mode
-the checker exists to catch, one level up. Then state the argument's scope
-explicitly, and check the verifier for the *next* trap too — a falsifier can
-enforce the very prior it should be catching.
 
 ### The wrong-prior trap: an adversarial pass can manufacture a defect
 
@@ -255,6 +235,26 @@ reviewer's own prior. Corollaries worth checking every time:
 - Sweep for the prior elsewhere once found: in the same exercise it had also
   been baked into a CI falsifier, which then enforced the wrong model.
 
+### Write the intent onto the fence
+
+The structural prevention for the wrong-prior trap. Chesterton's fence only
+works if someone wrote on the fence: the calver rule above was nearly
+destroyed because its description said what the rule *did*, and the semantics
+that made it correct lived in nobody's head but its author's. So give every
+config rule this exercise writes or corrects a description stating **what
+problem it solves** — the mechanics are readable from the rule; the reason is
+not. And while auditing existing config, treat your own inferences as the
+signal: **any rule whose intent you had to infer is a rule whose description
+is inadequate.** Fix the description in the same change — the inference you
+just did is exactly the thing worth persisting.
+
+One danger class deserves an explicit pass: **a setting that reads as a
+semantic assertion but is actually a workaround.** `versioning:`,
+`separateMajorMinor`, `rangeStrategy` all read as declarations about the
+dependency ("this project is semver"); where one is really a workaround for a
+tag shape or a tool quirk, say so where the setting lives, or the next reader
+will take it as ground truth about the upstream project — and reason from it.
+
 ### Smaller traps, briefly
 
 - **Chesterton's fence by intent, not letter**: a deliberate rule can still be
@@ -267,7 +267,7 @@ reviewer's own prior. Corollaries worth checking every time:
   truncated segments silently (`feat(infra-)!:` from a missing path index).
   Include the degenerate cases in any closure computation.
 
-## Verification: the three-layer shape
+## Verification
 
 Neither of the two obvious approaches works alone, and both failed in
 practice:
@@ -277,37 +277,69 @@ practice:
   enumerate your way to "the config cannot emit X".
 - A **purely analytic reading** of the config is cheaper and stronger — derive
   the emittable set, check it against the enum — but it missed two live
-  defects, because the derivation covered only the fields someone thought to
-  enumerate, and because part of the outcome depended on repo state the
-  config does not determine.
+  defects: the derivation covered only the fields someone thought to
+  enumerate, and part of the outcome depended on repo state the config does
+  not determine.
 
-The shape that held is three layers, split by whether the mechanism is closed:
+The shape that held is three layers, split by whether the mechanism is
+closed. The first two each come with the attack that keeps them honest —
+run the attack against your own scheme before trusting the layer; each
+attack found a real hole exactly where an analytic argument sounded airtight.
 
-1. **Closure by construction, where the mechanism is closed.** Where emission
-   is static literals plus finite template expansions over enumerable inputs,
-   derive the complete emittable set and assert it is a subset of the enum —
-   as a **CI check re-run on every commit**, not a one-time analysis. Re-running
-   per commit turns repo-state dependence from a gap into the mechanism: a new
-   directory, a moved package, or a pin bump re-derives the closure
-   automatically. The closure is only as good as its site enumeration —
-   see "verify the verifier" above — and its re-run trigger must include
-   occupancy changes (a package appearing in a new directory), not just
-   config changes.
-2. **Runtime gating plus declared sampling, where the mechanism is open.**
-   Some outcomes (which of a multi-item branch's compiled headers is emitted)
-   depend on unbounded repo state. Do not claim closure there. Instead:
-   settle the selection mechanism against the tool's source if you can, sample
-   the composition shapes that actually occur, **say plainly that this is
-   sampling**, and place a required merge-time check behind it so whatever the
-   open mechanism produces is still gated for enum membership at the door.
-   State precisely what the gate gives you (enum conformance) and what it does
-   not (honesty of the scope against the diff).
-3. **Falsification against named trap classes.** Turn every defect found
-   during derivation into a standing falsifier. Then prove the green run is
-   not vacuous by **injecting defects**: re-introduce each real historical
-   defect (including the withdrawn wrong "fix" — guard both directions) and
-   require the harness to catch every one. A verification suite that has never
-   caught an injected defect is an argument, not a check.
+### Layer 1 — closure by construction, where the mechanism is closed
+
+Where emission is static literals plus finite template expansions over
+enumerable inputs, derive the complete emittable set and assert it is a
+subset of the enum — as a **CI check re-run on every commit**, not a one-time
+analysis. Re-running per commit turns repo-state dependence from a gap into
+the mechanism: a new directory, a moved package, or a pin bump re-derives the
+closure automatically. The re-run trigger must include occupancy changes (a
+package appearing in a new directory), not just config changes.
+
+**The attack — verify the verifier's own scope.** A soundness argument like
+"every emitted scope is in the enum" holds only over the mechanism it was
+checked against. Both live defects found in one repo came from a config field
+the checker did not enumerate (`commitMessagePrefix` templates, while the
+checker read only `semanticCommitScope`). Enumerate **every** field and site
+that can produce the artifact you are constraining — including sites outside
+the system you were told to check (the release tool's own PR-title pattern is
+a scope-carrying site) — and enumerate them mechanically, not by hand: a
+hand-written site list is the same failure mode the checker exists to catch,
+one level up. Then state the argument's scope explicitly.
+
+### Layer 2 — runtime gating plus declared sampling, where the mechanism is open
+
+Some outcomes (which of a multi-item branch's compiled headers is emitted)
+depend on unbounded repo state, so closure cannot honestly be claimed there.
+Instead: settle the selection mechanism against the tool's source if you can,
+sample the composition shapes that actually occur, **say plainly that this is
+sampling**, and place a required merge-time check behind it so whatever the
+open mechanism produces is still gated for enum membership at the door.
+State precisely what the gate gives you (enum conformance) and what it does
+not (honesty of the scope against the diff).
+
+**The attack — cut equivalence classes on what varies the outcome, including
+repo state.** Sampling is only as good as the class boundary. The tempting
+axes are config properties: manager, update type, datasource. The real axis
+often includes **repo state** — which package files share a branch, which
+directories a dependency occupies — which changes with the dependency graph,
+not the config. So the first thing to run against any class scheme: **find
+two real cells in one declared class with different outcomes.** One
+counterexample (the same dependency, same manager, same update type,
+resolving to two different scopes on two real PRs) collapses the class and
+the coverage it implied. Where the outcome depends on repo state, either
+include that state in the class axis or widen the claim's label from
+"closure" to "sampling".
+
+### Layer 3 — falsification against named trap classes
+
+Turn every defect found during derivation into a standing falsifier. Then
+prove the green run is not vacuous by **injecting defects**: re-introduce
+each real historical defect (including the withdrawn wrong "fix" — guard both
+directions) and require the harness to catch every one. A verification suite
+that has never caught an injected defect is an argument, not a check. And
+hold the falsifiers themselves to the wrong-prior trap — a falsifier can
+enforce the very prior it should be catching, and once did.
 
 ## Writing the rule document
 
