@@ -89,8 +89,29 @@
   },
   // Homebrew/mise symlink farms make plain (non-excluded) symlink traversal expensive.
   "search.followSymlinks": false,
-  // Cap the TypeScript server's heap instead of leaving it unbounded.
-  "typescript.tsserver.maxTsServerMemory": 2048,
+  // Cap the TypeScript server's heap instead of leaving it unbounded (default 3072 MiB).
+  // `js/ts.tsserver.maxMemory` replaces the deprecated `typescript.tsserver.maxTsServerMemory`
+  // (still honored as a fallback in the installed extension, verified against its compiled
+  // dist/extension.js, but this stops relying on that and the Settings UI deprecation nag).
+  // Both are `scope: "window"` in the extension's own configuration.json -- not MACHINE or
+  // MACHINE_OVERRIDABLE -- so, like everything else in this section, this file is the only
+  // place it can live; the remote Machine settings file would silently drop it.
+  //
+  // Value derivation: the operator wants the whole remote VS Code tree (extension host +
+  // every helper) under 2048 MiB. TypeScript spawns *two* processes that each read this same
+  // setting independently -- a full semantic server and a lighter "partialSemantic" one -- so
+  // this is a per-process ceiling, not a combined one; a pathological workspace can drive both
+  // toward it at once. 768 sits well above both processes' measured resting PSS on a live
+  // workspace (~142 MiB / ~112 MiB), leaving real headroom for a genuinely large project, while
+  // no longer leaving tsserver free to claim most of the 2048 MiB envelope by itself the way the
+  // previous 2048 setting effectively could (2 x 2048 = 4096, already over budget alone). Cost:
+  // on a large enough TypeScript project this trades an unbounded tsserver for a V8 heap OOM
+  // that the extension host catches and restarts tsserver from -- a visible but recoverable
+  // failure, not silent data loss. It is not a guarantee the whole tree fits 2048 MiB: most of
+  // that tree (extension host, file watcher, pty host, the JSON/Markdown/TOML language servers)
+  // exposes no heap-ceiling setting at all -- see remote.extensionKind below for the lever that
+  // actually shrinks the extension host, and dotfiles#772 for the rest of that story.
+  "js/ts.tsserver.maxMemory": 768,
   "typescript.disableAutomaticTypeAcquisition": true,
   // Reduce the git extension's background repository scanning.
   "git.autoRepositoryDetection": "openEditors",
@@ -114,12 +135,32 @@
   "remote.SSH.remotePlatform": {
     "coder-vscode.coder.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}--{{ .coderUsername }}--{{ .coderUsername }}.main": "linux"
   },
-  // APPLICATION/WINDOW-scoped in VS Code's own configuration registry (never MACHINE or
+  // APPLICATION-scoped in VS Code's own configuration registry (never MACHINE or
   // MACHINE_OVERRIDABLE), so it must live in this file -- the remote Machine settings file
   // parses only [MACHINE, MACHINE_OVERRIDABLE] scopes and silently drops anything else.
+  //
+  // Pins extensions that do no workspace-filesystem or child-process work to the client (UI)
+  // extension host instead of the remote one, so their code never runs on the remote at all --
+  // the extension host is the tree's biggest, most volatile process (685-738 MiB PSS observed,
+  // climbing over time) precisely because of what it loads, so this is the "load less" lever
+  // rather than a heap ceiling. Each entry below was checked against the extension actually
+  // installed under ~/.vscode-server/extensions on a live workspace: no `main`-side use of
+  // node's `fs`/`child_process`, no language-server client, no commands operating on files the
+  // user hasn't opened.
+  //   - vscode-icons-team.vscode-icons, bierner.markdown-mermaid: pre-existing, unchanged.
+  //   - hashicorp.hcl, samuelcolvin.jinjahtml: grammar/syntax-highlighting only (`contributes`
+  //     is just `languages`/`grammars`[/`breakpoints` metadata for jinjahtml, not an actual
+  //     debug adapter]); confirmed no LSP client or fs/child_process usage in either's source.
+  // Considered and left on the remote (default, unset here): davidanson.vscode-markdownlint --
+  // it contributes a `markdownlint.lintWorkspace` command that walks the whole workspace tree,
+  // which is exactly the "real work against the workspace filesystem" case this lever is not
+  // for. tamasfe.even-better-toml already declares its own `extensionKind: ["workspace"]` for
+  // the same reason (it validates TOML against the real workspace, e.g. Cargo.lock/uv.lock).
   "remote.extensionKind": {
     "vscode-icons-team.vscode-icons": ["ui"],
-    "bierner.markdown-mermaid": ["ui"]
+    "bierner.markdown-mermaid": ["ui"],
+    "hashicorp.hcl": ["ui"],
+    "samuelcolvin.jinjahtml": ["ui"]
   },
   "remote.SSH.defaultExtensions": [
     "bierner.markdown-mermaid",
