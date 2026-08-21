@@ -2414,7 +2414,7 @@ version = "1.38.0"
 backend = "pipx:yamllint"
 
 [[tools.rust]]
-version = "1.95.0"
+version = "1.97.1"
 backend = "core:rust"
 
 [[tools.terraform]]
