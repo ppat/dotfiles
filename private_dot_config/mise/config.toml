@@ -10,7 +10,7 @@ terraform      = "1.6.6"
 usage          = "5.1.0"
 uv             = "0.12.5"
 
-"npm:@anthropic-ai/claude-code" = "2.1.226"
+"npm:@anthropic-ai/claude-code" = "2.1.238"
 "npm:ccstatusline"              = "2.2.27"
 "npm:markdownlint-cli2"         = "0.23.2"
 
