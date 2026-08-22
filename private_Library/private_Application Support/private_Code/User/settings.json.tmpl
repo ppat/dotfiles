@@ -91,26 +91,67 @@
   "search.followSymlinks": false,
   // Cap the TypeScript server's heap instead of leaving it unbounded (default 3072 MiB).
   // `js/ts.tsserver.maxMemory` replaces the deprecated `typescript.tsserver.maxTsServerMemory`
-  // (still honored as a fallback in the installed extension, verified against its compiled
-  // dist/extension.js, but this stops relying on that and the Settings UI deprecation nag).
-  // Both are `scope: "window"` in the extension's own configuration.json -- not MACHINE or
-  // MACHINE_OVERRIDABLE -- so, like everything else in this section, this file is the only
-  // place it can live; the remote Machine settings file would silently drop it.
+  // (still honored as a fallback -- `readMaxTsServerMemory()` in the installed extension's
+  // compiled dist/extension.js reads `tsserver.maxMemory` with the old key as
+  // `fallbackSubSectionNameOverride` -- but this stops relying on that and on the Settings UI
+  // deprecation nag). That same function clamps whatever it reads with `Math.max(n, 128)`, so
+  // 128 MiB is the floor no value here can go below.
   //
-  // Value derivation: the operator wants the whole remote VS Code tree (extension host +
-  // every helper) under 2048 MiB. TypeScript spawns *two* processes that each read this same
-  // setting independently -- a full semantic server and a lighter "partialSemantic" one -- so
-  // this is a per-process ceiling, not a combined one; a pathological workspace can drive both
-  // toward it at once. 768 sits well above both processes' measured resting PSS on a live
-  // workspace (~142 MiB / ~112 MiB), leaving real headroom for a genuinely large project, while
-  // no longer leaving tsserver free to claim most of the 2048 MiB envelope by itself the way the
-  // previous 2048 setting effectively could (2 x 2048 = 4096, already over budget alone). Cost:
-  // on a large enough TypeScript project this trades an unbounded tsserver for a V8 heap OOM
-  // that the extension host catches and restarts tsserver from -- a visible but recoverable
-  // failure, not silent data loss. It is not a guarantee the whole tree fits 2048 MiB: most of
-  // that tree (extension host, file watcher, pty host, the JSON/Markdown/TOML language servers)
-  // exposes no heap-ceiling setting at all -- see remote.extensionKind below for the lever that
-  // actually shrinks the extension host, and dotfiles#772 for the rest of that story.
+  // Scope, and why this file: both keys are `scope: "window"` in the extension's own
+  // package.json (verified against the copy installed under the remote server's
+  // extensions/typescript-language-features). The remote Machine settings file parses only
+  // [MACHINE, MACHINE_OVERRIDABLE] and silently drops everything else, so this file -- the
+  // client-side User settings -- is the only place it can live. The consequence is worth
+  // stating because it constrains the value: this applies to *every* VS Code window, local
+  // macOS projects included, not just the remote workspace.
+  //
+  // Value. There is exactly one process class in the remote tree with a heap knob, and this is
+  // it; the extension host, file watcher, pty host and the JSON/Markdown/TOML language servers
+  // have none at any value (see remote.extensionKind below, which is the only lever that
+  // shrinks the extension host). TypeScript spawns *two* processes that each read this setting
+  // independently -- a full semantic server and a lighter "partialSemantic" one -- so it is a
+  // per-process ceiling, not a combined one.
+  //
+  // 768 is deliberately NOT low enough to fire before the workspace template's memory watchdog,
+  // and that ordering is a decision rather than an oversight. The watchdog gives tsserver a
+  // 320 MiB share of a 2048 MiB envelope, compared in PSS. A heap ceiling bounds V8's old space
+  // only, while PSS also carries the node binary, native allocations, external ArrayBuffers and
+  // V8's new/code/large-object spaces -- a remainder that is near-constant per role rather than
+  // proportional to the heap. So the two relate by addition, not by a ratio:
+  //
+  //     peak PSS  ~=  resting PSS + ceiling
+  //
+  // and for V8 to fail first the ceiling would have to be <= share - resting, which on measured
+  // resting PSS of 141/111 MiB is about 179 MiB. Three reasons not to set it there:
+  //   1. It is within spitting distance of the 128 MiB clamp above -- no room left to be wrong.
+  //   2. Window scope (above) means it would cap tsserver on real TypeScript projects opened
+  //      locally on the Mac, where 179 MiB is a crash rather than a bound. A ceiling set too
+  //      low turns a working feature into a crash loop; a ceiling set too high is merely inert.
+  //      That asymmetry decides it.
+  //   3. It would not buy the recoverable failure it appears to. A V8 fatal heap error and an
+  //      external SIGKILL arrive at the same handler in the extension, which shows "The JS/TS
+  //      language service crashed." and, after five crashes in five minutes, "The service will
+  //      not be restarted." The watchdog's ten-minute dwell cannot reach that rate. A binding
+  //      heap ceiling on a project that legitimately needs the memory reaches it immediately.
+  //
+  // So the watchdog stays first for tsserver, and this ceiling keeps its original and only job:
+  // stop a runaway tsserver from claiming the whole pod. 768 sits well above both processes'
+  // measured resting PSS while bounding the pair at ~1.5 GiB of heap instead of the 6 GiB two
+  // 3072-defaults sanction. Cost on a large TypeScript project: a project whose server needs
+  // more than 768 MiB of heap will crash and restart. That is a real cost and it is why this is
+  // not lower.
+  //
+  // Nothing here is load-bearing for the template: the watchdog is coherent with these settings
+  // absent, which is the state it is actually in most of the time (see below).
+  //
+  // Not yet verified in force. Live evidence from a remote session started after dotfiles#773
+  // set the old key: both tsserver processes still run with --max-old-space-size=3072, VS Code's
+  // default. Since the extension does honor the old key as a fallback, that means these settings
+  // are not reaching the window at all -- most likely simply not applied on the Mac. To check:
+  // in a reconnected remote window open Settings, search "tsserver.maxMemory", and confirm both
+  // the value AND its provenance ("Modified elsewhere"/User). Then, in a terminal on the remote,
+  // `pgrep -af tsserver.js` must show --max-old-space-size=768. If the Settings UI shows 768 but
+  // the process shows 3072, the window has not reloaded since the change.
   "js/ts.tsserver.maxMemory": 768,
   "typescript.disableAutomaticTypeAcquisition": true,
   // Reduce the git extension's background repository scanning.
@@ -141,9 +182,22 @@
   //
   // Pins extensions that do no workspace-filesystem or child-process work to the client (UI)
   // extension host instead of the remote one, so their code never runs on the remote at all --
-  // the extension host is the tree's biggest, most volatile process (685-738 MiB PSS observed,
-  // climbing over time) precisely because of what it loads, so this is the "load less" lever
-  // rather than a heap ceiling. Each entry below was checked against the extension actually
+  // the extension host is the tree's biggest, most volatile process (528 -> 843 MiB PSS over
+  // three days on one live workspace, the hourly minimum climbing throughout) precisely because
+  // of what it loads.
+  //
+  // This is the "load less" lever, and it is the ONLY lever: unlike tsserver above, the
+  // extension host has no heap ceiling at any value. Established by reading the server bundle
+  // on disk rather than assumed -- it registers no heap-sizing setting, `server-main.js --help`
+  // exposes no memory option, no `remote.*` configuration property exists in the server bundle,
+  // and this build has no `server-env-setup` support. NODE_OPTIONS in particular does not work
+  // and would be actively bad: `server-main.js` deletes NODE_OPTIONS from the child environment
+  // immediately before every fork it performs, so setting it would cap the parent and every
+  // unrelated mise-node process in the pod while leaving the extension host at its default.
+  // (The one channel that does propagate is the parent's own `process.execArgv`, which the
+  // extension host inherits verbatim -- but the only injection point is a shell script inside
+  // the versioned `cli/servers/Stable-<commit>/` directory that VS Code replaces wholesale on
+  // every server upgrade, and the role rests above any share it could be given anyway.) Each entry below was checked against the extension actually
   // installed under ~/.vscode-server/extensions on a live workspace: no `main`-side use of
   // node's `fs`/`child_process`, no language-server client, no commands operating on files the
   // user hasn't opened.
