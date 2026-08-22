@@ -106,11 +106,29 @@
   // macOS projects included, not just the remote workspace.
   //
   // Value. There is exactly one process class in the remote tree with a heap knob, and this is
-  // it; the extension host, file watcher, pty host and the JSON/Markdown/TOML language servers
-  // have none at any value (see remote.extensionKind below, which is the only lever that
-  // shrinks the extension host). TypeScript spawns *two* processes that each read this setting
-  // independently -- a full semantic server and a lighter "partialSemantic" one -- so it is a
-  // per-process ceiling, not a combined one.
+  // it. The extension host, file watcher, pty host and the JSON/Markdown language servers expose
+  // nothing at any value (see remote.extensionKind below, which is the only lever that shrinks
+  // the extension host). The TOML server is the one exception to that, and it is named here
+  // because the exception turns out to be useless rather than absent: tamasfe.even-better-toml
+  // does expose levers -- `evenBetterToml.taplo.environment` injects arbitrary env into the
+  // forked bundled server, and `taplo.bundled: false` + `taplo.path` substitutes the binary
+  // outright -- but nothing reachable through them bounds what actually grows there. Measured
+  // on a live workspace, that process's 274 MiB PSS is ~99 MiB of native malloc `[heap]` plus
+  // ~14 MiB of rwxp JIT code -- 41% of the process that no V8 flag can reach at any value --
+  // with the ~160 MiB remainder split between V8's managed heap and WASM linear memory in
+  // proportions smaps cannot separate (taplo is Rust compiled to WASM, whose linear memory is
+  // an ArrayBuffer backing store outside the old space). Since `--max-old-space-size` bounds
+  // only the old space, a ceiling there cannot bound this process below its share however low
+  // it is set: NODE_OPTIONS by that route is inert, not merely leaky. Recorded so this does
+  // not have to be re-derived from a blanket "no lever exists" claim.
+  //
+  // TypeScript spawns *two* processes that each read this setting independently -- a full
+  // semantic server and a lighter "partialSemantic" one -- so it is a per-process ceiling, not
+  // a combined one. `js/ts.tsserver.useSyntaxServer: "never"` would collapse the pair into a
+  // single process and is the only way to make the ceiling combined; deliberately not set,
+  // because the two rest at 112/141 MiB against a 320 MiB share so there is nothing to buy,
+  // and the cost is that syntax-only work (folding, outline, in-file rename) then queues behind
+  // semantic work.
   //
   // 768 is deliberately NOT low enough to fire before the workspace template's memory watchdog,
   // and that ordering is a decision rather than an oversight. The watchdog gives tsserver a
@@ -197,8 +215,10 @@
   // (The one channel that does propagate is the parent's own `process.execArgv`, which the
   // extension host inherits verbatim -- but the only injection point is a shell script inside
   // the versioned `cli/servers/Stable-<commit>/` directory that VS Code replaces wholesale on
-  // every server upgrade, and the role rests above any share it could be given anyway.) Each entry below was checked against the extension actually
-  // installed under ~/.vscode-server/extensions on a live workspace: no `main`-side use of
+  // every server upgrade, and the role rests above any share it could be given anyway.)
+  //
+  // Each entry below was checked against the extension actually installed under
+  // ~/.vscode-server/extensions on a live workspace: no `main`-side use of
   // node's `fs`/`child_process`, no language-server client, no commands operating on files the
   // user hasn't opened.
   //   - vscode-icons-team.vscode-icons, bierner.markdown-mermaid: pre-existing, unchanged.
