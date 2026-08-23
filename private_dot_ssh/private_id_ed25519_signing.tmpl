@@ -1,12 +1,1 @@
-{{- /* Workspace-only commit-signing key. Coder pods must sign commits (protected
-branches require signatures) without holding a key that can authenticate as the human,
-so this key is registered on GitHub as a signing key only -- signing-type keys carry no
-SSH authentication capability -- while the personal authentication key never renders on
-pods (see .chezmoiignore). While the Bitwarden secret id below is an unfilled
-placeholder, the guard skips the lookup and this renders empty; chezmoi creates no file
-from empty contents, so the gitconfig's stat guard leaves signing unconfigured instead
-of the whole apply failing on an unresolvable secret id. */ -}}
-{{- $uuid := "64f4bce0-c35f-4e6c-877a-b4af011ef67e" -}}
-{{- if not (hasPrefix "<<TODO" $uuid) -}}
-{{ (bitwardenSecrets $uuid .bwsAccessToken).value }}
-{{ end -}}
+{{ (bitwardenSecrets "64f4bce0-c35f-4e6c-877a-b4af011ef67e" .bwsAccessToken).value }}
