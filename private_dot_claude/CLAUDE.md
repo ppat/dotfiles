@@ -79,16 +79,16 @@ need permission.
 the `github` MCP server authenticates as the user. Commits stay authored and signed
 as the user — only the pushing actor is the App. `~/.local/bin/gh-app-env` mints the
 one-hour `GH_TOKEN` into each new shell; on a 401, run `eval "$(~/.local/bin/gh-app-env)"`.
+An installation token has no user behind it, so `gh api user` returns 403.
 
 Route by payload shape, not by read/write.
 
 | Scenario | Use | `gh` (agent bot) | `github` MCP (user) | Why | Gotchas |
 | --- | --- | --- | --- | --- | --- |
+| Text going in: creating/updating issues, commenting on issues and pull requests, replying in review threads, linking sub-issues | MCP | yes | yes | body text passes as a JSON parameter, so backticks, `$`, quotes, and newlines survive; the same text passed through the shell is easily corrupted | |
+| Data coming out, bulk or unbounded: workflow runs, job logs, issue and pull request listings | `gh` | yes | yes | `--json` and `--jq` filter the output down in one command | MCP `actions_list` returns everything and ignores `per_page` |
+| Data coming out, one small structured thing: one pull request's state, one issue, one file's contents, the latest release | MCP | yes | yes | the result arrives already structured, nothing to filter or parse | |
 | Push, branch, create/edit pull requests, trigger `workflow_dispatch` | `gh` | yes | no | the MCP server has no tools for these | |
-| Writing text: create/update issues, comment on issues and pull requests, reply in review threads, link sub-issues | MCP | yes | yes | MCP sends the text as a JSON parameter, so backticks, `$`, quotes, and newlines survive; the same text passed through the shell is easily corrupted | |
 | Creating gists | MCP | no (403) | yes | the App token cannot create gists | |
 | Merging to `main` | neither | no | no | open a pull request instead | |
-| Reading large or unbounded data: workflow runs, logs, listings | `gh` | yes | yes | `--json` and `--jq` filter the output down in one command | MCP `actions_list` returns everything and ignores `per_page` |
 | Checking CI status on a pull request | `gh pr checks` | yes | no | | MCP `get_status` reports `total_count: 0` when CI reports through the Checks API; `get_check_runs` returns 403 on private repositories, works on public ones |
-| Reading one small structured item | MCP | yes | yes | the result arrives already structured, with no filter to write | |
-| Identifying the authenticated user | MCP `get_me` | no (403) | yes | an installation token has no user, so `gh api user` fails | |
