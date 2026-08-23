@@ -12,8 +12,8 @@
   "explorer.excludeGitIgnore": true,
   "git.defaultCloneDirectory": "/home/coder/code/",
   "git.pruneOnFetch": true,
-  "github.gitProtocol": "ssh",
-  "mise.binPath": "/usr/local/sbin/mise",
+  "github.gitProtocol": "https",
+  "mise.binPath": "/home/linuxbrew/.linuxbrew/bin/mise",
   "mise.configureExtensionsUseSymLinks": true,
   "mise.configureExtensionsAutomaticallyIgnoreList": [
     "charliermarsh.ruff",

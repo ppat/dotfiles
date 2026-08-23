@@ -38,8 +38,3 @@ if [[ -d "$HOME/.local/bash-completions" ]]; then
   done < <(find "$HOME/.local/bash-completions" -type f -print0)
   unset _completion_file
 fi
-
-# zoxide
-# if command -v zoxide > /dev/null; then
-#   source <()
-# fi

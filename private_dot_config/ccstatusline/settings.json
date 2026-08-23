@@ -54,11 +54,6 @@
         "backgroundColor": "bgGreen"
       },
       {
-        "id": "e3765417-41a4-4d30-b36a-d3eb35b5a228",
-        "type": "skills",
-        "backgroundColor": "bgBrightRed"
-      },
-      {
         "id": "f3595822-53f8-49fb-bdc8-d8cf0700327e",
         "type": "session-usage",
         "backgroundColor": "bgBrightMagenta"

@@ -1,79 +1,10 @@
 {
-  "autoCompactEnabled": true,
-  "autoUpdates": false,
-  "disableBypassPermissionsMode": "disable",
-  "enableAllProjectMcpServers": false,
-  "enabledMcpjsonServers": [
-  ],
-  "enabledPlugins": {
-    "claude-code-setup@claude-plugins-official": true,
-    "claude-md-management@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
-    "skill-creator@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": false
+  "autoMode": {
+    "classifyAllShell": true
   },
+  "defaultMode": "auto",
   "env": {
     "DISABLE_AUTOUPDATER": "1"
-  },
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Edit|MultiEdit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.claude/hooks/shellcheck-on-edit.sh",
-            "timeout": 15
-          },
-          {
-            "type": "command",
-            "command": "$HOME/.claude/hooks/yamllint-on-edit.sh",
-            "timeout": 15
-          },
-          {
-            "type": "command",
-            "command": "$HOME/.claude/hooks/markdownlint-on-edit.sh",
-            "timeout": 15
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.claude/hooks/guard-git-push.sh",
-            "timeout": 10
-          },
-          {
-            "type": "command",
-            "command": "$HOME/.claude/hooks/guard-git-identity.sh",
-            "timeout": 10
-          }
-        ]
-      },
-      {
-        "matcher": "Skill",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "ccstatusline --hook"
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "ccstatusline --hook"
-          }
-        ]
-      }
-    ]
   },
   "permissions": {
     "allow": [
@@ -128,9 +59,12 @@
       "Bash(gh pr checks:*)",
       "Bash(gh workflow list:*)",
       "Bash(gh repo list:*)",
-      "Edit",
+      "Edit(~/.claude/*/**)",
+      "Edit(~/code/*/**)",
+      "Grep(~/.claude/*/**)",
       "Grep(~/code/*/**)",
       "MultiEdit",
+      "Read(~/.claude/*/**)",
       "Read(~/code/*/**)",
       "WebFetch",
       "WebSearch",
@@ -142,12 +76,66 @@
       "Read(~/.secrets*)"
     ]
   },
+  "model": "opus[1m]",
+  "enableAllProjectMcpServers": false,
+  "enabledMcpjsonServers": [],
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/shellcheck-on-edit.sh",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/yamllint-on-edit.sh",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/markdownlint-on-edit.sh",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/guard-git-push.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/guard-git-identity.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "ccstatusline",
     "padding": 0,
-    "refreshInterval": 15
+    "refreshInterval": 10
   },
+  "enabledPlugins": {
+    "claude-code-setup@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": false
+  },
+  "tui": "fullscreen",
   "theme": "dark",
-  "tui": "fullscreen"
+  "autoCompactEnabled": true,
+  "autoUpdates": false,
+  "disableBypassPermissionsMode": "disable"
 }
