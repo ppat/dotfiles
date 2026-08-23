@@ -75,14 +75,13 @@ need permission.
 
 ## GitHub: `gh` vs `github` MCP (agent pods)
 
-- `gh` authenticates as the agent bot for Claude Code (GitHub App
-  `homelab-agent-bot`); the `github` MCP server authenticates as the user.
-  Commits stay authored and signed as the user — only the pushing actor is
-  the App.
-- `~/.local/bin/gh-app-env` mints the one-hour `GH_TOKEN` into each new
-  shell; on a 401, run `eval "$(~/.local/bin/gh-app-env)"`.
-- Gists: MCP only — `gh` gets a 403.
-- `gh` cannot merge to `main`; `gh api user` returns 403.
-- Use `gh pr checks`, not MCP `get_status` — it reports `total_count: 0`
-  when CI reports through Checks. Use `gh run list`, not `actions_list` —
-  it ignores `per_page`.
+`gh` authenticates as the agent bot for Claude Code (GitHub App `homelab-agent-bot`);
+the `github` MCP server authenticates as the user. Commits stay authored and signed
+as the user — only the pushing actor is the App. `~/.local/bin/gh-app-env` mints the
+one-hour `GH_TOKEN` into each new shell; on a 401, run `eval "$(~/.local/bin/gh-app-env)"`.
+
+| | `gh` (agent bot) | `github` MCP (user) |
+| --- | --- | --- |
+| Best for | git and CI writes — push, branch, PR create/edit, `workflow_dispatch`; bulk or unbounded reads (`--json`/`--jq` filters before context) | text going in — issue/PR bodies, comments, review replies (JSON params, no shell mangling); one small structured read; gists |
+| Can't | merge to `main`; gists (403); `gh api user` (403) | push, branch, PR create/edit, `workflow_dispatch`; merge to `main` |
+| Gotchas | shell quoting mangles multi-line text — route bodies through MCP | `actions_list` ignores `per_page` (use `gh run list`); `get_status` reports `total_count: 0` when CI reports through Checks (use `gh pr checks`); `get_check_runs` 403s on private repos |
