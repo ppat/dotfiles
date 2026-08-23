@@ -82,13 +82,13 @@ one-hour `GH_TOKEN` into each new shell; on a 401, run `eval "$(~/.local/bin/gh-
 
 Route by payload shape, not by read/write.
 
-| Scenario | Use | `gh` (agent bot) | `github` MCP (user) | Gotchas |
-| --- | --- | --- | --- | --- |
-| Push, branch, PR create/edit, `workflow_dispatch` — and every write MCP lacks | `gh` | yes | no | |
-| Text going in: issue create/update, comments on issues and PRs, review-thread replies, sub-issue links | MCP | yes | yes | MCP passes bodies as JSON params; via `gh` the shell mangles backticks, `$`, quotes, newlines — an unquoted heredoc corrupts the record and costs a turn |
-| Gists | MCP | no (403) | yes | |
-| Merge to `main` | neither | no | no | PRs only |
-| Data out, bulk or unbounded: runs, logs, listings | `gh` | yes | yes | `gh` `--json`/`--jq` filters before context and chains steps in one round trip; MCP results land whole and unfilterable, and `actions_list` ignores `per_page` |
-| CI status of a PR | `gh pr checks` | yes | no | MCP `get_status` reports `total_count: 0` where CI reports via Checks; `get_check_runs` 403s on private repos (works on public) |
-| Data out, one small structured thing | MCP | yes | yes | no jq to author, no parse retry |
-| Authenticated user | MCP `get_me` | no (403) | yes | |
+| Scenario | Use | `gh` (agent bot) | `github` MCP (user) | Why | Gotchas |
+| --- | --- | --- | --- | --- | --- |
+| Push, branch, create/edit pull requests, trigger `workflow_dispatch` | `gh` | yes | no | the MCP server has no tools for these | |
+| Writing text: create/update issues, comment on issues and pull requests, reply in review threads, link sub-issues | MCP | yes | yes | MCP sends the text as a JSON parameter, so backticks, `$`, quotes, and newlines survive; the same text passed through the shell is easily corrupted | |
+| Creating gists | MCP | no (403) | yes | the App token cannot create gists | |
+| Merging to `main` | neither | no | no | open a pull request instead | |
+| Reading large or unbounded data: workflow runs, logs, listings | `gh` | yes | yes | `--json` and `--jq` filter the output down in one command | MCP `actions_list` returns everything and ignores `per_page` |
+| Checking CI status on a pull request | `gh pr checks` | yes | no | | MCP `get_status` reports `total_count: 0` when CI reports through the Checks API; `get_check_runs` returns 403 on private repositories, works on public ones |
+| Reading one small structured item | MCP | yes | yes | the result arrives already structured, with no filter to write | |
+| Identifying the authenticated user | MCP `get_me` | no (403) | yes | an installation token has no user, so `gh api user` fails | |
