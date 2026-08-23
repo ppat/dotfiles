@@ -26,9 +26,24 @@ Library/
 
 # The agent GitHub App identity ships only to coder workspaces (agent pods). Same one-way
 # implication as the homeDir guard above: CI runners and test pods are Linux but must not
-# grow an agent identity, so guard on homeDir, never on os.
+# grow an agent identity, so guard on homeDir, never on os. The workspace signing key is
+# part of the same identity set: it exists so pods can satisfy required_signatures without
+# carrying the personal authentication key, and no other machine class should have it.
 {{- if ne .chezmoi.homeDir "/home/coder" }}
 .config/gh-agent/
 .local/bash/gh-agent.bash
 .local/bin/gh-app-env
+.ssh/id_ed25519_signing
+{{- end }}
+
+# The personal SSH key is an *authentication* key: anything holding it can push over SSH
+# as the human, which routes around the App identity above -- a ruleset would still stop
+# the merge, but the acting identity on a push would be the human again. So the key pair
+# renders on laptops only, never on coder workspaces; pods sign with the workspace-only
+# signing key and push with the App token over HTTPS. Guard on homeDir, never on os, for
+# the same one-way-implication reason as above. Note: ignoring only stops managing the
+# files -- a pod that already has the key keeps it until it is deleted there.
+{{- if eq .chezmoi.homeDir "/home/coder" }}
+.ssh/id_ed25519
+.ssh/id_ed25519.pub
 {{- end }}

@@ -1,4 +1,15 @@
 # dot_gitconfig.tmpl
+{{- /* Signing config follows from which key file is present, not from machine type:
+laptops render the personal key and coder workspaces render only the workspace signing
+key (.chezmoiignore gates both), so presence alone selects the right key with no
+hostname branch. The workspace key is checked first so a pod still carrying a leftover
+personal key signs with the key that has no authentication capability. */}}
+{{- $signingKey := "" }}
+{{- if stat (joinPath .chezmoi.homeDir ".ssh/id_ed25519_signing") }}
+{{- $signingKey = joinPath .chezmoi.homeDir ".ssh/id_ed25519_signing" }}
+{{- else if stat (joinPath .chezmoi.homeDir ".ssh/id_ed25519") }}
+{{- $signingKey = joinPath .chezmoi.homeDir ".ssh/id_ed25519" }}
+{{- end }}
 [user]
     {{- if hasKey . "name" }}
     name = {{ .name | quote }}
@@ -6,11 +17,11 @@
     {{- if hasKey . "email" }}
     email = {{ .email | quote }}
     {{- end }}
-    {{- if stat (joinPath .chezmoi.homeDir ".ssh/id_ed25519") }}
-    signingKey = {{ .chezmoi.homeDir }}/.ssh/id_ed25519
+    {{- if $signingKey }}
+    signingKey = {{ $signingKey }}
     {{- end }}
 
-{{- if stat (joinPath .chezmoi.homeDir ".ssh/id_ed25519") }}
+{{- if $signingKey }}
 [gpg]
     format = ssh
 
@@ -38,9 +49,10 @@
 {{ if eq .chezmoi.homeDir "/home/coder" -}}
 # Coder workspaces (agent pods) rewrite SSH remotes to HTTPS so every push
 # authenticates as the agent GitHub App (credential helper below serves GH_TOKEN,
-# minted by gh-app-env). The ppat SSH key remains for commit SIGNING only; commits
-# stay authored and signed as ppat, but the pushing/merging actor becomes the App,
-# which is what repository rulesets can tell apart from the human.
+# minted by gh-app-env). Commits stay authored as ppat and signed with the
+# workspace-only signing key -- registered on GitHub as a signing key, which cannot
+# authenticate a push -- so the pushing/merging actor becomes the App, which is
+# what repository rulesets can tell apart from the human.
 [url "https://github.com/"]
     insteadOf = git@github.com:
 {{ end -}}
