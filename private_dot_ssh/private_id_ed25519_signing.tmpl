@@ -6,7 +6,7 @@ pods (see .chezmoiignore). While the Bitwarden secret id below is an unfilled
 placeholder, the guard skips the lookup and this renders empty; chezmoi creates no file
 from empty contents, so the gitconfig's stat guard leaves signing unconfigured instead
 of the whole apply failing on an unresolvable secret id. */ -}}
-{{- $uuid := "<<TODO-github-ppat-workspacesigningkey-uuid>>" -}}
+{{- $uuid := "64f4bce0-c35f-4e6c-877a-b4af011ef67e" -}}
 {{- if not (hasPrefix "<<TODO" $uuid) -}}
 {{ (bitwardenSecrets $uuid .bwsAccessToken).value }}
 {{ end -}}
