@@ -26,7 +26,6 @@ if [[ -z "${DOTFILES_SHELL_COMPLETIONS_BOOTSTRAPPED:-}" ]]; then
     "aqua:helm/helm" \
     "aqua:kubernetes/kubectl" \
     "aqua:kubernetes-sigs/kustomize" \
-    "aqua:ajeetdsouza/zoxide" \
     -- "${BASH_SOURCE[0]}" "$@"
 fi
 
@@ -46,7 +45,6 @@ main() {
   # and harmful: sourcing it re-runs the framework's whole init, re-reading every file in the compat
   # dir, and pins the loaded library to whatever version mise happens to vendor.
   mise completion bash > ~/.local/bash-completions/mise
-  zoxide init bash > ~/.local/bash-completions/zoxide
   log_success "Shell Completions | Configured."
   echo "-------------------------------------------------------------------------------------------"
   echo
