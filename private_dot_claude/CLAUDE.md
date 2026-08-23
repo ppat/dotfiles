@@ -72,3 +72,14 @@ need permission.
   task at hand (albeit within its scope, context, and constraints).
   Problem resolution outweighs correcting trivialities.
   (Alias: "substantive disagreement")
+
+## GitHub access on agent pods
+
+- `gh` authenticates as the GitHub App `homelab-agent-bot`, not as me.
+  `~/.local/bin/gh-app-env` mints its one-hour token into `GH_TOKEN` for
+  each new shell. On a 401, run `eval "$(~/.local/bin/gh-app-env)"`.
+- `gh` can push branches, create and edit PRs, and read and dispatch
+  workflow runs. It cannot merge to `main` (a repository ruleset blocks
+  it); gist creation and `gh api user` fail with 403. Commits stay
+  authored and signed as me; only the pushing actor is the App.
+- The GitHub MCP server authenticates as me. Gists must go through it.
