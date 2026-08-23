@@ -6,8 +6,8 @@ set -euo pipefail
 # point is to shorten the shellcheck feedback loop generally, not to mirror any one repo's CI.
 #
 # Advisory only, always exits 0. It never sets a "block" decision: a hard block on a
-# pre-existing violation in a file touched for an unrelated reason would wedge an agent that
-# has no way past it. Each repo's own CI remains the enforcement gate.
+# pre-existing violation in a file touched for an unrelated reason would leave an agent
+# stuck, with no way past it. Each repo's own CI remains the enforcement gate.
 
 # A missing tool must never turn this into a noisy or failing hook.
 command -v jq >/dev/null 2>&1 || exit 0
