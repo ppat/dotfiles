@@ -1,14 +1,12 @@
 # dot_gitconfig.tmpl
-{{- /* Signing config follows from which key file is present, not from machine type:
-laptops render the personal key and coder workspaces render only the workspace signing
-key (.chezmoiignore gates both), so presence alone selects the right key with no
-hostname branch. The workspace key is checked first so a pod still carrying a leftover
-personal key signs with the key that has no authentication capability. */}}
-{{- $signingKey := "" }}
-{{- if stat (joinPath .chezmoi.homeDir ".ssh/id_ed25519_signing") }}
+{{- /* Which key signs follows from machine class, the same homeDir test .chezmoiignore
+keys off: coder workspaces (agent pods) ship only the workspace signing key, every other
+machine ships only the personal key. Decide by that test, not by stat-ing the key files --
+chezmoi writes .gitconfig before .ssh/* (lexical target order), so on a fresh machine both
+stats would miss and signing would come out silently unconfigured until the next apply. */}}
+{{- $signingKey := joinPath .chezmoi.homeDir ".ssh/id_ed25519" }}
+{{- if eq .chezmoi.homeDir "/home/coder" }}
 {{- $signingKey = joinPath .chezmoi.homeDir ".ssh/id_ed25519_signing" }}
-{{- else if stat (joinPath .chezmoi.homeDir ".ssh/id_ed25519") }}
-{{- $signingKey = joinPath .chezmoi.homeDir ".ssh/id_ed25519" }}
 {{- end }}
 [user]
     {{- if hasKey . "name" }}
@@ -17,17 +15,13 @@ personal key signs with the key that has no authentication capability. */}}
     {{- if hasKey . "email" }}
     email = {{ .email | quote }}
     {{- end }}
-    {{- if $signingKey }}
     signingKey = {{ $signingKey }}
-    {{- end }}
 
-{{- if $signingKey }}
 [gpg]
     format = ssh
 
 [commit]
     gpgsign = true
-{{- end }}
 
 [branch]
     rebase = true
