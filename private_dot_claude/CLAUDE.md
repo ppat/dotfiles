@@ -75,8 +75,8 @@ need permission.
 
 ## GitHub: `gh` vs `github` MCP (agent pods)
 
-`gh` authenticates as the agent bot (GitHub App `homelab-agent-bot`); the `github`
-MCP server authenticates as the user. Commits stay authored and signed as the user —
+`gh` authenticates as the agent bot for Claude Code (GitHub App `homelab-agent-bot`);
+the `github` MCP server authenticates as the user. Commits stay authored and signed as the user —
 only the pushing actor is the agent bot. `~/.local/bin/gh-app-env` mints the one-hour
 `GH_TOKEN` for each new shell; on a 401, run `eval "$(~/.local/bin/gh-app-env)"`.
 
