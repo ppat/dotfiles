@@ -75,19 +75,14 @@ need permission.
 
 ## GitHub: `gh` vs `github` MCP (agent pods)
 
-`gh` authenticates as the agent bot for Claude Code (GitHub App `homelab-agent-bot`);
-the `github` MCP server authenticates as the user. Commits stay authored and signed as the user —
-only the pushing actor is the agent bot. `~/.local/bin/gh-app-env` mints the one-hour
-`GH_TOKEN` for each new shell; on a 401, run `eval "$(~/.local/bin/gh-app-env)"`.
-
-Route by payload shape, not by read/write. "best" = use this one; "ok" = works, second choice.
-
-| Task | `gh` (agent bot) | `github` MCP (user) |
-| --- | --- | --- |
-| Text going in: issue create/update, comments, review-thread replies, sub-issue links | ok — but shell quoting mangles backticks, `$`, newlines; a bad heredoc corrupts the record | best — text passes as JSON params, nothing to escape |
-| Data out, bulk or unbounded | best — `--json`/`--jq` filters before context, chains steps in one round trip | avoid — results land whole and unfilterable; `actions_list` ignores `per_page` |
-| Data out, one small structured thing | ok — jq to author, parse retries | best — but `get_check_runs` 403s on private repos, and `get_status` reports `total_count: 0` where CI uses Checks (use `gh pr checks`) |
-| Push, branch, PR create/edit, `workflow_dispatch` | only option | no tools for these |
-| Gists | no — 403; App token carries repository permissions only | only option (create) |
-| Merge to `main` | no — a repository ruleset blocks it; PRs only | no merge tool |
-| Authenticated-user API | no — `gh api user` 403s; an installation token has no user | `get_me` works |
+- `gh` authenticates as the agent bot for Claude Code (GitHub App
+  `homelab-agent-bot`); the `github` MCP server authenticates as the user.
+  Commits stay authored and signed as the user — only the pushing actor is
+  the App.
+- `~/.local/bin/gh-app-env` mints the one-hour `GH_TOKEN` into each new
+  shell; on a 401, run `eval "$(~/.local/bin/gh-app-env)"`.
+- Gists: MCP only — `gh` gets a 403.
+- `gh` cannot merge to `main`; `gh api user` returns 403.
+- Use `gh pr checks`, not MCP `get_status` — it reports `total_count: 0`
+  when CI reports through Checks. Use `gh run list`, not `actions_list` —
+  it ignores `per_page`.
