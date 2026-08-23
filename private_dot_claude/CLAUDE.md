@@ -73,13 +73,27 @@ need permission.
   Problem resolution outweighs correcting trivialities.
   (Alias: "substantive disagreement")
 
-## GitHub access on agent pods
+## GitHub: `gh` vs `github` MCP (agent pods)
 
-- `gh` authenticates as the GitHub App `homelab-agent-bot`, not as me.
-  `~/.local/bin/gh-app-env` mints its one-hour token into `GH_TOKEN` for
-  each new shell. On a 401, run `eval "$(~/.local/bin/gh-app-env)"`.
-- `gh` can push branches, create and edit PRs, and read and dispatch
-  workflow runs. It cannot merge to `main` (a repository ruleset blocks
-  it); gist creation and `gh api user` fail with 403. Commits stay
-  authored and signed as me; only the pushing actor is the App.
-- The GitHub MCP server authenticates as me. Gists must go through it.
+`gh` authenticates as the GitHub App `homelab-agent-bot`; the `github` MCP server
+authenticates as me. Commits stay authored and signed as me — only the pushing actor
+is the App. `~/.local/bin/gh-app-env` mints the one-hour `GH_TOKEN` for each new
+shell; on a 401, run `eval "$(~/.local/bin/gh-app-env)"`.
+
+Route by payload shape, not by read/write:
+
+| Scenario | Use | Acts as | Why |
+| --- | --- | --- | --- |
+| Text going in (issue/PR/comment bodies) | MCP | me | JSON params — no shell mangling of backticks, `$`, quotes, newlines |
+| Data out, bulk or unbounded | `gh` + `--json`/`--jq` | App | filters before context; MCP results land whole and unfilterable |
+| Data out, one small structured thing | MCP | me | no jq to author, no parse retry |
+| Push, branch, PR create/edit, `workflow_dispatch` | `gh` | App | every write MCP lacks goes through `gh` |
+| Issue create/update, comments, PR review replies, sub-issues, gists | MCP | me | the only writes MCP has; gists are MCP-only (`gh` gets 403) |
+| Merge to `main` | neither | — | a repository ruleset blocks it; PRs only |
+| `gh api user` | fails | — | an installation token has no authenticated user (403) |
+
+Measured traps in MCP:
+
+- `actions_list` ignores `per_page` — use `gh run list`.
+- `pull_request_read`: `get_check_runs` 403s on private repos (works on public), and
+  `get_status` reports `total_count: 0` where CI reports via Checks — use `gh pr checks`.
