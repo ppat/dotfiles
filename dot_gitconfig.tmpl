@@ -35,6 +35,16 @@
 [color]
     ui = auto
 
+{{ if eq .chezmoi.homeDir "/home/coder" -}}
+# Coder workspaces (agent pods) rewrite SSH remotes to HTTPS so every push
+# authenticates as the agent GitHub App (credential helper below serves GH_TOKEN,
+# minted by gh-app-env). The ppat SSH key remains for commit SIGNING only; commits
+# stay authored and signed as ppat, but the pushing/merging actor becomes the App,
+# which is what repository rulesets can tell apart from the human.
+[url "https://github.com/"]
+    insteadOf = git@github.com:
+{{ end -}}
+
 [credential "https://github.com"]
     helper =
     helper = !gh auth git-credential

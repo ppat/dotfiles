@@ -1,3 +1,12 @@
+{{ if eq .chezmoi.homeDir "/home/coder" -}}
+{{- /* Coder workspaces (agent pods) carry no stored token: gh authenticates via the
+      GH_TOKEN env var, a short-lived App installation token exported into every shell
+      by ~/.local/bash/gh-agent.bash. git_protocol is https so gh-initiated git
+      operations flow through `gh auth git-credential` and push as the App. */ -}}
+github.com:
+    git_protocol: https
+    user: ppat
+{{ else -}}
 github.com:
     git_protocol: ssh
     user: ppat
@@ -5,3 +14,4 @@ github.com:
         ppat:
             oauth_token: {{ (bitwardenSecrets "768f7d73-1dda-4bc1-9a61-b245004d30d8" .bwsAccessToken).value }}
     oauth_token: {{ (bitwardenSecrets "768f7d73-1dda-4bc1-9a61-b245004d30d8" .bwsAccessToken).value }}
+{{ end -}}

@@ -23,3 +23,12 @@ Library/
 {{- if eq .chezmoi.os "darwin" }}
 .vscode-server/
 {{- end }}
+
+# The agent GitHub App identity ships only to coder workspaces (agent pods). Same one-way
+# implication as the homeDir guard above: CI runners and test pods are Linux but must not
+# grow an agent identity, so guard on homeDir, never on os.
+{{- if ne .chezmoi.homeDir "/home/coder" }}
+.config/gh-agent/
+.local/bash/gh-agent.bash
+.local/bin/gh-app-env
+{{- end }}
