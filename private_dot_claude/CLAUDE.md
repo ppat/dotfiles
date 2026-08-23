@@ -80,13 +80,13 @@ the `github` MCP server authenticates as the user. Commits stay authored and sig
 as the user — only the pushing actor is the App. `~/.local/bin/gh-app-env` mints the
 one-hour `GH_TOKEN` into each new shell; on a 401, run `eval "$(~/.local/bin/gh-app-env)"`.
 
-| Scenario | Use | `gh` (agent bot) | `github` MCP (user) |
-| --- | --- | --- | --- |
-| Push, branch, PR create/edit, `workflow_dispatch` | `gh` | yes | no |
-| Issue/PR text writes: bodies, comments, review replies | MCP | yes, but shell quoting mangles multi-line text | yes |
-| Gists | MCP | no (403) | yes |
-| Merge to `main` | neither — PRs only | no | no |
-| Bulk or unbounded reads: runs, logs, listings | `gh` | yes — `--json`/`--jq` filters before context | yes, but `actions_list` ignores `per_page` |
-| CI status of a PR | `gh pr checks` | yes | no — `get_status` reports `total_count: 0` under Checks; `get_check_runs` 403s on private repos |
-| One small structured read | MCP | yes | yes |
-| Authenticated user | MCP `get_me` | no (403) | yes |
+| Scenario | Use | `gh` (agent bot) | `github` MCP (user) | Gotchas |
+| --- | --- | --- | --- | --- |
+| Push, branch, PR create/edit, `workflow_dispatch` | `gh` | yes | no | |
+| Issue/PR text writes: bodies, comments, review replies | MCP | yes | yes | shell quoting via `gh` mangles multi-line text |
+| Gists | MCP | no (403) | yes | |
+| Merge to `main` | neither | no | no | PRs only |
+| Bulk or unbounded reads: runs, logs, listings | `gh` | yes | yes | `gh` `--json`/`--jq` filters before context; MCP `actions_list` ignores `per_page` |
+| CI status of a PR | `gh pr checks` | yes | no | MCP `get_status` reports `total_count: 0` under Checks; `get_check_runs` 403s on private repos |
+| One small structured read | MCP | yes | yes | MCP returns it whole, no jq to author |
+| Authenticated user | MCP `get_me` | no (403) | yes | |
