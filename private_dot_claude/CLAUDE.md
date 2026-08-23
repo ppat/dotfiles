@@ -80,8 +80,13 @@ the `github` MCP server authenticates as the user. Commits stay authored and sig
 as the user — only the pushing actor is the App. `~/.local/bin/gh-app-env` mints the
 one-hour `GH_TOKEN` into each new shell; on a 401, run `eval "$(~/.local/bin/gh-app-env)"`.
 
-| | `gh` (agent bot) | `github` MCP (user) |
-| --- | --- | --- |
-| Best for | git and CI writes — push, branch, PR create/edit, `workflow_dispatch`; bulk or unbounded reads (`--json`/`--jq` filters before context) | text going in — issue/PR bodies, comments, review replies (JSON params, no shell mangling); one small structured read; gists |
-| Can't | merge to `main`; gists (403); `gh api user` (403) | push, branch, PR create/edit, `workflow_dispatch`; merge to `main` |
-| Gotchas | shell quoting mangles multi-line text — route bodies through MCP | `actions_list` ignores `per_page` (use `gh run list`); `get_status` reports `total_count: 0` when CI reports through Checks (use `gh pr checks`); `get_check_runs` 403s on private repos |
+| Scenario | Use | `gh` (agent bot) | `github` MCP (user) |
+| --- | --- | --- | --- |
+| Push, branch, PR create/edit, `workflow_dispatch` | `gh` | yes | no |
+| Issue/PR text writes: bodies, comments, review replies | MCP | yes, but shell quoting mangles multi-line text | yes |
+| Gists | MCP | no (403) | yes |
+| Merge to `main` | neither — PRs only | no | no |
+| Bulk or unbounded reads: runs, logs, listings | `gh` | yes — `--json`/`--jq` filters before context | yes, but `actions_list` ignores `per_page` |
+| CI status of a PR | `gh pr checks` | yes | no — `get_status` reports `total_count: 0` under Checks; `get_check_runs` 403s on private repos |
+| One small structured read | MCP | yes | yes |
+| Authenticated user | MCP `get_me` | no (403) | yes |
