@@ -14,7 +14,8 @@ set -euo pipefail
 # keeps it correct on a machine whose config it has never seen.
 #
 # Blocking, not advisory - unlike the *-on-edit.sh hooks, there is no pre-existing-violation
-# problem to wedge an agent on. Every deny corresponds to a flag the caller just typed, and
+# problem that could leave an agent stuck with no way past it. Every deny corresponds to a
+# flag the caller just typed, and
 # dropping that flag is always a valid way forward. A clean command exits silently rather
 # than emitting "allow", so ordinary permission prompts still apply to it.
 
