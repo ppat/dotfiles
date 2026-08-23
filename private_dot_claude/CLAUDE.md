@@ -80,13 +80,15 @@ the `github` MCP server authenticates as the user. Commits stay authored and sig
 as the user — only the pushing actor is the App. `~/.local/bin/gh-app-env` mints the
 one-hour `GH_TOKEN` into each new shell; on a 401, run `eval "$(~/.local/bin/gh-app-env)"`.
 
+Route by payload shape, not by read/write.
+
 | Scenario | Use | `gh` (agent bot) | `github` MCP (user) | Gotchas |
 | --- | --- | --- | --- | --- |
-| Push, branch, PR create/edit, `workflow_dispatch` | `gh` | yes | no | |
-| Issue/PR text writes: bodies, comments, review replies | MCP | yes | yes | shell quoting via `gh` mangles multi-line text |
+| Push, branch, PR create/edit, `workflow_dispatch` — and every write MCP lacks | `gh` | yes | no | |
+| Text going in: issue create/update, comments on issues and PRs, review-thread replies, sub-issue links | MCP | yes | yes | MCP passes bodies as JSON params; via `gh` the shell mangles backticks, `$`, quotes, newlines — an unquoted heredoc corrupts the record and costs a turn |
 | Gists | MCP | no (403) | yes | |
 | Merge to `main` | neither | no | no | PRs only |
-| Bulk or unbounded reads: runs, logs, listings | `gh` | yes | yes | `gh` `--json`/`--jq` filters before context; MCP `actions_list` ignores `per_page` |
-| CI status of a PR | `gh pr checks` | yes | no | MCP `get_status` reports `total_count: 0` under Checks; `get_check_runs` 403s on private repos |
-| One small structured read | MCP | yes | yes | MCP returns it whole, no jq to author |
+| Data out, bulk or unbounded: runs, logs, listings | `gh` | yes | yes | `gh` `--json`/`--jq` filters before context and chains steps in one round trip; MCP results land whole and unfilterable, and `actions_list` ignores `per_page` |
+| CI status of a PR | `gh pr checks` | yes | no | MCP `get_status` reports `total_count: 0` where CI reports via Checks; `get_check_runs` 403s on private repos (works on public) |
+| Data out, one small structured thing | MCP | yes | yes | no jq to author, no parse retry |
 | Authenticated user | MCP `get_me` | no (403) | yes | |
