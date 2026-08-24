@@ -1,5 +1,11 @@
 Brewfile*
 CLAUDE.md
+# Repo tooling that does not start with a dot is a deploy target unless it is listed here -- chezmoi
+# skips source entries beginning with '.' automatically (which is why .pre-commit-config.yaml, .yamllint
+# and .github/ need no entry), but everything else in this list would otherwise land in $HOME. Verified
+# with `chezmoi target-path --source . commitlint.config.js`, which resolves to ~/commitlint.config.js
+# without this line.
+commitlint.config.js
 DESIGN.md
 krew-plugins.txt
 mise.toml

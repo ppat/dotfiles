@@ -24,12 +24,13 @@
     "mergeConfidence:age-confidence-badges",
     "mergeConfidence:all-badges",
     "github>suzuki-shunsuke/renovate-config:yaml-language-server#4.0.0",
-    "github>ppat/renovate-presets#v0.2.1",
-    "github>ppat/renovate-presets:dev-tools#v0.2.1",
-    "github>ppat/renovate-presets:github-actions#v0.2.1",
-    "github>ppat/renovate-presets:kubernetes#v0.2.1",
+    "github>ppat/renovate-presets#v1.0.0",
+    "github>ppat/renovate-presets:dev-tools#v1.0.0",
+    "github>ppat/renovate-presets:github-actions#v1.0.0",
+    "github>ppat/renovate-presets:kubernetes#v1.0.0",
     "github>ppat/dotfiles//.github/renovate/mise",
-    "github>ppat/dotfiles//.github/renovate/exceptions"
+    "github>ppat/dotfiles//.github/renovate/exceptions",
+    "github>ppat/dotfiles//.github/renovate/commit-taxonomy"
   ],
   "internalChecksFilter": "strict",
   "labels": [

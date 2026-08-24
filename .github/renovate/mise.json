@@ -2,9 +2,9 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
+      "description": "Language runtimes in the deployed mise pin set. Separate from pkg-cli because they carry the long release-age soaks below and because a runtime major is a different kind of event from a CLI major -- keeping the split visible in the header is why this repo does not collapse both onto one package scope.",
       "matchFileNames": [
-        "private_dot_config/mise/config.toml",
-        "mise.toml"
+        "private_dot_config/mise/config.toml"
       ],
       "matchManagers": [
         "mise"
@@ -17,16 +17,16 @@
         "hashicorp/terraform",
         "astral-sh/uv"
       ],
-      "semanticCommitScope": "lang-sdk",
+      "semanticCommitScope": "pkg-lang",
       "separateMajorMinor": true,
       "separateMinorPatch": false,
       "separateMultipleMajor": true,
       "separateMultipleMinor": true
     },
     {
+      "description": "Everything else in the deployed mise pin set: CLI binaries via the aqua backend, npm and pipx tools. This is the default for anything mise installs onto a machine that is not a language runtime.",
       "matchFileNames": [
-        "private_dot_config/mise/config.toml",
-        "mise.toml"
+        "private_dot_config/mise/config.toml"
       ],
       "matchManagers": [
         "mise"
@@ -39,7 +39,7 @@
         "!hashicorp/terraform",
         "!astral-sh/uv"
       ],
-      "semanticCommitScope": "cli-tools",
+      "semanticCommitScope": "pkg-cli",
       "separateMajorMinor": true,
       "separateMinorPatch": false,
       "separateMultipleMajor": true,
@@ -47,8 +47,7 @@
     },
     {
       "matchFileNames": [
-        "private_dot_config/mise/config.toml",
-        "mise.toml"
+        "private_dot_config/mise/config.toml"
       ],
       "matchManagers": [
         "mise"
@@ -65,8 +64,7 @@
     },
     {
       "matchFileNames": [
-        "private_dot_config/mise/config.toml",
-        "mise.toml"
+        "private_dot_config/mise/config.toml"
       ],
       "matchManagers": [
         "mise"
@@ -85,8 +83,7 @@
     },
     {
       "matchFileNames": [
-        "private_dot_config/mise/config.toml",
-        "mise.toml"
+        "private_dot_config/mise/config.toml"
       ],
       "matchManagers": [
         "mise"
@@ -98,8 +95,7 @@
     },
     {
       "matchFileNames": [
-        "private_dot_config/mise/config.toml",
-        "mise.toml"
+        "private_dot_config/mise/config.toml"
       ],
       "matchManagers": [
         "mise"
@@ -111,8 +107,7 @@
     },
     {
       "matchFileNames": [
-        "private_dot_config/mise/config.toml",
-        "mise.toml"
+        "private_dot_config/mise/config.toml"
       ],
       "matchManagers": [
         "mise"

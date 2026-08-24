@@ -1,0 +1,109 @@
+---
+# yamllint disable rule:line-length
+name: commit-lint
+
+# Separate from lint.yaml because of `edited`: a PR title can be changed after every other check has
+# gone green, and on a multi-commit branch the title is what actually lands (see the pr-title job).
+# Putting `edited` on lint.yaml would re-run the whole lint matrix on every title or description
+# tweak; here it re-runs three cheap jobs.
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # renovate: datasource=npm depName=bun
+  BUN_VERSION: "1.3.14"
+  # renovate: datasource=node-version depName=node
+  NODE_VERSION: "24.11.1"
+
+jobs:
+  # Lints the commits on the branch. On a single-commit PR this is also the released string, since
+  # squash_merge_commit_title is COMMIT_OR_PR_TITLE.
+  commit-messages:
+    uses: ppat/github-workflows/.github/workflows/lint-commit-messages.yaml@5a96ced8ceefd58062f6b91ee9d6f3a31cd06e1c # v6.0.0
+    with:
+      git_ref: ${{ github.head_ref }}
+      fetch_depth: ${{ github.event.pull_request.commits || 0 }}
+      from: ${{ github.event.pull_request.head.sha || 'HEAD' }}~${{ github.event.pull_request.commits || '1' }}
+      to: ${{ github.event.pull_request.head.sha || 'HEAD' }}
+      mise_ignore_cfg: private_dot_config/mise/config.toml
+
+  # The job above cannot cover this repo. With squash_merge_commit_title=COMMIT_OR_PR_TITLE, a PR
+  # carrying more than one commit lands its *title* on main and the interior commits become body
+  # text that nothing parses. Linting only the interior commits would therefore check the strings
+  # that do not survive and skip the one that does.
+  pr-title:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+    - name: Setup repository and tools
+      uses: ppat/homelab-ops-actions/actions/setup-repository-tools@9c16506c3c527478b6314c86ca961c0011d9f94a # v2.2.0
+      with:
+        current_git_ref: ${{ github.head_ref }}
+        current_repository: ${{ github.repository }}
+        mise_ignore_cfg: private_dot_config/mise/config.toml
+        token: ${{ secrets.GITHUB_TOKEN }}
+        mise_toml: |
+          [tools]
+          bun  = "${{ env.BUN_VERSION }}"
+          node = "${{ env.NODE_VERSION }}"
+          [settings.npm]
+          bun  = true
+
+    # commitlint and its plugins are not vendored here; the shared repo owns those pins so every
+    # consumer lints with the same versions. Mirrors what lint-commit-messages.yaml does internally.
+    - name: Checkout commitlint toolchain
+      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      with:
+        fetch-depth: 1
+        path: tools
+        repository: ppat/github-workflows
+        ref: main
+        persist-credentials: false
+
+    - name: Install node packages
+      shell: bash
+      working-directory: ./current
+      run: |
+        cp "$GITHUB_WORKSPACE/tools/package.json" .
+        cp "$GITHUB_WORKSPACE/tools/bun.lock" .
+        bun install --frozen-lockfile
+
+    - name: Lint pull request title
+      shell: bash
+      working-directory: ./current
+      env:
+        PR_TITLE: ${{ github.event.pull_request.title }}
+      run: |
+        printf '%s\n' "${PR_TITLE}" | bunx commitlint --color --verbose
+
+  # Emission (Renovate) and acceptance (commitlint) are separate systems that drift silently. Runs on
+  # every pull request rather than only on Renovate config changes: the emittable set also moves when
+  # the repo's contents move -- a new '# renovate:' pin in a file no rule scopes emits a scope-less
+  # header -- so gating this on config paths would miss exactly the changes it exists to catch.
+  taxonomy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+    - name: Setup repository and tools
+      uses: ppat/homelab-ops-actions/actions/setup-repository-tools@9c16506c3c527478b6314c86ca961c0011d9f94a # v2.2.0
+      with:
+        current_git_ref: ${{ github.head_ref }}
+        current_repository: ${{ github.repository }}
+        mise_ignore_cfg: private_dot_config/mise/config.toml
+        token: ${{ secrets.GITHUB_TOKEN }}
+        mise_toml: |
+          [tools]
+          node = "${{ env.NODE_VERSION }}"
+
+    - name: Check Renovate emission against the commitlint enums
+      shell: bash
+      working-directory: ./current
+      run: .github/scripts/check-commit-taxonomy.mjs

@@ -1,0 +1,119 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Maps everything Renovate emits onto this repo's commit scopes (see .claude/rules/commits.md). Extended last so its rules win. Overrides the inherited empty default scope: ppat/renovate-presets sets semanticCommitScope to \"\" repo-wide, and an empty scope is legal in this repo's commitlint enum -- humans use it for repo-level docs -- so a dependency no rule below names would emit a scope-less header that passes every check silently. internal-dependencies is the conservative landing spot, matching the shared preset's own reasoning that a config which cannot tell whether something ships should assume it does not. If an unexpected scope starts appearing on pull requests, that is this default firing and the fix is a rule below, not a change here.",
+  "semanticCommitScope": "internal-dependencies",
+  "packageRules": [
+    {
+      "description": "Strip the breaking marker that ppat/renovate-presets puts on every major. The shared preset is conservative because it cannot know whether a dependency reaches a consumer; here it can be known per path, so the marker is removed globally and restored below only for what chezmoi deploys. Without this a major bump of a lint hook or a workflow action would claim a machine broke when nothing was deployed. The template is byte-identical to the preset's apart from the '!', so a future preset changing the prefix shape shows up as a diff rather than silently diverging",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "commitMessagePrefix": "{{semanticCommitType}}{{#if semanticCommitScope}}({{semanticCommitScope}}){{/if}}:"
+    },
+    {
+      "description": "Restore the breaking marker for majors of dependencies chezmoi deploys to a machine. Nothing here parses '!' -- there is no release -- so it is purely a claim, and the claim it is given is 'a major version of something installed on my machine changed', which makes `git log --grep '!:'` answer 'what could have broken my setup'. These are the paths that reach $HOME: the deployed mise pin set, its lockfile, and version pins embedded in the apply-time install scripts",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchFileNames": [
+        ".chezmoiscripts/**",
+        "private_dot_config/mise/config.toml",
+        "private_dot_config/mise/mise.lock"
+      ],
+      "commitMessagePrefix": "{{semanticCommitType}}{{#if semanticCommitScope}}({{semanticCommitScope}}){{/if}}!:"
+    },
+    {
+      "description": "Claim a scope for every custom.regex dependency unconditionally, with no matchUpdateTypes so the unnamed update types (replacement, rollback, bump) cannot fall through to the inherited empty scope and emit a header commitlint rejects. The repo-wide custom manager in renovate.json matches any yaml, any .env and the chezmoi install scripts, so a '# renovate:' pin added to a new file is covered without a config change. 'packages' is the right default because every regex pin outside .github/ is software installed onto a machine by something other than mise -- the nerd-fonts fallback today",
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "semanticCommitScope": "pkg-system"
+    },
+    {
+      "description": "Regex pins under .github/workflows are tool versions this repo's own CI installs (chezmoi, shellcheck, dotenv-linter). They never reach a machine, so they take the internal scope, undoing the blanket 'packages' claim above for this one path. Restored here rather than left to the upstream github-actions preset so the outcome does not depend on where a future preset version places its own rule in the chain",
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchFileNames": [
+        ".github/workflows/**"
+      ],
+      "semanticCommitScope": "internal-dependencies"
+    },
+    {
+      "description": "Renovate's own preset pins -- the entries in this repo's extends list, updated by the renovate-config manager -- are configuration for the bot, not a dependency of anything that ships. Claim the scope so they stop emitting the scope-less headers they emit today",
+      "matchManagers": [
+        "renovate-config"
+      ],
+      "semanticCommitScope": "renovate"
+    },
+    {
+      "description": "mise.lock under the deployed mise directory holds the checksums for the tool set that lands on a machine, so a lockfile refresh is a shipped change and takes a shipped scope. The dev-tools preset scopes all lockFileMaintenance as internal, which is right for a repo whose lockfile is dev tooling and wrong here -- this repo's only lockfile is the shipped one",
+      "matchManagers": [
+        "mise"
+      ],
+      "matchFileNames": [
+        "private_dot_config/mise/**"
+      ],
+      "matchUpdateTypes": [
+        "lockFileMaintenance"
+      ],
+      "semanticCommitScope": "pkg-cli",
+      "semanticCommitType": "chore"
+    },
+    {
+      "description": "Force 'chore' for every update to a file that does not reach a machine, rather than trusting the upstream presets to force it. commitlint rejects feat/fix/perf/refactor on an internal scope, so if an upstream rule stopped setting semanticCommitType the semver-derived feat/fix would reach the header and dependency updates would stop. Keyed on path, which is the fact this repo owns: everything under .github/ is CI and Renovate config, mise.toml at the root is chezmoi-ignored dev tooling, and the rest are this repo's own linter configs",
+      "matchFileNames": [
+        ".github/**",
+        ".markdownlint-cli2.yaml",
+        ".pre-commit-config.yaml",
+        ".shellcheckrc",
+        ".yamllint",
+        "mise.toml"
+      ],
+      "semanticCommitType": "chore"
+    },
+    {
+      "description": "Turn off the kubernetes-api datasource outright. The kubernetes preset is extended for its release-age soaks and version separation on flux and kubectl, which do bind here; its apiVersion rule does not -- there is no Kubernetes manifest in this repo and no manager enabled that could read one. Rather than map its hand-built 'feat(kubernetes-api)!:' header onto a scope this repo has no use for, state the fact directly: an apiVersion pull request here would be wrong regardless of how it were labelled. If a manifest ever lands, this rule is the thing to revisit",
+      "matchDatasources": [
+        "kubernetes-api"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Claim the scope for pre-commit hook updates locally rather than inheriting it from the dev-tools preset, for the same reason as the github-actions rule above. .pre-commit-config.yaml is this repo's own lint tooling and reaches no machine",
+      "matchManagers": [
+        "pre-commit"
+      ],
+      "semanticCommitScope": "internal-dependencies"
+    },
+    {
+      "description": "Root mise.toml is chezmoi-ignored dev tooling, not the deployed pin set, so anything declared there is internal. Stated locally and keyed on the file because renovate/mise.json claims pkg-cli/pkg-lang for the deployed config only -- without this rule the root file depends on the dev-tools preset continuing to match it. Note the deployed config is at private_dot_config/mise/config.toml; these two mise files must never share a scope",
+      "matchManagers": [
+        "mise"
+      ],
+      "matchFileNames": [
+        "mise.toml",
+        ".mise.toml"
+      ],
+      "semanticCommitScope": "internal-dependencies"
+    },
+    {
+      "description": "The github-actions manager extracts six dependency types, not just uses: refs -- action and docker come from a uses: field, but container, service, github-runner (the runs-on: image, live in this repo) and uses-with do not. The upstream preset scopes the whole manager as github-actions, which is broader than what that scope means here ('a uses: ref bumped or re-pinned, anywhere, and nothing else'). Claim the internal scope for the manager as a whole first, then narrow below, so a depType added by a future Renovate release lands on the conservative side rather than silently widening the github-actions scope",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "semanticCommitScope": "internal-dependencies"
+    },
+    {
+      "description": "The two depTypes that are actually a uses: ref -- a repository action (actions/checkout@sha) and a container action (uses: docker://alpine). These, and only these, are what the github-actions scope names. Stated locally rather than inherited so the scope does not depend on an upstream matcher this repo does not own",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchDepTypes": [
+        "action",
+        "docker"
+      ],
+      "semanticCommitScope": "github-actions"
+    }
+  ]
+}
