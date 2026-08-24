@@ -86,7 +86,9 @@ references get added.
 ## Renovate
 
 `.github/renovate.json` extends shared presets (`ppat/renovate-presets`) plus a custom regex manager for
-versions pinned in YAML/`.env` comments:
+versions pinned in YAML/`.env` comments. `.github/renovate/commit-taxonomy.json` is extended **last** and maps
+everything Renovate emits onto this repo's commit scopes — see [.claude/rules/commits.md](.claude/rules/commits.md)
+before changing it, and re-run the taxonomy check after any preset pin bump:
 
 ```yaml
 # renovate: datasource=github-releases depName=owner/repo
@@ -103,6 +105,15 @@ added to the self-hosted `RENOVATE_ALLOWED_UNSAFE_EXECUTIONS` env var in `ppat/g
 
 ## Commit style
 
-Conventional Commits with a scope, e.g. `fix(cli-tools): update npm:@anthropic-ai/claude-code (2.1.210 ->
-2.1.214)`. Scope names generally match the renovate customManager/preset group the change came from (e.g.
-`cli-tools`, `dev-tools`, `lang-sdk`).
+Conventional Commits, checked by `commitlint.config.js` on both the branch commits and the PR title — on a
+multi-commit PR the title is what squash-merges onto `main`, so it is the string that has to be right. The check is
+**advisory by design** (`main` has no required contexts), so getting the header right is on whoever writes it.
+
+**The type and scope enums, and how to pick one from a diff, live in
+[.claude/rules/commits.md](.claude/rules/commits.md)** — read it before writing a commit message here. The short
+version: the header claims whether a change reached a machine, so `feat`/`fix`/`perf`/`refactor` may only sit on one
+of the five scopes `chezmoi apply` actually delivers (`pkg-lang`, `pkg-cli`, `pkg-system`, `bootstrap`, `home`), and
+everything internal takes `chore`, `ci` or `docs`.
+
+`.github/scripts/check-commit-taxonomy.mjs` asserts that every header Renovate can emit is one commitlint accepts;
+it runs on every pull request and after any change to `.github/renovate/**` or the commitlint config.
