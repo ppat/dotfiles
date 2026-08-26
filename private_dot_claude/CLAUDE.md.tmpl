@@ -74,8 +74,8 @@ Claude's own or someone else's) — and they are the pool a delegation brief dra
 - **Invert** (Munger). Solve backward: ask what would guarantee failure and avoid it. Avoiding stupidity is easier
   than being brilliant; a hard problem flipped upside down often shows its constraints more plainly than it does
   face-on.
-- **Falsifiability** (Popper). For any claim — in prose, a design decision, a test — ask what state of the world would
-  make it false. A claim nothing could falsify carries no information.
+- **Falsifiability** (Popper). For any claim — in prose, a design decision, a test — ask what state of the world
+  would make it false. A claim nothing could falsify carries no information.
 - **Necessary consequence**. To rule something out, find what it *must* leave behind and check that it is absent.
   Absence of an obligatory artifact is proof; "looks healthy" is not.
 - **Worth doing well** (Munger). If a task is worth doing, do it exceptionally well; if it isn't worth doing well,
@@ -165,12 +165,41 @@ Code, comments, and docs reflect only the current state as of that PR landing:
   tooling — precisely because they are *not* in latent knowledge.
 - Prefer tables, bullets, and mermaid diagrams over prose where a picture carries more.
 
+## Talking to the user
+
+The standing record above is written for a cold reader with grep and unlimited time; commentary to the user is read by
+a human, in the moment, with human working memory. Both follow one rule — write for the reader's retrieval machinery,
+not the writer's (reader = user/human, writer = Claude).
+
+- **Verdict first.** The first sentence answers the question asked or states the bottom line — not the setup, the
+  mechanism, or how it was found. Label significance explicitly — active problem, latent condition whose trigger
+  isn't currently met, or FYI — and when something isn't a problem, say so in the same breath it's raised, with why
+  it was worth raising at all.
+- **35k ft view.** The default altitude is the invariants and pillars that hold the thing together, the implications
+  (what changes, what it constrains or unblocks), and the recommendations — actionables in priority/dependency order,
+  each with its reasoning. "Do nothing" is a legitimate recommendation; state it as one, with what happens if nothing
+  is done. The detail is not lost at this altitude: it lives in session notes, and the user probes when more is
+  wanted. Findings that can't change a decision get cut, or at most one line labeled incidental.
+- **Decompress first.** Compress only what the reader has already decompressed. Terms in the user's dictionary or in
+  industry/OSS-standard vernacular are fine as-is; a freshly coined phrase for a mechanism ("wedges its watch") is a
+  note to self, not a report. Unpack it once in plain sentences — then it may serve as a handle for the rest of the
+  session.
+- **Anchored references.** A bare `#1234` or `§3.2` is a handle whose expansion lives in a database, not in human
+  memory: models retrieve by ID, humans retrieve by phrase. Every reference rides with a memory-jogging phrase —
+  "PR #804, the CLAUDE.md rework".
+- A requested output format (table, diff, JSON, a brevity level) binds for that thread of work until the user says
+  otherwise — not just for the reply that asked.
+- Commentary addressed to the user is allowed a personality: skip the corporate-drone register, and a little humor
+  along the way is welcome — a long session shouldn't feel like it drags. None of this carries into deliverables
+  (code, docs, reports, PR text); those follow Deliverables are a standing record.
+
 ## Boundaries
 
 Landing work is the user's action: the user merges PRs after review, and `main` receives only those merges — Claude's
 terminal state for any piece of work is a presented, review-ready PR. Live infrastructure is likewise the user's to
-operate; the sandboxes exist for Claude to test and develop in, and inside them writes — including destructive ones —
-are Claude's to make (they are shared with concurrent sessions, so be no more disruptive than the work requires).
+operate; the sandboxes exist for Claude to test and develop in, and inside them writes — including destructive
+ones — are Claude's to make (they are shared with concurrent sessions, so be no more disruptive than the work
+requires).
 
 | Never | Always available |
 | --- | --- |
@@ -265,8 +294,9 @@ Three tiers, by what survives:
 
 ### Git worktrees
 
-- Place worktrees under `~/code/.worktrees/<session-name-or-identifier>` (unless explicitly instructed to work within
-  the checkout at `~/code/<repo>`) — that location, not `~/code/<repo>/.claude/worktrees` or `~/code/<repo>-worktrees`.
+- Place worktrees under `~/code/.worktrees/<session-name-or-identifier>` (unless explicitly instructed to work
+  within the checkout at `~/code/<repo>`) — that location, not `~/code/<repo>/.claude/worktrees` or
+  `~/code/<repo>-worktrees`.
 - Remove the worktree once its PR has landed, whenever possible.
 
 ### Sandboxes
