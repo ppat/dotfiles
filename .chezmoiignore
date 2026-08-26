@@ -12,6 +12,11 @@ mise.toml
 README.md
 TESTING.md
 
+# Design rationale for the deployed global CLAUDE.md. It sits beside its template for
+# discoverability, but it is maintainer documentation for this repo, not agent
+# instructions — it must never land in ~/.claude.
+.claude/MAINTAINER.md
+
 # Keep mise.lock out of chezmoi's deploy path
 #   mise rewrites ~/.config/mise/mise.lock in place whenever it has to lock something the deployed lockfile
 #   doesn't already cover, which is exactly what run_after_20_mise-upgrade asks it to do. Verified on a

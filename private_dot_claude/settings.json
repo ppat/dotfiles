@@ -73,7 +73,8 @@
     ],
     "deny": [
       "Read(~/.env*)",
-      "Read(~/.secrets*)"
+      "Read(~/.secrets*)",
+      "Read(~/.claude/.credentials.*)"
     ]
   },
   "model": "opus[1m]",
