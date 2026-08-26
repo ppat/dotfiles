@@ -50,6 +50,15 @@ Each of these is load-bearing somewhere. Do not strip one without replacing the 
   sentence (scope discipline ≠ permission dependence) keeps the autonomy push from eroding scope discipline.
 - **Anecdote policy.** The two delegate exemplars in The brief stay because vivid target behavior primes better than
   an abstract rule; session-specific statistics were dropped as session residue.
+- **Talking to the user overlaps the harness deliberately — the handles are the point.** Harness prose ("lead with
+  the outcome") demonstrably decays over long sessions, so this section carries the user-specific deltas (altitude
+  default, the decompression rule, anchored references, format persistence, tone) and names each rule so a four-token
+  correction ("35k ft view", "decompress that") retrieves it mid-session. Its diagnosis unifies the two observed
+  failures — wall-of-text dumps and opaque coined shorthand — as one error: writing for the writer's retrieval
+  machinery instead of the reader's. "Wedges its watch" stays verbatim as the anti-exemplar per the anecdote policy.
+  Scope is user-facing commentary only: delegate-to-orchestrator traffic stays under the Output contract, and
+  deliverables stay under Deliverables are a standing record — including the tone rule, which licenses personality in
+  commentary and none in deliverables.
 - **The document must pass its own standards.** "Deliverables are a standing record" applies to this file pair too:
   present state only, no history, nothing a capable model already knows, gotchas kept precisely because they are
   hard-won (e.g. the cgroup memory breakdown).
