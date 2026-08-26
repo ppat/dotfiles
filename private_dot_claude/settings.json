@@ -1,7 +1,11 @@
 {
+  "attribution": {
+    "sessionUrl": false
+  },
   "autoMode": {
     "classifyAllShell": true
   },
+  "cleanupPeriodDays": 365,
   "defaultMode": "auto",
   "env": {
     "DISABLE_AUTOUPDATER": "1"
@@ -63,7 +67,6 @@
       "Edit(~/code/*/**)",
       "Grep(~/.claude/*/**)",
       "Grep(~/code/*/**)",
-      "MultiEdit",
       "Read(~/.claude/*/**)",
       "Read(~/code/*/**)",
       "WebFetch",
@@ -74,7 +77,10 @@
     "deny": [
       "Read(~/.env*)",
       "Read(~/.secrets*)",
-      "Read(~/.claude/.credentials.*)"
+      "Read(~/.claude/.credentials.*)",
+      "Read(~/.ssh/**)",
+      "Read(~/.kube/**)",
+      "Read(~/.config/gh/**)"
     ]
   },
   "model": "opus[1m]",
@@ -115,6 +121,11 @@
           {
             "type": "command",
             "command": "$HOME/.claude/hooks/guard-git-identity.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/guard-gh-merge.sh",
             "timeout": 10
           }
         ]
