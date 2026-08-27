@@ -14,8 +14,9 @@ uv             = "0.12.5"
 "npm:ccstatusline"              = "2.2.27"
 "npm:markdownlint-cli2"         = "0.23.2"
 
-"pipx:pre-commit"   = "4.6.2"
-"pipx:yamllint"     = "1.38.0"
+"pipx:ppat/obsidian-tools" = "v0.4.0"
+"pipx:pre-commit"          = "4.6.2"
+"pipx:yamllint"            = "1.38.0"
 
 # CLI binaries (formerly managed by aqua) -- pinned + checksum-verified via mise.lock
 # Versions are bare (no "v"/"cli-v"/"bws-v"/"kustomize/v" prefix) for consistency: verified that mise's
