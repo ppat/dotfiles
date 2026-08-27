@@ -6,10 +6,71 @@ add_newline = true
 # A continuation prompt that displays two filled-in arrows
 continuation_prompt = '▶▶ '
 
+# --------------------------------- PROMPT SHAPE -----------------------------------------------
+# The prompt opens with the class of machine the shell is on and that machine's name, so a laptop
+# shell and a remote workspace shell can never be mistaken for one another and both read the same
+# way. Both halves are resolved at apply time -- the badge is a constant string per machine, not a
+# runtime probe -- which is also why $username and $hostname are absent below: on a workspace they
+# restated the badge, and on a laptop they rendered nothing at all (both are ssh_only by default),
+# so the two machine classes disagreed about the shape of their own prompt.
+#
+# The workspace test is homeDir, never `eq .chezmoi.os "linux"`: a coder workspace is always Linux,
+# but Linux is not always a coder workspace. CI runners and throwaway test pods are Linux too and
+# must land on the neutral badge, which is the same one-way implication the .chezmoiignore guards
+# turn on.
+#
+# Colours are 24-bit hex, never starship's palette names (`blue`, `bright-purple`): a palette name is
+# whatever the terminal theme remaps it to, so a badge tuned against a dark theme can come out
+# unreadable on a light one, and a name starship does not know is dropped silently rather than
+# rejected. Each fill holds >=4.5:1 against its white text and >=3.5:1 against every terminal ground
+# from #000000 to #ffffff, and the three stay >=60 dE apart under protanopia and deuteranopia.
+{{- $badge := "" }}
+{{- if eq .chezmoi.os "darwin" }}
+{{-   $badge = printf "[  mac %s ](bold fg:#ffffff bg:#1f6feb) " .chezmoi.hostname }}
+{{- else if eq .chezmoi.homeDir "/home/coder" }}
+{{-   $badge = printf "[  coder %s ](bold fg:#ffffff bg:#b45309) " .chezmoi.hostname }}
+{{- else }}
+{{-   $badge = printf "[  linux %s ](bold fg:#ffffff bg:#64748b) " .chezmoi.hostname }}
+{{- end }}
+
+# The module list is a whitelist rather than `$all`, in starship's own default order. `$all` renders
+# whatever starship ships, which has two costs: a scratch clone carrying a go.mod, Cargo.toml or
+# pom.xml grows five segments nobody asked for and takes 21 ms instead of 7 ms (go and rust are
+# mise-installed, so starship really does exec them for a version), and one JVM startup can stall
+# the prompt for up to command_timeout, 500 ms. It also lets a starship upgrade add a module to the
+# prompt with no change here. Nothing outside this list can render, so no module below needs a
+# `disabled` line merely to keep it quiet -- omission is the mechanism.
+format = """
+{{ $badge }}\
+$kubernetes\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$memory_usage\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$status\
+$container\
+$character"""
+
 [character]
 success_symbol = '[➜](bold green) '
 error_symbol = '[✗](bold red) '
 
+# ------------------------ GIT DETAIL: MEASURED, AND NOT WORTH IT ------------------------------
+# Both modules walk the whole worktree on every single prompt, and that is the entire prompt budget:
+# in homelab-ops-kubernetes-apps, 7.2 ms as configured here, 51.2 ms with git_status on, 49.6 ms with
+# git_metrics on (hyperfine, 30 runs, warm cache, starship 1.26). Either one alone is a 7x tax paid
+# on every command in every repo, to surface something `git status` answers for free when it is
+# actually wanted -- and the tax scales with repo size, so it is worst exactly where the information
+# would be most useful.
+#
+# They are held off by two independent locks: `disabled` here, and absence from `format` above.
+# Flipping `disabled` alone will not bring them back; re-measure before adding them to `format`.
+# The symbol tables are kept as a ready-made configuration for that experiment.
 [git_metrics]
 added_style = 'bold blue'
 format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
@@ -29,15 +90,48 @@ renamed = '👅'
 deleted = '🗑'
 disabled = true
 
+# ------------------------------- KUBERNETES CONTEXT -------------------------------------------
+# Every context keeps the same ☸ symbol; the colour is what carries the meaning, so nothing about
+# the prompt shouts and the distinction still lands at a glance. Contexts are coloured by what a
+# mistyped command would do, not by which cluster it is: homelab and nas are read-only from every
+# machine -- changes reach them through a merged pull request, never a kubectl -- so they take the
+# gold of the warning family, while sandbox-talos, the one cluster where a destructive command is a
+# legitimate thing to type, takes teal. Anything unlisted keeps starship's default cyan, which reads
+# as "unclassified", not "safe". The kubeconfig generator
+# (.chezmoiscripts/run_after_61_kubeconfig.sh.tmpl, darwin-only) leaves a fresh laptop sitting on
+# `homelab`, which is precisely the state this colouring exists to make impossible to overlook.
+#
+# The alias spells sandbox-talos out in full: `sandbox` alone would be ambiguous against
+# sandbox-docker, the other write-allowed sandbox. Patterns are anchored so `homelab` cannot also
+# match a future `homelab-something` and inherit a claim about write access that was never checked.
+#
+# Both colours obey the same rule as the badge fills above -- >=3.75:1 against every terminal ground
+# from #000000 to #ffffff -- and stay >=52 dE apart from each other under protanopia and
+# deuteranopia. The gold is close to the coder badge's amber under deuteranopia (3 dE), which is
+# harmless only because the two cannot co-occur: the generator that creates the homelab and nas
+# contexts is darwin-only, so those contexts exist only where the badge is blue. Revisit this pairing
+# if that generator ever ships to Linux.
 [kubernetes]
 disabled = false
+
+[[kubernetes.contexts]]
+context_pattern = '^homelab$'
+context_alias = 'homelab'
+style = 'bold fg:#a86b00'
+
+[[kubernetes.contexts]]
+context_pattern = '^nas$'
+context_alias = 'nas'
+style = 'bold fg:#a86b00'
+
+[[kubernetes.contexts]]
+context_pattern = '^admin@sandbox-talos$'
+context_alias = 'sandbox-talos'
+style = 'bold fg:#00887f'
 
 [status]
 map_symbol = true
 pipestatus = true
-disabled = false
-
-[terraform]
 disabled = false
 
 # ------------------------- MODULES ENABLED ON CERTAIN SCENARIOS ------------------------------
@@ -62,19 +156,3 @@ disabled = false
 disabled = true
 
 {{- end }}
-
-# ------------------------------------ DISABLED MODULES ----------------------------------------
-[aws]
-disabled = true
-
-[nodejs]
-disabled = true
-
-[package]
-disabled = true
-
-[pulumi]
-disabled = true
-
-[python]
-disabled = true
