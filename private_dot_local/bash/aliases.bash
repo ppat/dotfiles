@@ -96,6 +96,8 @@ kpr() {
 }
 alias kpr='kpr'
 
+# A result identifies the policy that produced it but nothing finer-grained, so `message` is where
+# the per-finding detail lives -- for a failure, which container or field tripped the policy.
 kprp() {
   local policy_name="$1"
   local result_value="$2"
@@ -107,19 +109,19 @@ kprp() {
   fi
 
   kubectl get policyreport -A -o json | \
-    jq -r --arg policy "$policy_name" --arg result "$result_value" "
-      .items[] as \$item |
-      \$item.results[] |
-      select(.policy == \$policy and .result == \$result) |
-      [\$item.metadata.namespace,
-       (\$item.metadata.ownerReferences[0].name // \"\"),
-       (\$item.metadata.ownerReferences[0].kind // \"\"),
+    jq -r --arg policy "$policy_name" --arg result "$result_value" '
+      .items[] as $item |
+      $item.results[] |
+      select(.policy == $policy and .result == $result) |
+      [$item.metadata.namespace,
+       ($item.metadata.ownerReferences[0].name // ""),
+       ($item.metadata.ownerReferences[0].kind // ""),
        .policy,
-       .rule,
        .result,
-       .severity] |
-      @tsv" | \
-    column -t
+       .severity,
+       .message] |
+      @tsv' | \
+    column -t -s $'\t'
 }
 alias kprp='kprp'
 
