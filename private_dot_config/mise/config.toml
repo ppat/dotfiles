@@ -39,7 +39,7 @@ talosctl                  = "1.13.9"
 terraform                 = "1.6.6"
 tflint                    = "0.64.0"
 usage                     = "5.1.0"
-uv                        = "0.12.5"
+uv                        = "0.12.7"
 yamllint                  = "1.38.0"
 yq                        = "4.53.6"
 
