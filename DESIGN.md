@@ -131,6 +131,27 @@ that's fine to always load (colors, XDG paths, package-manager env), while `priv
 loaded only opportunistically (its `[[env]]` entry is commented out by default in
 `private_dot_config/mise/config.toml`) so secrets aren't pulled into every shell session unless actually needed.
 
+## Codex: managed defaults, local trust state
+
+Codex is installed by Mise alongside Claude Code, but its `config.toml` contains two independently changing
+concerns. Chezmoi renders the desired defaults and LiteLLM-backed MCP definitions from
+[`private_dot_codex/private_dot_managed.toml.tmpl`](private_dot_codex/private_dot_managed.toml.tmpl) to
+`~/.codex/.managed.toml`; [`run_after_63_codex-config`](.chezmoiscripts/run_after_63_codex-config.sh.tmpl)
+merges those values into the effective `~/.codex/config.toml` on every apply.
+
+The merge owns the managed defaults and the complete `mcp_servers` table, so an apply converges integrations and
+removes retired MCP definitions. It deliberately retains Codex-owned entries, including per-project trust under
+`[projects.*]` and global-hook review hashes under `[hooks.state.*]`. Those entries record machine-local security
+decisions and would be incorrectly reset by a declarative file replacement. Global hooks are therefore reviewed
+once per user/machine and again only when their definitions in
+[`private_dot_codex/hooks.json.tmpl`](private_dot_codex/hooks.json.tmpl) change.
+
+Coder workspaces run in an unprivileged Kubernetes pod where Bubblewrap cannot construct Codex's Linux sandbox.
+For that machine class only (`.chezmoi.homeDir == "/home/coder"`), the managed configuration sets
+`sandbox_mode = "danger-full-access"` and relies on the Coder pod as the outer isolation boundary. Other machines
+use Codex's normal sandbox default. Full access is intentionally limited to Coder because processes there can read
+anything available to the `coder` user; auto-review remains a request-review mechanism, not a filesystem boundary.
+
 ## CI can't be the full story
 
 The lint pipeline (see [TESTING.md](TESTING.md)) renders every template with `.chezmoi.os` forced to `"linux"`
