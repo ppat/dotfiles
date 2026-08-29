@@ -1,0 +1,77 @@
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+check_for_update_on_startup = false
+cli_auth_credentials_store = "auto"
+default_permissions = "personal-development"
+project_doc_fallback_filenames = ["CLAUDE.md"]
+web_search = "live"
+
+[analytics]
+enabled = false
+
+[features]
+memories = true
+
+[permissions.personal-development]
+description = "Development access under ~/code with credentials denied."
+extends = ":workspace"
+
+[permissions.personal-development.workspace_roots]
+"~/code" = true
+
+[permissions.personal-development.filesystem]
+"~/.claude.json" = "deny"
+"~/.claude/.credentials.*" = "deny"
+"~/.codex/auth.json" = "deny"
+"~/.codex/config.toml" = "deny"
+"~/.config/chezmoi/chezmoi.toml" = "deny"
+"~/.config/gh" = "deny"
+"~/.config/gh-agent" = "deny"
+"~/.config/sandbox-talos" = "deny"
+"~/.env" = "deny"
+"~/.env.overrides" = "deny"
+"~/.env.secrets" = "deny"
+"~/.kube" = "deny"
+"~/.secrets" = "deny"
+"~/.ssh" = "deny"
+"~/.talos" = "deny"
+
+[mcp_servers.context7]
+url = "https://litellm.homelab.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}/context7_mcp/mcp"
+http_headers = { "x-litellm-api-key" = "Bearer {{ if eq .chezmoi.os "darwin" }}{{ (bitwardenSecrets "b443797d-f93f-4e01-a8ae-b49100825b18" .bwsAccessToken).value }}{{ else }}{{ (bitwardenSecrets "3d97880e-879d-48ed-aa1c-b4910081d2ef" .bwsAccessToken).value }}{{ end }}" }
+
+[mcp_servers.github]
+url = "https://litellm.homelab.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}/github_mcp/mcp"
+http_headers = { "x-litellm-api-key" = "Bearer {{ if eq .chezmoi.os "darwin" }}{{ (bitwardenSecrets "b443797d-f93f-4e01-a8ae-b49100825b18" .bwsAccessToken).value }}{{ else }}{{ (bitwardenSecrets "3d97880e-879d-48ed-aa1c-b4910081d2ef" .bwsAccessToken).value }}{{ end }}" }
+
+[mcp_servers.grafana]
+url = "https://litellm.homelab.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}/grafana_mcp/mcp"
+http_headers = { "x-litellm-api-key" = "Bearer {{ if eq .chezmoi.os "darwin" }}{{ (bitwardenSecrets "b443797d-f93f-4e01-a8ae-b49100825b18" .bwsAccessToken).value }}{{ else }}{{ (bitwardenSecrets "3d97880e-879d-48ed-aa1c-b4910081d2ef" .bwsAccessToken).value }}{{ end }}" }
+
+[mcp_servers.home_assistant]
+url = "https://litellm.homelab.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}/home_assistant_mcp/mcp"
+http_headers = { "x-litellm-api-key" = "Bearer {{ if eq .chezmoi.os "darwin" }}{{ (bitwardenSecrets "b443797d-f93f-4e01-a8ae-b49100825b18" .bwsAccessToken).value }}{{ else }}{{ (bitwardenSecrets "3d97880e-879d-48ed-aa1c-b4910081d2ef" .bwsAccessToken).value }}{{ end }}" }
+
+[mcp_servers.kubernetes_homelab]
+url = "https://litellm.homelab.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}/kubernetes_homelab_mcp/mcp"
+http_headers = { "x-litellm-api-key" = "Bearer {{ if eq .chezmoi.os "darwin" }}{{ (bitwardenSecrets "b443797d-f93f-4e01-a8ae-b49100825b18" .bwsAccessToken).value }}{{ else }}{{ (bitwardenSecrets "3d97880e-879d-48ed-aa1c-b4910081d2ef" .bwsAccessToken).value }}{{ end }}" }
+
+[mcp_servers.kubernetes_nas]
+url = "https://litellm.homelab.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}/kubernetes_nas_mcp/mcp"
+http_headers = { "x-litellm-api-key" = "Bearer {{ if eq .chezmoi.os "darwin" }}{{ (bitwardenSecrets "b443797d-f93f-4e01-a8ae-b49100825b18" .bwsAccessToken).value }}{{ else }}{{ (bitwardenSecrets "3d97880e-879d-48ed-aa1c-b4910081d2ef" .bwsAccessToken).value }}{{ end }}" }
+
+[mcp_servers.kubernetes_sandbox]
+url = "https://litellm.homelab.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}/kubernetes_sandbox_mcp/mcp"
+http_headers = { "x-litellm-api-key" = "Bearer {{ if eq .chezmoi.os "darwin" }}{{ (bitwardenSecrets "b443797d-f93f-4e01-a8ae-b49100825b18" .bwsAccessToken).value }}{{ else }}{{ (bitwardenSecrets "3d97880e-879d-48ed-aa1c-b4910081d2ef" .bwsAccessToken).value }}{{ end }}" }
+
+[mcp_servers.playwright]
+url = "https://litellm.homelab.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}/playwright_mcp/mcp"
+http_headers = { "x-litellm-api-key" = "Bearer {{ if eq .chezmoi.os "darwin" }}{{ (bitwardenSecrets "b443797d-f93f-4e01-a8ae-b49100825b18" .bwsAccessToken).value }}{{ else }}{{ (bitwardenSecrets "3d97880e-879d-48ed-aa1c-b4910081d2ef" .bwsAccessToken).value }}{{ end }}" }
+
+[mcp_servers.unifi_network]
+url = "https://litellm.homelab.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}/unifi_network_mcp/mcp"
+http_headers = { "x-litellm-api-key" = "Bearer {{ if eq .chezmoi.os "darwin" }}{{ (bitwardenSecrets "b443797d-f93f-4e01-a8ae-b49100825b18" .bwsAccessToken).value }}{{ else }}{{ (bitwardenSecrets "3d97880e-879d-48ed-aa1c-b4910081d2ef" .bwsAccessToken).value }}{{ end }}" }
+
+[mcp_servers.unifi_protect]
+url = "https://litellm.homelab.{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}/unifi_protect_mcp/mcp"
+http_headers = { "x-litellm-api-key" = "Bearer {{ if eq .chezmoi.os "darwin" }}{{ (bitwardenSecrets "b443797d-f93f-4e01-a8ae-b49100825b18" .bwsAccessToken).value }}{{ else }}{{ (bitwardenSecrets "3d97880e-879d-48ed-aa1c-b4910081d2ef" .bwsAccessToken).value }}{{ end }}" }

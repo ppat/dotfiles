@@ -1,0 +1,23 @@
+{
+  "description": "Personal Codex guardrails and advisory edit linting.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "^Bash$",
+        "hooks": [
+          {"type": "command", "command": "$HOME/.claude/hooks/guard-git-push.sh", "timeout": 10},
+          {"type": "command", "command": "$HOME/.claude/hooks/guard-git-identity.sh", "timeout": 10},
+          {"type": "command", "command": "$HOME/.claude/hooks/guard-gh-merge.sh", "timeout": 10}
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "^apply_patch$",
+        "hooks": [
+          {"type": "command", "command": "$HOME/.codex/hooks/lint-on-edit.sh", "timeout": 15}
+        ]
+      }
+    ]
+  }
+}

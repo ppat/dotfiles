@@ -3601,6 +3601,10 @@ url = "https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip"
 version = "2.1.226"
 backend = "npm:@anthropic-ai/claude-code"
 
+[[tools."npm:@openai/codex"]]
+version = "0.150.1"
+backend = "npm:@openai/codex"
+
 [[tools."npm:ccstatusline"]]
 version = "2.2.27"
 backend = "npm:ccstatusline"
