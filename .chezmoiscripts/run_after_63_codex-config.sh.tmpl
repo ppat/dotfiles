@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "mise.env" . -}}
+{{ template "homebrew.env" . -}}
+set +o allexport
+export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+
+{{ template "script_header.sh" . }}
+
+# Codex stores user configuration and runtime approvals in config.toml. Chezmoi owns the
+# rendered defaults in .managed.toml, while Codex owns project trust and hook-review state.
+# Merge the former without replacing the latter on every apply.
+if [[ -z "${DOTFILES_CODEX_CONFIG_BOOTSTRAPPED:-}" ]]; then
+  if ! command -v mise > /dev/null; then
+    log_error "Codex | Mise binary is not in path, cannot proceed!"
+    exit 1
+  fi
+  export DOTFILES_CODEX_CONFIG_BOOTSTRAPPED=1
+  exec mise exec yq -- "${BASH_SOURCE[0]}" "$@"
+fi
+
+codex_dir="${HOME}/.codex"
+config_path="${codex_dir}/config.toml"
+managed_path="${codex_dir}/.managed.toml"
+
+merge_config() {
+  local merged_path
+
+  if [[ ! -f "${managed_path}" ]]; then
+    log_error "Codex | Managed configuration is missing: ${managed_path}"
+    exit 1
+  fi
+
+  merged_path=$(mktemp "${codex_dir}/config.toml.XXXXXX")
+  if [[ -f "${config_path}" ]]; then
+    # shellcheck disable=SC2016 # yq, not the shell, evaluates this expression.
+    yq eval-all -p toml -o toml '
+        select(fileIndex == 0) as $existing |
+        select(fileIndex == 1) as $managed |
+        ($existing * $managed) |
+        .mcp_servers = $managed.mcp_servers |
+        del(.default_permissions) |
+        del(.permissions.personal-development)
+      ' "${config_path}" "${managed_path}" > "${merged_path}"
+  else
+    cp "${managed_path}" "${merged_path}"
+  fi
+
+  if cmp -s "${merged_path}" "${config_path}"; then
+    rm -f -- "${merged_path}"
+    log_info "Codex | Managed configuration is already current."
+  else
+    mv "${merged_path}" "${config_path}"
+    log_success "Codex | Merged managed configuration without replacing local trust state."
+  fi
+}
+
+main() {
+  log_info "Codex | Reconciling managed configuration..."
+  merge_config
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main
