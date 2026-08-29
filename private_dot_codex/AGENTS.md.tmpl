@@ -218,7 +218,7 @@ authenticates as the user. Commits stay authored and signed as the user — only
 {{ end -}}
 Route by payload shape, not by read/write.
 
-| Scenario | Use | `gh`{{ if eq .chezmoi.homeDir "/home/coder" }} (agent bot){{ end }} | `github` MCP{{ if eq .chezmoi.homeDir "/home/coder" }} (user){{ end }} | Why | Gotchas |
+| Scenario | Use | `gh` | `github` MCP | Why | Gotchas |
 | --- | --- | --- | --- | --- | --- |
 | Text going in: creating/updating issues, commenting on issues and pull requests, replying in review threads, linking sub-issues | MCP | yes | yes | body text passes as a JSON parameter, so backticks, `$`, quotes, and newlines survive; the same text passed through the shell is easily corrupted | |
 | Data coming out, bulk or unbounded: workflow runs, job logs, issue and pull request listings | `gh` | yes | yes | `--json` and `--jq` filter the output down in one command | MCP `actions_list` returns everything and ignores `per_page` |

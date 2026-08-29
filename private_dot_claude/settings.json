@@ -1,14 +1,10 @@
 {
-  "attribution": {
-    "sessionUrl": false
-  },
-  "autoMode": {
-    "classifyAllShell": true
-  },
   "cleanupPeriodDays": 365,
-  "defaultMode": "auto",
   "env": {
     "DISABLE_AUTOUPDATER": "1"
+  },
+  "attribution": {
+    "sessionUrl": false
   },
   "permissions": {
     "allow": [
@@ -75,12 +71,19 @@
       "mcp__context7__context7-get-library-docs"
     ],
     "deny": [
+      "Read(~/.claude.json)",
+      "Read(~/.claude/.credentials.json)",
+      "Read(~/.codex/auth.json)",
+      "Read(~/.codex/config.toml)",
+      "Read(~/.config/chezmoi/chezmoi.toml)",
+      "Read(~/.config/gh/**)",
+      "Read(~/.config/gh-agent/**)",
+      "Read(~/.config/sandbox-talos/**)",
       "Read(~/.env*)",
-      "Read(~/.secrets*)",
-      "Read(~/.claude/.credentials.*)",
-      "Read(~/.ssh/**)",
       "Read(~/.kube/**)",
-      "Read(~/.config/gh/**)"
+      "Read(~/.secrets*)",
+      "Read(~/.ssh/**)",
+      "Read(~/.talos/**)"
     ]
   },
   "model": "opus[1m]",
@@ -142,12 +145,16 @@
     "claude-code-setup@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
-    "skill-creator@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": false
+    "skill-creator@claude-plugins-official": true
   },
   "tui": "fullscreen",
   "theme": "dark",
   "autoCompactEnabled": true,
+  "autoMode": {
+    "classifyAllShell": true
+  },
+  "defaultMode": "auto",
   "autoUpdates": false,
-  "disableBypassPermissionsMode": "disable"
+  "disableBypassPermissionsMode": "disable",
+  "agentPushNotifEnabled": true
 }
