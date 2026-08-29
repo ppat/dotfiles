@@ -23,7 +23,7 @@ uv             = "0.12.5"
 # real upstream tag from the aqua registry's own per-package version template.
 "aqua:aristocratos/btop"         = { version = "1.4.7", os = ["linux"] }  # no darwin asset in aqua registry
 "aqua:atuinsh/atuin"             = "18.18.1"
-"aqua:bitwarden/clients"         = "2026.7.0"
+"aqua:bitwarden/clients"         = "2026.8.0"
 "aqua:bitwarden/sdk-sm"          = "2.1.0"
 "aqua:bootandy/dust"             = "1.2.5"
 "aqua:cli/cli"                   = "2.97.0"
