@@ -22,11 +22,11 @@ if [[ -z "${DOTFILES_HERDR_BOOTSTRAPPED:-}" ]]; then
 fi
 
 configure_integrations() {
-  local agent, status
+  local agent status
 
   for agent in claude codex; do
     log_info "${agent}:"
-    status="$(herdr integration status | grep '^'$agent'' | cut -d' ' -f 2)"
+    status="$(herdr integration status | grep "^$agent\:" | awk '{ print $2 }')"
     if [[ "${status}" == "current" ]]; then
       log_info "Integration already installed and current, skipping."
       continue
