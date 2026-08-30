@@ -20,6 +20,7 @@ gitleaks                  = "8.30.1"
 go                        = "1.26.7"
 glow                      = "2.1.2"
 hadolint                  = "2.15.1"
+herdr                     = "0.8.2"
 helm                      = "4.2.4"
 hyperfine                 = "1.20.0"
 fastfetch                 = "2.67.1"
@@ -48,6 +49,7 @@ yq                        = "4.53.6"
 "npm:ccstatusline"              = "2.2.27"
 "npm:ccusage"                   = "20.0.20"
 "npm:markdownlint-cli2"         = "0.23.2"
+"npm:skills"                    = "1.5.23"
 
 # CLI binaries (formerly managed by aqua) -- pinned + checksum-verified via mise.lock
 # Versions are bare (no "v"/"cli-v"/"bws-v"/"kustomize/v" prefix) for consistency: verified that mise's
