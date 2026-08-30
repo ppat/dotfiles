@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "mise.env" . -}}
+{{ template "homebrew.env" . -}}
+set +o allexport
+export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+
+{{ template "script_header.sh" . }}
+
+# Herdr's integrations add the agent-specific hooks that report resumable session identity. The
+# upstream skill installer keeps the Herdr control skill outside this repository, while installing
+# it for both agents' global skill locations.
+if [[ -z "${DOTFILES_HERDR_BOOTSTRAPPED:-}" ]]; then
+  if ! command -v mise > /dev/null; then
+    log_error "Herdr | Mise binary is not in path, cannot proceed!"
+    exit 1
+  fi
+  export DOTFILES_HERDR_BOOTSTRAPPED=1
+  exec mise exec herdr "npm:skills" -- "${BASH_SOURCE[0]}" "$@"
+fi
+
+configure_integrations() {
+  local agent status
+
+  for agent in claude codex; do
+    log_info "${agent}:"
+    status="$(herdr integration status | grep "^$agent\:" | awk '{ print $2 }')"
+    if [[ "${status}" == "current" ]]; then
+      log_info "Integration already installed and current, skipping."
+      continue
+    fi
+    herdr integration install "${agent}" 2>&1 | sed -E 's|^(.*)|    \1|g'
+  done
+  log_success "Integration(s) installed."
+}
+
+configure_skill() {
+  DISABLE_TELEMETRY=1 skills add herdrdev/herdr --skill herdr --agent claude-code codex --global --yes 2>&1 | sed -E 's|^(.*)|    \1|g'
+  log_success "Upstream control skill installed."
+}
+
+main() {
+  log_info "Herdr | Installing integrations..."
+  configure_integrations 2>&1 | sed -E 's|^(.*)|    \1|g'
+  echo
+  log_info "Herdr | Installing the upstream control skill..."
+  configure_skill 2>&1 | sed -E 's|^(.*)|    \1|g'
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main
