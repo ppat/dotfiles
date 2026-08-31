@@ -73,6 +73,7 @@
     "deny": [
       "Read(~/.claude.json)",
       "Read(~/.claude/.credentials.json)",
+      "Read(~/.codex/.managed.toml)",
       "Read(~/.codex/auth.json)",
       "Read(~/.codex/config.toml)",
       "Read(~/.config/chezmoi/chezmoi.toml)",

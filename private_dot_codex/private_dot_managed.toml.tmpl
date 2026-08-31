@@ -4,9 +4,38 @@ check_for_update_on_startup = false
 cli_auth_credentials_store = "auto"
 {{ if eq .chezmoi.homeDir "/home/coder" -}}
 sandbox_mode = "danger-full-access"
+{{- else if eq .chezmoi.os "darwin" }}
+default_permissions = "code"
 {{ end -}}
 project_doc_fallback_filenames = ["CLAUDE.md"]
 web_search = "live"
+
+{{ if eq .chezmoi.os "darwin" -}}
+[permissions.code]
+description = "Development access under ~/code with credentials denied."
+extends = ":workspace"
+
+[permissions.code.workspace_roots]
+"~/code" = true
+
+[permissions.code.filesystem]
+"~/.claude.json" = "deny"
+"~/.claude/.credentials.json" = "deny"
+"~/.codex/.managed.toml" = "deny"
+"~/.codex/auth.json" = "deny"
+"~/.codex/config.toml" = "deny"
+"~/.config/chezmoi/chezmoi.toml" = "deny"
+"~/.config/gh" = "deny"
+"~/.config/gh-agent" = "deny"
+"~/.config/sandbox-talos" = "deny"
+"~/.env" = "deny"
+"~/.env.overrides" = "deny"
+"~/.env.secrets" = "deny"
+"~/.kube" = "deny"
+"~/.secrets" = "deny"
+"~/.ssh" = "deny"
+"~/.talos" = "deny"
+{{- end }}
 
 [analytics]
 enabled = false
