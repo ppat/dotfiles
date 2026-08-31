@@ -85,11 +85,13 @@
       "Read(~/.secrets*)",
       "Read(~/.ssh/**)",
       "Read(~/.talos/**)"
-    ]
+    ],
+    "defaultMode": "auto"
   },
   "model": "opus[1m]",
   "enableAllProjectMcpServers": false,
   "enabledMcpjsonServers": [],
+  "disableClaudeAiConnectors": true,
   "hooks": {
     "PostToolUse": [
       {
@@ -163,11 +165,12 @@
   "tui": "fullscreen",
   "theme": "dark",
   "autoCompactEnabled": true,
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true,
   "autoMode": {
     "classifyAllShell": true
   },
   "defaultMode": "auto",
   "autoUpdates": false,
-  "disableBypassPermissionsMode": "disable",
-  "agentPushNotifEnabled": true
+  "disableBypassPermissionsMode": "disable"
 }
