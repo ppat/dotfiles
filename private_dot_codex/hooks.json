@@ -1,6 +1,14 @@
 {
   "description": "Personal Codex guardrails and advisory edit linting.",
   "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "^apply_patch$",
+        "hooks": [
+          {"type": "command", "command": "$HOME/.codex/hooks/lint-on-edit.sh", "timeout": 15}
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "^Bash$",
@@ -9,11 +17,14 @@
         ]
       }
     ],
-    "PostToolUse": [
+    "SessionStart": [
       {
-        "matcher": "^apply_patch$",
         "hooks": [
-          {"type": "command", "command": "$HOME/.codex/hooks/lint-on-edit.sh", "timeout": 15}
+          {
+            "command": "bash '/home/coder/.codex/herdr-agent-state.sh' session",
+            "timeout": 10,
+            "type": "command"
+          }
         ]
       }
     ]
