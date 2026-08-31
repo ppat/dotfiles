@@ -5,9 +5,7 @@
       {
         "matcher": "^Bash$",
         "hooks": [
-          {"type": "command", "command": "$HOME/.claude/hooks/guard-git-push.sh", "timeout": 10},
-          {"type": "command", "command": "$HOME/.claude/hooks/guard-git-identity.sh", "timeout": 10},
-          {"type": "command", "command": "$HOME/.claude/hooks/guard-gh-merge.sh", "timeout": 10}
+          {"type": "command", "command": "$HOME/.codex/hooks/guard-pre-tool-use.sh", "timeout": 10}
         ]
       }
     ],
