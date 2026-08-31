@@ -41,8 +41,8 @@ error_symbol = '[✗](bold fg:red) '
 
 [directory]
 style = "bg:directory fg:text"
-format = "[ $path$read_only ]($style)"
-read_only = "  "
+format = "[ $read_only$path ]($style)"
+read_only = "   "
 truncation_length = 3
 truncate_to_repo = true
 substitutions = [
@@ -105,6 +105,7 @@ style = "bg:kubernetes fg:sandbox"
 
 [os]
 disabled = false
+format = '[ $symbol]($style)'
 {{- if eq .chezmoi.os "darwin" }}
 style = "bg:macos fg:text"
 {{- else }}
@@ -168,7 +169,7 @@ black = "#000000"
 text = "#cdd6f4"
 # macOS uses muted maroon as a caution cue; other hosts stay cool and neutral.
 macos = "#6d4855"
-host = "#365c73"
+host = "#2b5b64"
 directory = "#3d5272"
 git = "#83a9ab"
 kubernetes = "#25213a"
