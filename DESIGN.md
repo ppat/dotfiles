@@ -144,13 +144,17 @@ removes retired MCP definitions. It deliberately retains Codex-owned entries, in
 `[projects.*]` and global-hook review hashes under `[hooks.state.*]`. Those entries record machine-local security
 decisions and would be incorrectly reset by a declarative file replacement. Global hooks are therefore reviewed
 once per user/machine and again only when their definitions in
-[`private_dot_codex/hooks.json.tmpl`](private_dot_codex/hooks.json.tmpl) change.
+[`private_dot_codex/hooks.json`](private_dot_codex/hooks.json) change. Codex's PreToolUse adapter reuses
+the Claude guard implementations, suppressing their successful `allow` response because Codex accepts denials but
+does not support that success decision.
 
-Coder workspaces run in an unprivileged Kubernetes pod where Bubblewrap cannot construct Codex's Linux sandbox.
-For that machine class only (`.chezmoi.homeDir == "/home/coder"`), the managed configuration sets
-`sandbox_mode = "danger-full-access"` and relies on the Coder pod as the outer isolation boundary. Other machines
-use Codex's normal sandbox default. Full access is intentionally limited to Coder because processes there can read
-anything available to the `coder` user; auto-review remains a request-review mechanism, not a filesystem boundary.
+The managed fragment carries Codex's `code` permissions profile but does not activate it. During every apply,
+the reconciliation script selects one complete effective mode: macOS retains its established `code` profile; on
+Linux, `codex sandbox -- /usr/bin/true` tests whether Codex can start its sandbox. A supported sandbox activates
+`default_permissions = "code"`; an unsupported sandbox removes that profile and sets
+`sandbox_mode = "danger-full-access"`. This converges in both directions, so a Linux machine cannot retain an
+outdated mode after its sandbox capability changes. Full access is appropriate only where the environment supplies
+the intended outer isolation boundary; auto-review remains a request-review mechanism, not a filesystem boundary.
 
 ## CI can't be the full story
 

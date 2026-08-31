@@ -2,15 +2,9 @@ approval_policy = "on-request"
 approvals_reviewer = "auto_review"
 check_for_update_on_startup = false
 cli_auth_credentials_store = "auto"
-{{ if eq .chezmoi.homeDir "/home/coder" -}}
-sandbox_mode = "danger-full-access"
-{{- else if eq .chezmoi.os "darwin" }}
-default_permissions = "code"
-{{ end -}}
 project_doc_fallback_filenames = ["CLAUDE.md"]
 web_search = "live"
 
-{{ if eq .chezmoi.os "darwin" -}}
 [permissions.code]
 description = "Development access under ~/code with credentials denied."
 extends = ":workspace"
@@ -35,7 +29,6 @@ extends = ":workspace"
 "~/.secrets" = "deny"
 "~/.ssh" = "deny"
 "~/.talos" = "deny"
-{{- end }}
 
 [analytics]
 enabled = false
