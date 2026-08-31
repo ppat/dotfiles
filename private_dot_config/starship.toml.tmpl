@@ -3,28 +3,25 @@
 add_newline = true
 continuation_prompt = '▶▶ '
 
-# way.
+# Stable environment cues precede cwd state; the black handoff grounds Git only when it is present.
 format = """
 {{- if eq .chezmoi.os "darwin" }}
-[](red)\
+[](macos)\
 {{- else }}
-[](blue)\
+[](host)\
 {{- end }}
 $os\
 $hostname\
 {{- if eq .chezmoi.os "darwin" }}
-[](bg:yellow fg:red)\
+[](bg:kubernetes fg:macos)\
 {{- else }}
-[](bg:yellow fg:blue)\
+[](bg:kubernetes fg:host)\
 {{- end }}
-$directory\
-[](bg:teal fg:yellow)\
-$git_branch\
-$git_state\
-$git_commit\
-[](bg:rosewater fg:teal)\
 $kubernetes\
-[ ](bg:black fg:rosewater)\
+[](bg:directory fg:kubernetes)\
+$directory\
+[ ](bg:black fg:directory)\
+($git_branch$git_state$git_commit)\
 $cmd_duration\
 $fill\
 $jobs\
@@ -35,7 +32,7 @@ $line_break\
 $status\
 $character"""
 
-palette = 'catppuccin_mocha'
+palette = 'calm_dark'
 
 
 [character]
@@ -43,17 +40,17 @@ success_symbol = '[➜](bold fg:green) '
 error_symbol = '[✗](bold fg:red) '
 
 [directory]
-style = "bg:yellow fg:crust"
-format = "[ $path$read_only]($style)"
+style = "bg:directory fg:text"
+format = "[ $path$read_only ]($style)"
 read_only = "  "
 truncation_length = 3
 truncate_to_repo = true
 substitutions = [
- { from = "~/Documents", to = "~/Documents 󰈙 " },
- { from = "~/Downloads", to = "~/Downloads  " },
- { from = "~/Music", to = "~/Music 󰝚 " },
- { from = "~/Pictures", to = "~/Pictures  " },
- { from = "~/code", to = "~/code 󰲋 " }
+ { from = "~/Documents", to = "󰈙  Documents " },
+ { from = "~/Downloads", to = "  Downloads " },
+ { from = "~/Music", to = "󰝚  Music " },
+ { from = "~/Pictures", to = "  Pictures " },
+ { from = "~/code", to = "󰲋  code " }
 ]
 
 [fill]
@@ -62,54 +59,56 @@ symbol = ' '
 [hostname]
 ssh_only = false
 {{- if eq .chezmoi.os "darwin" }}
-style = "bg:red fg:crust"
+style = "bg:macos fg:text"
 {{- else }}
-style = "bg:blue fg:crust"
+style = "bg:host fg:text"
 {{- end }}
 format = '[ $hostname ]($style)'
 
 [git_branch]
+# Git intentionally shares terminal black, avoiding another floating color panel.
 symbol = ""
-style = "bg:teal"
-format = '[[ $symbol $branch ](bg:teal fg:crust)]($style)'
+style = "bg:black fg:git"
+format = '[ $symbol $branch ]($style)'
 
 [git_commit]
-style = "bg:teal"
-format = '[[($hash)](bg:teal fg:crust)]($style)'
+style = "bg:black fg:git"
+format = '[($hash)]($style)'
 only_detached = true
 tag_disabled = true
 
 [git_state]
-style = "bg:teal fg:crust"
-format = '[$state( $progress_current/$progress_total)]($style)"
+style = "bg:black fg:git"
+format = '[$state( $progress_current/$progress_total)]($style)'
 
 [kubernetes]
 disabled = false
 symbol = "󱃾 "
-format = '[ [$symbol](bold bg:rosewater fg:blue) $context \($namespace\) ]($style)'
-style = "bg:rosewater"
+format = '[ [$symbol](bold bg:kubernetes fg:kubernetes_icon) $context \($namespace\) ]($style)'
+style = "bg:kubernetes fg:text"
 
 [[kubernetes.contexts]]
+# One dark surface keeps changing context foregrounds legible; risk remains a foreground cue.
 context_pattern = "^homelab$"
 context_alias = "homelab"
-style = "bg:rosewater fg:#f81b10"
+style = "bg:kubernetes bold fg:prod"
 
 [[kubernetes.contexts]]
 context_pattern = "^nas$"
 context_alias = "nas"
-style = "bg:rosewater fg:#a84bc0"
+style = "bg:kubernetes fg:prod_alt"
 
 [[kubernetes.contexts]]
 context_pattern = "^admin@sandbox-talos$"
 context_alias = "sandbox-talos"
-style = "bg:rosewater fg:crust"
+style = "bg:kubernetes fg:sandbox"
 
 [os]
 disabled = false
 {{- if eq .chezmoi.os "darwin" }}
-style = "bg:red fg:crust"
+style = "bg:macos fg:text"
 {{- else }}
-style = "bg:blue fg:crust"
+style = "bg:host fg:text"
 {{- end }}
 
 [os.symbols]
@@ -118,11 +117,6 @@ Debian = "󰣚"
 Linux = "󰌽"
 Macos = "󰀵"
 Raspbian = "󰐿"
-{{- if eq .chezmoi.homeDir "/home/coder" }}
-Ubuntu = "󰕈 on "
-{{- else }}
-Ubuntu = "󰕈"
-{{- end }}
 Ubuntu = "󰕈"
 Windows = ""
 
@@ -134,7 +128,11 @@ disabled = false
 [time]
 disabled = false
 time_format = "%R"
-style = "fg:white"
+style = "bg:black fg:utility"
+{{- if ne .chezmoi.os "darwin" }}
+# IANA time zone keeps Eastern time correct across daylight-saving transitions.
+utc_time_offset = "America/New_York"
+{{- end }}
 format = '[  $time ]($style)'
 
 [line_break]
@@ -151,39 +149,36 @@ style = 'bold yellow'
 
 [[battery.display]]
 threshold = 100
-style = 'fg:white'
+style = 'bg:black fg:utility'
 
 [memory_usage]
 symbol = '󰍛'
+style = 'bg:black fg:utility'
 format = ' $symbol [${ram_pct}( | ${swap_pct})]($style) '
 threshold = -1
 disabled = false
 {{- end }}
 
-[palettes.catppuccin_mocha]
-rosewater = "#f5e0dc"
-flamingo = "#f2cdcd"
-pink = "#f5c2e7"
-mauve = "#cba6f7"
-red = "#f38ba8"
-maroon = "#eba0ac"
-peach = "#fab387"
-yellow = "#f9e2af"
-green = "#a6e3a1"
-teal = "#94e2d5"
-sky = "#89dceb"
-sapphire = "#74c7ec"
-blue = "#89b4fa"
-lavender = "#b4befe"
-text = "#cdd6f4"
-subtext1 = "#bac2de"
-subtext0 = "#a6adc8"
-overlay2 = "#9399b2"
-overlay1 = "#7f849c"
-overlay0 = "#6c7086"
-surface2 = "#585b70"
-surface1 = "#45475a"
-surface0 = "#313244"
-base = "#1e1e2e"
-mantle = "#181825"
+[palettes.calm_dark]
+# Tuned for dark terminals: restrained brightness and chroma reduce glare and eye strain during long sessions,
+# while separated dark surfaces and sufficient text contrast keep adjacent prompt states easy to scan.
+# Accents are reserved for risk and environment state.
 crust = "#11111b"
+black = "#000000"
+text = "#cdd6f4"
+# macOS uses muted maroon as a caution cue; other hosts stay cool and neutral.
+macos = "#6d4855"
+host = "#365c73"
+directory = "#3d5272"
+git = "#83a9ab"
+kubernetes = "#25213a"
+# Production remains warm, sandbox green, and the Kubernetes icon blue without vivid fills.
+kubernetes_icon = "#8ab4d9"
+# Secondary telemetry is intentionally subdued on black.
+utility = "#77808c"
+prod = "#e0a0a8"
+prod_alt = "#caa6d4"
+sandbox = "#9bc7a8"
+green = "#a6e3a1"
+red = "#f38ba8"
+yellow = "#f9e2af"
