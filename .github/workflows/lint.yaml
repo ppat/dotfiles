@@ -17,7 +17,7 @@ permissions:
 
 env:
   # renovate: datasource=github-releases depName=twpayne/chezmoi
-  CHEZMOI_VERSION: "v2.72.0"
+  CHEZMOI_VERSION: "v2.72.1"
   # renovate: datasource=github-releases depName=dotenv-linter/dotenv-linter
   DOTENVLINTER_VERSION: "v4.0.0"
   # renovate: datasource=github-releases depName=koalaman/shellcheck
