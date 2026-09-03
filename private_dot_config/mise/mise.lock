@@ -2356,73 +2356,73 @@ url_api = "https://api.github.com/repos/cargo-bins/cargo-binstall/releases/asset
 provenance = "github-attestations"
 
 [[tools.coder]]
-version = "2.36.3"
+version = "2.36.4"
 backend = "aqua:coder/coder"
 
 [tools.coder."platforms.linux-arm64"]
-checksum = "sha256:98406227a5806f8f305a59187c0ece591492bd80191532db66be79f790c5a0a9"
-url = "https://github.com/coder/coder/releases/download/v2.36.3/coder_2.36.3_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/529433316"
+checksum = "sha256:cebf62195f61a66f7bedc203c70b0c5bb99f49f26ff6fa1b1a26ab78aeaff4cd"
+url = "https://github.com/coder/coder/releases/download/v2.36.4/coder_2.36.4_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/539007591"
 provenance = "github-attestations"
 
 [tools.coder."platforms.linux-arm64-musl"]
-checksum = "sha256:98406227a5806f8f305a59187c0ece591492bd80191532db66be79f790c5a0a9"
-url = "https://github.com/coder/coder/releases/download/v2.36.3/coder_2.36.3_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/529433316"
+checksum = "sha256:cebf62195f61a66f7bedc203c70b0c5bb99f49f26ff6fa1b1a26ab78aeaff4cd"
+url = "https://github.com/coder/coder/releases/download/v2.36.4/coder_2.36.4_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/539007591"
 provenance = "github-attestations"
 
 [tools.coder."platforms.linux-x64"]
-checksum = "sha256:de263fd2f7d7bdfc25c85acadc0b5349e56fdb71dfb83c94310376a705836323"
-url = "https://github.com/coder/coder/releases/download/v2.36.3/coder_2.36.3_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/529433279"
+checksum = "sha256:19c9bb8b81495bc983137a1ae16f447420fb571a9ab0dc5d8fb490118b9073ee"
+url = "https://github.com/coder/coder/releases/download/v2.36.4/coder_2.36.4_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/539007547"
 provenance = "github-attestations"
 
 [tools.coder."platforms.linux-x64-baseline"]
-checksum = "sha256:de263fd2f7d7bdfc25c85acadc0b5349e56fdb71dfb83c94310376a705836323"
-url = "https://github.com/coder/coder/releases/download/v2.36.3/coder_2.36.3_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/529433279"
+checksum = "sha256:19c9bb8b81495bc983137a1ae16f447420fb571a9ab0dc5d8fb490118b9073ee"
+url = "https://github.com/coder/coder/releases/download/v2.36.4/coder_2.36.4_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/539007547"
 provenance = "github-attestations"
 
 [tools.coder."platforms.linux-x64-musl"]
-checksum = "sha256:de263fd2f7d7bdfc25c85acadc0b5349e56fdb71dfb83c94310376a705836323"
-url = "https://github.com/coder/coder/releases/download/v2.36.3/coder_2.36.3_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/529433279"
+checksum = "sha256:19c9bb8b81495bc983137a1ae16f447420fb571a9ab0dc5d8fb490118b9073ee"
+url = "https://github.com/coder/coder/releases/download/v2.36.4/coder_2.36.4_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/539007547"
 provenance = "github-attestations"
 
 [tools.coder."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:de263fd2f7d7bdfc25c85acadc0b5349e56fdb71dfb83c94310376a705836323"
-url = "https://github.com/coder/coder/releases/download/v2.36.3/coder_2.36.3_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/529433279"
+checksum = "sha256:19c9bb8b81495bc983137a1ae16f447420fb571a9ab0dc5d8fb490118b9073ee"
+url = "https://github.com/coder/coder/releases/download/v2.36.4/coder_2.36.4_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/539007547"
 provenance = "github-attestations"
 
 [tools.coder."platforms.macos-arm64"]
-checksum = "sha256:df509806319d94f9077277b540fad209a2fbb19ffa0dc0e21ef0b76e82be5d2d"
-url = "https://github.com/coder/coder/releases/download/v2.36.3/coder_2.36.3_darwin_arm64.zip"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/529432998"
+checksum = "sha256:5b7bfd3ad4af63199eb65c3a0cc94bf475ee196bc925af4dbf0e0c658dc79bdf"
+url = "https://github.com/coder/coder/releases/download/v2.36.4/coder_2.36.4_darwin_arm64.zip"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/539007375"
 provenance = "github-attestations"
 
 [tools.coder."platforms.macos-x64"]
-checksum = "sha256:2ae8bfdece4842296c328814c83a0e2036b51a30bd5c7cef60cdc643445530a3"
-url = "https://github.com/coder/coder/releases/download/v2.36.3/coder_2.36.3_darwin_amd64.zip"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/529433001"
+checksum = "sha256:42065d387c8a7ebcc8e0d0b6f269db580d3a9b8fe3d59a4e4e38d86d19fba92e"
+url = "https://github.com/coder/coder/releases/download/v2.36.4/coder_2.36.4_darwin_amd64.zip"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/539007374"
 provenance = "github-attestations"
 
 [tools.coder."platforms.macos-x64-baseline"]
-checksum = "sha256:2ae8bfdece4842296c328814c83a0e2036b51a30bd5c7cef60cdc643445530a3"
-url = "https://github.com/coder/coder/releases/download/v2.36.3/coder_2.36.3_darwin_amd64.zip"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/529433001"
+checksum = "sha256:42065d387c8a7ebcc8e0d0b6f269db580d3a9b8fe3d59a4e4e38d86d19fba92e"
+url = "https://github.com/coder/coder/releases/download/v2.36.4/coder_2.36.4_darwin_amd64.zip"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/539007374"
 provenance = "github-attestations"
 
 [tools.coder."platforms.windows-x64"]
-checksum = "sha256:143f989533c491d549c9f3e95f23bf7bb8376cfd23b74e3c0275cdd3d1b48fd9"
-url = "https://github.com/coder/coder/releases/download/v2.36.3/coder_2.36.3_windows_amd64.zip"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/529433595"
+checksum = "sha256:43e4aca74d7be157c698dcbef0ecc70b10e1be8dc460b0bd454342747d94ea55"
+url = "https://github.com/coder/coder/releases/download/v2.36.4/coder_2.36.4_windows_amd64.zip"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/539007719"
 provenance = "github-attestations"
 
 [tools.coder."platforms.windows-x64-baseline"]
-checksum = "sha256:143f989533c491d549c9f3e95f23bf7bb8376cfd23b74e3c0275cdd3d1b48fd9"
-url = "https://github.com/coder/coder/releases/download/v2.36.3/coder_2.36.3_windows_amd64.zip"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/529433595"
+checksum = "sha256:43e4aca74d7be157c698dcbef0ecc70b10e1be8dc460b0bd454342747d94ea55"
+url = "https://github.com/coder/coder/releases/download/v2.36.4/coder_2.36.4_windows_amd64.zip"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/539007719"
 provenance = "github-attestations"
 
 [[tools.crane]]
