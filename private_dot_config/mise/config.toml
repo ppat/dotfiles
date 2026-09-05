@@ -46,7 +46,7 @@ yq                        = "4.53.6"
 
 "npm:@anthropic-ai/claude-code" = "2.1.226"
 "npm:@openai/codex"             = "0.150.1"
-"npm:ccstatusline"              = "2.2.27"
+"npm:ccstatusline"              = "2.2.29"
 "npm:ccusage"                   = "20.0.20"
 "npm:markdownlint-cli2"         = "0.23.2"
 "npm:skills"                    = "1.5.23"
