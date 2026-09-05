@@ -1,7 +1,7 @@
 [tools]
 act                       = "0.2.89"
 actionlint                = "1.7.7"
-atuin                     = "18.18.1"
+atuin                     = "18.20.1"
 bat                       = "0.26.1"
 bitwarden                 = "2026.7.0"
 bitwarden-secrets-manager = "2.1.0"
