@@ -1,11 +1,43 @@
 onboarding = false
 
+[theme]
+name        = "catppuccin"
+auto_switch = false
+
+[theme.custom]
+# Explicit solid backgrounds for every UI layer so nothing falls through to
+# reset/transparent and rides on iTerm2's own profile background instead.
+# Elevation order, darkest to lightest: sidebar < panel (headers/menu) <
+# active row < explicit selection.
+sidebar_bg    = "#11111b"
+panel_bg      = "#1e1e2e"
+active_row_bg = "#292c3c"
+selection_bg  = "#3b3f57"
+accent        = "#fab387"
+red           = "#ff6b6b"
+green         = "#4ade80"
+
 [ui]
+agent_panel_sort                  = "priority"
 show_agent_labels_on_pane_borders = true
+status_indicators                 = "symbols"
+tab_bar_position                  = "bottom"
+window_title                      = "{hostname}: {workspace}"
+
+[ui.sidebar.agents]
+# Default row styling renders tab/agent name dim/muted, which is unreadable
+# against a dark background regardless of theme. Force explicit, non-dim,
+# high-contrast colors for exactly those two tokens.
+rows = [
+    ["state_icon", { token = "tab", fg = "#f2f4ff", dim = false }],
+    [{ token = "agent", fg = "#89b4fa", dim = false }, "workspace"]
+]
 
 [ui.toast]
 delivery = "system"
 
-[theme]
-name        = "gruvbox"
-auto_switch = false
+[update]
+version_check = false
+
+[worktrees]
+directory = "~/code/.worktrees/herdr"
