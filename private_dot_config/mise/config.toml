@@ -49,7 +49,7 @@ yq                        = "4.53.6"
 "npm:ccstatusline"              = "2.2.29"
 "npm:ccusage"                   = "20.0.20"
 "npm:markdownlint-cli2"         = "0.23.2"
-"npm:skills"                    = "1.5.23"
+"npm:skills"                    = "1.5.24"
 
 # CLI binaries (formerly managed by aqua) -- pinned + checksum-verified via mise.lock
 # Versions are bare (no "v"/"cli-v"/"bws-v"/"kustomize/v" prefix) for consistency: verified that mise's
