@@ -50,14 +50,22 @@ stats would miss and signing would come out silently unconfigured until the next
 [url "https://github.com/"]
     insteadOf = git@github.com:
 {{ end -}}
+{{- /* A bare `gh` only resolves here on the strength of PATH, and the credential helper below runs
+in a shell git spawns non-interactively, which never sources ~/.bashrc and so never runs mise's
+`activate` hook -- the thing that puts mise's install directories on PATH in the first place. A bare
+`gh` in that shell fails with "gh: not found" even on a machine where it works everywhere else. The
+mise shim is a fixed path that exists for the life of the mise installation and dispatches to
+whichever version is currently active, so pointing at it directly resolves `gh` without depending on
+PATH and without embedding a version that a mise upgrade would invalidate. */ -}}
+{{- $ghBin := joinPath .chezmoi.homeDir ".local/share/mise/shims/gh" -}}
 
 [credential "https://github.com"]
     helper =
-    helper = !gh auth git-credential
+    helper = !{{ $ghBin }} auth git-credential
 
 [credential "https://gist.github.com"]
     helper =
-    helper = !gh auth git-credential
+    helper = !{{ $ghBin }} auth git-credential
 
 [diff]
     colorMoved = default
