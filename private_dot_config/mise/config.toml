@@ -38,7 +38,7 @@ rust                      = "1.98.1"
 shellcheck                = "0.11.0"
 talosctl                  = "1.14.0"
 usage                     = "5.1.0"
-uv                        = "0.12.12"
+uv                        = "0.12.13"
 yamllint                  = "1.38.0"
 yq                        = "4.53.6"
 
