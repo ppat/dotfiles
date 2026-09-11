@@ -2,6 +2,16 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
+      "description": "Keep deployed mise pins in their bare version form when an upstream release tag has a leading v. Individual tools with another tag prefix override this rule below.",
+      "matchFileNames": [
+        "private_dot_config/mise/config.toml"
+      ],
+      "matchManagers": [
+        "mise"
+      ],
+      "extractVersion": "^v?(?<version>.+)$"
+    },
+    {
       "description": "Language runtimes in the deployed mise pin set. Separate from pkg-cli because they carry the long release-age soaks below and because a runtime major is a different kind of event from a CLI major -- keeping the split visible in the header is why this repo does not collapse both onto one package scope.",
       "matchFileNames": [
         "private_dot_config/mise/config.toml"
