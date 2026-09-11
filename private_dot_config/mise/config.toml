@@ -45,7 +45,7 @@ yamllint                  = "1.38.0"
 yq                        = "4.53.6"
 
 "npm:@anthropic-ai/claude-code" = "2.1.266"
-"npm:@openai/codex"             = "0.153.0"
+"npm:@openai/codex"             = "0.153.4"
 "npm:ccstatusline"              = "2.2.29"
 "npm:ccusage"                   = "20.0.20"
 "npm:markdownlint-cli2"         = "0.23.2"
