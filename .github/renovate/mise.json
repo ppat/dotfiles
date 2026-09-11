@@ -13,6 +13,7 @@
     },
     {
       "description": "Language runtimes in the deployed mise pin set. Separate from pkg-cli because they carry the long release-age soaks below and because a runtime major is a different kind of event from a CLI major -- keeping the split visible in the header is why this repo does not collapse both onto one package scope.",
+      "groupName": "pkg-lang",
       "matchFileNames": [
         "private_dot_config/mise/config.toml"
       ],
@@ -35,6 +36,7 @@
     },
     {
       "description": "Everything else in the deployed mise pin set: CLI binaries via the aqua backend, npm and pipx tools. This is the default for anything mise installs onto a machine that is not a language runtime.",
+      "groupName": "pkg-cli",
       "matchFileNames": [
         "private_dot_config/mise/config.toml"
       ],

@@ -87,17 +87,6 @@
       "semanticCommitScope": "internal-dependencies"
     },
     {
-      "description": "Root mise.toml is chezmoi-ignored dev tooling, not the deployed pin set, so anything declared there is internal. Stated locally and keyed on the file because renovate/mise.json claims pkg-cli/pkg-lang for the deployed config only -- without this rule the root file depends on the dev-tools preset continuing to match it. Note the deployed config is at private_dot_config/mise/config.toml; these two mise files must never share a scope",
-      "matchManagers": [
-        "mise"
-      ],
-      "matchFileNames": [
-        "mise.toml",
-        ".mise.toml"
-      ],
-      "semanticCommitScope": "internal-dependencies"
-    },
-    {
       "description": "The github-actions manager extracts six dependency types, not just uses: refs -- action and docker come from a uses: field, but container, service, github-runner (the runs-on: image, live in this repo) and uses-with do not. The upstream preset scopes the whole manager as github-actions, which is broader than what that scope means here ('a uses: ref bumped or re-pinned, anywhere, and nothing else'). Claim the internal scope for the manager as a whole first, then narrow below, so a depType added by a future Renovate release lands on the conservative side rather than silently widening the github-actions scope",
       "matchManagers": [
         "github-actions"
