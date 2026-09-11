@@ -7,7 +7,7 @@ set -euo pipefail
 # through unchanged.
 input=$(cat)
 
-for guard in guard-git-push.sh guard-git-identity.sh guard-gh-merge.sh; do
+for guard in guard-git-push.sh guard-git-identity.sh guard-git-dangerous.sh guard-gh-merge.sh; do
   hook="$HOME/.claude/hooks/$guard"
   [ -x "$hook" ] || continue
 
