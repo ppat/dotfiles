@@ -58,8 +58,12 @@ install_or_upgrade_plugins() {
 }
 
 display_installed_plugins() {
-  log_info "Krew Plugins | Display installed packages..."
-  kubectl krew list | column -t 2>&1 | sed -E 's|^(.*)|    \1|g'
+  log_info "Krew Plugins | Displaying installed packages..."
+  if kubectl krew list | column -t 2>&1 | sed -E 's|^(.*)|    \1|g'; then
+    log_success "Krew Plugins | Installed packages displayed."
+  else
+    log_warning "Krew Plugins | Could not display installed packages, continuing."
+  fi
 }
 
 main() {

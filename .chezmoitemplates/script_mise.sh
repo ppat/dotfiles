@@ -13,8 +13,12 @@ show_mise_env() {
 }
 
 display_installed_mise_packages() {
-  log_success "Mise | Display installed packages..."
-  mise ls 2>&1 | sed -E 's|^(.*)|    \1|g'
+  log_info "Mise | Displaying installed packages..."
+  if mise ls 2>&1 | sed -E 's|^(.*)|    \1|g'; then
+    log_success "Mise | Installed packages displayed."
+  else
+    log_warning "Mise | Could not display installed packages, continuing."
+  fi
 }
 
 install_mise_packages() {
