@@ -138,6 +138,11 @@
             "type": "command",
             "command": "$HOME/.claude/hooks/guard-gh-merge.sh",
             "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/guard-gh-auth-setup-git.sh",
+            "timeout": 10
           }
         ]
       }
