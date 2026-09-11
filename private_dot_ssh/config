@@ -1,0 +1,17 @@
+# ppat/dotfiles#710: dedicated Host block for the KubeVirt sandbox docker-vm.
+#
+# DOCKER_HOST=ssh://docker@docker-vm.sandbox-docker.svc.cluster.local (private_dot_env.tmpl) fails
+# with "Permission denied (publickey)" without this: the key isn't at a default filename, so
+# ssh:// won't find it unaided, and ssh-agent doesn't help either since it's per-shell and doesn't
+# survive a new terminal. IdentitiesOnly keeps ssh from offering any other identity first.
+#
+# UserKnownHostsFile points at a dedicated file (not the main known_hosts) so this repo can pin
+# the VM's fingerprint declaratively -- chezmoi fully owns known_hosts.sandbox and overwrites it
+# on every apply, which would be destructive against the main known_hosts file where ssh itself
+# accumulates entries for every other host.
+Host docker-vm docker-vm.sandbox-docker.svc.cluster.local
+  HostName docker-vm.sandbox-docker.svc.cluster.local
+  User docker
+  IdentityFile ~/.ssh/sandbox_docker_vm
+  IdentitiesOnly yes
+  UserKnownHostsFile ~/.ssh/known_hosts.sandbox ~/.ssh/known_hosts

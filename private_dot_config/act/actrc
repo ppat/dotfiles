@@ -1,0 +1,10 @@
+# ppat/dotfiles#710: shipped so act never hits its first-run interactive image-size prompt (which
+# writes its answer to this same file) and so nobody picks the Micro image (<200MB, NodeJS-only,
+# insufficient for real runs) by accident. This is act's own "Medium" tier -- the size it
+# recommends -- plus an ubuntu-24.04 mapping act's default platform map doesn't have yet: these
+# repos pin `runs-on: ubuntu-24.04`, which act only resolves once ppat/github-workflows#577 lands.
+-P ubuntu-latest=catthehacker/ubuntu:act-latest
+-P ubuntu-24.04=catthehacker/ubuntu:act-24.04
+-P ubuntu-22.04=catthehacker/ubuntu:act-22.04
+-P ubuntu-20.04=catthehacker/ubuntu:act-20.04
+-P ubuntu-18.04=catthehacker/ubuntu:act-18.04

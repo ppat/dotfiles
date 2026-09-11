@@ -1,0 +1,7 @@
+# ppat/dotfiles#710: pinned host key for the KubeVirt sandbox docker-vm.
+#
+# Supplied via cloud-init `ssh_keys:` from Bitwarden, so it's stable across VM restarts (unlike a
+# freshly re-provisioned VM, which would get a new host key every time). That stability is what
+# makes pinning it here worthwhile instead of clearing StrictHostKeyChecking reflexively.
+# Fingerprint: SHA256:uCqIXbsfvNMxdq8RPjy/CAiUFNFezWbNt+I8JtcGxt4 (verified live 2026-08-03).
+docker-vm.sandbox-docker.svc.cluster.local ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFu5PJPAhtfmcbCFhotGVA/t56laYRddeia/6YaZvAL5

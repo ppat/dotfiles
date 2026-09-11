@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ppat/dotfiles#710: fetches controlplane.yaml (the sandbox Talos cluster's machine config) from
+# Bitwarden on demand, rather than shipping it to every workspace via chezmoi apply.
+#
+# controlplane.yaml contains the sandbox cluster's CA private key. The talosconfig alone
+# (~/.talos/config, chezmoi-managed) is sufficient for all day-to-day use; this file is only
+# needed for disaster recovery -- `talosctl gen secrets --from-controlplane-config` reconstructs
+# the secrets bundle from it if the talosconfig is ever lost, regenerating a client cert against
+# the running cluster since the CA itself is unchanged. The workspace home PVC is shared RWX
+# across workspaces, so this deliberately isn't part of the default chezmoi apply: fetch it only
+# when you actually need it, and don't leave it lying around afterward.
+
+usage() {
+  cat <<EOF
+Usage: $(basename "$0") [destination-path]
+
+Fetches the sandbox Talos cluster's controlplane.yaml (machine config, including the cluster CA
+private key) from Bitwarden Secrets Manager and writes it to [destination-path]
+(default: ./controlplane.yaml), mode 0600.
+EOF
+}
+
+main() {
+  if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+    usage
+    exit 0
+  fi
+
+  local destination="${1:-./controlplane.yaml}"
+
+  if ! command -v bws > /dev/null; then
+    echo "ERROR: bws binary is not in path, cannot proceed!" >&2
+    exit 1
+  fi
+  if ! command -v chezmoi > /dev/null; then
+    echo "ERROR: chezmoi binary is not in path, cannot proceed!" >&2
+    exit 1
+  fi
+  if ! command -v jq > /dev/null; then
+    echo "ERROR: jq binary is not in path, cannot proceed!" >&2
+    exit 1
+  fi
+
+  local access_token
+  access_token=$(chezmoi data --format=json | jq -r .bwsAccessToken)
+  if [[ -z "${access_token}" || "${access_token}" == "null" ]]; then
+    echo "ERROR: could not resolve bwsAccessToken from 'chezmoi data' -- run 'chezmoi init' first." >&2
+    exit 1
+  fi
+
+  echo "Fetching sandbox_talos_vm_machine_config from Bitwarden..."
+  BWS_ACCESS_TOKEN="${access_token}" bws secret get 039ae8ac-21d4-4ed8-af12-b49a012c0d12 -o json | jq -r .value > "${destination}"
+  chmod 600 "${destination}"
+
+  echo "Wrote ${destination} (mode 0600)."
+  echo "WARNING: this file contains the sandbox cluster's CA private key. It is only needed for"
+  echo "disaster recovery (talosctl gen secrets --from-controlplane-config) -- delete it when done:"
+  echo "  rm -f ${destination}"
+}
+
+main "$@"

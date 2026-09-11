@@ -1,0 +1,12 @@
+{{- /*
+TODO(ppat/dotfiles#710): "sandbox_docker_vm_ssh_private_key" does not exist yet in Bitwarden
+Secrets Manager -- only its public half ("sandbox_docker_vm_ssh_public_key",
+05814710-d9d1-4ca2-8961-b49a00467af8) was ever uploaded, so this file cannot render until the
+private key is added. Create it once, from a machine that still has the key (it was verified
+working from ~/.ssh/sandbox_docker_vm during the 2026-08-02 live test):
+  bws secret create sandbox_docker_vm_ssh_private_key "$(cat ~/.ssh/sandbox_docker_vm)" \
+    e9c6c45e-e8d9-480c-b2cf-b204011e80e6 \
+    --note "Client private key for SSH auth as 'docker' to docker-vm (sandbox-docker). Public half: sandbox_docker_vm_ssh_public_key."
+then replace the placeholder secret ID below with the ID bws returns.
+*/ -}}
+{{ (bitwardenSecrets "TODO-REPLACE-WITH-sandbox_docker_vm_ssh_private_key-SECRET-ID" .bwsAccessToken).value }}

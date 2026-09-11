@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "aqua.env" . -}}
+{{ template "krew.env" . -}}
+{{ template "homebrew.env" . -}}
+set +o allexport
+export PATH=${AQUA_ROOT_DIR}/bin:${KREW_ROOT}/bin:$HOME/.local/bin:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+
+{{ template "script_header.sh" . }}
+
+# ppat/dotfiles#710: wires talosctl + kubectl at the KubeVirt sandbox Talos cluster (talos-vm).
+# docker-vm's SSH transport is configured declaratively via private_dot_ssh/config and needs no
+# script. Every step below must degrade gracefully when the sandbox is down or doesn't exist yet
+# -- a workspace must never fail to come up because a disposable sandbox VM is unreachable.
+readonly SANDBOX_TALOS_CONTEXT="sandbox-talos"
+readonly SANDBOX_TALOS_ENDPOINT="talos-vm.sandbox-talos.svc.cluster.local"
+
+configure_talosctl() {
+  if [[ ! -f "$HOME/.talos/config" ]]; then
+    log_warning "Sandbox | ~/.talos/config not present, skipping talosctl setup."
+    return 0
+  fi
+
+  log_info "Sandbox | Configuring talosctl context/endpoint/node..."
+  # A talosconfig restored from Bitwarden can come back with an empty top-level `context:` field
+  # (error constructing client: default context "" not found in config) -- so this must run every
+  # apply, not just once, and stay idempotent when context/endpoint/node are already correct.
+  talosctl config context "${SANDBOX_TALOS_CONTEXT}" 2>&1 | sed -E 's|^(.*)|    \1|g'
+  talosctl config endpoint "${SANDBOX_TALOS_ENDPOINT}" 2>&1 | sed -E 's|^(.*)|    \1|g'
+  talosctl config node "${SANDBOX_TALOS_ENDPOINT}" 2>&1 | sed -E 's|^(.*)|    \1|g'
+  log_success "Sandbox | talosctl configured for context ${SANDBOX_TALOS_CONTEXT}."
+}
+
+merge_sandbox_kubeconfig() {
+  if [[ ! -f "$HOME/.talos/config" ]]; then
+    return 0
+  fi
+
+  # Deliberately not using a RETURN/EXIT trap for cleanup here: bash traps aren't function-scoped,
+  # so a trap set here would still be armed (referencing these now-unset `local`s, fatal under
+  # `set -u`) when a *later*, unrelated function in this script returns. Clean up explicitly at
+  # every exit point instead.
+  local tmp_kubeconfig
+  tmp_kubeconfig=$(mktemp "sandbox-kubeconfig.$(date +%Y%m%d_%H%M%S).XXXXX" -p /tmp)
+
+  log_info "Sandbox | Fetching sandbox-talos kubeconfig..."
+  # talosctl kubeconfig actually contacts the Talos API (port 50000), unlike the local-only
+  # `talosctl config` commands above -- this is the one call in this script that can hang or fail
+  # if the VM is down, so it's bounded by a timeout and any failure just skips the merge below,
+  # leaving the existing kubeconfig untouched, rather than failing the whole chezmoi apply.
+  if ! timeout 10 talosctl --context "${SANDBOX_TALOS_CONTEXT}" kubeconfig "${tmp_kubeconfig}" --force --merge=false > /dev/null 2>&1; then
+    log_warning "Sandbox | talos-vm is unreachable, skipping kubeconfig merge. Existing kubeconfig left untouched."
+    rm -f "${tmp_kubeconfig}"
+    return 0
+  fi
+
+  if [[ ! -d "$HOME/.kube" ]]; then
+    mkdir -p "$HOME/.kube"
+  fi
+  if [[ ! -f "$HOME/.kube/config" ]]; then
+    : > "$HOME/.kube/config"
+  fi
+
+  log_info "Sandbox | Merging sandbox-talos context into ~/.kube/config..."
+  cp "$HOME/.kube/config" "$HOME/.kube/config.bak"
+
+  # `KUBECONFIG=a:b kubectl config view --flatten > a` truncates `a` before it's fully read, so
+  # merge into a temp file first and move it into place -- never redirect straight into the target.
+  # The existing config is listed first so its current-context wins the merge (see below).
+  local flattened
+  flattened=$(mktemp "kubeconfig-flattened.$(date +%Y%m%d_%H%M%S).XXXXX" -p /tmp)
+  KUBECONFIG="$HOME/.kube/config:${tmp_kubeconfig}" kubectl config view --flatten > "${flattened}"
+  mv "${flattened}" "$HOME/.kube/config"
+  chmod 600 "$HOME/.kube/config"
+  rm -f "${tmp_kubeconfig}"
+
+  # Never let a fresh merge silently switch the default context: the OIDC prod contexts
+  # (run_after_61_kubeconfig.sh.tmpl) must stay current-context so a stray command fails instead
+  # of landing on the sandbox. AI agents run in this same environment, so this stays deliberate.
+  local current_context
+  current_context=$(kubectl config current-context 2>/dev/null || echo "")
+  if [[ "${current_context}" == "" ]]; then
+    log_info "Sandbox | No default context set, falling back to homelab..."
+    kubectl config use-context homelab 2>&1 | sed -E 's|^(.*)|    \1|g'
+  elif [[ "${current_context}" == "admin@${SANDBOX_TALOS_CONTEXT}" ]]; then
+    log_warning "Sandbox | current-context landed on the sandbox cluster, resetting to homelab."
+    kubectl config use-context homelab 2>&1 | sed -E 's|^(.*)|    \1|g'
+  fi
+
+  log_success "Sandbox | Kubeconfig merged; sandbox cluster reachable as context admin@${SANDBOX_TALOS_CONTEXT}."
+}
+
+main() {
+  log_info "Sandbox | Setting up sandbox VM access..."
+  configure_talosctl
+  echo
+  merge_sandbox_kubeconfig
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main
