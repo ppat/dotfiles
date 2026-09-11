@@ -3859,7 +3859,7 @@ version = "2.1.266"
 backend = "npm:@anthropic-ai/claude-code"
 
 [[tools."npm:@openai/codex"]]
-version = "0.153.0"
+version = "0.153.4"
 backend = "npm:@openai/codex"
 
 [[tools."npm:ccstatusline"]]
