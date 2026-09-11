@@ -23,8 +23,12 @@ main() {
 
   upgrade_mise_packages | sed -E 's|^(.*)|    \1|g'
   echo
-  log_success "Mise | Pruning unused packages..."
-  mise prune --yes 2>&1 | sed -E 's|^(.*)|    \1|g'
+  log_info "Mise | Pruning unused packages..."
+  if mise prune --yes 2>&1 | sed -E 's|^(.*)|    \1|g'; then
+    log_success "Mise | Unused package cleanup complete."
+  else
+    log_warning "Mise | Unused package cleanup failed; stale packages may remain until a later apply, continuing."
+  fi
   echo
   display_installed_mise_packages
   log_success "Mise | Upgrade complete!"

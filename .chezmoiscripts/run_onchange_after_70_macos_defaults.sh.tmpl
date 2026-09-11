@@ -41,9 +41,14 @@ configure_macos_settings() {
 }
 
 restart_affected_apps() {
-  # Restart affected apps
-  killall Finder
-  killall Dock
+  local app
+  for app in Finder Dock; do
+    if killall "${app}"; then
+      log_success "MacOS | ${app} restarted."
+    else
+      log_warning "MacOS | ${app} was not running; settings take effect when it next launches."
+    fi
+  done
 }
 
 main() {
@@ -51,7 +56,6 @@ main() {
   configure_macos_settings 2>&1 | sed -E 's/^(.*)/    \1/g'
   log_success "MacOs | Configured."
   restart_affected_apps 2>&1 | sed -E 's/^(.*)/    \1/g'
-  log_success "MacOs | Affected apps restarted."
   echo "-------------------------------------------------------------------------------------------"
   echo
 }

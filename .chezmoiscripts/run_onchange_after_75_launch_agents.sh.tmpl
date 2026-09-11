@@ -8,8 +8,12 @@ configure_launch_agent() {
   local uid="$1"
   local label="$2"
   local name="$3"
-  log_info "${name} | Unloading if already loaded..."
-  launchctl bootout gui/${uid} {{ .chezmoi.homeDir }}/Library/LaunchAgents/${label}.plist
+  if launchctl print "gui/${uid}/${label}" > /dev/null 2>&1; then
+    log_info "${name} | Unloading existing service..."
+    launchctl bootout gui/${uid} {{ .chezmoi.homeDir }}/Library/LaunchAgents/${label}.plist
+  else
+    log_info "${name} | Not loaded, skipping unload."
+  fi
   log_info "${name} | Enabling for persistent loading..."
   launchctl enable gui/${uid}/${label}
   log_info "${name} | Bootstrapping into the current session..."
