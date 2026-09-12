@@ -159,13 +159,18 @@ guard_segment() {
     esac
   done
 
-  [ "$i" -lt "$count" ] || return
+  # `return 0`, never a bare `return`. A bare one inherits the status of the test immediately
+  # before it -- which at this point has just FAILED -- so under the `set -e` at the top it
+  # aborts the entire hook, and the loop at the bottom never examines the remaining segments of
+  # the command line. Both of these mean "no command word in this segment to guard", which is
+  # success, and saying so explicitly is what keeps the walk going.
+  [ "$i" -lt "$count" ] || return 0
   case "${segment_tokens[$i]}" in
     git-filter-repo | */git-filter-repo)
       deny "filter-repo"
       ;;
     git | */git)
-      git_subcommand segment_tokens $((i + 1)) || return
+      git_subcommand segment_tokens $((i + 1)) || return 0
 
       case "$GIT_SUBCOMMAND" in
         filter-branch | filter-repo | fast-import | prune | gc | repack | pack-refs | update-ref | replace)
@@ -194,7 +199,11 @@ segments=$(printf '%s' "$cmd" | tr ';&|' '\n')
 while IFS= read -r segment; do
   [ -n "$segment" ] || continue
   read -ra tokens <<<"$segment" || true
-  guard_segment tokens
+  # `|| true` so that no future non-zero return inside guard_segment can abort this loop and
+  # leave the later segments unexamined. A guard that stops early is worse than one that is
+  # absent, because it still reads as coverage. Denial does not travel by return status -- deny()
+  # writes its decision and exits -- so nothing here needs a non-zero to be observable.
+  guard_segment tokens || true
 done <<<"$segments"
 
 exit 0
