@@ -34,9 +34,7 @@ BAT_THEME=ansi
 GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i {{ .chezmoi.homeDir }}/.ssh/id_ed25519"
 {{- end }}
 LESSHISTFILE=/dev/null
-{{- if stat (joinPath .chezmoi.homeDir ".ripgreprc") }}
 RIPGREP_CONFIG_PATH={{ .chezmoi.homeDir }}/.ripgreprc
-{{- end }}
 
 {{ if eq .chezmoi.os "linux" -}}
 # X11: Use X11 display if available
