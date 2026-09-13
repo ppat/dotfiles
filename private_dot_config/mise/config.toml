@@ -5,6 +5,7 @@ atuin                     = "18.21.0"
 bat                       = "0.26.1"
 bitwarden                 = "2026.7.0"
 bitwarden-secrets-manager = "2.1.0"
+btop                      = { version = "1.4.7", os = ["linux"] }  # no darwin asset in aqua registry
 bun                       = "1.4.2"
 cargo-binstall            = "1.23.0"
 coder                     = "2.37.1"
@@ -26,6 +27,7 @@ hyperfine                 = "1.20.0"
 fastfetch                 = "2.68.1"
 k9s                       = "0.51.0"
 kind                      = "0.33.0"
+krew                      = { version = "0.5.0", postinstall = "ln -sf krew \"$MISE_TOOL_INSTALL_PATH/kubectl-krew\"" }
 kubeconform               = "0.8.0"
 kubectl                   = "1.36.4"
 kustomize                 = "5.8.1"
@@ -53,9 +55,7 @@ yq                        = "4.53.6"
 # Versions are bare (no "v"/"cli-v"/"bws-v"/"kustomize/v" prefix) for consistency: verified that mise's
 # aqua backend resolves the exact same artifact/checksum regardless of prefix, since it reconstructs the
 # real upstream tag from the aqua registry's own per-package version template.
-"aqua:aristocratos/btop"    = { version = "1.4.7", os = ["linux"] }                                                       # no darwin asset in aqua registry
 "aqua:dalance/procs"        = "0.14.12"
-"aqua:kubernetes-sigs/krew" = { version = "0.5.0", postinstall = "ln -sf krew \"$MISE_TOOL_INSTALL_PATH/kubectl-krew\"" }
 "aqua:kyverno/chainsaw"     = "0.2.15"
 
 [settings]

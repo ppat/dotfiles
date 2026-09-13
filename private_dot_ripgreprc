@@ -12,22 +12,13 @@
 # -----------------------------------------------------------------------------
 # UI & Output Formatting
 # -----------------------------------------------------------------------------
-
-# Automatically enable colorized output when printing to a terminal
---color=auto
+--pretty
 
 # Group matches by file name rather than printing the file name on every line
 --heading
 
 # Show line numbers for every match
 --line-number
-
-# Highlight the matched text inside the lines
---color=match:fg:red
-
-# Highlight the file path header to stand out
---color=path:fg:green
-
 
 # -----------------------------------------------------------------------------
 # Custom Infrastructure & Backend File Types
