@@ -19,8 +19,6 @@ brew "wget"
 
 # Package Managers
 brew "mise"
-brew "oven-sh/bun/bun"
-brew "uv"
 
 # Dotfile Manager
 brew "chezmoi"
