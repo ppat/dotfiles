@@ -75,7 +75,7 @@ jobs:
         # Gives mise a working, authenticated token so it doesn't hit GitHub's
         # unauthenticated 60-requests/hour rate limit across ~50 tool installs.
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: chezmoi init --source="$(pwd)" --apply
+      run: chezmoi init --source="$(pwd)" --apply --debug
 
     - name: chezmoi apply again (simulates `chezmoi update`, checks idempotency)
       # `chezmoi init --source=X --apply` does not persist X as the default source dir for
