@@ -20,7 +20,7 @@ if [[ -z "${DOTFILES_KREW_BOOTSTRAPPED:-}" ]]; then
     exit 1
   fi
   export DOTFILES_KREW_BOOTSTRAPPED=1
-  exec mise exec "aqua:kubernetes/kubectl" "aqua:kubernetes-sigs/krew" -- "${BASH_SOURCE[0]}" "$@"
+  exec mise exec "kubectl" "krew" -- "${BASH_SOURCE[0]}" "$@"
 fi
 
 krew_prerequisites() {
