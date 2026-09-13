@@ -1,0 +1,44 @@
+# -----------------------------------------------------------------------------
+# Search & Filtering Rules
+# -----------------------------------------------------------------------------
+
+# Search hidden files and directories (e.g., .env, .github/, .terraform/) by default
+--hidden
+
+# Hard safety blocks (applied even if a .gitignore is missing)
+--glob=!.git/
+--glob=!.terraform/
+
+# -----------------------------------------------------------------------------
+# UI & Output Formatting
+# -----------------------------------------------------------------------------
+
+# Automatically enable colorized output when printing to a terminal
+--color=auto
+
+# Group matches by file name rather than printing the file name on every line
+--heading
+
+# Show line numbers for every match
+--line-number
+
+# Highlight the matched text inside the lines
+--color=match:fg:red
+
+# Highlight the file path header to stand out
+--color=path:fg:green
+
+
+# -----------------------------------------------------------------------------
+# Custom Infrastructure & Backend File Types
+# -----------------------------------------------------------------------------
+
+# Add/extend custom type mappings for quick filtering (e.g., rg -t tf "variable")
+--type-add=tf:*.tf*
+--type-add=k8s:*.yaml
+--type-add=k8s:*.yml
+--type-add=env:*.env*
+--type-add=docker:Dockerfile*
+--type-add=docker:docker-compose*
+--type-add=docker:compose*
+--type-add=md:*.md
