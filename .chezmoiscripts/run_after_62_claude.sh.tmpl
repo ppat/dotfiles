@@ -4,14 +4,9 @@ set -euo pipefail
 set -o allexport
 {{ template "mise.env" . -}}
 {{ template "homebrew.env" . -}}
+source "$HOME/.env.secrets"
 set +o allexport
 export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
-{{ if eq .chezmoi.os "darwin" }}
-export LITELLM_APIKEY="{{ (bitwardenSecrets "b443797d-f93f-4e01-a8ae-b49100825b18" .bwsAccessToken).value }}"
-{{ else }}
-export LITELLM_APIKEY="{{ (bitwardenSecrets "3d97880e-879d-48ed-aa1c-b4910081d2ef" .bwsAccessToken).value }}"
-{{ end }}
-export DOMAIN_NAME="{{ (bitwardenSecrets "288eeda0-d57f-4a91-8651-b2090163ecc0" .bwsAccessToken).value }}"
 
 {{ template "script_header.sh" . }}
 

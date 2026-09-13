@@ -126,6 +126,11 @@ secrets) is fetched by a fixed secret UUID through the `bitwardenSecrets` templa
 but never a value. That trade-off is deliberate: a leaked UUID list is far less damaging than a leaked value, and
 the UUIDs are useless without a valid `bwsAccessToken`.
 
+Apply-time scripts never fetch secrets directly. Their credentials are centralized in `~/.env.secrets`, and a
+shared template renders `secret-not-loaded` in place of every lookup when Chezmoi is invoked with
+`--skip-secrets`. The placeholder remains structurally valid input so the apply pipeline and its tests still run
+the complete scripts without contacting Bitwarden.
+
 It's also why environment config is split across two files instead of one: `private_dot_env.tmpl` holds config
 that's fine to always load (colors, XDG paths, package-manager env), while `private_dot_env.secrets.tmpl` is
 loaded only opportunistically (its `[[env]]` entry is commented out by default in
@@ -159,7 +164,7 @@ the intended outer isolation boundary; auto-review remains a request-review mech
 ## CI can't be the full story
 
 The lint pipeline (see [TESTING.md](TESTING.md)) renders every template with `.chezmoi.os` forced to `"linux"`
-and every `bitwardenSecrets` call blanked out before linting. That's a deliberate, narrow goal: catch template
+and `--skip-secrets`. That's a deliberate, narrow goal: catch template
 syntax errors and lint the *shape* of rendered output, not validate macOS-only code paths or real secret
 substitution. Those two things can only be proven by `chezmoi apply` on a real machine with a real
 `bwsAccessToken`, which is inherently outside what a shared CI runner can do. CI is a syntax/lint safety net, not

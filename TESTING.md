@@ -22,8 +22,8 @@ flowchart TD
 
     subgraph ChezmoiJob_detail[" "]
         direction TB
-        Patch["sed: force .chezmoi.os -> linux;\nblank out every bitwardenSecrets call"]
-        Patch --> Render["chezmoi execute-template --source=."]
+        Patch["sed: force .chezmoi.os -> linux;\nrender with --skip-secrets"]
+        Patch --> Render["chezmoi execute-template --source=. --skip-secrets"]
         Render --> ShellcheckSub["shellcheck --rcfile .shellcheckrc\n(on rendered .chezmoiscripts / private_dot_local/{bash,bin} tmpl output)"]
         Render --> Dotenv["dotenv-linter --skip QuoteCharacter\n(on rendered private_dot_env*.tmpl output)"]
     end
@@ -48,10 +48,8 @@ type.
 This is the one job inlined directly in `.github/workflows/lint.yaml` rather than delegated, because it's the
 only lint step that understands this repo's template syntax.
 
-- Every `.tmpl` file has `"darwin"` string-replaced with `"linux"` and every
-  `{{ (bitwardenSecrets "...".value }}` call replaced with the literal string `fake-test-value`, via `sed`,
-  *before* rendering.
-- `chezmoi execute-template --source=$(pwd)` renders the patched template to what chezmoi would actually write to
+- Every `.tmpl` file has `"darwin"` string-replaced with `"linux"` before rendering.
+- `chezmoi execute-template --source=$(pwd) --skip-secrets` renders the patched template to what chezmoi would write to
   disk.
 - The rendered `.chezmoiscripts/*` and `private_dot_local/{bash,bin}/*` shell scripts are shellchecked with this
   repo's `.shellcheckrc`.
@@ -96,10 +94,9 @@ migration (a recent Aqua release changing where it places binaries) broke `chezm
 zero local diff to trigger a path-scoped PR check — only a schedule catches that class of drift
 proactively.
 
-Mechanism: every `bitwardenSecrets` call in every `.tmpl`/`.toml` file is replaced with a literal
-fake value (same intent as the `chezmoi` job's rendering step, applied repo-wide), a throwaway
-`chezmoi.toml` is seeded to skip the interactive `name`/`email`/`bwsAccessToken` prompts, then a
-real `chezmoi init --apply` runs, followed by a second `chezmoi apply --force` to check
+Mechanism: a throwaway `chezmoi.toml` is seeded to skip the interactive
+`name`/`email`/`bwsAccessToken` prompts, then a real `chezmoi init --apply --skip-secrets` runs,
+followed by a second `chezmoi apply --force --skip-secrets` to check
 idempotency (`--force` because some chezmoi-managed files are legitimately mutated locally by
 their own tooling — e.g. `.claude/settings.json` — which would otherwise hit chezmoi's interactive
 drift-conflict prompt; there's no human to answer that prompt in CI).
@@ -113,9 +110,8 @@ or macOS-only code paths (this job runs on `ubuntu-24.04` only).
 ## What gains confidence locally, before pushing
 
 ```bash
-# Render a specific template exactly like CI does, to eyeball the output
-sed -i 's|"darwin"|"linux"|; s|{{ (bitwardenSecrets ".*" .bwsAccessToken).value }}|fake-test-value|' /tmp/copy-of-file.tmpl
-chezmoi execute-template --source=. < /tmp/copy-of-file.tmpl
+# Render a specific template without resolving secrets, to eyeball the output
+chezmoi execute-template --source=. --skip-secrets < path/to/file.tmpl
 
 # Preview what a real chezmoi apply would change on this machine, without writing anything
 chezmoi diff --source .
