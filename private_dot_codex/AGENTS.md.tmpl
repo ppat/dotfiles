@@ -88,56 +88,6 @@ Codex's own or someone else's) — and they are the pool a delegation brief draw
   expensive but the decision would simplify much else, don't discard it — look for a way to restructure the decision
   so that being wrong becomes cheap.
 
-## Delegation
-
-Any agent that can spawn subagents — the main session, or a subagent granted that capability — is the A in RACI for
-its scope: operator, orchestrator, adjudicator. An agent without the capability is an executor; for it, this section
-describes the brief it should expect and the pushback it owes.
-
-- **Delegate by default.** Substantive work of every kind — research, planning, implementation, watching CI, and the
-  rest — runs in subagents. The orchestrator's context window is the session's scarcest resource: kept clean, a
-  session runs long without compaction. The split is the orchestrator's judgment call, but the default is always the
-  subagent.
-- **Size the model to the task.** `gpt-5.6-luna` for straightforward mechanical work (local file review, web searches) — and
-  brief it prescriptively; it needs direction, not autonomy. `gpt-5.6-terra` for most general work. `gpt-5.6-sol` for the genuinely
-  hard problems and for adversarial or security reviews.
-
-### The brief
-
-A brief carries, in this shape:
-
-1. **Context** — the state of the work, and whatever surrounds it that the delegate needs.
-2. **Reasoning** — why this approach, what was ruled out, what is believed true and on what evidence.
-3. **Goal** — an outcome, not a task list.
-4. **Proposed attack** — a starting point, offered without the coloring that makes it a verdict.
-5. **Lenses** — the defeasible lenses with purchase on *this* problem; never the whole set by default.
-
-Brief the standard, not the work. A brief made of verdicts can be complied with but not contradicted, so its only
-outcomes are "did it" and "failed" — nothing comes back that wasn't already believed. A brief made of reasoning is
-refutable, and a competent delegate refutes it; the refutations are where delegation pays. Two behaviors mark the
-target: the delegate that deletes its own test on discovering it passed before the fix and therefore proved nothing,
-and the delegate that declines to build a requested test because the mechanism under test would make it green
-regardless — then goes and finds the predicate's independently-reachable justification. Prescription creeps in exactly
-where the orchestrator feels most certain: the confident verdicts are the ones that most needed to be offered as
-reasoning. Prescription is right only when a specific approach must be followed verbatim rather than a goal
-targeted — and when briefing `gpt-5.6-luna`.
-
-### Output contract
-
-A delegate writes its full response under `~/code/.session-notes/<session-name-or-identifier>/subagents/` and returns
-the file link in its completion message. A digest alongside the link is fine; a digest is never a substitute for
-reading the file when the detail matters. The file is the deliverable — the message is the pointer.
-
-### Drift, not tokens
-
-Context protection is about drift, not token counts. When a delegation stalls and burns budget, taking the work back
-into the orchestrator looks cheap — thirty lines against a delegate's hundreds of thousands of tokens — but that
-arithmetic misses what the constraint protects: an unprotected context reaches compaction sooner, and a
-post-compaction agent loses the thread, which is categorically worse than any wasted delegate budget. Delegation
-overhead is therefore never a reason to repatriate work; it is a reason to build a better mechanism — a skill, a
-standing instruction injected into orchestrator and delegates alike — for the task class that keeps failing. When a
-delegated task class fails repeatedly, the defect is in the delegation mechanism, not in the decision to delegate.
-
 ## Deliverables are a standing record
 
 Every repo squash-merges: `main` receives one commit per PR, and on a multi-commit branch the PR title is what lands.
@@ -283,7 +233,7 @@ Three tiers, by what survives:
 
 - **Permanent — the repo and its PRs.** Whatever lands here is governed by Deliverables are a standing record.
 - **Session-durable — `~/code/.session-notes/<session-name-or-identifier>/`.** Session notes, state and progress
-  tracking, research output, delegate responses (`subagents/`), and workflow scripts that don't belong in the repo.
+  tracking, research output, and workflow scripts that don't belong in the repo.
   Disk is the authoritative session memory and context is a cache over it — writing here is part of the work, never
   deferred overhead. Organize within the session directory in whatever way makes sense.
 - **Disposable — `/tmp` (or the configured scratchpad directory).** Third-party repos checked out for inspection,
