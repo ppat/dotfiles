@@ -87,4 +87,4 @@ jobs:
       env:
         MISE_EXPERIMENTAL: "1"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: chezmoi apply --source="$(pwd)" --force
+      run: chezmoi apply --source="$(pwd)" --force --debug
