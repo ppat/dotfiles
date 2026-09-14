@@ -90,9 +90,7 @@ jobs:
           echo "rendering file..."
           # set os to linux in template, otherwise won't render on github actions
           sed -i 's|"darwin"|"linux"|' "$sc"
-          # don't want to fetch secrets during linting
-          sed -i 's|{{ (bitwardenSecrets ".*" .bwsAccessToken).value }}|fake-test-value|' "$sc"
-          chezmoi execute-template --source="$(pwd)" < "$sc" > "${sc%.tmpl}"
+          chezmoi execute-template --source="$(pwd)" --skip-secrets < "$sc" > "${sc%.tmpl}"
           echo "running shellcheck..."
           shellcheck --rcfile .shellcheckrc "${sc%.tmpl}"
           echo "::endgroup::"
@@ -112,9 +110,7 @@ jobs:
         for e in $DOTENV_FILES; do
           echo "::group::dotenv $e"
           echo "rendering file..."
-          # don't want to fetch secrets during linting
-          sed -i 's|{{ (bitwardenSecrets ".*" .bwsAccessToken).value }}|fake-test-value|' "$e"
-          chezmoi execute-template --source="$(pwd)" < "$e" > "${e%.tmpl}"
+          chezmoi execute-template --source="$(pwd)" --skip-secrets < "$e" > "${e%.tmpl}"
           echo "running dotenv-linter..."
           dotenv-linter check "${e%.tmpl}"
           echo "::endgroup::"

@@ -79,9 +79,9 @@ dotenv-linter --skip QuoteCharacter <file>
 
 Every credential is pulled via the `bitwardenSecrets` template function keyed by a fixed secret UUID, resolved
 only at `chezmoi apply` time — never hardcoded. See [DESIGN.md](DESIGN.md#secrets-bitwarden-secrets-manager-not-plaintext)
-for why. In practice: `private_dot_env.secrets.tmpl` (API keys, cloud creds, Terraform vars) and
-`.chezmoiscripts/run_after_61_kubeconfig.sh.tmpl` (OIDC client credentials) are the two places new secret
-references get added.
+for why. `private_dot_env.secrets.tmpl` is the single place new secret references for apply-time scripts get added;
+the scripts consume the rendered environment file instead of fetching credentials themselves. Secret-bearing
+templates use `.chezmoitemplates/secret-value` so `--skip-secrets` renders a test-safe placeholder.
 
 ## Renovate
 
