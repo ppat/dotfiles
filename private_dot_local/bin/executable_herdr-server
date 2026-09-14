@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# The default session snapshot owns workspace/tab restoration and resumes agent panes through their integrations.
+exec herdr server
