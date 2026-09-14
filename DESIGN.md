@@ -126,10 +126,10 @@ secrets) is fetched by a fixed secret UUID through the `bitwardenSecrets` templa
 but never a value. That trade-off is deliberate: a leaked UUID list is far less damaging than a leaked value, and
 the UUIDs are useless without a valid `bwsAccessToken`.
 
-Apply-time scripts never fetch secrets directly. Their credentials are centralized in `~/.env.secrets`, and a
-shared template renders `secret-not-loaded` in place of every lookup when Chezmoi is invoked with
-`--skip-secrets`. The placeholder remains structurally valid input so the apply pipeline and its tests still run
-the complete scripts without contacting Bitwarden.
+Apply-time scripts never fetch secrets directly. Their credentials are centralized in `~/.env.secrets`. CI sets
+the `ciSecretPlaceholders` template value so a shared template renders structurally valid placeholders, allowing
+the complete apply pipeline to run without contacting Bitwarden. Outside CI the helper invokes the real secret
+function, so Chezmoi's native `--skip-secrets` behavior preserves an existing target instead of overwriting it.
 
 It's also why environment config is split across two files instead of one: `private_dot_env.tmpl` holds config
 that's fine to always load (colors, XDG paths, package-manager env), while `private_dot_env.secrets.tmpl` is

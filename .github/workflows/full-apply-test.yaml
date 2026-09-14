@@ -54,6 +54,7 @@ jobs:
         mkdir -p "$HOME/.config/chezmoi"
         cat > "$HOME/.config/chezmoi/chezmoi.toml" <<EOF
         [data]
+        ciSecretPlaceholders = true
         name = "CI Test"
         email = "ci@example.com"
         bwsAccessToken = "unused-fake-token"
