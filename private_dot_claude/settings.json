@@ -111,6 +111,11 @@
             "type": "command",
             "command": "$HOME/.claude/hooks/markdownlint-on-edit.sh",
             "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/prose-lint-on-edit.sh",
+            "timeout": 15
           }
         ]
       }
@@ -154,6 +159,17 @@
           {
             "type": "command",
             "command": "bash $HOME/.claude/hooks/herdr-agent-state.sh session",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/reply-contract-reminder.sh",
             "timeout": 10
           }
         ]
