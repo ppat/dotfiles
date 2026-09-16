@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+set -o allexport
+{{ template "mise.env" . -}}
+{{ template "homebrew.env" . -}}
+set +o allexport
+export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+
+{{ template "script_header.sh" . }}
+
+# ppat/skills is the source of truth for every skill it publishes, all installed here; this repo only triggers the
+# npm `skills` CLI to pull and place them for both agents' global skill locations, the same pattern
+# run_after_64_herdr.sh.tmpl uses for herdr's own control skill. The CLI owns both target paths --
+# canonical content under ~/.agents/skills/<name>, symlinked into ~/.claude/skills/<name> -- and
+# replaces whatever is there, including the directory and dangling symlink the former chezmoi-managed
+# layout left behind, so no chezmoi removal of those paths is needed (one would delete the installed
+# skills on every apply before this script reinstalls them).
+if [[ -z "${DOTFILES_SKILLS_BOOTSTRAPPED:-}" ]]; then
+  if ! command -v mise > /dev/null; then
+    log_error "Skills | Mise binary is not in path, cannot proceed!"
+    exit 1
+  fi
+  export DOTFILES_SKILLS_BOOTSTRAPPED=1
+  exec mise exec "npm:skills" -- "${BASH_SOURCE[0]}" "$@"
+fi
+
+configure_skills() {
+  DISABLE_TELEMETRY=1 skills add ppat/skills --skill '*' --agent claude-code codex --global --yes 2>&1 | sed -E 's|^(.*)|    \1|g'
+  log_success "Skill(s) installed."
+}
+
+main() {
+  log_info "Skills | Installing all skills from ppat/skills..."
+  configure_skills 2>&1 | sed -E 's|^(.*)|    \1|g'
+  echo "-------------------------------------------------------------------------------------------"
+  echo
+}
+
+main
