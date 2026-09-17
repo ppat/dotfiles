@@ -71,8 +71,8 @@ merge_config() {
   local merged_path reconciled_path
 
   if [[ ! -f "${managed_path}" ]]; then
-    log_error "Codex | Managed configuration is missing: ${managed_path}"
-    exit 1
+    log_warning "Codex | Managed configuration is missing: ${managed_path}"
+    return
   fi
 
   merged_path=$(mktemp "${codex_dir}/config.toml.XXXXXX")
