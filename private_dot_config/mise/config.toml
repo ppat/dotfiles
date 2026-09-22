@@ -48,7 +48,7 @@ yq                        = "4.53.6"
 "npm:@openai/codex"             = "0.154.0"
 "npm:ccstatusline"              = "2.2.30"
 "npm:ccusage"                   = "20.0.23"
-"npm:markdownlint-cli2"         = "0.23.2"
+"npm:markdownlint-cli2"         = "0.23.3"
 "npm:skills"                    = "1.5.26"
 
 # CLI binaries (formerly managed by aqua) -- pinned + checksum-verified via mise.lock
