@@ -190,37 +190,37 @@ url_api = "https://api.github.com/repos/cargo-bins/cargo-binstall/releases/asset
 provenance = "github-attestations"
 
 [[tools.coder]]
-version = "2.37.2"
+version = "2.37.3"
 backend = "aqua:coder/coder"
 
 [tools.coder."platforms.linux-x64"]
-checksum = "sha256:81297a796938bd8c82000502be899a8a2611503976c0f550dfbadd1cc1f4eb36"
-url = "https://github.com/coder/coder/releases/download/v2.37.2/coder_2.37.2_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/573110466"
+checksum = "sha256:c941bef3b2656da89e9ea9b509884085b99b7d7a08620abd8484c50d77f41eed"
+url = "https://github.com/coder/coder/releases/download/v2.37.3/coder_2.37.3_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/582222515"
 provenance = "github-attestations"
 
 [tools.coder."platforms.linux-x64-baseline"]
-checksum = "sha256:81297a796938bd8c82000502be899a8a2611503976c0f550dfbadd1cc1f4eb36"
-url = "https://github.com/coder/coder/releases/download/v2.37.2/coder_2.37.2_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/573110466"
+checksum = "sha256:c941bef3b2656da89e9ea9b509884085b99b7d7a08620abd8484c50d77f41eed"
+url = "https://github.com/coder/coder/releases/download/v2.37.3/coder_2.37.3_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/582222515"
 provenance = "github-attestations"
 
 [tools.coder."platforms.linux-x64-musl"]
-checksum = "sha256:81297a796938bd8c82000502be899a8a2611503976c0f550dfbadd1cc1f4eb36"
-url = "https://github.com/coder/coder/releases/download/v2.37.2/coder_2.37.2_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/573110466"
+checksum = "sha256:c941bef3b2656da89e9ea9b509884085b99b7d7a08620abd8484c50d77f41eed"
+url = "https://github.com/coder/coder/releases/download/v2.37.3/coder_2.37.3_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/582222515"
 provenance = "github-attestations"
 
 [tools.coder."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:81297a796938bd8c82000502be899a8a2611503976c0f550dfbadd1cc1f4eb36"
-url = "https://github.com/coder/coder/releases/download/v2.37.2/coder_2.37.2_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/573110466"
+checksum = "sha256:c941bef3b2656da89e9ea9b509884085b99b7d7a08620abd8484c50d77f41eed"
+url = "https://github.com/coder/coder/releases/download/v2.37.3/coder_2.37.3_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/582222515"
 provenance = "github-attestations"
 
 [tools.coder."platforms.macos-arm64"]
-checksum = "sha256:20d14f83ac14bb83bf0abf94f68ff4e7d6dfaf88374186566c6d7b0d4f0a7899"
-url = "https://github.com/coder/coder/releases/download/v2.37.2/coder_2.37.2_darwin_arm64.zip"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/573110312"
+checksum = "sha256:e3dcdfc405468c4ac53674a306ab2540261e1076d25cc1f359df9fcf791d230e"
+url = "https://github.com/coder/coder/releases/download/v2.37.3/coder_2.37.3_darwin_arm64.zip"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/582222336"
 provenance = "github-attestations"
 
 [[tools.crane]]
@@ -572,16 +572,28 @@ url = "https://github.com/yannh/kubeconform/releases/download/v0.8.0/kubeconform
 url_api = "https://api.github.com/repos/yannh/kubeconform/releases/assets/438612680"
 
 [[tools.kubectl]]
-version = "1.36.4"
+version = "1.36.5"
 backend = "aqua:kubernetes/kubernetes/kubectl"
 
 [tools.kubectl."platforms.linux-x64"]
-checksum = "sha256:8b8f088da2dab964f853b38464033b1be15ede2839eca751482357c45abdd05a"
-url = "https://dl.k8s.io/v1.36.4/bin/linux/amd64/kubectl"
+checksum = "sha256:33bc88a24c3b09cf55bfd59e6ca977881b61fc3f25ab65bc80c65b430248648e"
+url = "https://dl.k8s.io/v1.36.5/bin/linux/amd64/kubectl"
+
+[tools.kubectl."platforms.linux-x64-baseline"]
+checksum = "sha256:33bc88a24c3b09cf55bfd59e6ca977881b61fc3f25ab65bc80c65b430248648e"
+url = "https://dl.k8s.io/v1.36.5/bin/linux/amd64/kubectl"
+
+[tools.kubectl."platforms.linux-x64-musl"]
+checksum = "sha256:33bc88a24c3b09cf55bfd59e6ca977881b61fc3f25ab65bc80c65b430248648e"
+url = "https://dl.k8s.io/v1.36.5/bin/linux/amd64/kubectl"
+
+[tools.kubectl."platforms.linux-x64-musl-baseline"]
+checksum = "sha256:33bc88a24c3b09cf55bfd59e6ca977881b61fc3f25ab65bc80c65b430248648e"
+url = "https://dl.k8s.io/v1.36.5/bin/linux/amd64/kubectl"
 
 [tools.kubectl."platforms.macos-arm64"]
-checksum = "sha256:c9e4f713d6fee0043a3d835cca13077cda2bc0973840eb9779360df0b5bdfc69"
-url = "https://dl.k8s.io/v1.36.4/bin/darwin/arm64/kubectl"
+checksum = "sha256:c5850a4a6b9469b26cce47c1ab456285f58e308283dcdf72b4ddda3db49b0ec0"
+url = "https://dl.k8s.io/v1.36.5/bin/darwin/arm64/kubectl"
 
 [[tools.kustomize]]
 version = "5.8.1"
@@ -652,11 +664,11 @@ checksum = "sha256:bed7eea5325e1108f32ce5228ddd6a5f0f08a499ee42aa7442aea583702f6
 url = "https://nodejs.org/dist/v24.21.0/node-v24.21.0-darwin-arm64.tar.gz"
 
 [[tools."npm:@anthropic-ai/claude-code"]]
-version = "2.1.278"
+version = "2.1.282"
 backend = "npm:@anthropic-ai/claude-code"
 
 [[tools."npm:@openai/codex"]]
-version = "0.154.0"
+version = "0.155.1"
 backend = "npm:@openai/codex"
 
 [[tools."npm:ccstatusline"]]
@@ -672,7 +684,7 @@ version = "0.23.3"
 backend = "npm:markdownlint-cli2"
 
 [[tools."npm:skills"]]
-version = "1.5.26"
+version = "1.7.0"
 backend = "npm:skills"
 
 [[tools.pre-commit]]
@@ -756,33 +768,33 @@ url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/5660507
 provenance = "cosign"
 
 [[tools.usage]]
-version = "6.2.0"
+version = "6.9.1"
 backend = "aqua:jdx/usage"
 
 [tools.usage."platforms.linux-x64"]
-checksum = "sha256:38df801e9ed2b4d23ea66793a25369f52d92c4aefd55ebacb6e343a2ab84528d"
-url = "https://github.com/jdx/usage/releases/download/v6.2.0/usage-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/jdx/usage/releases/assets/527050648"
+checksum = "sha256:8e1cafb10fe2ddee8c18076c09dea4c89ee2d25ac2c0ec5158fda5b8d4e02222"
+url = "https://github.com/jdx/usage/releases/download/v6.9.1/usage-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/jdx/usage/releases/assets/563244013"
 
 [tools.usage."platforms.linux-x64-baseline"]
-checksum = "sha256:38df801e9ed2b4d23ea66793a25369f52d92c4aefd55ebacb6e343a2ab84528d"
-url = "https://github.com/jdx/usage/releases/download/v6.2.0/usage-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/jdx/usage/releases/assets/527050648"
+checksum = "sha256:8e1cafb10fe2ddee8c18076c09dea4c89ee2d25ac2c0ec5158fda5b8d4e02222"
+url = "https://github.com/jdx/usage/releases/download/v6.9.1/usage-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/jdx/usage/releases/assets/563244013"
 
 [tools.usage."platforms.linux-x64-musl"]
-checksum = "sha256:ded7d1815254fe064b07a8f33251b8e112ec346c338e476ce0e9ee8d8babc0ed"
-url = "https://github.com/jdx/usage/releases/download/v6.2.0/usage-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/jdx/usage/releases/assets/527051701"
+checksum = "sha256:3132b763f01e3cd346ebfedeff2e4e78f9a098eec1f3754b6db4ccfcda79aaf2"
+url = "https://github.com/jdx/usage/releases/download/v6.9.1/usage-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/jdx/usage/releases/assets/563244740"
 
 [tools.usage."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:ded7d1815254fe064b07a8f33251b8e112ec346c338e476ce0e9ee8d8babc0ed"
-url = "https://github.com/jdx/usage/releases/download/v6.2.0/usage-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/jdx/usage/releases/assets/527051701"
+checksum = "sha256:3132b763f01e3cd346ebfedeff2e4e78f9a098eec1f3754b6db4ccfcda79aaf2"
+url = "https://github.com/jdx/usage/releases/download/v6.9.1/usage-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/jdx/usage/releases/assets/563244740"
 
 [tools.usage."platforms.macos-arm64"]
-checksum = "sha256:6c2d37e3cba67d45fdfeb5edaff81962388bfde09667cc9ed35b0734b7c0a8c1"
-url = "https://github.com/jdx/usage/releases/download/v6.2.0/usage-universal-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/jdx/usage/releases/assets/527053103"
+checksum = "sha256:ddbb2c29ec16aca2cb44e0b0f64ba204b603ec50ed773ffda3db723e9aae73fe"
+url = "https://github.com/jdx/usage/releases/download/v6.9.1/usage-universal-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/jdx/usage/releases/assets/563246662"
 
 [[tools.uv]]
 version = "0.12.18"
