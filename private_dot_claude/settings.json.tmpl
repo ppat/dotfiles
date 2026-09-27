@@ -99,17 +99,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/shellcheck-on-edit.sh",
+            "command": "{{ .chezmoi.homeDir }}/.claude/hooks/shellcheck-on-edit.sh",
             "timeout": 15
           },
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/yamllint-on-edit.sh",
+            "command": "{{ .chezmoi.homeDir }}/.claude/hooks/yamllint-on-edit.sh",
             "timeout": 15
           },
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/markdownlint-on-edit.sh",
+            "command": "{{ .chezmoi.homeDir }}/.claude/hooks/markdownlint-on-edit.sh",
             "timeout": 15
           }
         ]
@@ -121,27 +121,27 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/guard-git-push.sh",
+            "command": "{{ .chezmoi.homeDir }}/.claude/hooks/guard-git-push.sh",
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/guard-git-identity.sh",
+            "command": "{{ .chezmoi.homeDir }}/.claude/hooks/guard-git-identity.sh",
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/guard-git-dangerous.sh",
+            "command": "{{ .chezmoi.homeDir }}/.claude/hooks/guard-git-dangerous.sh",
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/guard-gh-merge.sh",
+            "command": "{{ .chezmoi.homeDir }}/.claude/hooks/guard-gh-merge.sh",
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/guard-gh-auth-setup-git.sh",
+            "command": "{{ .chezmoi.homeDir }}/.claude/hooks/guard-gh-auth-setup-git.sh",
             "timeout": 10
           },
           {
@@ -154,11 +154,11 @@
     ],
     "SessionStart": [
       {
-        "matcher": "*",
+        "matcher": "^(startup|resume|clear|compact|fork)$",
         "hooks": [
           {
             "type": "command",
-            "command": "bash $HOME/.claude/hooks/herdr-agent-state.sh session",
+            "command": "bash '{{ .chezmoi.homeDir }}/.claude/hooks/herdr-agent-state.sh' session",
             "timeout": 10
           }
         ]
@@ -174,7 +174,6 @@
   "enabledPlugins": {
     "claude-code-setup@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true
   },
   "tui": "fullscreen",
@@ -183,6 +182,19 @@
   "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
   "autoMode": {
+    "environment": [
+      "$defaults",
+      "**Cloud provider(s)**: self hosted on homelab kubernetes cluster (as per ~/.claude/CLAUDE.md)",
+      "**Repository visibility**: almost all repos have public visibility on github, with a few exceptions",
+      "**Internal sharing / snippet hosting**: secret github gists are normally used, but they are linked from public repo github issues, so they are only for non-sensitive material.",
+      "**Secrets management**: bitwarden but claude has no access to secrets",
+      "**Default / protected branches**: main. claude has no ability to push to main or land PRs. all other PR branches are fair game",
+      "**Network posture**: full internet access, limited access to internal resources on kubernetes as per their respective to network policies",
+      {{ if eq .chezmoi.homeDir "/home/coder" }}"**Host containment**: claude code runs within a coder workspace pod within kubernetes as per ~/.claude/CLAUDE.md with network posture enforced structurally by network policies so claude code is absolved from that responsibility"{{ else }}"**Host containment**: claude code runs within a macbook"{{ end }},
+      "**Source control**: all repos on Github, claude can push to any non-main branch, but cannot land PRs or push to main",
+      "**Internal package registry**: github package registry, github container registry and self hosted harbor instance. only github CI workflows may publish",
+      "**Trusted repo**: all git repos under github.com/ppat user are checked out under ~/code/<repo> with git worktrees maintained within ~/code/.worktrees/<session-name>"
+    ],
     "classifyAllShell": true
   },
   "defaultMode": "auto",
