@@ -21,11 +21,11 @@ if [[ -z "${DOTFILES_SHELL_COMPLETIONS_BOOTSTRAPPED:-}" ]]; then
   fi
   export DOTFILES_SHELL_COMPLETIONS_BOOTSTRAPPED=1
   exec mise exec \
-    "aqua:fluxcd/flux2" \
-    "aqua:cli/cli" \
-    "aqua:helm/helm" \
-    "aqua:kubernetes/kubectl" \
-    "aqua:kubernetes-sigs/kustomize" \
+    "flux2" \
+    "gh" \
+    "helm" \
+    "kubectl" \
+    "kustomize" \
     -- "${BASH_SOURCE[0]}" "$@"
 fi
 

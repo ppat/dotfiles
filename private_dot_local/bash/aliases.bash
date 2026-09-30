@@ -127,3 +127,5 @@ alias kprp='kprp'
 
 alias reset-to-first-time='rm -rf ~/.cache/mise ~/.cache/uv ~/.cargo ~/.colima ~/.config/mise ~/.docker ~/.krew ~/.local/share/mise ~/.local/state/mise ~/.rustup'
 alias yaml-keys='yq eval '"'"'.. | select(tag == "!!str" or tag == "!!int" or tag == "!!bool" or tag == "!!null") | path | join(".")'"'"''
+
+alias count-file-types='find . \( -name node_modules -o -name dist -o -name .git \) -prune -o -type f -print | grep -oE "\.[^.]+$" | sort | uniq -c | sort -rn | head -n 25'
