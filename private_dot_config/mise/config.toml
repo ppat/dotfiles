@@ -5,7 +5,7 @@ atuin                     = "18.23.0"
 bat                       = "0.26.1"
 bitwarden                 = "2026.7.0"
 bitwarden-secrets-manager = "2.1.0"
-btop                      = { version = "1.4.7", os = ["linux"] }  # no darwin asset in aqua registry
+btop                      = { version = "1.4.7", os = ["linux"] }                                                       # no darwin asset in aqua registry
 bun                       = "1.4.2"
 cargo-binstall            = "1.24.0"
 coder                     = "2.36.7"
@@ -34,6 +34,7 @@ kyverno                   = "1.19.1"
 lychee                    = "0.24.2"
 node                      = "24.21.0"
 pre-commit                = "4.6.2"
+python                    = "3.14.8"
 ripgrep                   = "15.2.0"
 rust                      = "1.99.0"
 shellcheck                = "0.11.0"
@@ -54,8 +55,8 @@ yq                        = "4.54.1"
 # Versions are bare (no "v"/"cli-v"/"bws-v"/"kustomize/v" prefix) for consistency: verified that mise's
 # aqua backend resolves the exact same artifact/checksum regardless of prefix, since it reconstructs the
 # real upstream tag from the aqua registry's own per-package version template.
-"aqua:dalance/procs"        = "0.14.12"
-"aqua:kyverno/chainsaw"     = "0.2.15"
+"aqua:dalance/procs"    = "0.14.12"
+"aqua:kyverno/chainsaw" = "0.2.15"
 
 [settings]
 experimental                        = true

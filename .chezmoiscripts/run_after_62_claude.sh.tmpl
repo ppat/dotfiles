@@ -91,7 +91,7 @@ configure_account() {
 }
 
 main() {
-  for d in ~/.claude/*/; do
+  for d in ~/.claude-accounts/*; do
     [[ -d "$d" ]] || continue
     acct="$(basename "$d")"
     if [[ -e "$d/.credentials.json" ]] || { [[ "$(uname)" == Darwin ]] && [[ -e "$d/.claude.json" ]]; }; then

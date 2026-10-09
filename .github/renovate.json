@@ -24,8 +24,8 @@
     "github>ppat/renovate-presets:dev-tools#v1.0.0",
     "github>ppat/renovate-presets:github-actions#v1.0.0",
     "github>ppat/dotfiles//.github/renovate/mise",
-    "github>ppat/dotfiles//.github/renovate/override-release-age",
-    "github>ppat/dotfiles//.github/renovate/commit-taxonomy"
+    "github>ppat/dotfiles//.github/renovate/commit-taxonomy",
+    "github>ppat/dotfiles//.github/renovate/override-release-age"
   ],
   "internalChecksFilter": "strict",
   "labels": [
