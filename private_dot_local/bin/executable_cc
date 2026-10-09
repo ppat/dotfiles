@@ -120,4 +120,4 @@ sync_links "$dir"
 unset CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN
 
 export CLAUDE_CONFIG_DIR="$dir"
-exec mise exec "npm:@anthropic-ai/claude-code" "$@"
+exec claude "$@"
