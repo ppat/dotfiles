@@ -25,15 +25,22 @@ if [[ -z "${DOTFILES_CLAUDE_BOOTSTRAPPED:-}" ]]; then
   exec mise exec "npm:@anthropic-ai/claude-code" "jq" -- "${BASH_SOURCE[0]}" "$@"
 fi
 
+run_claude(){
+  local account="$1"
+  shift
+  ~/.local/bin/cc ${account} "$@"
+}
+
 configure_mcp_servers() {
+  local account="$1"
   if [[ -z "${LITELLM_APIKEY:-}" ]]; then
     log_warning "Claude Code | LITELLM_APIKEY is not set, cannot configure MCP servers!"
     return
   fi
   for mcp in context7 github grafana home_assistant kubernetes_homelab kubernetes_nas kubernetes_sandbox playwright unifi_network unifi_protect; do
-    if ! claude mcp get ${mcp} > /dev/null 2>&1; then
+    if ! run_claude ${account} mcp get ${mcp} > /dev/null 2>&1; then
       log_info "Claude Code | Adding ${mcp} MCP server..."
-      claude mcp add --scope user --transport http ${mcp} https://litellm.homelab.${DOMAIN_NAME}/${mcp}_mcp/mcp --header "x-litellm-api-key: Bearer ${LITELLM_APIKEY}"
+      run_claude ${account} mcp add --scope user --transport http ${mcp} https://litellm.homelab.${DOMAIN_NAME}/${mcp}_mcp/mcp --header "x-litellm-api-key: Bearer ${LITELLM_APIKEY}"
       log_success "Claude Code | ${mcp} MCP server added."
     else
       log_info "Claude Code | ${mcp} MCP server already configured, skipping."
@@ -42,9 +49,10 @@ configure_mcp_servers() {
 }
 
 configure_plugin_marketplaces() {
-  if ! claude plugin marketplace list --json | jq -e 'any(.name == "claude-plugins-official")' > /dev/null; then
+  local account="$1"
+  if ! run_claude ${account} plugin marketplace list --json | jq -e 'any(.name == "claude-plugins-official")' > /dev/null; then
     log_info "Claude Code | Adding claude-plugins-official marketplace..."
-    claude plugin marketplace add anthropics/claude-plugins-official 2>&1 | sed -E 's|^(.*)|    \1|g'
+    run_claude ${account} plugin marketplace add anthropics/claude-plugins-official 2>&1 | sed -E 's|^(.*)|    \1|g'
     log_success "Claude Code | claude-plugins-official marketplace added."
   else
     log_info "Claude Code | claude-plugins-official marketplace already configured, skipping."
@@ -52,13 +60,14 @@ configure_plugin_marketplaces() {
 }
 
 configure_plugins() {
+  local account="$1"
   local installed_ids
-  installed_ids=$(claude plugin list --json | jq -r '.[].id')
+  installed_ids=$(run_claude ${account} plugin list --json | jq -r '.[].id')
 
   jq -r '.enabledPlugins | to_entries[] | select(.value == true) | .key' ~/.claude/settings.json | while read -r plugin_id; do
     if ! grep -qxF "$plugin_id" <<< "$installed_ids"; then
       log_info "Claude Code | Installing plugin ${plugin_id}..."
-      claude plugin install "$plugin_id" 2>&1 | sed -E 's|^(.*)|    \1|g'
+      run_claude ${account} plugin install "$plugin_id" 2>&1 | sed -E 's|^(.*)|    \1|g'
       log_success "Claude Code | Plugin ${plugin_id} installed."
     else
       log_info "Claude Code | Plugin ${plugin_id} already installed, skipping."
@@ -66,17 +75,32 @@ configure_plugins() {
   done
 }
 
-main() {
+configure_account() {
+  local account="$1"
+
   log_info "Claude Code | Configuring MCP servers..."
-  configure_mcp_servers 2>&1 |sed -E 's|^(.*)|    \1|g'
+  configure_mcp_servers ${account} 2>&1 | sed -E 's|^(.*)|    \1|g'
   echo
   log_info "Claude Code | Configuring plugin marketplaces..."
-  configure_plugin_marketplaces 2>&1 | sed -E 's|^(.*)|    \1|g'
+  configure_plugin_marketplaces ${account} 2>&1 | sed -E 's|^(.*)|    \1|g'
   echo
   log_info "Claude Code | Installing plugins enabled in settings.json..."
-  configure_plugins 2>&1 | sed -E 's|^(.*)|    \1|g'
+  configure_plugins ${account} 2>&1 | sed -E 's|^(.*)|    \1|g'
   echo "-------------------------------------------------------------------------------------------"
   echo
+}
+
+main() {
+  for d in ~/.claude/*/; do
+    [[ -d "$d" ]] || continue
+    acct="$(basename "$d")"
+    if [[ -e "$d/.credentials.json" ]] || { [[ "$(uname)" == Darwin ]] && [[ -e "$d/.claude.json" ]]; }; then
+      log_info "Claude Code | Configuring account ${acct}..."
+      configure_account ${acct} | sed -E 's|^(.*)|    \1|g'
+    else
+      log_warning "Claude Code | Account ${acct} is not logged in, skipping configuration."
+    fi
+  done
 }
 
 main

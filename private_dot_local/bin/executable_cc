@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+# cc — run Claude Code under a chosen Claude subscription, sharing ~/.claude
+#
+# usage:  cc <account> [claude args...]
+#         cc --import <account>   # move the current default login into <account>
+#         cc --list               # show configured accounts
+#
+# Layout:
+#   ~/.claude                      shared store (CLAUDE.md, settings, hooks, sessions, ...)
+#   ~/.claude-accounts/<account>/  per-account login + state, symlinks to everything shared
+#
+# Works on macOS and Linux. On macOS the Keychain entry is keyed to CLAUDE_CONFIG_DIR,
+# on Linux the login lives in <account>/.credentials.json, so accounts never collide.
+
+set -euo pipefail
+
+shared="${CLAUDE_SHARED_DIR:-$HOME/.claude}"
+accounts="${CLAUDE_ACCOUNTS_DIR:-$HOME/.claude-accounts}"
+
+die() { echo "cc: $*" >&2; exit 1; }
+
+# Items kept per account (never symlinked to the shared store)
+is_private() {
+  case "$1" in
+    .credentials.json|.claude.json|.claude.json.*|backups) return 0 ;;   # login + account state
+    daemon|daemon.log|jobs) return 0 ;;                                  # background daemon
+    cache|chrome) return 0 ;;                                            # account-linked caches
+    stats-cache.json|usage-data) return 0 ;;                             # usage accounting
+    .last-cleanup|.last-update-result.json|.trash|debug|feedback|tmp) return 0 ;;  # housekeeping
+    *) return 1 ;;
+  esac
+}
+
+sync_links() {
+  local dir="$1" f name
+  shopt -s dotglob nullglob
+
+  # 1. Adopt anything new Claude created in the account dir into the shared store
+  for f in "$dir"/*; do
+    name="${f##*/}"
+    is_private "$name" && continue
+    [[ -L "$f" ]] && continue
+    if [[ ! -e "$shared/$name" ]]; then
+      mv "$f" "$shared/$name"
+    else
+      echo "cc: warning: $f is a real file, not a link to $shared/$name — merge it by hand" >&2
+    fi
+  done
+
+  # 2. Link everything shared into the account dir
+  for f in "$shared"/*; do
+    name="${f##*/}"
+    is_private "$name" && continue
+    [[ -e "$dir/$name" || -L "$dir/$name" ]] || ln -s "$f" "$dir/$name"
+  done
+
+  # 3. Drop links that point at shared items which no longer exist
+  for f in "$dir"/*; do
+    [[ -L "$f" && ! -e "$f" ]] && rm -f "$f"
+  done
+
+  shopt -u dotglob nullglob
+}
+
+case "${1:-}" in
+  ""|-h|--help)
+    sed -n '2,13p' "$0" | sed 's/^# \{0,1\}//'
+    exit 0
+    ;;
+
+  --list)
+    [[ -d "$accounts" ]] || { echo "(no accounts yet)"; exit 0; }
+    for d in "$accounts"/*/; do
+      [[ -d "$d" ]] || continue
+      a="$(basename "$d")"
+      if [[ -e "$d/.credentials.json" ]] || { [[ "$(uname)" == Darwin ]] && [[ -e "$d/.claude.json" ]]; }; then
+        echo "$a"
+      else
+        echo "$a  (not logged in)"
+      fi
+    done
+    exit 0
+    ;;
+
+  --import)
+    acct="${2:?usage: cc --import <account>}"
+    dir="$accounts/$acct"
+    mkdir -p "$dir"
+    [[ -e "$dir/.claude.json" ]] && die "$acct already has a .claude.json; refusing to overwrite"
+    if [[ -e "$shared/.credentials.json" ]]; then
+      cp -p "$shared/.credentials.json" "$dir/.credentials.json"
+      chmod 600 "$dir/.credentials.json"
+    elif [[ "$(uname)" == Darwin ]]; then
+      echo "cc: note: on macOS the default login is in the Keychain and can't be moved;" >&2
+      echo "cc:       run 'cc $acct' and /login once." >&2
+    else
+      die "no login found in $shared/.credentials.json"
+    fi
+    [[ -e "$HOME/.claude.json" ]] && cp -p "$HOME/.claude.json" "$dir/.claude.json"
+    sync_links "$dir"
+    echo "cc: imported current login into '$acct'"
+    exit 0
+    ;;
+
+  -*)
+    die "unknown option: $1"
+    ;;
+esac
+
+acct="$1"; shift
+[[ "$acct" =~ ^[A-Za-z0-9._-]+$ ]] || die "invalid account name: $acct"
+
+dir="$accounts/$acct"
+mkdir -p "$shared" "$dir"
+chmod 700 "$accounts" "$dir" 2>/dev/null || true
+
+sync_links "$dir"
+
+# Make sure nothing outranks this account's own login
+unset CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN
+
+export CLAUDE_CONFIG_DIR="$dir"
+exec mise exec "npm:@anthropic-ai/claude-code" "$@"

@@ -8,7 +8,7 @@ bitwarden-secrets-manager = "2.1.0"
 btop                      = { version = "1.4.7", os = ["linux"] }  # no darwin asset in aqua registry
 bun                       = "1.4.2"
 cargo-binstall            = "1.24.0"
-coder                     = "2.37.4"
+coder                     = "2.36.7"
 crane                     = "0.22.1"
 delta                     = "0.19.2"
 duf                       = "0.9.1"
@@ -24,7 +24,6 @@ hadolint                  = "2.15.1"
 herdr                     = "0.9.3"
 helm                      = "4.3.0"
 hyperfine                 = "1.20.0"
-fastfetch                 = "2.69.0"
 k9s                       = "0.51.0"
 kind                      = "0.33.0"
 krew                      = { version = "0.5.0", postinstall = "ln -sf krew \"$MISE_TOOL_INSTALL_PATH/kubectl-krew\"" }
@@ -44,7 +43,7 @@ uv                        = "0.12.23"
 yamllint                  = "1.38.0"
 yq                        = "4.54.1"
 
-"npm:@anthropic-ai/claude-code" = "2.1.294"
+"npm:@anthropic-ai/claude-code" = "2.1.295"
 "npm:@openai/codex"             = "0.160.0"
 "npm:ccstatusline"              = "2.2.30"
 "npm:ccusage"                   = "20.0.26"
@@ -60,7 +59,6 @@ yq                        = "4.54.1"
 
 [settings]
 experimental                        = true
-trusted_config_paths                = ["~/code"]
 idiomatic_version_file_enable_tools = []
 lockfile                            = true
 

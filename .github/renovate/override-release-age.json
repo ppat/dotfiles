@@ -1,0 +1,50 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": [
+    "A soak buys time for someone else to hit the bug first; its length is how long the ecosystem",
+    "needs to absorb a breaking release and the vendor needs to ship a regression patch. All",
+    "release-age policy lives here; this preset is extended closest to LAST in renovate.json:",
+    "minimumReleaseAge is a plain scalar, so the last matching rule wins, and the two rules below",
+    "that remove a soak must beat every earlier setter (the shared preset's per-update-type ladder,",
+    "override-calver's flat 14 days). Keep this entry last in extends; add new release-age rules",
+    "here so nothing earlier silently outranks them."
+  ],
+  "packageRules": [
+    {
+      "description": [
+        "Coder ships stable and experimental releases on one channel, and a release only counts as",
+        "stable after roughly a month, so the soak reconstructs that unpublished stable channel."
+      ],
+      "matchPackageNames": [
+        "coder"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "minimumReleaseAge": "30 days"
+    },
+    {
+      "description": "override release age for major/minor updates of flux versions",
+      "matchPackageNames": [
+        "flux2"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "minimumReleaseAge": "30 days"
+    },
+    {
+      "description": "override release age for major/minor updates of kubernetes versions",
+      "matchPackageNames": [
+        "kubectl"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "minimumReleaseAge": "60 days"
+    }
+  ]
+}
