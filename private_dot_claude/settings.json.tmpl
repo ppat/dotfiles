@@ -71,16 +71,16 @@
       "mcp__context7__context7-get-library-docs"
     ],
     "deny": [
-      "Read(~/.claude.json)",
-      "Read(~/.claude/.credentials.json)",
+      "Read(.claude.json)",
+      "Read(.credentials.json)",
+      "Read(.env*)",
       "Read(~/.codex/.managed.toml)",
-      "Read(~/.codex/auth.json)",
+      "Read(~/.codex/auth.json*)",
       "Read(~/.codex/config.toml)",
       "Read(~/.config/chezmoi/chezmoi.toml)",
       "Read(~/.config/gh/**)",
       "Read(~/.config/gh-agent/**)",
       "Read(~/.config/sandbox-talos/**)",
-      "Read(~/.env*)",
       "Read(~/.kube/**)",
       "Read(~/.secrets*)",
       "Read(~/.ssh/**)",
@@ -146,7 +146,7 @@
           },
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/guard-process-kill.sh",
+            "command": "{{ .chezmoi.homeDir }}/.claude/hooks/guard-process-kill.sh",
             "timeout": 10
           }
         ]
@@ -180,6 +180,7 @@
   "theme": "dark",
   "autoCompactEnabled": true,
   "remoteControlAtStartup": true,
+  "crossSessionInbound": "accept",
   "agentPushNotifEnabled": true,
   "autoMode": {
     "environment": [

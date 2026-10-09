@@ -334,37 +334,37 @@ url_api = "https://api.github.com/repos/cargo-bins/cargo-binstall/releases/asset
 provenance = "github-attestations"
 
 [[tools.coder]]
-version = "2.37.4"
+version = "2.36.7"
 backend = "aqua:coder/coder"
 
 [tools.coder."platforms.linux-x64"]
-checksum = "sha256:e7bb6c08d7a37fd61c8a8b1d65c612fa6b84dc95a23f1e87c0e8440037ecb12c"
-url = "https://github.com/coder/coder/releases/download/v2.37.4/coder_2.37.4_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/613058026"
+checksum = "sha256:0bdf09731e36174a27db6e09df5345fd1aad13a3a35df9593ba211594f2ff1d1"
+url = "https://github.com/coder/coder/releases/download/v2.36.7/coder_2.36.7_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/612990356"
 provenance = "github-attestations"
 
 [tools.coder."platforms.linux-x64-baseline"]
-checksum = "sha256:e7bb6c08d7a37fd61c8a8b1d65c612fa6b84dc95a23f1e87c0e8440037ecb12c"
-url = "https://github.com/coder/coder/releases/download/v2.37.4/coder_2.37.4_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/613058026"
+checksum = "sha256:0bdf09731e36174a27db6e09df5345fd1aad13a3a35df9593ba211594f2ff1d1"
+url = "https://github.com/coder/coder/releases/download/v2.36.7/coder_2.36.7_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/612990356"
 provenance = "github-attestations"
 
 [tools.coder."platforms.linux-x64-musl"]
-checksum = "sha256:e7bb6c08d7a37fd61c8a8b1d65c612fa6b84dc95a23f1e87c0e8440037ecb12c"
-url = "https://github.com/coder/coder/releases/download/v2.37.4/coder_2.37.4_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/613058026"
+checksum = "sha256:0bdf09731e36174a27db6e09df5345fd1aad13a3a35df9593ba211594f2ff1d1"
+url = "https://github.com/coder/coder/releases/download/v2.36.7/coder_2.36.7_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/612990356"
 provenance = "github-attestations"
 
 [tools.coder."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:e7bb6c08d7a37fd61c8a8b1d65c612fa6b84dc95a23f1e87c0e8440037ecb12c"
-url = "https://github.com/coder/coder/releases/download/v2.37.4/coder_2.37.4_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/613058026"
+checksum = "sha256:0bdf09731e36174a27db6e09df5345fd1aad13a3a35df9593ba211594f2ff1d1"
+url = "https://github.com/coder/coder/releases/download/v2.36.7/coder_2.36.7_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/612990356"
 provenance = "github-attestations"
 
 [tools.coder."platforms.macos-arm64"]
-checksum = "sha256:c5e3b5301f8e7ac2335c70bc97e8ddd5e9bb1a390c9f7775817109c90b9e5870"
-url = "https://github.com/coder/coder/releases/download/v2.37.4/coder_2.37.4_darwin_arm64.zip"
-url_api = "https://api.github.com/repos/coder/coder/releases/assets/613057732"
+checksum = "sha256:ee83f30ffb7e3c771eacb44f2e4825b864c7df1f88d0e4e1b6e4dac775ba9a8f"
+url = "https://github.com/coder/coder/releases/download/v2.36.7/coder_2.36.7_darwin_arm64.zip"
+url_api = "https://api.github.com/repos/coder/coder/releases/assets/612990139"
 provenance = "github-attestations"
 
 [[tools.crane]]
@@ -1093,7 +1093,7 @@ checksum = "sha256:bed7eea5325e1108f32ce5228ddd6a5f0f08a499ee42aa7442aea583702f6
 url = "https://nodejs.org/dist/v24.21.0/node-v24.21.0-darwin-arm64.tar.gz"
 
 [[tools."npm:@anthropic-ai/claude-code"]]
-version = "2.1.294"
+version = "2.1.295"
 backend = "npm:@anthropic-ai/claude-code"
 
 [[tools."npm:@openai/codex"]]
