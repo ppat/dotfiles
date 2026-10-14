@@ -7,6 +7,7 @@ set +o allexport
 export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 
 {{ template "script_header.sh" . }}
+{{ template "homebrew-maintenance.sh" . }}
 
 
 show_homebrew_env() {
@@ -15,25 +16,20 @@ show_homebrew_env() {
 }
 
 manage_homebrew_package_manager() {
+  local installer
   if ! command -v brew &> /dev/null; then
     log_info "Homebrew | Installing Homebrew package manager..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 2>&1 | sed -E -n 's|^|    |p'
+    installer=$(curl --fail --silent --show-error --location --retry 2 --connect-timeout 30 \
+      https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh) || return
+    [[ -n "$installer" ]] || { log_error "Homebrew | Installer download is empty."; return 1; }
+    /bin/bash -c "$installer" 2>&1 | homebrew_indent_output || return
+    command -v brew > /dev/null || return
     log_success "Homebrew | Homebrew package manager install completed."
   else
     log_info "Homebrew | Homebrew package manager already exists, updating..."
-    brew update 2>&1 | sed -E -n 's|^|    |p'
+    homebrew_retry brew update || return
     log_success "Homebrew | Homebrew package manager has been updated."
   fi
-}
-
-manage_homebrew_trusted_taps() {
-  local brew_file="$1"
-  log_info "Homebrew | Trusting third-party taps..."
-  local tap
-  grep -ohE '"[^"/]+/[^"/]+/[^"/]+"' "${brew_file}" | tr -d '"' | awk -F/ '{print $1"/"$2}' | sort -u | while read -r tap; do
-    brew tap "${tap}" 2>&1 | sed -E -n 's|^|    |p'
-    brew trust "${tap}" 2>&1 | sed -E -n 's|^|    |p'
-  done
 }
 
 retire_superseded_bash_completion() {
@@ -63,31 +59,9 @@ manage_homebrew_system_packages() {
     log_error "Homebrew | Brew binary is not in path, cannot proceed!"
     exit 1
   fi
-  manage_homebrew_trusted_taps "${brew_file}" || log_warning "Homebrew | Failed to trust one or more third-party taps, continuing..."
   log_info "Homebrew | Installing Homebrew system packages..."
-  brew bundle --file="${brew_file}" 2>&1 | sed -E -n 's|^|    |p'
+  homebrew_bundle "${brew_file}" || return
   log_success "Homebrew | Homebrew system packages have been installed."
-}
-
-cleanup_homebrew_cache() {
-  # HOMEBREW_NO_INSTALL_CLEANUP (see .chezmoitemplates/homebrew.env) turns off the automatic
-  # cleanup that races Homebrew's own parallel downloads. Reclaim the cache deterministically
-  # here instead -- unconditionally, but only once `brew bundle` is done and nothing is
-  # downloading concurrently -- so disabling that cleanup doesn't let the cache grow forever.
-  #
-  # Housekeeping must never fail a bootstrap that otherwise succeeded, and must never *look*
-  # like one either: that misreading is the whole point of this ticket. So the output is
-  # buffered and only replayed when cleanup worked; a failure collapses to a single warning
-  # and the script carries on.
-  local cleanup_log="${TMPDIR:-/tmp}/homebrew-cleanup.$$.log"
-  log_info "Homebrew | Cleaning up old versions and stale downloads..."
-  if brew cleanup > "${cleanup_log}" 2>&1; then
-    sed -E -n 's|^|    |p' "${cleanup_log}"
-    log_success "Homebrew | Homebrew cleanup completed."
-  else
-    log_warning "Homebrew | Homebrew cleanup failed; cache not reclaimed this run, continuing."
-  fi
-  rm -f "${cleanup_log}"
 }
 
 main() {

@@ -8,6 +8,7 @@ set +o allexport
 export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 
 {{ template "script_header.sh" . }}
+{{ template "homebrew-maintenance.sh" . }}
 
 
 gui_prerequisites() {
@@ -19,7 +20,7 @@ gui_prerequisites() {
 
 install_gui_packages() {
   log_info "GUI Packages | Installing MacOS GUI packages with homebrew..."
-  brew bundle --file={{ .chezmoi.sourceDir }}/Brewfile.gui 2>&1 | sed -E 's|^(.*)|    \1|g'
+  homebrew_bundle "{{ .chezmoi.sourceDir }}/Brewfile.gui" || return
   log_success "GUI Packages | Homebrew GUI packages have been installed."
 }
 
@@ -27,6 +28,7 @@ main () {
   log_info "GUI Packages | Setting up..."
   gui_prerequisites
   install_gui_packages
+  cleanup_homebrew_cache
   echo "-------------------------------------------------------------------------------------------"
   echo
 }

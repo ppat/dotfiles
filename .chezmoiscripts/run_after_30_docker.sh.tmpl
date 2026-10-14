@@ -8,6 +8,7 @@ set +o allexport
 export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 
 {{ template "script_header.sh" . }}
+{{ template "homebrew-maintenance.sh" . }}
 
 
 docker_prerequisites() {
@@ -19,7 +20,7 @@ docker_prerequisites() {
 
 install_docker_packages() {
   log_info "Docker | Installing required packages for Docker + Colima..."
-  brew bundle --file={{ .chezmoi.sourceDir }}/Brewfile.docker 2>&1 | sed -E 's|^(.*)|    \1|g'
+  homebrew_bundle "{{ .chezmoi.sourceDir }}/Brewfile.docker" || return
   log_success "Docker | Docker and Colima packages have been installed."
 }
 
@@ -58,6 +59,7 @@ main() {
   log_info "Docker | Setting up Colima + Docker..."
   docker_prerequisites
   install_docker_packages
+  cleanup_homebrew_cache
   echo
   start_colima
   echo
