@@ -1,6 +1,6 @@
 # TESTING.md
 
-There is no unit-test suite — this repo is configuration, not application logic. Confidence in a change comes
+Confidence in configuration changes comes
 from a **render-then-lint** workflow: every templated file is rendered to what it would actually look like on
 disk, then the rendered output is checked with format-appropriate tools. Static analysis/linting *commands* are
 listed in [CLAUDE.md](CLAUDE.md); this doc describes the actual mechanism — what runs, in what order, against
@@ -107,6 +107,29 @@ scripts run successfully in the right order against a real Homebrew/mise install
 they parse as valid shell. What it still doesn't prove: real Bitwarden Secrets Manager resolution
 (needs a real `bwsAccessToken` on a real machine — see "CI can't be the full story" in DESIGN.md),
 or macOS-only code paths (this job runs on `ubuntu-24.04` only).
+
+### Homebrew failure recovery
+
+`.github/workflows/homebrew-maintenance-test.yaml` runs the tests under `tests/homebrew/`.
+It runs independently of `full-apply-test.yaml`, which exercises bootstrap and repeat apply.
+Test-only changes trigger the Homebrew tests and relevant lint without running full apply.
+The test tree is excluded from Chezmoi deployment.
+
+`tests/homebrew/unit.sh` exercises the shared maintenance helper with a shell fixture for Brew.
+It checks empty and duplicate taps, trust and listing failures,
+transient and permanent bundle failures, dependency link conflicts, backup collisions, preservation
+of displaced entries, refusal to replace user files or external links, and cleanup failures.
+It does not invoke an installed Brew or modify an existing Homebrew installation.
+Output tests require stdout and stderr to reach a reader before the mocked bundle can finish.
+Successful installs and completed dependencies alongside a bundle failure must not be reinstalled.
+Successful bundles perform one before-version query, no dependency analysis, and no after-version query.
+
+`tests/homebrew/integration.sh` installs synthetic formulae from `tests/homebrew/fixtures/`
+through an updated runner Homebrew. It checks direct and dependency link conflicts, backup
+collisions on the same filesystem and across filesystems, completion of interrupted post-install
+work, repeat runs, and refusal to replace a user file. Native command recording asserts the exact
+reinstall targets and rejects redundant reinstalls. Run this test only on a disposable runner
+or in the sandbox Homebrew container. Its fixture packages and temporary tap are removed afterward.
 
 ## What gains confidence locally, before pushing
 
