@@ -126,11 +126,6 @@
         "backgroundColor": "bgRed"
       },
       {
-        "id": "bac17ea4-6451-4532-8e3f-a62eb73af708",
-        "type": "extra-usage-used",
-        "backgroundColor": "bgBrightBlack"
-      },
-      {
         "id": "e79bae6f-7a05-4901-8a84-6818c8e84310",
         "type": "session-cost",
         "backgroundColor": "bgBrightWhite"
@@ -145,6 +140,8 @@
   "inheritSeparatorColors": false,
   "globalBold": false,
   "gitCacheTtlSeconds": 60,
+  "terminalWidthCacheTtlSeconds": 5,
+  "customCommandCacheTtlSeconds": 0,
   "minimalistMode": false,
   "powerline": {
     "enabled": true,
