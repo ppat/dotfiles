@@ -198,7 +198,7 @@
       "**Source control**: all repos on Github, claude can push to any non-main branch, but cannot land PRs or push to main",
       "**Internal package registry**: github package registry, github container registry and self hosted harbor instance. only github CI workflows may publish",
       "**Trusted repo**: all git repos under github.com/ppat user are checked out under ~/code/<repo> with git worktrees maintained within ~/code/.worktrees/<session-name>",
-      "**Allowed local writes**: current git repo unde ~/code/<rep> and its git worktrees under ~/code/.worktrees/<session>/*, and sibling repos and their worktrees when needed. And session notes under ~/code/.session-notes/<session>/*"
+      "**Allowed local writes**: In addition to trusted repos as mentioned, writes are also allowed to session notes under ~/code/.session-notes/<session>/*"
     ],
     "classifyAllShell": true
   },
