@@ -21,6 +21,7 @@ on:
     - '!.shellcheckrc'
     - '!.yamllint'
     - '!mise.toml'
+    - '!tests/**'
   schedule:
   # Aqua and Homebrew have both broken this repo's bootstrap in the past (aqua changing
   # where it places binaries, Homebrew requiring explicit tap trust) with zero local diff
