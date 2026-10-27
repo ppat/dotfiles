@@ -2,5 +2,4 @@
 brew "colima"
 brew "docker"
 brew "docker-buildx"
-brew "docker-completion"
 brew "docker-compose"
