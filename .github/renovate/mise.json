@@ -15,18 +15,18 @@
       "description": "Language runtimes in the deployed mise pin set. Separate from pkg-cli because they carry the long release-age soaks below and because a runtime major is a different kind of event from a CLI major -- keeping the split visible in the header is why this repo does not collapse both onto one package scope.",
       "groupName": "pkg-lang",
       "matchFileNames": [
-        "private_dot_config/mise/config.toml"
+        "private_dot_config/mise/**"
       ],
       "matchManagers": [
         "mise"
       ],
       "matchPackageNames": [
-        "oven-sh/bun",
-        "golang/go",
-        "nodejs",
-        "rust-lang/rust",
-        "hashicorp/terraform",
-        "astral-sh/uv"
+        "bun",
+        "go",
+        "node",
+        "python",
+        "rust",
+        "uv"
       ],
       "semanticCommitScope": "pkg-lang",
       "separateMajorMinor": true,
@@ -38,60 +38,24 @@
       "description": "Everything else in the deployed mise pin set: CLI binaries via the aqua backend, npm and pipx tools. This is the default for anything mise installs onto a machine that is not a language runtime.",
       "groupName": "pkg-cli",
       "matchFileNames": [
-        "private_dot_config/mise/config.toml"
+        "private_dot_config/mise/**"
       ],
       "matchManagers": [
         "mise"
       ],
       "matchPackageNames": [
-        "!oven-sh/bun",
-        "!golang/go",
-        "!nodejs",
-        "!rust-lang/rust",
-        "!hashicorp/terraform",
-        "!astral-sh/uv"
+        "!bun",
+        "!go",
+        "!node",
+        "!python",
+        "!rust",
+        "!uv"
       ],
       "semanticCommitScope": "pkg-cli",
       "separateMajorMinor": true,
       "separateMinorPatch": false,
       "separateMultipleMajor": true,
       "separateMultipleMinor": false
-    },
-    {
-      "matchFileNames": [
-        "private_dot_config/mise/config.toml"
-      ],
-      "matchManagers": [
-        "mise"
-      ],
-      "matchPackageNames": [
-        "oven-sh/bun",
-        "astral-sh/uv"
-      ],
-      "matchUpdateTypes": [
-        "major",
-        "minor"
-      ],
-      "minimumReleaseAge": "30 days"
-    },
-    {
-      "matchFileNames": [
-        "private_dot_config/mise/config.toml"
-      ],
-      "matchManagers": [
-        "mise"
-      ],
-      "matchPackageNames": [
-        "golang/go",
-        "nodejs",
-        "rust-lang/rust",
-        "hashicorp/terraform"
-      ],
-      "matchUpdateTypes": [
-        "major",
-        "minor"
-      ],
-      "minimumReleaseAge": "90 days"
     }
   ]
 }

@@ -42,6 +42,35 @@
         "minor"
       ],
       "minimumReleaseAge": "60 days"
+    },
+    {
+      "matchPackageNames": [
+        "bun",
+        "oven-sh/bun",
+        "astral-sh/uv",
+        "uv"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "minimumReleaseAge": "30 days"
+    },
+    {
+      "matchPackageNames": [
+        "go",
+        "golang/go",
+        "node",
+        "nodejs",
+        "python",
+        "rust",
+        "rust-lang/rust"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "minimumReleaseAge": "90 days"
     }
   ]
 }
