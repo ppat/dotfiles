@@ -70,6 +70,43 @@ maintain a lockfile at the time, so it couldn't give the same checksum guarantee
 `checksum.require_checksum` did. Mise's lockfile support closed that gap, so the two-package-manager split
 above reflects the current (not original) architecture — see git history for the migration.
 
+## Homebrew maintenance recovery
+
+System, Docker, and GUI Brewfiles use `.chezmoitemplates/homebrew-maintenance.sh` so dependencies
+and declared packages receive the same recovery policy. Homebrew evaluates the Brewfile to identify
+taps. An empty tap list succeeds, and trust failures stop installation when Homebrew supports
+explicit tap trust. Releases without that command retain their native tap policy.
+
+Updates and bundles receive three attempts with delays between attempts. Bundle output streams
+as it arrives, with a copy retained for recovery. Bundles repair formulae identified by
+Homebrew's link suggestions, including dependencies, even when Bundle returns success.
+Its success status does not guarantee that dependency linking succeeded. Recovery checks every path from
+`brew link --overwrite --dry-run` before moving conflicts aside and using ordinary `brew link`.
+Only symlinks into the Cellar may be displaced. Ordinary files and links outside the Cellar stop
+the run for manual resolution. A conflict changed during preservation stops recovery. Ordinary
+linking refuses any new conflict that appears afterward.
+
+Versions are recorded before each attempt and compared afterward only if the bundle fails.
+Changed formulae in the Brewfile's dependency graph without an install summary are reinstalled
+through Homebrew before retrying a failed bundle.
+Verbose bundle output exposes summaries for completed installs. Successful bundles never trigger reinstalls,
+but their link diagnostics are still checked.
+A dependency's keg can exist
+before its post-install work finishes, and Bundle can skip that dependency on retry. Reinstalling
+keeps Homebrew's recorded build options and completes its installation work. Recovery never forces
+cask installation.
+
+Colliding entries under `HOMEBREW_CACHE/Backup` are moved into separate recovery directories.
+Displaced symlinks are moved there before replacement. Archives live under
+`${XDG_STATE_HOME:-$HOME/.local/state}/homebrew/recovery`, outside Homebrew's cleanup cache.
+The logs identify each archive. Restoring an archived entry means moving it back to its original
+relative path under the prefix or `HOMEBREW_CACHE/Backup`. Archives require manual removal when
+they are no longer needed.
+
+Required work remains fatal after retries are exhausted. Cleanup runs after each successful
+bundle, replays successful output, and warns on failure without stopping apply. Homebrew's automatic
+install cleanup stays disabled to avoid racing parallel bottle downloads.
+
 ## Mise setup: install before the render, maintain after
 
 Chezmoi scripts split into `run_before_NN_*` (before the rendered dotfiles are written to `$HOME`) and

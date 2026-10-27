@@ -11,6 +11,7 @@ krew-plugins.txt
 mise.toml
 README.md
 TESTING.md
+tests/
 
 # Design rationale for the deployed global CLAUDE.md. It sits beside its template for
 # discoverability, but it is maintainer documentation for this repo, not agent

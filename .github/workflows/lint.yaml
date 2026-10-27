@@ -49,6 +49,9 @@ jobs:
         - private_dot_local/bin/**
         - dot_bashrc
         - dot_profile
+        - tests/**/*.sh
+        - .chezmoitemplates/homebrew-maintenance.sh
+        - .chezmoitemplates/script_header.sh
         - '!**.tmpl'
         yaml:
         - '**.yaml'
