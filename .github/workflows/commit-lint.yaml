@@ -21,7 +21,7 @@ env:
   # renovate: datasource=npm depName=bun
   BUN_VERSION: "1.4.4"
   # renovate: datasource=node-version depName=node
-  NODE_VERSION: "24.22.1"
+  NODE_VERSION: "24.22.2"
 
 jobs:
   # Lints the commits on the branch. On a single-commit PR this is also the released string, since
