@@ -27,7 +27,7 @@ jobs:
   # Lints the commits on the branch. On a single-commit PR this is also the released string, since
   # squash_merge_commit_title is COMMIT_OR_PR_TITLE.
   commit-messages:
-    uses: ppat/github-workflows/.github/workflows/lint-commit-messages.yaml@a44731e42a98c1746bbe8075fda85a28bf96eb97 # v8.4.0
+    uses: ppat/github-workflows/.github/workflows/lint-commit-messages.yaml@e95dcb3a80a8e832d6ab2749d0e36329641c72b9 # v8.5.0
     with:
       git_ref: ${{ github.head_ref }}
       fetch_depth: ${{ github.event.pull_request.commits || 0 }}
