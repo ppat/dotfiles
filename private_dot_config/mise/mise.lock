@@ -645,46 +645,51 @@ url = "https://github.com/muesli/duf/releases/download/v0.9.1/duf_0.9.1_darwin_a
 url_api = "https://api.github.com/repos/muesli/duf/releases/assets/291083820"
 
 [[tools.dust]]
-version = "1.2.6"
+version = "1.2.7"
 backend = "aqua:bootandy/dust"
-specifiers = ["1.2.6"]
+specifiers = ["1.2.7"]
 
 [tools.dust."platforms.linux-arm64"]
-checksum = "sha256:ec6a63bc275a33000443d444fd5424e56745aa995bc88e1080cd951e5e9e5cbf"
+checksum = "sha256:64496fe9e56dabb379308b3a079816818f6022d0b93638d06206a9144ca795d9"
 checksum_source = "mise-versions"
-url = "https://github.com/bootandy/dust/releases/download/v1.2.6/dust-v1.2.6-aarch64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/568852461"
+url = "https://github.com/bootandy/dust/releases/download/v1.2.7/dust-v1.2.7-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/699455926"
 
 [tools.dust."platforms.linux-arm64-musl"]
-checksum = "sha256:a51cf42a4654864837cc116eaca914271d7a09a9c2a60de90ecc2187b8d855a7"
+checksum = "sha256:4c8ebaf224179bfd42db45d8a50fd5304bbd89532eda94db684d309c7b734ed6"
 checksum_source = "mise-versions"
-url = "https://github.com/bootandy/dust/releases/download/v1.2.6/dust-v1.2.6-aarch64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/568851984"
+url = "https://github.com/bootandy/dust/releases/download/v1.2.7/dust-v1.2.7-aarch64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/699455978"
 
 [tools.dust."platforms.linux-x64"]
-checksum = "sha256:14f788707aad217667f6812cf1a9639bf5c861a2ee815d486cffc36051f5e759"
-url = "https://github.com/bootandy/dust/releases/download/v1.2.6/dust-v1.2.6-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/568852367"
+checksum = "sha256:ec3bf712c660dcaa5578b996741f5cca36b30c021c1e4b49352b11137a95a96e"
+checksum_source = "mise-versions"
+url = "https://github.com/bootandy/dust/releases/download/v1.2.7/dust-v1.2.7-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/699456259"
 
 [tools.dust."platforms.linux-x64-baseline"]
-checksum = "sha256:14f788707aad217667f6812cf1a9639bf5c861a2ee815d486cffc36051f5e759"
-url = "https://github.com/bootandy/dust/releases/download/v1.2.6/dust-v1.2.6-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/568852367"
+checksum = "sha256:ec3bf712c660dcaa5578b996741f5cca36b30c021c1e4b49352b11137a95a96e"
+checksum_source = "mise-versions"
+url = "https://github.com/bootandy/dust/releases/download/v1.2.7/dust-v1.2.7-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/699456259"
 
 [tools.dust."platforms.linux-x64-musl"]
-checksum = "sha256:cbf2cb5c9d6227e46fc4b29c03dc43b8632020dfc5cf269d263d6e29c399e044"
-url = "https://github.com/bootandy/dust/releases/download/v1.2.6/dust-v1.2.6-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/568853682"
+checksum = "sha256:2f1a1106f1f14c0b684b2f0a5f4482c6d53e07a871df4afc11e3b91ade300b55"
+checksum_source = "mise-versions"
+url = "https://github.com/bootandy/dust/releases/download/v1.2.7/dust-v1.2.7-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/699458387"
 
 [tools.dust."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:cbf2cb5c9d6227e46fc4b29c03dc43b8632020dfc5cf269d263d6e29c399e044"
-url = "https://github.com/bootandy/dust/releases/download/v1.2.6/dust-v1.2.6-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/568853682"
+checksum = "sha256:2f1a1106f1f14c0b684b2f0a5f4482c6d53e07a871df4afc11e3b91ade300b55"
+checksum_source = "mise-versions"
+url = "https://github.com/bootandy/dust/releases/download/v1.2.7/dust-v1.2.7-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/699458387"
 
 [tools.dust."platforms.macos-arm64"]
-checksum = "sha256:5c37ee0d353165c73aedd6b21b9133182221efe08f9a5e76c082d9d6d5a0935d"
-url = "https://github.com/bootandy/dust/releases/download/v1.2.6/dust-v1.2.6-aarch64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/568852617"
+checksum = "sha256:38e1b3b4e5e6a5cdb044b5fdb32ea45f18dc78276711796214806f20f7705a99"
+checksum_source = "mise-versions"
+url = "https://github.com/bootandy/dust/releases/download/v1.2.7/dust-v1.2.7-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/bootandy/dust/releases/assets/699455834"
 
 [[tools.fd]]
 version = "10.5.0"
@@ -729,46 +734,51 @@ url = "https://github.com/sharkdp/fd/releases/download/v10.5.0/fd-v10.5.0-aarch6
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/530481346"
 
 [[tools.flux2]]
-version = "2.9.6"
+version = "2.10.0"
 backend = "aqua:fluxcd/flux2"
-specifiers = ["2.9.6"]
+specifiers = ["2.10.0"]
 
 [tools.flux2."platforms.linux-arm64"]
-checksum = "sha256:6663c154755b732f43dc993d72321f71c2fc1ff0bcb94b2696e0a8638fa562b4"
+checksum = "sha256:c3c435052e5e18156858bc73f26bcadb62821a6e30951b4b302beb4e65a532c2"
 checksum_source = "mise-versions"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.9.6/flux_2.9.6_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/602941235"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609576"
 
 [tools.flux2."platforms.linux-arm64-musl"]
-checksum = "sha256:6663c154755b732f43dc993d72321f71c2fc1ff0bcb94b2696e0a8638fa562b4"
+checksum = "sha256:c3c435052e5e18156858bc73f26bcadb62821a6e30951b4b302beb4e65a532c2"
 checksum_source = "mise-versions"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.9.6/flux_2.9.6_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/602941235"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609576"
 
 [tools.flux2."platforms.linux-x64"]
-checksum = "sha256:b4d22673e9246cbd628881f1a9ef3b090085dced291e42d804555cee8e8d42c5"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.9.6/flux_2.9.6_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/602941244"
+checksum = "sha256:208dd7012c04fedeed5b2d0b6e63df3b15b1c34a381527811685c098bc9f8659"
+checksum_source = "mise-versions"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609567"
 
 [tools.flux2."platforms.linux-x64-baseline"]
-checksum = "sha256:b4d22673e9246cbd628881f1a9ef3b090085dced291e42d804555cee8e8d42c5"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.9.6/flux_2.9.6_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/602941244"
+checksum = "sha256:208dd7012c04fedeed5b2d0b6e63df3b15b1c34a381527811685c098bc9f8659"
+checksum_source = "mise-versions"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609567"
 
 [tools.flux2."platforms.linux-x64-musl"]
-checksum = "sha256:b4d22673e9246cbd628881f1a9ef3b090085dced291e42d804555cee8e8d42c5"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.9.6/flux_2.9.6_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/602941244"
+checksum = "sha256:208dd7012c04fedeed5b2d0b6e63df3b15b1c34a381527811685c098bc9f8659"
+checksum_source = "mise-versions"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609567"
 
 [tools.flux2."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:b4d22673e9246cbd628881f1a9ef3b090085dced291e42d804555cee8e8d42c5"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.9.6/flux_2.9.6_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/602941244"
+checksum = "sha256:208dd7012c04fedeed5b2d0b6e63df3b15b1c34a381527811685c098bc9f8659"
+checksum_source = "mise-versions"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609567"
 
 [tools.flux2."platforms.macos-arm64"]
-checksum = "sha256:7008a758da4b8d57c5845aad6552f256d4d23630c2b2de2ca8da362f9a48c126"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.9.6/flux_2.9.6_darwin_arm64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/602941251"
+checksum = "sha256:339c5dba218e2b0a04a0841d1dace6c00d65736dc3286038463fa86754ff6c53"
+checksum_source = "mise-versions"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609572"
 
 [[tools.fzf]]
 version = "0.74.5"
@@ -1578,9 +1588,9 @@ backend = "npm:@anthropic-ai/claude-code"
 specifiers = ["2.1.316"]
 
 [[tools."npm:@openai/codex"]]
-version = "0.164.0"
+version = "0.166.0"
 backend = "npm:@openai/codex"
-specifiers = ["0.164.0"]
+specifiers = ["0.166.0"]
 
 [[tools."npm:ccstatusline"]]
 version = "2.2.33"
@@ -1588,9 +1598,9 @@ backend = "npm:ccstatusline"
 specifiers = ["2.2.33"]
 
 [[tools."npm:ccusage"]]
-version = "20.0.46"
+version = "20.0.47"
 backend = "npm:ccusage"
-specifiers = ["20.0.46"]
+specifiers = ["20.0.47"]
 
 [[tools."npm:skills"]]
 version = "1.7.4"
