@@ -58,7 +58,7 @@ jobs:
   chezmoi:
     needs: [detect-changes]
     if: ${{ github.event_name != 'pull_request' || fromJSON(needs.detect-changes.outputs.results).chezmoiscripts_any_changed == 'true' || fromJSON(needs.detect-changes.outputs.results).chezmoienv_any_changed == 'true' }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 5
     steps:
     - name: Setup repository and tools
@@ -162,7 +162,7 @@ jobs:
   # does have a conditional `if:` -- never has to reason about a skipped dependency.
   shellcheck-discover-files:
     needs: [detect-changes]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 5
     outputs:
       files: ${{ steps.discover.outputs.files }}
