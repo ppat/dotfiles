@@ -40,7 +40,7 @@ jobs:
   # text that nothing parses. Linting only the interior commits would therefore check the strings
   # that do not survive and skip the one that does.
   pr-title:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 5
     steps:
     - name: Setup repository and tools
@@ -89,7 +89,7 @@ jobs:
   # the repo's contents move -- a new '# renovate:' pin in a file no rule scopes emits a scope-less
   # header -- so gating this on config paths would miss exactly the changes it exists to catch.
   taxonomy:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 5
     steps:
     - name: Setup repository and tools
