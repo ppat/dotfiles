@@ -120,4 +120,12 @@ sync_links "$dir"
 unset CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN
 
 export CLAUDE_CONFIG_DIR="$dir"
+
+# Root auto-memory at the shared store's real path instead of "$dir/projects/...". That spelling crosses the
+# projects symlink, and Claude Code checks a write against both the spelled and the resolved path: its
+# auto-memory exemption matches only the spelled one, while the resolved ~/.claude/projects/... trips the
+# sensitive-path check, which prompts even in auto mode. Claude still derives the <project>/memory/ part.
+# This variable is undocumented (meant for remote sessions). If a release drops it, the prompt comes back.
+export CLAUDE_CODE_REMOTE_MEMORY_DIR="$shared"
+
 exec claude "$@"
