@@ -60,4 +60,5 @@ Library/
 {{- if eq .chezmoi.homeDir "/home/coder" }}
 .ssh/id_ed25519
 .ssh/id_ed25519.pub
+.ssh/config
 {{- end }}

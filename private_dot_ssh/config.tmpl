@@ -1,0 +1,18 @@
+# --- START CODER INCLUDE CODER-REMOTE ---
+# Managed by the Coder extension for VS Code and its forks.
+# Moves back to the top on connect; override options via coder.sshConfig.
+Include "~/Library/Application Support/coder.coder-remote/ssh/*.conf"
+# --- END CODER INCLUDE CODER-REMOTE ---
+
+Include {{ .chezmoi.homeDir }}/.config/colima/ssh_config
+
+Include {{ .chezmoi.homeDir }}/.colima/ssh_config
+
+
+
+Host coder.{{ .chezmoi.username }}
+	ConnectTimeout=0
+	StrictHostKeyChecking=accept-new
+	UserKnownHostsFile=~/.ssh/known_hosts_coder
+	LogLevel ERROR
+	ProxyCommand $(mise which coder) --global-config "{{ .chezmoi.homeDir }}/Library/Application Support/coderv2" ssh --stdio --ssh-host-prefix coder. %h
