@@ -163,11 +163,22 @@ changes generation, re-check each item against artifacts, never by asking the mo
 
 ## Editing rules
 
+- All section text lives in `private_dot_claude/claude-md/`, one file per `##` section, and one per `###` subsection
+  under Output (`output-*`) and Tooling and environment (`tooling-*`). `CLAUDE.md.tmpl` holds only the preamble, the
+  `## Output` and `## Tooling and environment` headings, and one
+  `{{ includeTemplate "private_dot_claude/claude-md/<file>.md" . }}` line per fragment. The path is relative to the
+  source directory. `.chezmoiignore` lists `.claude/claude-md/` so the fragments never deploy on their own. A new
+  fragment directory needs the same entry.
+- Each fragment starts at its own heading and must *render* to text ending in exactly one newline. The include line
+  takes no blank line after it, because that newline plus the include line's own newline make the blank line between
+  sections. A fragment whose last line is a template action needs trim markers to hold this, as `tooling-environment.md`
+  does with `{{ end -}}`. The last include line ends in `-}}`, because nothing follows it. A refactor of this layout
+  proves itself by a byte-identical render under both `homeDir` branches.
 - Both template branches must render. CI forces `.chezmoi.os` to `linux` and renders with the runner's `homeDir`, so
   the non-coder branch is what CI actually exercises. Neither `homeDir` branch may depend on data absent from the other
   environment.
-- Machine-specific content goes inside the existing `homeDir` conditionals in Tooling and environment only. Everything
-  above that section stays machine-agnostic and template-free.
+- Machine-specific content goes inside the existing `homeDir` conditionals in the `tooling-*` fragments only.
+  Everything else stays machine-agnostic and free of template logic beyond the include lines.
 - Every disposition names the moment it fires and the artifact it leaves. A rule with neither will decay, and its
   adherence cannot be observed.
 - Every rule passes the specificity test. Would removing it cause a mistake a capable model would not otherwise make?
@@ -175,7 +186,9 @@ changes generation, re-check each item against artifacts, never by asking the mo
   are retrieval keys in past transcripts and in the user's vocabulary.
 - Name actors explicitly. "The user" and "Claude", never bare "I", "me", or "you". Actorless imperatives address Claude.
 - Wrap prose at 120 columns. Tables run their natural width.
-- Verify with the CI-faithful render (`sed 's|"darwin"|"linux"|g'` then `chezmoi execute-template --source=.`), run
+- Verify with the CI-faithful render, run against a copy of the source tree because `sed` on `CLAUDE.md.tmpl` alone
+  does not reach the fragments (`sed 's|"darwin"|"linux"|g'` over the copy's `private_dot_claude/`, then
+  `chezmoi execute-template --source=<copy>`). The non-coder `homeDir` branch is checked the same way. Then run
   `markdownlint-cli2` with the repo config on the rendered output, and read the rendered output once as a cold reader.
 - A rule that must hold every time is a hook or a setting, not a sentence. The file still keeps the sentence,
   because it states the standard the guard enforces.

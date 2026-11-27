@@ -17,6 +17,10 @@ TESTING.md
 # instructions — it must never land in ~/.claude.
 .claude/MAINTAINER.md
 
+# Section fragments of the deployed global CLAUDE.md. CLAUDE.md.tmpl pulls each one in with includeTemplate, so they
+# reach ~/.claude only as part of that one file and must never land there on their own.
+.claude/claude-md/
+
 # Keep mise.lock out of chezmoi's deploy path
 #   mise rewrites ~/.config/mise/mise.lock in place whenever it has to lock something the deployed lockfile
 #   doesn't already cover, which is exactly what run_after_20_mise-upgrade asks it to do. Verified on a
