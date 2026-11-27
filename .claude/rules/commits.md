@@ -49,7 +49,7 @@ one scope.
 | # | Scope | Matches | Ships? |
 | --- | --- | --- | --- |
 | 1 | `github-actions` | A `uses:` ref bumped or re-pinned — *anywhere*, and nothing else. **Not** the rest of what Renovate's `github-actions` manager finds: a `runs-on:` runner, a job `container:` or `services:` image is `internal-dependencies` | no |
-| 2 | `agents` | `private_dot_claude/**`, `.claude/**`, root `CLAUDE.md`, ccstatusline, any other AI-coding-agent instruction surface — *anywhere* | no |
+| 2 | `agents` | `.claude/**`, root `CLAUDE.md`, any other AI-coding-agent instruction surface — *anywhere* | no |
 | 3 | `pkg-lang` | A language-runtime pin moved in the deployed mise config | yes |
 | 4 | `pkg-cli` | Any other pin moved in the deployed mise config, or its lockfile refreshed | yes |
 | 5 | `pkg-system` | Software installed by a manager other than mise: `Brewfile.*`, `krew-plugins.txt`, or a version pin inside a `.chezmoiscripts/` installer | yes |
@@ -66,9 +66,11 @@ the table exhaustive: nothing chezmoi deploys can miss every row.
 
 `agents`, `github-actions`, `internal-dependencies`, `internal-workflows` and `renovate` mean the same thing here as
 in `ppat/github-workflows` and `ppat/homelab-ops-kubernetes-apps`, and the shared Renovate presets emit two of them.
-**`agents` is internal here even though this repo deploys `~/.claude`** — an instruction file steers an agent, not the
-machine it sits on, which is why it means the same thing in a repo that ships one and a repo that does not. That is
-also what keeps it off both sides of the boundary; a scope that straddled it could not be paired with a type at all.
+**`agents` covers the instructions for agents working on this repo, never what this repo deploys.** An instruction file
+for this repo steers the agent editing it, not any machine, which is why `agents` means the same thing in every repo
+that has it. The agent configuration this repo deploys (`private_dot_claude/**` into `~/.claude`, and the ccstatusline
+config) is application config chezmoi writes into `$HOME`, so it is `home`. That is also what keeps `agents` off both
+sides of the boundary; a scope that straddled it could not be paired with a type at all.
 
 When a commit spans mechanisms, scope it to the one that **motivated** it — adding a tool to the deployed mise config
 and teaching a bootstrap script to use it is `pkg-cli`. If it genuinely has two motivations, split it.
@@ -97,7 +99,8 @@ automate the repo are `ci`. Both live under `.github/workflows/`; the type is wh
 | A change to the Renovate rules | `ci(renovate):` |
 | Hand-edit to a linter config or `commitlint.config.js` | `chore(internal-workflows):` |
 | Hand-edit to `.pre-commit-config.yaml` or root `mise.toml` | `chore(internal-dependencies):` |
-| Anything under `~/.claude`, `.claude/` or root `CLAUDE.md` | `chore(agents):` / `docs(agents):` |
+| Anything under `.claude/` or root `CLAUDE.md` | `chore(agents):` / `docs(agents):` |
+| The deployed `~/.claude` config (`private_dot_claude/**`) | `feat(home):` / `fix(home):` / `refactor(home):` |
 | Repo docs on their own | `docs:` |
 
 **A type claiming machine behaviour cannot sit on a non-shipping scope, or on an empty scope**, and
