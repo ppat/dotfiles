@@ -118,6 +118,30 @@
         ]
       }
     ],
+    "PermissionRequest": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Write(~/.claude-accounts/*/plans/*.md)",
+            "command": "{{ .chezmoi.homeDir }}/.claude/hooks/allow-shared-plan-writes.sh",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Edit(~/.claude-accounts/*/plans/*.md)",
+            "command": "{{ .chezmoi.homeDir }}/.claude/hooks/allow-shared-plan-writes.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",
