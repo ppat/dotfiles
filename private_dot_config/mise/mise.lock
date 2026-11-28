@@ -178,50 +178,50 @@ url_api = "https://api.github.com/repos/kyverno/chainsaw/releases/assets/4137988
 url = "https://github.com/kyverno/chainsaw/releases/download/v0.2.15/multiple.intoto.jsonl"
 
 [[tools.atuin]]
-version = "18.25.0"
+version = "18.25.1"
 backend = "aqua:atuinsh/atuin"
-specifiers = ["18.25.0"]
+specifiers = ["18.25.1"]
 
 [tools.atuin."platforms.linux-arm64"]
-checksum = "sha256:0cfaa7ec4bb18c894791689661d17f15ff2505d5fabf1557359d233bfc42b092"
-url = "https://github.com/atuinsh/atuin/releases/download/v18.25.0/atuin-aarch64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/770087129"
+checksum = "sha256:19713ba9447f6429412c349379a62b98f519bc311b38c31c95c06bdbfceb4ed8"
+url = "https://github.com/atuinsh/atuin/releases/download/v18.25.1/atuin-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/773455323"
 provenance = "github-attestations"
 
 [tools.atuin."platforms.linux-arm64-musl"]
-checksum = "sha256:1dc0cb006252cb4f0b4441fc885f7cba9798af0ed0c4df28c99f13cdacc15613"
-url = "https://github.com/atuinsh/atuin/releases/download/v18.25.0/atuin-aarch64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/770087130"
+checksum = "sha256:a76aff915be408f15eca033dfbd555bb8d1237e83b09562f7481636f7894555f"
+url = "https://github.com/atuinsh/atuin/releases/download/v18.25.1/atuin-aarch64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/773455319"
 provenance = "github-attestations"
 
 [tools.atuin."platforms.linux-x64"]
-checksum = "sha256:1ee01017e27d5968b6b3e9c35f0e190fcec918591ec808f3f090ee7d97fc87a7"
-url = "https://github.com/atuinsh/atuin/releases/download/v18.25.0/atuin-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/770087356"
+checksum = "sha256:bd586c8c5ba631c3e545b1665fdd0bfc1d8aa4954e6b6a488dc712c8d8a89f10"
+url = "https://github.com/atuinsh/atuin/releases/download/v18.25.1/atuin-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/773455537"
 provenance = "github-attestations"
 
 [tools.atuin."platforms.linux-x64-baseline"]
-checksum = "sha256:1ee01017e27d5968b6b3e9c35f0e190fcec918591ec808f3f090ee7d97fc87a7"
-url = "https://github.com/atuinsh/atuin/releases/download/v18.25.0/atuin-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/770087356"
+checksum = "sha256:bd586c8c5ba631c3e545b1665fdd0bfc1d8aa4954e6b6a488dc712c8d8a89f10"
+url = "https://github.com/atuinsh/atuin/releases/download/v18.25.1/atuin-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/773455537"
 provenance = "github-attestations"
 
 [tools.atuin."platforms.linux-x64-musl"]
-checksum = "sha256:9ebfb49d9f5cc5fb03588315f8f54277fe9e3648bd98de7666a350000670cd19"
-url = "https://github.com/atuinsh/atuin/releases/download/v18.25.0/atuin-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/770087386"
+checksum = "sha256:f2bc97588d5aa91f49b992298544e13776df044cb4baf606875c7cc8444e9e00"
+url = "https://github.com/atuinsh/atuin/releases/download/v18.25.1/atuin-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/773455551"
 provenance = "github-attestations"
 
 [tools.atuin."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:9ebfb49d9f5cc5fb03588315f8f54277fe9e3648bd98de7666a350000670cd19"
-url = "https://github.com/atuinsh/atuin/releases/download/v18.25.0/atuin-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/770087386"
+checksum = "sha256:f2bc97588d5aa91f49b992298544e13776df044cb4baf606875c7cc8444e9e00"
+url = "https://github.com/atuinsh/atuin/releases/download/v18.25.1/atuin-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/773455551"
 provenance = "github-attestations"
 
 [tools.atuin."platforms.macos-arm64"]
-checksum = "sha256:fbd4f848a1620c9bcd51fd7a4292a2b1ad9a8b400967f0f7d7745b7234b3b3a3"
-url = "https://github.com/atuinsh/atuin/releases/download/v18.25.0/atuin-aarch64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/770087128"
+checksum = "sha256:c2d94ae74da55c644de08ce3eedb0abd5f4a32340f3e9b8e2dade29764ac524c"
+url = "https://github.com/atuinsh/atuin/releases/download/v18.25.1/atuin-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/773455322"
 provenance = "github-attestations"
 
 [[tools.bat]]
@@ -744,51 +744,51 @@ url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/719971048"
 provenance = "github-attestations"
 
 [[tools.flux2]]
-version = "2.10.0"
+version = "2.10.1"
 backend = "aqua:fluxcd/flux2"
-specifiers = ["2.10.0"]
+specifiers = ["2.10.1"]
 
 [tools.flux2."platforms.linux-arm64"]
-checksum = "sha256:c3c435052e5e18156858bc73f26bcadb62821a6e30951b4b302beb4e65a532c2"
+checksum = "sha256:da18ddb25c9614405d9e2f13ad014fd660bfcbe7218674cabf9325db73f811e2"
 checksum_source = "mise-versions"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609576"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.1/flux_2.10.1_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/771871016"
 
 [tools.flux2."platforms.linux-arm64-musl"]
-checksum = "sha256:c3c435052e5e18156858bc73f26bcadb62821a6e30951b4b302beb4e65a532c2"
+checksum = "sha256:da18ddb25c9614405d9e2f13ad014fd660bfcbe7218674cabf9325db73f811e2"
 checksum_source = "mise-versions"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609576"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.1/flux_2.10.1_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/771871016"
 
 [tools.flux2."platforms.linux-x64"]
-checksum = "sha256:208dd7012c04fedeed5b2d0b6e63df3b15b1c34a381527811685c098bc9f8659"
+checksum = "sha256:967365ff84aabc97871827ff33713ef0c09f62dd83c18759e3a5e39adcea9285"
 checksum_source = "mise-versions"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609567"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.1/flux_2.10.1_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/771871002"
 
 [tools.flux2."platforms.linux-x64-baseline"]
-checksum = "sha256:208dd7012c04fedeed5b2d0b6e63df3b15b1c34a381527811685c098bc9f8659"
+checksum = "sha256:967365ff84aabc97871827ff33713ef0c09f62dd83c18759e3a5e39adcea9285"
 checksum_source = "mise-versions"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609567"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.1/flux_2.10.1_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/771871002"
 
 [tools.flux2."platforms.linux-x64-musl"]
-checksum = "sha256:208dd7012c04fedeed5b2d0b6e63df3b15b1c34a381527811685c098bc9f8659"
+checksum = "sha256:967365ff84aabc97871827ff33713ef0c09f62dd83c18759e3a5e39adcea9285"
 checksum_source = "mise-versions"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609567"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.1/flux_2.10.1_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/771871002"
 
 [tools.flux2."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:208dd7012c04fedeed5b2d0b6e63df3b15b1c34a381527811685c098bc9f8659"
+checksum = "sha256:967365ff84aabc97871827ff33713ef0c09f62dd83c18759e3a5e39adcea9285"
 checksum_source = "mise-versions"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609567"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.1/flux_2.10.1_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/771871002"
 
 [tools.flux2."platforms.macos-arm64"]
-checksum = "sha256:339c5dba218e2b0a04a0841d1dace6c00d65736dc3286038463fa86754ff6c53"
+checksum = "sha256:c0a8dc285c568905ae38e25074985f3181c82a3c8d66316959561f27a626909d"
 checksum_source = "mise-versions"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_darwin_arm64.tar.gz"
-url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609572"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.10.1/flux_2.10.1_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/771871028"
 
 [[tools.fzf]]
 version = "0.75.0"
@@ -1560,9 +1560,9 @@ url = "https://github.com/lycheeverse/lychee/releases/download/lychee-v0.24.2/ly
 url_api = "https://api.github.com/repos/lycheeverse/lychee/releases/assets/409957951"
 
 [[tools.markdownlint-cli2]]
-version = "0.24.1"
+version = "0.24.2"
 backend = "npm:markdownlint-cli2"
-specifiers = ["0.24.1"]
+specifiers = ["0.24.2"]
 
 [[tools.node]]
 version = "26.13.1"
@@ -1598,9 +1598,9 @@ checksum = "sha256:aec2514ea1ceb2ba52455e9ec65986f6749a06dd759e5db2a72e6889668c9
 url = "https://nodejs.org/dist/v26.13.1/node-v26.13.1-darwin-arm64.tar.gz"
 
 [[tools."npm:@anthropic-ai/claude-code"]]
-version = "2.1.329"
+version = "2.1.330"
 backend = "npm:@anthropic-ai/claude-code"
-specifiers = ["2.1.329"]
+specifiers = ["2.1.330"]
 
 [[tools."npm:@openai/codex"]]
 version = "0.171.0"
